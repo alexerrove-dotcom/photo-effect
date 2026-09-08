@@ -1,5 +1,5 @@
+```html
 <!DOCTYPE html>
-
 <html lang="ru">
 
 <head>
@@ -7,27 +7,29 @@
 <meta charset="UTF-8">
 
 <meta
-name="viewport"
-content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
-
+    name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
 >
 
-<title>Фото + эффект — онлайн-редактор фотографий</title>
+<title>Фото + эффект — бесплатный онлайн-инструмент</title>
 
 <meta
-name="description"
-content="Бесплатный онлайн-инструмент для добавления эффекта на фотографию. Загрузите фото, настройте непрозрачность и скачайте готовое изображение PNG."
-
+    name="description"
+    content="Фото + эффект — бесплатный онлайн-инструмент для добавления графического эффекта на фотографии. Загрузите фото, настройте интенсивность эффекта и скачайте результат в PNG."
 >
 
 <meta
-name="robots"
-content="index, follow"
+    name="robots"
+    content="index, follow"
+>
 
+<meta
+    name="theme-color"
+    content="#111111"
 >
 
 <!-- =====================================================
-     YANDEX РСЯ — ЗАГРУЗЧИК РЕКЛАМЫ
+     YANDEX РСЯ — ЗАГРУЗЧИК
 ===================================================== -->
 
 <script>
@@ -39,7 +41,12 @@ window.yaContextCb = window.yaContextCb || [];
     async
 ></script>
 
+
 <style>
+
+/* =====================================================
+   BASE
+===================================================== */
 
 *{
     box-sizing:border-box;
@@ -51,7 +58,8 @@ html{
     padding:0;
     background:#111;
     color:#fff;
-    font-family:Arial,sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
+    scroll-behavior:smooth;
 }
 
 body{
@@ -68,6 +76,20 @@ body{
     overscroll-behavior:none;
 }
 
+a{
+    color:#69b9ff;
+    text-decoration:none;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
 .app{
     width:min(1100px,96vw);
     min-height:100vh;
@@ -80,17 +102,77 @@ body{
     flex-direction:column;
 }
 
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    margin-bottom:14px;
+}
+
 h1{
     text-align:center;
 
-    margin:0 0 16px;
+    margin:0 0 14px;
 
     font-size:clamp(
-        22px,
+        24px,
         4vw,
-        32px
+        34px
     );
+
+    line-height:1.2;
 }
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+.nav{
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-bottom:18px;
+}
+
+.nav a{
+    display:inline-block;
+
+    padding:8px 12px;
+
+    border-radius:8px;
+
+    background:#1d1d1d;
+
+    color:#bbb;
+
+    font-size:13px;
+
+    transition:
+        background .15s,
+        color .15s;
+}
+
+.nav a:hover{
+    background:#292929;
+
+    color:#fff;
+
+    text-decoration:none;
+}
+
+
+/* =====================================================
+   CONTROLS
+===================================================== */
 
 .controls{
     display:flex;
@@ -107,6 +189,7 @@ h1{
 
 button,
 .fileLabel{
+
     border:0;
 
     border-radius:10px;
@@ -129,8 +212,16 @@ button,
     -webkit-user-select:none;
 
     display:inline-flex;
+
     align-items:center;
     justify-content:center;
+
+    min-height:46px;
+
+    transition:
+        background .15s,
+        transform .1s,
+        opacity .15s;
 }
 
 button:hover,
@@ -144,18 +235,35 @@ button:active,
 }
 
 button:disabled{
-    opacity:.6;
+    opacity:.55;
+
     cursor:default;
+}
+
+button.secondary{
+    background:#303030;
+}
+
+button.secondary:hover{
+    background:#3d3d3d;
 }
 
 input[type=file]{
     display:none;
 }
 
+
+/* =====================================================
+   OPACITY
+===================================================== */
+
 .range{
+
     display:flex;
 
     align-items:center;
+
+    justify-content:center;
 
     gap:8px;
 
@@ -166,13 +274,29 @@ input[type=file]{
     border-radius:10px;
 
     white-space:nowrap;
+
+    min-height:46px;
 }
 
 .range input{
     width:130px;
+
+    cursor:pointer;
 }
 
+.range b{
+    min-width:38px;
+
+    text-align:right;
+}
+
+
+/* =====================================================
+   CANVAS
+===================================================== */
+
 #canvasWrap{
+
     width:100%;
 
     height:min(62vh,650px);
@@ -193,9 +317,13 @@ input[type=file]{
     padding:10px;
 
     position:relative;
+
+    box-shadow:
+        inset 0 0 0 1px #292929;
 }
 
 canvas{
+
     max-width:100%;
     max-height:100%;
 
@@ -207,6 +335,7 @@ canvas{
 }
 
 .placeholder{
+
     position:absolute;
 
     inset:0;
@@ -227,7 +356,13 @@ canvas{
     padding:20px;
 }
 
+
+/* =====================================================
+   HINT / STATUS
+===================================================== */
+
 .hint{
+
     text-align:center;
 
     color:#aaa;
@@ -235,18 +370,23 @@ canvas{
     font-size:13px;
 
     margin-top:10px;
+
+    line-height:1.5;
 }
 
 .status{
+
     text-align:center;
 
     margin-top:8px;
 
-    min-height:18px;
+    min-height:20px;
 
     color:#7fc8ff;
 
     font-size:14px;
+
+    line-height:1.4;
 }
 
 
@@ -260,7 +400,9 @@ canvas{
 
     min-height:100px;
 
-    margin:25px 0 10px;
+    margin:28px 0 10px;
+
+    padding:5px 0;
 
     display:flex;
 
@@ -269,66 +411,127 @@ canvas{
     justify-content:center;
 
     overflow:hidden;
-
 }
 
 
 /* =====================================================
-   INFORMATION
+   CONTENT SECTIONS
 ===================================================== */
 
 .info{
-    margin-top:25px;
-    padding:0 5px 35px;
+
+    margin-top:28px;
+
+    padding:0 5px 20px;
+}
+
+.info section{
+
+    scroll-margin-top:20px;
+
+    margin-bottom:34px;
 }
 
 .info h2{
-    margin:0 0 12px;
 
-    font-size:24px;
+    margin:0 0 13px;
+
+    font-size:25px;
+
     line-height:1.3;
 }
 
 .info h3{
-    margin:25px 0 8px;
+
+    margin:25px 0 9px;
 
     font-size:19px;
+
     line-height:1.3;
 }
 
 .info p{
-    margin:0 0 12px;
+
+    margin:0 0 13px;
 
     color:#ccc;
 
     font-size:15px;
-    line-height:1.65;
+
+    line-height:1.7;
 }
 
-.info ol{
+.info ol,
+.info ul{
+
     margin:8px 0 0;
+
     padding-left:24px;
 
     color:#ccc;
 
     font-size:15px;
+
     line-height:1.7;
 }
 
 .info li{
-    margin-bottom:5px;
+
+    margin-bottom:7px;
 }
 
+
+/* =====================================================
+   FAQ
+===================================================== */
+
+.faq-item{
+
+    margin-bottom:10px;
+
+    padding:15px 16px;
+
+    background:#191919;
+
+    border-radius:10px;
+
+    border:1px solid #292929;
+}
+
+.faq-item h3{
+
+    margin:0 0 7px;
+
+    font-size:16px;
+}
+
+.faq-item p{
+
+    margin:0;
+
+    font-size:14px;
+
+    color:#bbb;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
 .footer{
+
     border-top:1px solid #292929;
 
-    padding-top:18px;
+    padding:20px 5px 10px;
 
     text-align:center;
 
     color:#777;
 
     font-size:13px;
+
+    line-height:1.6;
 }
 
 
@@ -339,61 +542,119 @@ canvas{
 @media(max-width:600px){
 
     .app{
+
         width:100vw;
+
         padding:10px;
     }
 
     h1{
+
         margin-bottom:10px;
     }
 
+    .nav{
+
+        gap:5px;
+
+        margin-bottom:12px;
+    }
+
+    .nav a{
+
+        padding:7px 9px;
+
+        font-size:12px;
+    }
+
     .controls{
+
         gap:7px;
+
         margin-bottom:8px;
     }
 
     button,
     .fileLabel{
+
         padding:11px 13px;
+
         font-size:14px;
+
+        min-height:42px;
     }
 
     .range{
+
         width:100%;
+
         justify-content:center;
     }
 
     .range input{
+
         flex:1;
+
         max-width:180px;
     }
 
     #canvasWrap{
+
         height:55vh;
+
         min-height:220px;
+
+        padding:7px;
     }
 
     .ad-container{
+
         margin:20px 0 8px;
+
         min-height:80px;
     }
 
     .info{
+
         margin-top:20px;
-        padding-bottom:25px;
+
+        padding-bottom:20px;
     }
 
     .info h2{
+
         font-size:21px;
     }
 
     .info h3{
+
         font-size:18px;
     }
 
     .info p,
-    .info ol{
+    .info ol,
+    .info ul{
+
         font-size:14px;
+    }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+    html{
+        scroll-behavior:auto;
+    }
+
+    button,
+    .fileLabel,
+    .nav a{
+        transition:none;
     }
 
 }
@@ -402,18 +663,61 @@ canvas{
 
 </head>
 
+
 <body>
 
 <div class="app">
 
-```
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <h1 id="title">
+        Фото + эффект
+    </h1>
+
+
+    <nav
+        class="nav"
+        aria-label="Навигация"
+    >
+
+        <a href="#tool">
+            Инструмент
+        </a>
+
+        <a href="#how-to">
+            Как пользоваться
+        </a>
+
+        <a href="#about">
+            О сервисе
+        </a>
+
+        <a href="#faq">
+            Частые вопросы
+        </a>
+
+        <a href="#privacy">
+            Конфиденциальность
+        </a>
+
+    </nav>
+
+</header>
+
+
 <!-- =====================================================
      APPLICATION
 ===================================================== -->
 
-<h1 id="title">
-    Фото + эффект
-</h1>
+<section
+    id="tool"
+    aria-label="Редактор фотографий"
+>
 
 
 <div class="controls">
@@ -446,6 +750,7 @@ canvas{
             min="0"
             max="100"
             value="85"
+            aria-label="Непрозрачность эффекта"
         >
 
         <b id="opacityValue">
@@ -458,8 +763,29 @@ canvas{
     <button
         id="download"
         type="button"
+        disabled
     >
         Скачать PNG
+    </button>
+
+
+    <button
+        id="newPhoto"
+        class="secondary"
+        type="button"
+        disabled
+    >
+        Новое фото
+    </button>
+
+
+    <button
+        id="resetEffect"
+        class="secondary"
+        type="button"
+        disabled
+    >
+        Сбросить эффект
     </button>
 
 
@@ -468,7 +794,6 @@ canvas{
 
 <div id="canvasWrap">
 
-
     <div
         id="placeholder"
         class="placeholder"
@@ -476,9 +801,9 @@ canvas{
         Загрузите фотографию
     </div>
 
-
-    <canvas id="canvas"></canvas>
-
+    <canvas
+        id="canvas"
+    ></canvas>
 
 </div>
 
@@ -487,14 +812,18 @@ canvas{
     class="hint"
     id="hint"
 >
-    Эффект автоматически накладывается на фотографию.
+    Загрузите фотографию — эффект автоматически появится поверх изображения.
 </div>
 
 
 <div
     id="status"
     class="status"
+    aria-live="polite"
 ></div>
+
+
+</section>
 
 
 <!-- =====================================================
@@ -503,30 +832,48 @@ canvas{
 
 <div class="ad-container">
 
- <!-- Yandex.RTB R-A-20003018-1 -->
-<div id="yandex_rtb_R-A-20003018-1"></div>
+    <!-- Yandex.RTB R-A-20003018-1 -->
 
-<script>
-window.yaContextCb.push(() => {
-    Ya.Context.AdvManager.render({
-        "blockId": "R-A-20003018-1",
-        "renderTo": "yandex_rtb_R-A-20003018-1"
-    })
-})
-</script>
+    <div
+        id="yandex_rtb_R-A-20003018-1"
+    ></div>
+
+
+    <script>
+
+    window.yaContextCb.push(() => {
+
+        Ya.Context.AdvManager.render({
+
+            "blockId":
+                "R-A-20003018-1",
+
+            "renderTo":
+                "yandex_rtb_R-A-20003018-1"
+
+        });
+
+    });
+
+    </script>
 
 </div>
 
 
 <!-- =====================================================
-     INFORMATION / SEO
+     INFORMATION
+===================================================== -->
+
+<main class="info">
+
+
+<!-- =====================================================
+     ABOUT
 ===================================================== -->
 
 <section
-    class="info"
     id="about"
 >
-
 
     <h2>
         Фото + эффект — онлайн-инструмент для фотографий
@@ -534,68 +881,144 @@ window.yaContextCb.push(() => {
 
 
     <p>
-        «Фото + эффект» — простой бесплатный онлайн-инструмент
-        для добавления графического эффекта на фотографию.
-        Вам не нужно устанавливать дополнительную программу:
-        загрузите изображение прямо в браузере, настройте
-        непрозрачность эффекта и сохраните готовый результат
-        в формате PNG.
+        «Фото + эффект» — бесплатный онлайн-инструмент,
+        предназначенный для быстрого добавления графического
+        эффекта на фотографию прямо в браузере.
     </p>
 
 
-    <h3 id="how-to">
-        Как пользоваться
+    <p>
+        Сервис не требует установки отдельной программы.
+        Пользователь может выбрать изображение на своём
+        устройстве, посмотреть результат в рабочей области,
+        изменить интенсивность эффекта и сохранить готовое
+        изображение в формате PNG.
+    </p>
+
+
+    <h3>
+        Что умеет сервис
     </h3>
+
+
+    <ul>
+
+        <li>
+            Загружать фотографии с устройства.
+        </li>
+
+        <li>
+            Автоматически накладывать встроенный графический эффект.
+        </li>
+
+        <li>
+            Настраивать интенсивность эффекта от 0 до 100%.
+        </li>
+
+        <li>
+            Показывать результат непосредственно в браузере.
+        </li>
+
+        <li>
+            Сохранять готовое изображение в формате PNG.
+        </li>
+
+    </ul>
+
+</section>
+
+
+<!-- =====================================================
+     HOW TO
+===================================================== -->
+
+<section
+    id="how-to"
+>
+
+    <h2>
+        Как пользоваться
+    </h2>
 
 
     <ol>
 
         <li>
-            Нажмите «Загрузить фото» и выберите изображение
-            на устройстве.
+            Нажмите кнопку «Загрузить фото».
+        </li>
+
+        <li>
+            Выберите фотографию на компьютере,
+            телефоне или другом поддерживаемом устройстве.
         </li>
 
         <li>
             После загрузки фотография появится в рабочей области,
-            а эффект автоматически наложится поверх неё.
+            а встроенный эффект будет автоматически наложен поверх неё.
         </li>
 
         <li>
-            Используйте ползунок «Непрозрачность», чтобы
-            изменить интенсивность эффекта.
+            Измените значение «Непрозрачность» с помощью ползунка.
         </li>
 
         <li>
-            Нажмите «Скачать PNG», чтобы сохранить готовое
-            изображение.
+            Когда результат вас устроит, нажмите «Скачать PNG».
         </li>
 
     </ol>
 
 
     <h3>
-        Настройка эффекта
+        Изменение эффекта
     </h3>
 
 
     <p>
-        Ползунок позволяет выбрать значение от 0 до 100 процентов.
-        Чем выше значение, тем сильнее виден наложенный эффект.
-        Исходная фотография при этом остаётся основой готового
-        изображения.
+        Значение 0% делает эффект полностью невидимым.
+        При увеличении значения эффект становится более заметным.
+        По умолчанию используется значение 85%.
     </p>
 
 
     <h3>
-        Обработка фотографий
+        Повторная обработка
     </h3>
 
 
     <p>
+        Если нужно обработать другую фотографию, нажмите
+        «Новое фото» и выберите новое изображение.
+        Кнопка «Сбросить эффект» возвращает стандартную
+        интенсивность 85%.
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     PROCESSING
+===================================================== -->
+
+<section>
+
+    <h2>
+        Обработка фотографий
+    </h2>
+
+
+    <p>
         Изображение обрабатывается непосредственно в браузере
-        на вашем устройстве. Сервис предназначен для простой
-        и быстрой подготовки фотографий с использованием
-        встроенного графического эффекта.
+        на устройстве пользователя. Для работы редактора
+        фотография загружается в рабочую область страницы,
+        где браузер объединяет её со встроенным графическим
+        эффектом.
+    </p>
+
+
+    <p>
+        Сервис предназначен для простой обработки изображения
+        без необходимости устанавливать отдельный графический
+        редактор.
     </p>
 
 
@@ -605,23 +1028,220 @@ window.yaContextCb.push(() => {
 
 
     <p>
-        Готовое изображение сохраняется в формате PNG, который
-        поддерживается современными браузерами и большинством
-        программ для просмотра и обработки изображений.
+        Готовое изображение сохраняется в формате PNG.
+        Этот формат поддерживается современными браузерами
+        и большинством программ для просмотра и обработки
+        изображений.
     </p>
-
 
 </section>
 
 
-<div class="footer">
+<!-- =====================================================
+     FAQ
+===================================================== -->
 
-    Фото + эффект — бесплатный онлайн-инструмент
+<section
+    id="faq"
+>
+
+    <h2>
+        Частые вопросы
+    </h2>
+
+
+    <div class="faq-item">
+
+        <h3>
+            Нужно ли устанавливать программу?
+        </h3>
+
+        <p>
+            Нет. Инструмент работает непосредственно
+            в современном веб-браузере.
+        </p>
+
+    </div>
+
+
+    <div class="faq-item">
+
+        <h3>
+            Можно ли пользоваться сервисом на телефоне?
+        </h3>
+
+        <p>
+            Да. Интерфейс адаптирован для мобильных устройств
+            и сенсорного управления.
+        </p>
+
+    </div>
+
+
+    <div class="faq-item">
+
+        <h3>
+            Можно ли изменить силу эффекта?
+        </h3>
+
+        <p>
+            Да. Используйте ползунок «Непрозрачность».
+            Доступен диапазон от 0 до 100%.
+        </p>
+
+    </div>
+
+
+    <div class="faq-item">
+
+        <h3>
+            В каком формате сохраняется фотография?
+        </h3>
+
+        <p>
+            Результат сохраняется в формате PNG.
+        </p>
+
+    </div>
+
+
+    <div class="faq-item">
+
+        <h3>
+            Что делать, если нужно обработать другую фотографию?
+        </h3>
+
+        <p>
+            Нажмите «Новое фото» или снова воспользуйтесь
+            кнопкой «Загрузить фото».
+        </p>
+
+    </div>
+
+
+    <div class="faq-item">
+
+        <h3>
+            Изменяется ли исходный файл фотографии?
+        </h3>
+
+        <p>
+            Нет. Исходный файл на устройстве пользователя
+            не изменяется. Результат сохраняется как отдельный
+            PNG-файл.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PRIVACY
+===================================================== -->
+
+<section
+    id="privacy"
+>
+
+    <h2>
+        Конфиденциальность
+    </h2>
+
+
+    <p>
+        Работа с фотографией выполняется непосредственно
+        в браузере пользователя. Сервис не предусматривает
+        отдельную загрузку фотографии на сервер для применения
+        эффекта.
+    </p>
+
+
+    <p>
+        Выбранный пользователем файл используется браузером
+        для отображения и обработки изображения в рабочей области.
+        После завершения работы пользователь самостоятельно
+        сохраняет полученный результат на своё устройство.
+    </p>
+
+
+    <p>
+        Не загружайте в сервис изображения, которыми вы не имеете
+        права пользоваться или распространять.
+    </p>
+
+
+    <h3>
+        Реклама
+    </h3>
+
+
+    <p>
+        На сайте могут отображаться рекламные материалы
+        рекламной сети Яндекса. Работа рекламных технологий
+        может регулироваться отдельными правилами и политиками
+        соответствующих рекламных сервисов.
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     SERVICE INFORMATION
+===================================================== -->
+
+<section>
+
+    <h2>
+        О сервисе
+    </h2>
+
+
+    <p>
+        «Фото + эффект» создан как простой инструмент для
+        пользователей, которым необходимо быстро добавить
+        графический эффект к фотографии без установки сложного
+        программного обеспечения.
+    </p>
+
+
+    <p>
+        Основная задача сервиса — предоставить понятный интерфейс,
+        в котором основные действия доступны на одной странице:
+        выбор фотографии, настройка эффекта, просмотр результата
+        и сохранение готового изображения.
+    </p>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div>
+        Фото + эффект — бесплатный онлайн-инструмент
+        для обработки фотографий.
+    </div>
+
+    <div>
+        © <span id="year"></span> Фото + эффект
+    </div>
+
+</footer>
+
 
 </div>
-```
 
-</div>
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
 <script>
 
@@ -655,11 +1275,23 @@ const opacityValue =
 const downloadButton =
     document.getElementById("download");
 
+const newPhotoButton =
+    document.getElementById("newPhoto");
+
+const resetEffectButton =
+    document.getElementById("resetEffect");
+
 const status =
     document.getElementById("status");
 
 const placeholder =
     document.getElementById("placeholder");
+
+const hint =
+    document.getElementById("hint");
+
+const year =
+    document.getElementById("year");
 
 
 /* =====================================================
@@ -675,6 +1307,24 @@ let effectReady = false;
 let busy = false;
 
 
+/*
+   Максимальный размер холста.
+   Нужен для защиты браузера от слишком больших
+   фотографий, которые могут вызвать ошибку памяти.
+*/
+
+const MAX_CANVAS_PIXELS =
+    20000000;
+
+
+/* =====================================================
+   YEAR
+===================================================== */
+
+year.textContent =
+    new Date().getFullYear();
+
+
 /* =====================================================
    STATUS
 ===================================================== */
@@ -684,6 +1334,30 @@ function setStatus(text){
     status.textContent =
         text;
 
+}
+
+
+/* =====================================================
+   UPDATE BUTTONS
+===================================================== */
+
+function updateButtons(){
+
+    const ready =
+        !!photo &&
+        effectReady &&
+        !busy;
+
+    downloadButton.disabled =
+        !ready;
+
+    newPhotoButton.disabled =
+        !photo ||
+        busy;
+
+    resetEffectButton.disabled =
+        !photo ||
+        busy;
 }
 
 
@@ -702,7 +1376,8 @@ function loadEffect(){
             img.onload =
                 function(){
 
-                    effectReady = true;
+                    effectReady =
+                        true;
 
                     resolve(img);
 
@@ -711,7 +1386,8 @@ function loadEffect(){
             img.onerror =
                 function(){
 
-                    effectReady = false;
+                    effectReady =
+                        false;
 
                     reject(
                         new Error(
@@ -815,114 +1491,100 @@ function readImage(file){
 
 
 /* =====================================================
+   CALCULATE CANVAS SIZE
+===================================================== */
+
+function getCanvasSize(
+    width,
+    height
+){
+
+    let w =
+        width;
+
+    let h =
+        height;
+
+
+    const pixels =
+        w * h;
+
+
+    if(
+        pixels >
+        MAX_CANVAS_PIXELS
+    ){
+
+        const scale =
+            Math.sqrt(
+                MAX_CANVAS_PIXELS /
+                pixels
+            );
+
+        w =
+            Math.max(
+                1,
+                Math.floor(w * scale)
+            );
+
+        h =
+            Math.max(
+                1,
+                Math.floor(h * scale)
+            );
+
+    }
+
+
+    return {
+        width:w,
+        height:h
+    };
+
+}
+
+
+/* =====================================================
    RENDER
 ===================================================== */
 
 function render(){
 
-    if(!photo){
-
-        canvas.style.display =
-            "none";
-
-        placeholder.style.display =
-            "flex";
-
-        return false;
-
-    }
-
-
-    const width =
-        photo.naturalWidth;
-
-    const height =
-        photo.naturalHeight;
-
-
     if(
-        !width ||
-        !height
+        !photo ||
+        !effectReady ||
+        !effect
     ){
 
-        return false;
-
+        return;
     }
+
+
+    const size =
+        getCanvasSize(
+            photo.naturalWidth,
+            photo.naturalHeight
+        );
 
 
     canvas.width =
-        width;
+        size.width;
 
     canvas.height =
-        height;
-
-
-    canvas.style.display =
-        "block";
-
-    placeholder.style.display =
-        "none";
-
-
-    ctx.globalAlpha =
-        1;
-
-    ctx.globalCompositeOperation =
-        "source-over";
+        size.height;
 
 
     ctx.clearRect(
         0,
         0,
-        width,
-        height
+        canvas.width,
+        canvas.height
     );
 
 
-    /* =================================================
-       PHOTO
-    ================================================= */
-
-    ctx.drawImage(
-        photo,
-        0,
-        0,
-        width,
-        height
-    );
-
-
-    /* =================================================
-       EFFECT
-    ================================================= */
-
-    if(
-        effectReady &&
-        effect &&
-        effect.naturalWidth > 0 &&
-        effect.naturalHeight > 0
-    ){
-
-        ctx.globalAlpha =
-            Number(
-                opacityInput.value
-            ) / 100;
-
-
-        ctx.globalCompositeOperation =
-            "source-over";
-
-
-        ctx.drawImage(
-            effect,
-            0,
-            0,
-            width,
-            height
-        );
-
-    }
-
+    /*
+       Draw original photograph.
+    */
 
     ctx.globalAlpha =
         1;
@@ -931,213 +1593,174 @@ function render(){
         "source-over";
 
 
-    return true;
-
-}
-
-
-/* =====================================================
-   CANVAS TO BLOB
-===================================================== */
-
-function canvasToBlob(){
-
-    return new Promise(
-        function(resolve,reject){
-
-            try{
-
-                canvas.toBlob(
-                    function(blob){
-
-                        if(blob){
-
-                            resolve(blob);
-
-                        }
-                        else{
-
-                            reject(
-                                new Error(
-                                    "Не удалось создать PNG."
-                                )
-                            );
-
-                        }
-
-                    },
-                    "image/png"
-                );
-
-            }
-            catch(error){
-
-                reject(error);
-
-            }
-
-        }
+    ctx.drawImage(
+        photo,
+        0,
+        0,
+        canvas.width,
+        canvas.height
     );
 
+
+    /*
+       Draw effect over photograph.
+    */
+
+    const opacity =
+        Number(
+            opacityInput.value
+        ) / 100;
+
+
+    ctx.globalAlpha =
+        opacity;
+
+
+    ctx.globalCompositeOperation =
+        "source-over";
+
+
+    ctx.drawImage(
+        effect,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    /*
+       Restore canvas state.
+    */
+
+    ctx.globalAlpha =
+        1;
+
+    ctx.globalCompositeOperation =
+        "source-over";
+
+
+    placeholder.style.display =
+        "none";
+
+
+    downloadButton.disabled =
+        false;
+
+
+    hint.textContent =
+        "Эффект применён. Измените непрозрачность или скачайте готовое изображение.";
+
 }
 
 
 /* =====================================================
-   DOWNLOAD
+   LOAD PHOTO
 ===================================================== */
 
-async function downloadPNG(){
+async function handlePhoto(file){
 
     if(busy){
-
         return;
-
     }
 
 
-    if(!photo){
-
-        setStatus(
-            "Сначала загрузите фотографию."
-        );
-
-        return;
-
-    }
-
-
-    busy = true;
-
-    downloadButton.disabled =
+    busy =
         true;
 
 
+    updateButtons();
+
+
     setStatus(
-        "Создаём PNG..."
+        "Загрузка фотографии..."
     );
 
 
     try{
 
+        const img =
+            await readImage(file);
 
-        const rendered =
-            render();
+
+        photo =
+            img;
 
 
-        if(!rendered){
+        if(!effectReady){
 
-            throw new Error(
-                "Render failed"
+            setStatus(
+                "Загрузка эффекта..."
             );
+
+            effect =
+                await loadEffect();
 
         }
 
 
-        const blob =
-            await canvasToBlob();
-
-
-        if(
-            !blob ||
-            blob.size === 0
-        ){
-
-            throw new Error(
-                "Empty PNG"
-            );
-
-        }
-
-
-        const url =
-            URL.createObjectURL(blob);
-
-
-        const link =
-            document.createElement("a");
-
-
-        link.href =
-            url;
-
-
-        link.download =
-            "photo_overlay.png";
-
-
-        link.style.position =
-            "fixed";
-
-        link.style.left =
-            "-9999px";
-
-
-        document.body.appendChild(
-            link
-        );
-
-
-        link.click();
-
-
-        setTimeout(
-            function(){
-
-                try{
-
-                    link.remove();
-
-                }
-                catch(e){}
-
-
-                URL.revokeObjectURL(
-                    url
-                );
-
-            },
-            3000
-        );
+        render();
 
 
         setStatus(
-            "Скачивание запущено."
+            "Фото готово."
         );
 
 
-    }
-    catch(error){
+        hint.textContent =
+            "Эффект применён. Используйте ползунок для настройки интенсивности.";
+
+
+    }catch(error){
 
         console.error(
-            "PNG download error:",
             error
         );
 
 
+        photo =
+            null;
+
+
+        canvas.width =
+            0;
+
+        canvas.height =
+            0;
+
+
+        placeholder.style.display =
+            "flex";
+
+
         setStatus(
-            "Не удалось сохранить изображение."
+            error.message ||
+            "Не удалось обработать фотографию."
         );
 
-    }
-    finally{
 
-        busy = false;
-
-        downloadButton.disabled =
-            false;
+        hint.textContent =
+            "Загрузите фотографию ещё раз.";
 
     }
+
+
+    busy =
+        false;
+
+
+    updateButtons();
 
 }
 
 
 /* =====================================================
-   PHOTO INPUT
+   FILE INPUT
 ===================================================== */
 
 photoInput.addEventListener(
     "change",
-    async function(){
+    function(){
 
         const file =
             this.files &&
@@ -1145,69 +1768,13 @@ photoInput.addEventListener(
 
 
         if(!file){
-
             return;
-
         }
 
 
-        try{
-
-            setStatus(
-                "Загрузка фотографии..."
-            );
-
-
-            const loadedPhoto =
-                await readImage(file);
-
-
-            photo =
-                loadedPhoto;
-
-
-            render();
-
-
-            if(effectReady){
-
-                setStatus(
-                    "Фото загружено."
-                );
-
-            }
-            else{
-
-                setStatus(
-                    "Фото загружено. Эффект недоступен."
-                );
-
-            }
-
-        }
-        catch(error){
-
-            console.error(
-                "Photo loading error:",
-                error
-            );
-
-
-            photo =
-                null;
-
-
-            render();
-
-
-            setStatus(
-                "Не удалось загрузить фотографию."
-            );
-
-        }
-
-
-        this.value = "";
+        handlePhoto(
+            file
+        );
 
     }
 );
@@ -1236,90 +1803,226 @@ opacityInput.addEventListener(
 
 
 /* =====================================================
-   DOWNLOAD BUTTON
+   DOWNLOAD PNG
 ===================================================== */
 
 downloadButton.addEventListener(
     "click",
     function(){
 
-        downloadPNG();
+        if(
+            !photo ||
+            !effectReady ||
+            busy
+        ){
+
+            return;
+        }
+
+
+        try{
+
+            setStatus(
+                "Подготовка PNG..."
+            );
+
+
+            canvas.toBlob(
+                function(blob){
+
+                    if(!blob){
+
+                        setStatus(
+                            "Не удалось подготовить PNG."
+                        );
+
+                        return;
+                    }
+
+
+                    const url =
+                        URL.createObjectURL(
+                            blob
+                        );
+
+
+                    const link =
+                        document.createElement(
+                            "a"
+                        );
+
+
+                    link.href =
+                        url;
+
+
+                    link.download =
+                        "photo-effect.png";
+
+
+                    document.body.appendChild(
+                        link
+                    );
+
+
+                    link.click();
+
+
+                    link.remove();
+
+
+                    setTimeout(
+                        function(){
+
+                            URL.revokeObjectURL(
+                                url
+                            );
+
+                        },
+                        1000
+                    );
+
+
+                    setStatus(
+                        "PNG подготовлен для сохранения."
+                    );
+
+                },
+                "image/png"
+            );
+
+
+        }catch(error){
+
+            console.error(
+                error
+            );
+
+
+            setStatus(
+                "Не удалось сохранить изображение в этом браузере."
+            );
+
+        }
 
     }
 );
 
 
 /* =====================================================
-   INIT
+   NEW PHOTO
 ===================================================== */
 
-async function init(){
+newPhotoButton.addEventListener(
+    "click",
+    function(){
 
-    setStatus(
-        "Загрузка эффекта..."
+        if(busy){
+            return;
+        }
+
+
+        photoInput.value =
+            "";
+
+
+        photoInput.click();
+
+    }
+);
+
+
+/* =====================================================
+   RESET EFFECT
+===================================================== */
+
+resetEffectButton.addEventListener(
+    "click",
+    function(){
+
+        if(
+            !photo ||
+            busy
+        ){
+
+            return;
+        }
+
+
+        opacityInput.value =
+            "85";
+
+
+        opacityValue.textContent =
+            "85%";
+
+
+        render();
+
+
+        setStatus(
+            "Интенсивность эффекта сброшена до 85%."
+        );
+
+    }
+);
+
+
+/* =====================================================
+   INITIAL EFFECT LOAD
+===================================================== */
+
+loadEffect()
+    .then(
+        function(img){
+
+            effect =
+                img;
+
+            effectReady =
+                true;
+
+            updateButtons();
+
+        }
+    )
+    .catch(
+        function(error){
+
+            console.error(
+                error
+            );
+
+
+            effectReady =
+                false;
+
+
+            setStatus(
+                "Не удалось загрузить встроенный эффект Effects.png."
+            );
+
+
+            updateButtons();
+
+        }
     );
 
 
-    try{
+/* =====================================================
+   INITIAL STATE
+===================================================== */
 
-        effect =
-            await loadEffect();
-
-
-        effectReady =
-            true;
+opacityValue.textContent =
+    opacityInput.value + "%";
 
 
-        setStatus(
-            "Эффект готов."
-        );
-
-
-        if(photo){
-
-            render();
-
-            setStatus(
-                "Фото загружено."
-            );
-
-        }
-
-    }
-    catch(error){
-
-        console.error(
-            "Effect loading error:",
-            error
-        );
-
-
-        effect =
-            null;
-
-        effectReady =
-            false;
-
-
-        if(photo){
-
-            render();
-
-        }
-
-
-        setStatus(
-            "Effects.png не найден."
-        );
-
-    }
-
-}
-
-
-init();
+updateButtons();
 
 </script>
 
+
 </body>
+
 </html>
+```

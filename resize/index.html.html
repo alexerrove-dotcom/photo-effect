@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+>
+
+<title>Изменить размер фото онлайн — бесплатно</title>
+
+<meta
+    name="description"
+    content="Бесплатно изменяйте размер фотографий онлайн. Укажите ширину и высоту, сохраните пропорции и скачайте готовое изображение в PNG."
+>
+
+<meta name="robots" content="index,follow">
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#0b0d12;
+    color:#f2f4f8;
+    line-height:1.6;
+}
+
+a{
+    color:inherit;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(11,13,18,.94);
+    border-bottom:1px solid #252a35;
+    backdrop-filter:blur(12px);
+}
+
+.nav{
+    max-width:1100px;
+    margin:auto;
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    text-decoration:none;
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:.4px;
+}
+
+.navLinks{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+    font-size:14px;
+}
+
+.navLinks a{
+    text-decoration:none;
+    color:#b8beca;
+}
+
+.navLinks a:hover{
+    color:#fff;
+}
+
+main{
+    max-width:1100px;
+    margin:auto;
+    padding:35px 20px 70px;
+}
+
+.hero{
+    text-align:center;
+    padding:20px 0 30px;
+}
+
+h1{
+    margin:0 0 12px;
+    font-size:clamp(30px,5vw,52px);
+    line-height:1.1;
+}
+
+.hero p{
+    max-width:720px;
+    margin:0 auto;
+    color:#aeb5c2;
+    font-size:17px;
+}
+
+.card{
+    background:#12161e;
+    border:1px solid #272d38;
+    border-radius:18px;
+    padding:22px;
+    margin-top:22px;
+}
+
+.toolbar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.button,
+.fileLabel{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:46px;
+    padding:10px 17px;
+    border:1px solid #343b48;
+    border-radius:10px;
+    background:#1b202a;
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.button:hover,
+.fileLabel:hover{
+    background:#252b36;
+}
+
+.button.primary,
+.fileLabel.primary{
+    background:#fff;
+    color:#101217;
+    border-color:#fff;
+}
+
+.button.primary:hover,
+.fileLabel.primary:hover{
+    background:#e7e9ed;
+}
+
+input[type="file"]{
+    display:none;
+}
+
+.info{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.infoBox{
+    background:#0d1016;
+    border:1px solid #252b35;
+    border-radius:12px;
+    padding:13px;
+}
+
+.infoTitle{
+    color:#8f98a8;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+}
+
+.infoValue{
+    font-size:17px;
+    font-weight:700;
+    margin-top:3px;
+    word-break:break-word;
+}
+
+.workspace{
+    min-height:320px;
+    border:1px dashed #394150;
+    border-radius:14px;
+    background:
+        linear-gradient(45deg,#151a22 25%,transparent 25%),
+        linear-gradient(-45deg,#151a22 25%,transparent 25%),
+        linear-gradient(45deg,transparent 75%,#151a22 75%),
+        linear-gradient(-45deg,transparent 75%,#151a22 75%);
+    background-size:24px 24px;
+    background-position:0 0,0 12px,12px -12px,-12px 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    padding:20px;
+}
+
+#preview{
+    display:none;
+    max-width:100%;
+    max-height:600px;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+    border-radius:6px;
+}
+
+.empty{
+    text-align:center;
+    color:#818a99;
+    padding:40px 20px;
+}
+
+.controls{
+    margin-top:22px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+
+.controlBox{
+    background:#0d1016;
+    border:1px solid #252b35;
+    border-radius:12px;
+    padding:16px;
+}
+
+.controlBox.full{
+    grid-column:1 / -1;
+}
+
+label{
+    display:block;
+    font-size:14px;
+    color:#bfc5cf;
+    margin-bottom:7px;
+}
+
+.numberRow{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.numberInput{
+    width:100%;
+    min-height:44px;
+    border-radius:9px;
+    border:1px solid #343b48;
+    background:#171b23;
+    color:#fff;
+    padding:9px 12px;
+    font-size:16px;
+    outline:none;
+}
+
+.numberInput:focus{
+    border-color:#697384;
+}
+
+.presetRow{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.preset{
+    min-height:40px;
+    padding:8px 13px;
+    border-radius:9px;
+    border:1px solid #343b48;
+    background:#171b23;
+    color:#fff;
+    cursor:pointer;
+}
+
+.preset:hover{
+    background:#252b36;
+}
+
+.checkboxRow{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-top:15px;
+    color:#c4cad4;
+}
+
+.checkboxRow input{
+    width:18px;
+    height:18px;
+}
+
+.status{
+    margin-top:16px;
+    min-height:24px;
+    color:#aeb6c4;
+    text-align:center;
+}
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    margin-top:20px;
+}
+
+section.text{
+    margin-top:50px;
+}
+
+section.text h2{
+    font-size:28px;
+    margin-bottom:12px;
+}
+
+section.text p,
+section.text li{
+    color:#b7bec9;
+}
+
+section.text ul{
+    padding-left:22px;
+}
+
+.faqItem{
+    border-top:1px solid #292f39;
+    padding:17px 0;
+}
+
+.faqItem:first-child{
+    border-top:0;
+}
+
+.faqItem h3{
+    margin:0 0 6px;
+    font-size:17px;
+}
+
+footer{
+    border-top:1px solid #252a35;
+    color:#858e9d;
+    text-align:center;
+    padding:28px 20px;
+    font-size:14px;
+}
+
+@media(max-width:700px){
+
+    .nav{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .navLinks{
+        gap:10px 14px;
+    }
+
+    main{
+        padding:25px 13px 55px;
+    }
+
+    .card{
+        padding:15px;
+        border-radius:14px;
+    }
+
+    .info{
+        grid-template-columns:1fr;
+    }
+
+    .controls{
+        grid-template-columns:1fr;
+    }
+
+    .controlBox.full{
+        grid-column:auto;
+    }
+
+    .workspace{
+        min-height:260px;
+    }
+
+    #preview{
+        max-height:450px;
+    }
+
+    .button,
+    .fileLabel{
+        width:100%;
+    }
+
+    .toolbar{
+        flex-direction:column;
+    }
+
+    .actions{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="nav">
+
+<a class="logo" href="../">
+Фото + эффект
+</a>
+
+<nav class="navLinks">
+<a href="../">Инструмент</a>
+<a href="../crop/">Обрезка</a>
+<a href="#how-to">Как пользоваться</a>
+<a href="#faq">FAQ</a>
+</nav>
+
+</div>
+
+</header>
+
+
+<main>
+
+<div class="hero">
+
+<h1>Изменить размер фото онлайн</h1>
+
+<p>
+Бесплатно изменяйте ширину и высоту изображения прямо в браузере.
+Сохраняйте пропорции и скачивайте готовое фото в PNG.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="toolbar">
+
+<label
+    for="fileInput"
+    class="fileLabel primary"
+>
+    Загрузить фото
+</label>
+
+<input
+    id="fileInput"
+    type="file"
+    accept="image/*"
+>
+
+<a
+    href="../"
+    class="button"
+>
+    Фото + эффект
+</a>
+
+<a
+    href="../crop/"
+    class="button"
+>
+    Обрезать фото
+</a>
+
+</div>
+
+
+<div class="info">
+
+<div class="infoBox">
+
+<div class="infoTitle">
+Исходный размер
+</div>
+
+<div
+    class="infoValue"
+    id="originalSize"
+>
+— 
+</div>
+
+</div>
+
+
+<div class="infoBox">
+
+<div class="infoTitle">
+Новый размер
+</div>
+
+<div
+    class="infoValue"
+    id="newSize"
+>
+—
+</div>
+
+</div>
+
+
+<div class="infoBox">
+
+<div class="infoTitle">
+Файл
+</div>
+
+<div
+    class="infoValue"
+    id="fileName"
+>
+Фото не выбрано
+</div>
+
+</div>
+
+</div>
+
+
+<div class="workspace">
+
+<div
+    class="empty"
+    id="emptyMessage"
+>
+Загрузите фотографию, чтобы начать изменение размера.
+</div>
+
+<img
+    id="preview"
+    alt="Предпросмотр измененного изображения"
+>
+
+</div>
+
+
+<div class="controls">
+
+
+<div class="controlBox">
+
+<label for="widthInput">
+Ширина, пикселей
+</label>
+
+<div class="numberRow">
+
+<input
+    id="widthInput"
+    class="numberInput"
+    type="number"
+    min="1"
+    max="10000"
+    step="1"
+    placeholder="Например, 1920"
+>
+
+</div>
+
+</div>
+
+
+<div class="controlBox">
+
+<label for="heightInput">
+Высота, пикселей
+</label>
+
+<div class="numberRow">
+
+<input
+    id="heightInput"
+    class="numberInput"
+    type="number"
+    min="1"
+    max="10000"
+    step="1"
+    placeholder="Например, 1080"
+>
+
+</div>
+
+</div>
+
+
+<div class="controlBox full">
+
+<label>
+Быстрый выбор масштаба
+</label>
+
+<div class="presetRow">
+
+<button
+    class="preset"
+    data-scale="25"
+    type="button"
+>
+25%
+</button>
+
+<button
+    class="preset"
+    data-scale="50"
+    type="button"
+>
+50%
+</button>
+
+<button
+    class="preset"
+    data-scale="75"
+    type="button"
+>
+75%
+</button>
+
+<button
+    class="preset"
+    data-scale="100"
+    type="button"
+>
+100%
+</button>
+
+</div>
+
+
+<div class="checkboxRow">
+
+<input
+    id="lockRatio"
+    type="checkbox"
+    checked
+>
+
+<label
+    for="lockRatio"
+    style="margin:0;"
+>
+Сохранять пропорции
+</label>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div
+    class="status"
+    id="status"
+>
+Загрузите изображение.
+</div>
+
+
+<div class="actions">
+
+<button
+    id="resizeButton"
+    class="button primary"
+    type="button"
+    disabled
+>
+Применить размер
+</button>
+
+<button
+    id="downloadButton"
+    class="button"
+    type="button"
+    disabled
+>
+Скачать PNG
+</button>
+
+<button
+    id="newButton"
+    class="button"
+    type="button"
+>
+Новое фото
+</button>
+
+<button
+    id="resetButton"
+    class="button"
+    type="button"
+    disabled
+>
+Сбросить размер
+</button>
+
+</div>
+
+</div>
+
+
+<section
+    id="how-to"
+    class="text"
+>
+
+<h2>Как изменить размер фотографии</h2>
+
+<p>
+Сервис позволяет изменить разрешение изображения без установки программ.
+Все действия выполняются непосредственно в браузере.
+</p>
+
+<ol>
+<li>Нажмите «Загрузить фото».</li>
+<li>Укажите нужную ширину и высоту.</li>
+<li>При необходимости оставьте включённым сохранение пропорций.</li>
+<li>Нажмите «Применить размер».</li>
+<li>Проверьте результат и нажмите «Скачать PNG».</li>
+</ol>
+
+<h2>Изменение размера с сохранением пропорций</h2>
+
+<p>
+Если включена функция «Сохранять пропорции», изменение ширины
+автоматически рассчитывает высоту изображения. Это помогает
+избежать случайного растяжения или сжатия фотографии.
+</p>
+
+<h2>Для чего может понадобиться изменение размера</h2>
+
+<ul>
+<li>уменьшение большого изображения перед отправкой;</li>
+<li>подготовка фотографии для публикации на сайте;</li>
+<li>создание изображения определённого разрешения;</li>
+<li>уменьшение размера фотографии для хранения;</li>
+<li>подготовка изображения для социальных сетей.</li>
+</ul>
+
+</section>
+
+
+<section
+    id="faq"
+    class="text"
+>
+
+<h2>Частые вопросы</h2>
+
+
+<div class="faqItem">
+
+<h3>Какие изображения можно загружать?</h3>
+
+<p>
+Поддерживаются распространённые форматы изображений,
+которые открывает современный браузер, включая JPG, PNG и WebP.
+</p>
+
+</div>
+
+
+<div class="faqItem">
+
+<h3>Сохраняются ли мои фотографии на сервере?</h3>
+
+<p>
+Нет. Изменение размера выполняется непосредственно в браузере.
+Фотография не отправляется на сервер сервиса.
+</p>
+
+</div>
+
+
+<div class="faqItem">
+
+<h3>Можно ли сохранить исходные пропорции?</h3>
+
+<p>
+Да. Для этого оставьте включённым параметр
+«Сохранять пропорции».
+</p>
+
+</div>
+
+
+<div class="faqItem">
+
+<h3>Можно ли изменить ширину и высоту отдельно?</h3>
+
+<p>
+Да. Отключите «Сохранять пропорции» и укажите
+нужные значения ширины и высоты.
+</p>
+
+</div>
+
+
+<div class="faqItem">
+
+<h3>Бесплатен ли сервис?</h3>
+
+<p>
+Да. Изменение размера фотографии доступно бесплатно
+и не требует установки дополнительного программного обеспечения.
+</p>
+
+</div>
+
+</section>
+
+
+<section class="text">
+
+<h2>Другие инструменты</h2>
+
+<p>
+Если изображение нужно подготовить перед изменением размера,
+можно использовать другие инструменты сервиса.
+</p>
+
+<ul>
+<li>
+<a href="../crop/">Обрезка фотографии онлайн</a>
+</li>
+
+<li>
+<a href="../">Добавление эффекта на фотографию</a>
+</li>
+</ul>
+
+</section>
+
+</main>
+
+
+<footer>
+
+Фото + эффект — бесплатные онлайн-инструменты для работы с фотографиями.
+
+</footer>
+
+
+<script>
+
+const fileInput =
+    document.getElementById("fileInput");
+
+const preview =
+    document.getElementById("preview");
+
+const emptyMessage =
+    document.getElementById("emptyMessage");
+
+const widthInput =
+    document.getElementById("widthInput");
+
+const heightInput =
+    document.getElementById("heightInput");
+
+const lockRatio =
+    document.getElementById("lockRatio");
+
+const originalSize =
+    document.getElementById("originalSize");
+
+const newSize =
+    document.getElementById("newSize");
+
+const fileName =
+    document.getElementById("fileName");
+
+const status =
+    document.getElementById("status");
+
+const resizeButton =
+    document.getElementById("resizeButton");
+
+const downloadButton =
+    document.getElementById("downloadButton");
+
+const newButton =
+    document.getElementById("newButton");
+
+const resetButton =
+    document.getElementById("resetButton");
+
+
+let image =
+    new Image();
+
+let objectUrl =
+    null;
+
+let originalWidth =
+    0;
+
+let originalHeight =
+    0;
+
+let currentWidth =
+    0;
+
+let currentHeight =
+    0;
+
+let canvas =
+    document.createElement("canvas");
+
+
+const MAX_PIXELS =
+    20000000;
+
+
+function setStatus(text){
+
+    status.textContent =
+        text;
+
+}
+
+
+function updateNewSize(){
+
+    const w =
+        parseInt(widthInput.value,10);
+
+    const h =
+        parseInt(heightInput.value,10);
+
+    if(
+        Number.isFinite(w) &&
+        Number.isFinite(h) &&
+        w > 0 &&
+        h > 0
+    ){
+
+        newSize.textContent =
+            w + " × " + h;
+
+    }else{
+
+        newSize.textContent =
+            "—";
+
+    }
+
+}
+
+
+function updateHeightFromWidth(){
+
+    if(!lockRatio.checked){
+        updateNewSize();
+        return;
+    }
+
+    if(!originalWidth || !originalHeight){
+        return;
+    }
+
+    const w =
+        parseInt(widthInput.value,10);
+
+    if(!Number.isFinite(w) || w <= 0){
+        return;
+    }
+
+    const h =
+        Math.round(
+            w *
+            originalHeight /
+            originalWidth
+        );
+
+    heightInput.value =
+        h;
+
+    updateNewSize();
+
+}
+
+
+function updateWidthFromHeight(){
+
+    if(!lockRatio.checked){
+        updateNewSize();
+        return;
+    }
+
+    if(!originalWidth || !originalHeight){
+        return;
+    }
+
+    const h =
+        parseInt(heightInput.value,10);
+
+    if(!Number.isFinite(h) || h <= 0){
+        return;
+    }
+
+    const w =
+        Math.round(
+            h *
+            originalWidth /
+            originalHeight
+        );
+
+    widthInput.value =
+        w;
+
+    updateNewSize();
+
+}
+
+
+function showPreview(){
+
+    preview.style.display =
+        "block";
+
+    emptyMessage.style.display =
+        "none";
+
+}
+
+
+function hidePreview(){
+
+    preview.style.display =
+        "none";
+
+    emptyMessage.style.display =
+        "block";
+
+}
+
+
+function validateSize(w,h){
+
+    if(!Number.isFinite(w) || !Number.isFinite(h)){
+        return "Введите корректные размеры.";
+    }
+
+    if(w < 1 || h < 1){
+        return "Размер должен быть больше нуля.";
+    }
+
+    if(w > 10000 || h > 10000){
+        return "Максимальный размер стороны — 10000 пикселей.";
+    }
+
+    if(w * h > MAX_PIXELS){
+        return "Слишком большое изображение. Максимум — 20 млн пикселей.";
+    }
+
+    return null;
+
+}
+
+
+fileInput.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            fileInput.files &&
+            fileInput.files[0];
+
+        if(!file){
+            return;
+        }
+
+        if(!file.type.startsWith("image/")){
+
+            setStatus(
+                "Выберите файл изображения."
+            );
+
+            return;
+
+        }
+
+        if(objectUrl){
+            URL.revokeObjectURL(objectUrl);
+        }
+
+        objectUrl =
+            URL.createObjectURL(file);
+
+        image =
+            new Image();
+
+        image.onload =
+            function(){
+
+                originalWidth =
+                    image.naturalWidth;
+
+                originalHeight =
+                    image.naturalHeight;
+
+                currentWidth =
+                    originalWidth;
+
+                currentHeight =
+                    originalHeight;
+
+                widthInput.value =
+                    originalWidth;
+
+                heightInput.value =
+                    originalHeight;
+
+                originalSize.textContent =
+                    originalWidth +
+                    " × " +
+                    originalHeight;
+
+                newSize.textContent =
+                    originalWidth +
+                    " × " +
+                    originalHeight;
+
+                fileName.textContent =
+                    file.name;
+
+                preview.src =
+                    objectUrl;
+
+                showPreview();
+
+                resizeButton.disabled =
+                    false;
+
+                downloadButton.disabled =
+                    true;
+
+                resetButton.disabled =
+                    false;
+
+                setStatus(
+                    "Изображение загружено. Укажите нужный размер."
+                );
+
+            };
+
+        image.onerror =
+            function(){
+
+                setStatus(
+                    "Не удалось открыть изображение."
+                );
+
+            };
+
+        image.src =
+            objectUrl;
+
+    }
+);
+
+
+widthInput.addEventListener(
+    "input",
+    updateHeightFromWidth
+);
+
+
+heightInput.addEventListener(
+    "input",
+    updateWidthFromHeight
+);
+
+
+lockRatio.addEventListener(
+    "change",
+    function(){
+
+        if(lockRatio.checked){
+
+            updateHeightFromWidth();
+
+        }else{
+
+            updateNewSize();
+
+        }
+
+    }
+);
+
+
+document.querySelectorAll(".preset")
+.forEach(
+    function(button){
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                if(!originalWidth || !originalHeight){
+                    return;
+                }
+
+                const scale =
+                    Number(
+                        button.dataset.scale
+                    ) / 100;
+
+                const w =
+                    Math.max(
+                        1,
+                        Math.round(
+                            originalWidth *
+                            scale
+                        )
+                    );
+
+                const h =
+                    Math.max(
+                        1,
+                        Math.round(
+                            originalHeight *
+                            scale
+                        )
+                    );
+
+                widthInput.value =
+                    w;
+
+                heightInput.value =
+                    h;
+
+                updateNewSize();
+
+            }
+        );
+
+    }
+);
+
+
+resizeButton.addEventListener(
+    "click",
+    function(){
+
+        if(!originalWidth || !originalHeight){
+            return;
+        }
+
+        const w =
+            parseInt(widthInput.value,10);
+
+        const h =
+            parseInt(heightInput.value,10);
+
+        const error =
+            validateSize(w,h);
+
+        if(error){
+
+            setStatus(error);
+
+            return;
+
+        }
+
+        canvas.width =
+            w;
+
+        canvas.height =
+            h;
+
+        const ctx =
+            canvas.getContext("2d");
+
+        ctx.clearRect(
+            0,
+            0,
+            w,
+            h
+        );
+
+        ctx.drawImage(
+            image,
+            0,
+            0,
+            w,
+            h
+        );
+
+        currentWidth =
+            w;
+
+        currentHeight =
+            h;
+
+        preview.src =
+            canvas.toDataURL(
+                "image/png"
+            );
+
+        showPreview();
+
+        newSize.textContent =
+            w +
+            " × " +
+            h;
+
+        downloadButton.disabled =
+            false;
+
+        setStatus(
+            "Размер изображения изменён."
+        );
+
+    }
+);
+
+
+downloadButton.addEventListener(
+    "click",
+    function(){
+
+        if(
+            !canvas.width ||
+            !canvas.height
+        ){
+
+            setStatus(
+                "Сначала примените новый размер."
+            );
+
+            return;
+
+        }
+
+        canvas.toBlob(
+            function(blob){
+
+                if(!blob){
+
+                    setStatus(
+                        "Не удалось подготовить PNG."
+                    );
+
+                    return;
+
+                }
+
+                const url =
+                    URL.createObjectURL(blob);
+
+                const link =
+                    document.createElement("a");
+
+                link.href =
+                    url;
+
+                link.download =
+                    "photo-resized.png";
+
+                document.body.appendChild(
+                    link
+                );
+
+                link.click();
+
+                link.remove();
+
+                setTimeout(
+                    function(){
+
+                        URL.revokeObjectURL(
+                            url
+                        );
+
+                    },
+                    1000
+                );
+
+                setStatus(
+                    "PNG подготовлен для сохранения."
+                );
+
+            },
+            "image/png"
+        );
+
+    }
+);
+
+
+resetButton.addEventListener(
+    "click",
+    function(){
+
+        if(!originalWidth || !originalHeight){
+            return;
+        }
+
+        widthInput.value =
+            originalWidth;
+
+        heightInput.value =
+            originalHeight;
+
+        currentWidth =
+            originalWidth;
+
+        currentHeight =
+            originalHeight;
+
+        preview.src =
+            objectUrl;
+
+        newSize.textContent =
+            originalWidth +
+            " × " +
+            originalHeight;
+
+        downloadButton.disabled =
+            true;
+
+        setStatus(
+            "Размер возвращён к исходному."
+        );
+
+    }
+);
+
+
+newButton.addEventListener(
+    "click",
+    function(){
+
+        fileInput.value =
+            "";
+
+        if(objectUrl){
+
+            URL.revokeObjectURL(
+                objectUrl
+            );
+
+            objectUrl =
+                null;
+
+        }
+
+        originalWidth =
+            0;
+
+        originalHeight =
+            0;
+
+        currentWidth =
+            0;
+
+        currentHeight =
+            0;
+
+        widthInput.value =
+            "";
+
+        heightInput.value =
+            "";
+
+        originalSize.textContent =
+            "—";
+
+        newSize.textContent =
+            "—";
+
+        fileName.textContent =
+            "Фото не выбрано";
+
+        resizeButton.disabled =
+            true;
+
+        downloadButton.disabled =
+            true;
+
+        resetButton.disabled =
+            true;
+
+        hidePreview();
+
+        setStatus(
+            "Загрузите новое изображение."
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>

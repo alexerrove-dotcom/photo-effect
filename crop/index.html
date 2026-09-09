@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -194,17 +194,24 @@ h1{
 .workspace{
     position:relative;
     width:100%;
-    height:min(65vh,680px);
-    min-height:320px;
-    border-radius:13px;
-    background:#202020;
+    min-height:420px;
+    border:1px dashed #394150;
+    border-radius:14px;
     overflow:hidden;
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:10px;
-    box-shadow:
-        inset 0 0 0 1px #2c2c2c;
+    background:
+        linear-gradient(45deg,#151a22 25%,transparent 25%),
+        linear-gradient(-45deg,#151a22 25%,transparent 25%),
+        linear-gradient(45deg,transparent 75%,#151a22 75%),
+        linear-gradient(-45deg,transparent 75%,#151a22 75%);
+    background-size:24px 24px;
+    background-position:
+        0 0,
+        0 12px,
+        12px -12px,
+        -12px 0;
 }
 
 .canvas-stage{
@@ -499,9 +506,11 @@ h1{
     }
 
     .workspace{
-        height:56vh;
-        min-height:240px;
-        padding:7px;
+        min-height:300px;
+    }
+
+    #imageCanvas{
+        max-height:60vh;
     }
 
     .handle{
@@ -2908,4 +2917,3 @@ updateButtons();
 </body>
 
 </html>
-```

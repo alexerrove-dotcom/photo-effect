@@ -1,7 +1,10 @@
+```html
 <!DOCTYPE html>
+
 <html lang="ru">
 
 <head>
+
 <meta charset="UTF-8">
 
 <meta
@@ -16,7 +19,19 @@
     content="Бесплатно изменяйте размер фотографий онлайн. Укажите ширину и высоту, сохраните пропорции и скачайте готовое изображение в PNG."
 >
 
-<meta name="robots" content="index,follow">
+<meta
+    name="robots"
+    content="index,follow"
+>
+
+<script>
+window.yaContextCb = window.yaContextCb || [];
+</script>
+
+<script
+    src="https://yandex.ru/ads/system/context.js"
+    async>
+</script>
 
 <style>
 
@@ -34,6 +49,7 @@ body{
     background:#0b0d12;
     color:#f2f4f8;
     line-height:1.6;
+    overflow-x:hidden;
 }
 
 a{
@@ -43,19 +59,21 @@ a{
 header{
     position:sticky;
     top:0;
-    z-index:20;
+    z-index:100;
     background:rgba(11,13,18,.94);
     border-bottom:1px solid #252a35;
     backdrop-filter:blur(12px);
 }
 
 .nav{
-    max-width:1100px;
+    max-width:1180px;
     margin:auto;
     padding:14px 20px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:20px;
 }
 
@@ -63,13 +81,14 @@ header{
     text-decoration:none;
     font-size:20px;
     font-weight:800;
-    letter-spacing:.4px;
+    white-space:nowrap;
 }
 
 .navLinks{
     display:flex;
     flex-wrap:wrap;
-    gap:16px;
+    justify-content:flex-end;
+    gap:15px;
     font-size:14px;
 }
 
@@ -83,24 +102,24 @@ header{
 }
 
 main{
-    max-width:1100px;
+    max-width:1180px;
     margin:auto;
     padding:35px 20px 70px;
 }
 
 .hero{
     text-align:center;
-    padding:20px 0 30px;
+    padding:15px 0 30px;
 }
 
 h1{
     margin:0 0 12px;
-    font-size:clamp(30px,5vw,52px);
+    font-size:clamp(30px,5vw,54px);
     line-height:1.1;
 }
 
 .hero p{
-    max-width:720px;
+    max-width:760px;
     margin:0 auto;
     color:#aeb5c2;
     font-size:17px;
@@ -111,7 +130,7 @@ h1{
     border:1px solid #272d38;
     border-radius:18px;
     padding:22px;
-    margin-top:22px;
+    margin-top:20px;
 }
 
 .toolbar{
@@ -126,15 +145,23 @@ h1{
     display:inline-flex;
     align-items:center;
     justify-content:center;
+
     min-height:46px;
     padding:10px 17px;
+
     border:1px solid #343b48;
     border-radius:10px;
+
     background:#1b202a;
     color:#fff;
+
     font-weight:700;
     cursor:pointer;
+
     text-decoration:none;
+    font-size:14px;
+
+    transition:.15s;
 }
 
 .button:hover,
@@ -188,29 +215,43 @@ input[type="file"]{
 
 .workspace{
     min-height:320px;
+
     border:1px dashed #394150;
     border-radius:14px;
+
     background:
         linear-gradient(45deg,#151a22 25%,transparent 25%),
         linear-gradient(-45deg,#151a22 25%,transparent 25%),
         linear-gradient(45deg,transparent 75%,#151a22 75%),
         linear-gradient(-45deg,transparent 75%,#151a22 75%);
+
     background-size:24px 24px;
-    background-position:0 0,0 12px,12px -12px,-12px 0;
+
+    background-position:
+        0 0,
+        0 12px,
+        12px -12px,
+        -12px 0;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     overflow:hidden;
     padding:20px;
 }
 
 #preview{
     display:none;
+
     max-width:100%;
     max-height:600px;
+
     width:auto;
     height:auto;
+
     object-fit:contain;
+
     border-radius:6px;
 }
 
@@ -222,8 +263,10 @@ input[type="file"]{
 
 .controls{
     margin-top:22px;
+
     display:grid;
     grid-template-columns:1fr 1fr;
+
     gap:16px;
 }
 
@@ -253,13 +296,19 @@ label{
 
 .numberInput{
     width:100%;
+
     min-height:44px;
+
     border-radius:9px;
     border:1px solid #343b48;
+
     background:#171b23;
     color:#fff;
+
     padding:9px 12px;
+
     font-size:16px;
+
     outline:none;
 }
 
@@ -275,11 +324,15 @@ label{
 
 .preset{
     min-height:40px;
+
     padding:8px 13px;
+
     border-radius:9px;
     border:1px solid #343b48;
+
     background:#171b23;
     color:#fff;
+
     cursor:pointer;
 }
 
@@ -290,8 +343,10 @@ label{
 .checkboxRow{
     display:flex;
     align-items:center;
+
     gap:9px;
     margin-top:15px;
+
     color:#c4cad4;
 }
 
@@ -303,7 +358,9 @@ label{
 .status{
     margin-top:16px;
     min-height:24px;
+
     color:#aeb6c4;
+
     text-align:center;
 }
 
@@ -311,7 +368,9 @@ label{
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
+
     gap:10px;
+
     margin-top:20px;
 }
 
@@ -329,8 +388,9 @@ section.text li{
     color:#b7bec9;
 }
 
-section.text ul{
-    padding-left:22px;
+section.text ul,
+section.text ol{
+    padding-left:23px;
 }
 
 .faqItem{
@@ -347,15 +407,44 @@ section.text ul{
     font-size:17px;
 }
 
+.faqItem p{
+    margin:0;
+}
+
 footer{
     border-top:1px solid #252a35;
-    color:#858e9d;
-    text-align:center;
+
     padding:28px 20px;
+
+    text-align:center;
+
+    color:#858e9d;
+
     font-size:14px;
 }
 
-@media(max-width:700px){
+.footerNav{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:10px 18px;
+
+    margin-bottom:12px;
+}
+
+.footerNav a{
+    color:#aeb5c2;
+    text-decoration:none;
+}
+
+.footerNav a:hover{
+    color:#fff;
+}
+
+@media(max-width:800px){
 
     .nav{
         align-items:flex-start;
@@ -363,6 +452,7 @@ footer{
     }
 
     .navLinks{
+        justify-content:flex-start;
         gap:10px 14px;
     }
 
@@ -408,9 +498,19 @@ footer{
         flex-direction:column;
     }
 
+    .actions .button{
+        width:100%;
+    }
+
+    .footerNav{
+        flex-direction:column;
+        gap:8px;
+    }
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -419,27 +519,64 @@ footer{
 
 <div class="nav">
 
-<a class="logo" href="../">
+<a
+    class="logo"
+    href="../"
+>
 Фото + эффект
 </a>
 
 <nav class="navLinks">
-<a href="../">Инструмент</a>
-<a href="../crop/">Обрезка</a>
-<a href="#how-to">Как пользоваться</a>
-<a href="#faq">FAQ</a>
+
+<a href="../">
+Инструмент
+</a>
+
+<a href="../crop/">
+Обрезка фото
+</a>
+
+<a href="./">
+Изменить размер
+</a>
+
+<a href="../rotate/">
+Повернуть фото
+</a>
+
+<a href="../remove-background/">
+Удалить фон
+</a>
+
+<a href="../#how-to">
+Как пользоваться
+</a>
+
+<a href="../#about">
+О сервисе
+</a>
+
+<a href="../#faq">
+FAQ
+</a>
+
+<a href="../#privacy">
+Конфиденциальность
+</a>
+
 </nav>
 
 </div>
 
 </header>
 
-
 <main>
 
 <div class="hero">
 
-<h1>Изменить размер фото онлайн</h1>
+<h1>
+Изменить размер фото онлайн
+</h1>
 
 <p>
 Бесплатно изменяйте ширину и высоту изображения прямо в браузере.
@@ -447,7 +584,6 @@ footer{
 </p>
 
 </div>
-
 
 <div class="card">
 
@@ -457,7 +593,7 @@ footer{
     for="fileInput"
     class="fileLabel primary"
 >
-    Загрузить фото
+Загрузить фото
 </label>
 
 <input
@@ -470,18 +606,31 @@ footer{
     href="../"
     class="button"
 >
-    Фото + эффект
+Фото + эффект
 </a>
 
 <a
     href="../crop/"
     class="button"
 >
-    Обрезать фото
+Обрезать фото
+</a>
+
+<a
+    href="../rotate/"
+    class="button"
+>
+Повернуть фото
+</a>
+
+<a
+    href="../remove-background/"
+    class="button"
+>
+Удалить фон
 </a>
 
 </div>
-
 
 <div class="info">
 
@@ -495,11 +644,10 @@ footer{
     class="infoValue"
     id="originalSize"
 >
-— 
+—
 </div>
 
 </div>
-
 
 <div class="infoBox">
 
@@ -515,7 +663,6 @@ footer{
 </div>
 
 </div>
-
 
 <div class="infoBox">
 
@@ -534,7 +681,6 @@ footer{
 
 </div>
 
-
 <div class="workspace">
 
 <div
@@ -551,9 +697,7 @@ footer{
 
 </div>
 
-
 <div class="controls">
-
 
 <div class="controlBox">
 
@@ -577,7 +721,6 @@ footer{
 
 </div>
 
-
 <div class="controlBox">
 
 <label for="heightInput">
@@ -599,7 +742,6 @@ footer{
 </div>
 
 </div>
-
 
 <div class="controlBox full">
 
@@ -643,7 +785,6 @@ footer{
 
 </div>
 
-
 <div class="checkboxRow">
 
 <input
@@ -665,14 +806,12 @@ footer{
 
 </div>
 
-
 <div
     class="status"
     id="status"
 >
 Загрузите изображение.
 </div>
-
 
 <div class="actions">
 
@@ -715,13 +854,14 @@ footer{
 
 </div>
 
-
 <section
     id="how-to"
     class="text"
 >
 
-<h2>Как изменить размер фотографии</h2>
+<h2>
+Как изменить размер фотографии
+</h2>
 
 <p>
 Сервис позволяет изменить разрешение изображения без установки программ.
@@ -729,14 +869,32 @@ footer{
 </p>
 
 <ol>
-<li>Нажмите «Загрузить фото».</li>
-<li>Укажите нужную ширину и высоту.</li>
-<li>При необходимости оставьте включённым сохранение пропорций.</li>
-<li>Нажмите «Применить размер».</li>
-<li>Проверьте результат и нажмите «Скачать PNG».</li>
+
+<li>
+Нажмите «Загрузить фото».
+</li>
+
+<li>
+Укажите нужную ширину и высоту.
+</li>
+
+<li>
+При необходимости оставьте включённым сохранение пропорций.
+</li>
+
+<li>
+Нажмите «Применить размер».
+</li>
+
+<li>
+Проверьте результат и нажмите «Скачать PNG».
+</li>
+
 </ol>
 
-<h2>Изменение размера с сохранением пропорций</h2>
+<h2>
+Изменение размера с сохранением пропорций
+</h2>
 
 <p>
 Если включена функция «Сохранять пропорции», изменение ширины
@@ -744,30 +902,50 @@ footer{
 избежать случайного растяжения или сжатия фотографии.
 </p>
 
-<h2>Для чего может понадобиться изменение размера</h2>
+<h2>
+Для чего может понадобиться изменение размера
+</h2>
 
 <ul>
-<li>уменьшение большого изображения перед отправкой;</li>
-<li>подготовка фотографии для публикации на сайте;</li>
-<li>создание изображения определённого разрешения;</li>
-<li>уменьшение размера фотографии для хранения;</li>
-<li>подготовка изображения для социальных сетей.</li>
+
+<li>
+уменьшение большого изображения перед отправкой;
+</li>
+
+<li>
+подготовка фотографии для публикации на сайте;
+</li>
+
+<li>
+создание изображения определённого разрешения;
+</li>
+
+<li>
+уменьшение размера фотографии для хранения;
+</li>
+
+<li>
+подготовка изображения для социальных сетей.
+</li>
+
 </ul>
 
 </section>
-
 
 <section
     id="faq"
     class="text"
 >
 
-<h2>Частые вопросы</h2>
-
+<h2>
+Частые вопросы
+</h2>
 
 <div class="faqItem">
 
-<h3>Какие изображения можно загружать?</h3>
+<h3>
+Какие изображения можно загружать?
+</h3>
 
 <p>
 Поддерживаются распространённые форматы изображений,
@@ -776,10 +954,11 @@ footer{
 
 </div>
 
-
 <div class="faqItem">
 
-<h3>Сохраняются ли мои фотографии на сервере?</h3>
+<h3>
+Сохраняются ли мои фотографии на сервере?
+</h3>
 
 <p>
 Нет. Изменение размера выполняется непосредственно в браузере.
@@ -788,10 +967,11 @@ footer{
 
 </div>
 
-
 <div class="faqItem">
 
-<h3>Можно ли сохранить исходные пропорции?</h3>
+<h3>
+Можно ли сохранить исходные пропорции?
+</h3>
 
 <p>
 Да. Для этого оставьте включённым параметр
@@ -800,10 +980,11 @@ footer{
 
 </div>
 
-
 <div class="faqItem">
 
-<h3>Можно ли изменить ширину и высоту отдельно?</h3>
+<h3>
+Можно ли изменить ширину и высоту отдельно?
+</h3>
 
 <p>
 Да. Отключите «Сохранять пропорции» и укажите
@@ -812,10 +993,11 @@ footer{
 
 </div>
 
-
 <div class="faqItem">
 
-<h3>Бесплатен ли сервис?</h3>
+<h3>
+Бесплатен ли сервис?
+</h3>
 
 <p>
 Да. Изменение размера фотографии доступно бесплатно
@@ -826,10 +1008,11 @@ footer{
 
 </section>
 
-
 <section class="text">
 
-<h2>Другие инструменты</h2>
+<h2>
+Другие инструменты
+</h2>
 
 <p>
 Если изображение нужно подготовить перед изменением размера,
@@ -837,26 +1020,84 @@ footer{
 </p>
 
 <ul>
+
 <li>
-<a href="../crop/">Обрезка фотографии онлайн</a>
+<a href="../crop/">
+Обрезка фотографии онлайн
+</a>
 </li>
 
 <li>
-<a href="../">Добавление эффекта на фотографию</a>
+<a href="../">
+Добавление эффекта на фотографию
+</a>
 </li>
+
+<li>
+<a href="../rotate/">
+Поворот фотографии
+</a>
+</li>
+
+<li>
+<a href="../remove-background/">
+Удаление фона с фотографии
+</a>
+</li>
+
 </ul>
 
 </section>
 
 </main>
 
-
 <footer>
 
+<nav class="footerNav">
+
+<a href="../">
+Инструмент
+</a>
+
+<a href="../crop/">
+Обрезка фото
+</a>
+
+<a href="./">
+Изменить размер
+</a>
+
+<a href="../rotate/">
+Повернуть фото
+</a>
+
+<a href="../remove-background/">
+Удалить фон
+</a>
+
+<a href="../#how-to">
+Как пользоваться
+</a>
+
+<a href="../#about">
+О сервисе
+</a>
+
+<a href="../#faq">
+FAQ
+</a>
+
+<a href="../#privacy">
+Конфиденциальность
+</a>
+
+</nav>
+
+<div>
 Фото + эффект — бесплатные онлайн-инструменты для работы с фотографиями.
+</div>
 
 </footer>
-
 
 <script>
 
@@ -902,7 +1143,6 @@ const newButton =
 const resetButton =
     document.getElementById("resetButton");
 
-
 let image =
     new Image();
 
@@ -924,10 +1164,8 @@ let currentHeight =
 let canvas =
     document.createElement("canvas");
 
-
 const MAX_PIXELS =
     20000000;
-
 
 function setStatus(text){
 
@@ -936,14 +1174,19 @@ function setStatus(text){
 
 }
 
-
 function updateNewSize(){
 
     const w =
-        parseInt(widthInput.value,10);
+        parseInt(
+            widthInput.value,
+            10
+        );
 
     const h =
-        parseInt(heightInput.value,10);
+        parseInt(
+            heightInput.value,
+            10
+        );
 
     if(
         Number.isFinite(w) &&
@@ -953,9 +1196,12 @@ function updateNewSize(){
     ){
 
         newSize.textContent =
-            w + " × " + h;
+            w +
+            " × " +
+            h;
 
-    }else{
+    }
+    else{
 
         newSize.textContent =
             "—";
@@ -964,23 +1210,38 @@ function updateNewSize(){
 
 }
 
-
 function updateHeightFromWidth(){
 
     if(!lockRatio.checked){
+
         updateNewSize();
+
         return;
+
     }
 
-    if(!originalWidth || !originalHeight){
+    if(
+        !originalWidth ||
+        !originalHeight
+    ){
+
         return;
+
     }
 
     const w =
-        parseInt(widthInput.value,10);
+        parseInt(
+            widthInput.value,
+            10
+        );
 
-    if(!Number.isFinite(w) || w <= 0){
+    if(
+        !Number.isFinite(w) ||
+        w <= 0
+    ){
+
         return;
+
     }
 
     const h =
@@ -997,23 +1258,38 @@ function updateHeightFromWidth(){
 
 }
 
-
 function updateWidthFromHeight(){
 
     if(!lockRatio.checked){
+
         updateNewSize();
+
         return;
+
     }
 
-    if(!originalWidth || !originalHeight){
+    if(
+        !originalWidth ||
+        !originalHeight
+    ){
+
         return;
+
     }
 
     const h =
-        parseInt(heightInput.value,10);
+        parseInt(
+            heightInput.value,
+            10
+        );
 
-    if(!Number.isFinite(h) || h <= 0){
+    if(
+        !Number.isFinite(h) ||
+        h <= 0
+    ){
+
         return;
+
     }
 
     const w =
@@ -1030,7 +1306,6 @@ function updateWidthFromHeight(){
 
 }
 
-
 function showPreview(){
 
     preview.style.display =
@@ -1040,7 +1315,6 @@ function showPreview(){
         "none";
 
 }
-
 
 function hidePreview(){
 
@@ -1052,29 +1326,50 @@ function hidePreview(){
 
 }
 
+function validateSize(
+    w,
+    h
+){
 
-function validateSize(w,h){
+    if(
+        !Number.isFinite(w) ||
+        !Number.isFinite(h)
+    ){
 
-    if(!Number.isFinite(w) || !Number.isFinite(h)){
         return "Введите корректные размеры.";
+
     }
 
-    if(w < 1 || h < 1){
+    if(
+        w < 1 ||
+        h < 1
+    ){
+
         return "Размер должен быть больше нуля.";
+
     }
 
-    if(w > 10000 || h > 10000){
+    if(
+        w > 10000 ||
+        h > 10000
+    ){
+
         return "Максимальный размер стороны — 10000 пикселей.";
+
     }
 
-    if(w * h > MAX_PIXELS){
+    if(
+        w * h >
+        MAX_PIXELS
+    ){
+
         return "Слишком большое изображение. Максимум — 20 млн пикселей.";
+
     }
 
     return null;
 
 }
-
 
 fileInput.addEventListener(
     "change",
@@ -1085,10 +1380,16 @@ fileInput.addEventListener(
             fileInput.files[0];
 
         if(!file){
+
             return;
+
         }
 
-        if(!file.type.startsWith("image/")){
+        if(
+            !file.type.startsWith(
+                "image/"
+            )
+        ){
 
             setStatus(
                 "Выберите файл изображения."
@@ -1099,11 +1400,17 @@ fileInput.addEventListener(
         }
 
         if(objectUrl){
-            URL.revokeObjectURL(objectUrl);
+
+            URL.revokeObjectURL(
+                objectUrl
+            );
+
         }
 
         objectUrl =
-            URL.createObjectURL(file);
+            URL.createObjectURL(
+                file
+            );
 
         image =
             new Image();
@@ -1177,28 +1484,28 @@ fileInput.addEventListener(
     }
 );
 
-
 widthInput.addEventListener(
     "input",
     updateHeightFromWidth
 );
-
 
 heightInput.addEventListener(
     "input",
     updateWidthFromHeight
 );
 
-
 lockRatio.addEventListener(
     "change",
     function(){
 
-        if(lockRatio.checked){
+        if(
+            lockRatio.checked
+        ){
 
             updateHeightFromWidth();
 
-        }else{
+        }
+        else{
 
             updateNewSize();
 
@@ -1207,17 +1514,22 @@ lockRatio.addEventListener(
     }
 );
 
-
-document.querySelectorAll(".preset")
-.forEach(
+document.querySelectorAll(
+    ".preset"
+).forEach(
     function(button){
 
         button.addEventListener(
             "click",
             function(){
 
-                if(!originalWidth || !originalHeight){
+                if(
+                    !originalWidth ||
+                    !originalHeight
+                ){
+
                     return;
+
                 }
 
                 const scale =
@@ -1257,27 +1569,42 @@ document.querySelectorAll(".preset")
     }
 );
 
-
 resizeButton.addEventListener(
     "click",
     function(){
 
-        if(!originalWidth || !originalHeight){
+        if(
+            !originalWidth ||
+            !originalHeight
+        ){
+
             return;
+
         }
 
         const w =
-            parseInt(widthInput.value,10);
+            parseInt(
+                widthInput.value,
+                10
+            );
 
         const h =
-            parseInt(heightInput.value,10);
+            parseInt(
+                heightInput.value,
+                10
+            );
 
         const error =
-            validateSize(w,h);
+            validateSize(
+                w,
+                h
+            );
 
         if(error){
 
-            setStatus(error);
+            setStatus(
+                error
+            );
 
             return;
 
@@ -1290,7 +1617,9 @@ resizeButton.addEventListener(
             h;
 
         const ctx =
-            canvas.getContext("2d");
+            canvas.getContext(
+                "2d"
+            );
 
         ctx.clearRect(
             0,
@@ -1335,7 +1664,6 @@ resizeButton.addEventListener(
     }
 );
 
-
 downloadButton.addEventListener(
     "click",
     function(){
@@ -1367,10 +1695,14 @@ downloadButton.addEventListener(
                 }
 
                 const url =
-                    URL.createObjectURL(blob);
+                    URL.createObjectURL(
+                        blob
+                    );
 
                 const link =
-                    document.createElement("a");
+                    document.createElement(
+                        "a"
+                    );
 
                 link.href =
                     url;
@@ -1408,13 +1740,17 @@ downloadButton.addEventListener(
     }
 );
 
-
 resetButton.addEventListener(
     "click",
     function(){
 
-        if(!originalWidth || !originalHeight){
+        if(
+            !originalWidth ||
+            !originalHeight
+        ){
+
             return;
+
         }
 
         widthInput.value =
@@ -1446,7 +1782,6 @@ resetButton.addEventListener(
 
     }
 );
-
 
 newButton.addEventListener(
     "click",
@@ -1514,4 +1849,6 @@ newButton.addEventListener(
 </script>
 
 </body>
+
 </html>
+```

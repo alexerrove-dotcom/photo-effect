@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 
 <head>
@@ -6,20 +7,23 @@
 <meta charset="UTF-8">
 
 <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+name="viewport"
+content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+
 >
 
 <title>Удалить фон с фото онлайн — бесплатно | Фото + эффект</title>
 
 <meta
-    name="description"
-    content="Бесплатно удалите фон с фотографии онлайн. Загрузите изображение, автоматически удалите фон, настройте степень удаления и скачайте PNG с прозрачным фоном."
+name="description"
+content="Бесплатно удалите фон с фотографии онлайн. Сравните исходное фото и результат, затем скачайте PNG с прозрачным фоном."
+
 >
 
 <meta
-    name="robots"
-    content="index, follow"
+name="robots"
+content="index, follow"
+
 >
 
 <script>
@@ -31,11 +35,11 @@ window.yaContextCb = window.yaContextCb || [];
     async>
 </script>
 
-
 <style>
 
 *{
     box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
 html{
@@ -182,6 +186,11 @@ input[type="file"]{
     display:none;
 }
 
+
+/* =====================================================
+   WORKSPACE
+===================================================== */
+
 .workspace{
     position:relative;
     width:100%;
@@ -205,13 +214,124 @@ input[type="file"]{
         -12px 0;
 }
 
-#previewCanvas{
+
+/* =====================================================
+   COMPARE
+===================================================== */
+
+.compare{
+    position:relative;
     display:none;
+    width:100%;
     max-width:100%;
-    max-height:75vh;
-    width:auto;
-    height:auto;
+    overflow:hidden;
+    user-select:none;
+    -webkit-user-select:none;
+    touch-action:none;
 }
+
+.compare.visible{
+    display:block;
+}
+
+.compareBase,
+.compareResult{
+    display:block;
+    width:100%;
+    height:auto;
+    max-width:100%;
+    pointer-events:none;
+}
+
+.compareBase{
+    position:relative;
+    z-index:1;
+}
+
+.compareResultWrap{
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:50%;
+    overflow:hidden;
+    z-index:2;
+    pointer-events:none;
+}
+
+.compareResult{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    max-width:none;
+}
+
+.compareLine{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:50%;
+    width:3px;
+    transform:translateX(-50%);
+    background:#fff;
+    box-shadow:
+        0 0 0 1px rgba(0,0,0,.25),
+        0 0 12px rgba(0,0,0,.45);
+    z-index:10;
+    cursor:ew-resize;
+    touch-action:none;
+}
+
+.compareHandle{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:46px;
+    height:46px;
+    transform:translate(-50%,-50%);
+    border:3px solid #fff;
+    border-radius:50%;
+    background:#101217;
+    box-shadow:0 4px 18px rgba(0,0,0,.45);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:22px;
+    font-weight:800;
+}
+
+.compareHandle::before{
+    content:"↔";
+}
+
+.compareLabel{
+    position:absolute;
+    top:14px;
+    z-index:12;
+    padding:6px 10px;
+    border-radius:8px;
+    background:rgba(11,13,18,.78);
+    border:1px solid rgba(255,255,255,.13);
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+    pointer-events:none;
+}
+
+.compareLabel.before{
+    left:14px;
+}
+
+.compareLabel.after{
+    right:14px;
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
 
 .empty{
     color:#818a99;
@@ -226,6 +346,11 @@ input[type="file"]{
     margin-bottom:8px;
 }
 
+
+/* =====================================================
+   INFO
+===================================================== */
+
 .status{
     min-height:25px;
     margin-top:15px;
@@ -239,6 +364,11 @@ input[type="file"]{
     color:#7f8998;
     font-size:13px;
 }
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
 
 .progressWrap{
     margin-top:20px;
@@ -268,59 +398,10 @@ input[type="file"]{
     font-size:13px;
 }
 
-/*
-    Ползунок НАВЕРХ изображения.
-*/
 
-.removalControl{
-    position:absolute;
-    left:18px;
-    right:18px;
-    bottom:18px;
-    z-index:20;
-    padding:12px 15px 11px;
-    border:1px solid rgba(255,255,255,.14);
-    border-radius:12px;
-    background:rgba(11,13,18,.84);
-    backdrop-filter:blur(10px);
-    display:none;
-}
-
-.removalHeader{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:7px;
-}
-
-.removalTitle{
-    color:#cbd1da;
-    font-size:13px;
-    font-weight:700;
-}
-
-#removalValue{
-    color:#fff;
-    font-size:13px;
-    font-weight:800;
-}
-
-#removalSlider{
-    width:100%;
-    display:block;
-    margin:0;
-    cursor:pointer;
-    accent-color:#fff;
-}
-
-.removalScale{
-    display:flex;
-    justify-content:space-between;
-    margin-top:4px;
-    color:#7f8998;
-    font-size:11px;
-}
+/* =====================================================
+   ACTIONS
+===================================================== */
 
 .actions{
     display:flex;
@@ -441,6 +522,7 @@ footer{
     color:#fff;
 }
 
+
 @media(max-width:900px){
 
     .toolsGrid{
@@ -448,6 +530,7 @@ footer{
     }
 
 }
+
 
 @media(max-width:800px){
 
@@ -470,14 +553,6 @@ footer{
         border-radius:14px;
     }
 
-    .workspace{
-        min-height:300px;
-    }
-
-    #previewCanvas{
-        max-height:60vh;
-    }
-
     .toolbar{
         flex-direction:column;
     }
@@ -485,6 +560,32 @@ footer{
     .button,
     .fileLabel{
         width:100%;
+    }
+
+    .workspace{
+        min-height:300px;
+    }
+
+    .compareLabel{
+        top:10px;
+    }
+
+    .compareLabel.before{
+        left:10px;
+    }
+
+    .compareLabel.after{
+        right:10px;
+    }
+
+    .compareHandle{
+        width:40px;
+        height:40px;
+        font-size:19px;
+    }
+
+    .compareLine{
+        width:3px;
     }
 
     .actions{
@@ -504,33 +605,25 @@ footer{
         gap:8px;
     }
 
-    .removalControl{
-        left:10px;
-        right:10px;
-        bottom:10px;
-        padding:11px 12px;
-    }
-
 }
 
 </style>
 
 </head>
 
-
 <body>
-
 
 <header>
 
 <div class="nav">
 
 <a
-    href="../"
-    class="logo"
+href="../"
+class="logo"
+
 >
-Фото + эффект
-</a>
+
+Фото + эффект </a>
 
 <nav class="navLinks">
 
@@ -576,9 +669,7 @@ FAQ
 
 </header>
 
-
 <main>
-
 
 <section class="hero">
 
@@ -587,67 +678,64 @@ FAQ
 </h1>
 
 <p>
-Автоматически удалите фон с фотографии прямо в браузере,
-настройте степень удаления и скачайте изображение PNG
-с прозрачным фоном.
+Автоматически удалите фон с фотографии прямо в браузере
+и сравните исходное изображение с результатом удаления.
 </p>
 
 </section>
-
 
 <section
     id="tool"
     class="card"
 >
 
-
 <!-- =====================================================
-     НАВИГАЦИЯ ПО ИНСТРУМЕНТАМ САЙТА
+     НАВИГАЦИЯ САЙТА
 ===================================================== -->
 
 <div class="toolbar">
 
 <a
-    href="../"
-    class="fileLabel primary"
->
-Загрузить фото
-</a>
+href="../"
+class="fileLabel primary"
 
+>
+
+Загрузить фото </a>
 
 <a
-    href="../crop/"
-    class="fileLabel"
->
-Обрезать фото
-</a>
+href="../crop/"
+class="fileLabel"
 
+>
+
+Обрезать фото </a>
 
 <a
-    href="../resize/"
-    class="fileLabel"
->
-Изменить размер
-</a>
+href="../resize/"
+class="fileLabel"
 
+>
+
+Изменить размер </a>
 
 <a
-    href="../rotate/"
-    class="fileLabel"
->
-Повернуть фото
-</a>
+href="../rotate/"
+class="fileLabel"
 
+>
+
+Повернуть фото </a>
 
 <a
-    href="./"
-    class="fileLabel"
+href="./"
+class="fileLabel"
+
 >
-Удалить фон
-</a>
+
+Удалить фон </a>
 
 </div>
-
 
 <!-- =====================================================
      УПРАВЛЕНИЕ ИНСТРУМЕНТОМ
@@ -656,58 +744,109 @@ FAQ
 <div class="toolbar">
 
 <label
-    class="fileLabel primary"
+class="fileLabel primary"
+
 >
+
 Загрузить фото в редактор
 
 <input
-    id="fileInput"
-    type="file"
-    accept="image/*"
+id="fileInput"
+type="file"
+accept="image/*"
+
 >
 
 </label>
 
+<button
+id="removeButton"
+class="button"
+type="button"
+disabled
+
+>
+
+Удалить фон </button>
 
 <button
-    id="removeButton"
-    class="button"
-    type="button"
-    disabled
->
-Удалить фон
-</button>
+id="downloadButton"
+class="button primary"
+type="button"
+disabled
 
+>
+
+Скачать PNG </button>
 
 <button
-    id="downloadButton"
-    class="button primary"
-    type="button"
-    disabled
->
-Скачать PNG
-</button>
+id="newButton"
+class="button"
+type="button"
 
-
-<button
-    id="newButton"
-    class="button"
-    type="button"
 >
-Новое фото
-</button>
+
+Новое фото </button>
 
 </div>
 
+<!-- =====================================================
+     РАБОЧАЯ ОБЛАСТЬ
+===================================================== -->
 
-<div class="workspace">
-
-
-<canvas
-    id="previewCanvas"
+<div
+    class="workspace"
+    id="workspace"
 >
-</canvas>
 
+<div
+    id="compare"
+    class="compare"
+>
+
+<img
+id="originalImage"
+class="compareBase"
+alt="Исходная фотография"
+
+>
+
+<div
+    id="resultWrap"
+    class="compareResultWrap"
+>
+
+<img
+id="resultImage"
+class="compareResult"
+alt="Фотография без фона"
+
+>
+
+</div>
+
+<div
+    id="compareLine"
+    class="compareLine"
+>
+
+<div
+    id="compareHandle"
+    class="compareHandle"
+>
+</div>
+
+</div>
+
+<div class="compareLabel before">
+До
+</div>
+
+<div class="compareLabel after">
+После
+</div>
+
+</div>
 
 <div
     id="empty"
@@ -722,56 +861,7 @@ FAQ
 
 </div>
 
-
-<!-- =====================================================
-     ПОЛЗУНОК ПОВЕРХ ИЗОБРАЖЕНИЯ
-===================================================== -->
-
-<div
-    id="removalControl"
-    class="removalControl"
->
-
-<div class="removalHeader">
-
-<span class="removalTitle">
-Степень удаления фона
-</span>
-
-<span id="removalValue">
-100%
-</span>
-
 </div>
-
-
-<input
-    id="removalSlider"
-    type="range"
-    min="0"
-    max="100"
-    step="1"
-    value="100"
->
-
-
-<div class="removalScale">
-
-<span>
-0% — фон
-</span>
-
-<span>
-100% — удаление
-</span>
-
-</div>
-
-</div>
-
-
-</div>
-
 
 <div
     id="progressWrap"
@@ -788,7 +878,6 @@ FAQ
 
 </div>
 
-
 <div
     id="progressText"
     class="progressText"
@@ -798,7 +887,6 @@ FAQ
 
 </div>
 
-
 <div
     id="status"
     class="status"
@@ -806,30 +894,27 @@ FAQ
 Фотография пока не загружена.
 </div>
 
-
 <div
     id="info"
     class="info"
 >
 </div>
 
-
 <div class="actions">
 
 <button
-    id="restoreButton"
-    class="button"
-    type="button"
-    disabled
+id="showOriginalButton"
+class="button"
+type="button"
+disabled
+
 >
-Показать исходное
-</button>
+
+Показать исходное </button>
 
 </div>
 
-
 </section>
-
 
 <div class="adBox">
 
@@ -855,22 +940,19 @@ window.yaContextCb.push(() => {
 
 </div>
 
-
 <section
     class="textSection"
 >
-
 
 <h2>
 Как удалить фон с фотографии
 </h2>
 
-
 <p>
-Загрузите изображение с компьютера или телефона.
-После этого нажмите кнопку «Удалить фон».
+Загрузите фотографию и нажмите «Удалить фон».
+После обработки в рабочей области появится
+сравнение исходного изображения и результата.
 </p>
-
 
 <ol>
 
@@ -891,60 +973,44 @@ window.yaContextCb.push(() => {
 </li>
 
 <li>
-Используйте ползунок «Степень удаления фона»
-для точной подстройки результата.
+Перемещайте вертикальную линию по изображению,
+чтобы сравнить результат с исходной фотографией.
 </li>
 
 <li>
-Нажмите «Скачать PNG».
+Нажмите «Скачать PNG», чтобы сохранить
+результат без фона.
 </li>
 
 </ol>
 
-
 <h3>
-Настройка результата
+Сравнение до и после
 </h3>
 
-
 <p>
-После автоматического удаления фона можно переместить
-ползунок поверх изображения. При значении 0% показывается
-исходная фотография, а при увеличении значения фон
-постепенно становится прозрачным.
+Слева от разделительной линии показывается
+исходная фотография с фоном, а справа —
+результат после удаления фона. Перемещайте линию
+мышью или пальцем.
 </p>
-
-
-<h3>
-Прозрачный фон
-</h3>
-
-
-<p>
-Результат сохраняется в формате PNG. Области, которые
-были удалены, становятся прозрачными.
-</p>
-
 
 </section>
-
 
 <section
     class="textSection"
 >
 
-
 <h2>
 Инструменты для работы с фото
 </h2>
 
-
 <div class="toolsGrid">
 
-
 <a
-    href="../"
-    class="toolCard"
+href="../"
+class="toolCard"
+
 >
 
 <h3>
@@ -958,10 +1024,10 @@ window.yaContextCb.push(() => {
 
 </a>
 
-
 <a
-    href="../crop/"
-    class="toolCard"
+href="../crop/"
+class="toolCard"
+
 >
 
 <h3>
@@ -975,10 +1041,10 @@ window.yaContextCb.push(() => {
 
 </a>
 
-
 <a
-    href="../resize/"
-    class="toolCard"
+href="../resize/"
+class="toolCard"
+
 >
 
 <h3>
@@ -992,10 +1058,10 @@ window.yaContextCb.push(() => {
 
 </a>
 
-
 <a
-    href="../rotate/"
-    class="toolCard"
+href="../rotate/"
+class="toolCard"
+
 >
 
 <h3>
@@ -1009,41 +1075,33 @@ window.yaContextCb.push(() => {
 
 </a>
 
-
 </div>
 
 </section>
-
 
 <section
     class="textSection"
 >
 
-
 <h2>
 Удаление фона без установки программ
 </h2>
 
-
 <p>
-Удаление фона выполняется непосредственно в браузере
-с использованием модели машинного обучения.
+Удаление фона выполняется непосредственно
+в браузере с использованием модели
+машинного обучения.
 </p>
-
 
 <p>
 Первый запуск может занимать больше времени,
 поскольку браузеру необходимо загрузить
 модель и вычислительные компоненты.
-После этого библиотека и модель могут
-использоваться повторно благодаря кэшу браузера.
 </p>
-
 
 <h3>
 Для каких фотографий подходит инструмент
 </h3>
-
 
 <ul>
 
@@ -1065,20 +1123,16 @@ window.yaContextCb.push(() => {
 
 </ul>
 
-
 </section>
-
 
 <section
     class="textSection"
     id="faq"
 >
 
-
 <h2>
 Частые вопросы
 </h2>
-
 
 <div class="faqItem">
 
@@ -1092,7 +1146,6 @@ window.yaContextCb.push(() => {
 
 </div>
 
-
 <div class="faqItem">
 
 <h3>
@@ -1100,26 +1153,24 @@ window.yaContextCb.push(() => {
 </h3>
 
 <p>
-Результат сохраняется в PNG с прозрачными областями.
+Результат сохраняется в PNG с прозрачным фоном.
 </p>
 
 </div>
-
 
 <div class="faqItem">
 
 <h3>
-Что делает ползунок?
+Что показывает разделительная линия?
 </h3>
 
 <p>
-Ползунок регулирует степень применения маски удаления.
-Слева исходный фон полностью виден, а справа
-применяется полный результат удаления.
+Слева от линии находится исходная фотография,
+а справа — результат после удаления фона.
+Линию можно перемещать по изображению.
 </p>
 
 </div>
-
 
 <div class="faqItem">
 
@@ -1129,25 +1180,23 @@ window.yaContextCb.push(() => {
 
 <p>
 При первом запуске браузер загружает необходимые
-файлы модели и WebAssembly-компоненты.
+файлы модели и вычислительные компоненты.
 </p>
 
 </div>
-
 
 <div class="faqItem">
 
 <h3>
-Можно ли показать исходную фотографию?
+Можно ли снова посмотреть исходное фото?
 </h3>
 
 <p>
-Да. Переместите ползунок в положение 0% или используйте
-кнопку «Показать исходное».
+Да. Можно переместить разделитель полностью
+влево или воспользоваться кнопкой «Показать исходное».
 </p>
 
 </div>
-
 
 <div class="faqItem">
 
@@ -1156,43 +1205,34 @@ window.yaContextCb.push(() => {
 </h3>
 
 <p>
-Да. Страница адаптирована для современных мобильных браузеров.
+Да. Разделитель поддерживает перемещение пальцем.
 </p>
 
 </div>
 
-
 </section>
-
 
 <section
     class="textSection"
 >
 
-
 <h2>
 Конфиденциальность
 </h2>
 
-
 <p>
-Основная обработка изображения выполняется непосредственно
-в браузере пользователя с помощью клиентской модели.
+Основная обработка изображения выполняется
+непосредственно в браузере пользователя.
 </p>
 
-
 <p>
-Для загрузки библиотеки и модели используются внешние
-инфраструктурные ресурсы. Их работа регулируется
-соответствующими правилами и политиками конфиденциальности.
+Для загрузки библиотеки и модели используются
+внешние инфраструктурные ресурсы.
 </p>
-
 
 </section>
 
-
 </main>
-
 
 <footer>
 
@@ -1242,17 +1282,16 @@ FAQ
 
 </footer>
 
-
 <script type="module">
 
 "use strict";
 
 
 /* =====================================================
-   БИБЛИОТЕКА
+   LIBRARY
 ===================================================== */
 
-let segmentForeground =
+let removeBackgroundFunction =
     null;
 
 let libraryReady =
@@ -1260,7 +1299,7 @@ let libraryReady =
 
 
 /* =====================================================
-   ЭЛЕМЕНТЫ
+   ELEMENTS
 ===================================================== */
 
 const fileInput =
@@ -1287,21 +1326,45 @@ const newButton =
     );
 
 
-const restoreButton =
+const showOriginalButton =
     document.getElementById(
-        "restoreButton"
+        "showOriginalButton"
     );
 
 
-const previewCanvas =
+const compare =
     document.getElementById(
-        "previewCanvas"
+        "compare"
     );
 
 
-const previewCtx =
-    previewCanvas.getContext(
-        "2d"
+const originalImage =
+    document.getElementById(
+        "originalImage"
+    );
+
+
+const resultImage =
+    document.getElementById(
+        "resultImage"
+    );
+
+
+const resultWrap =
+    document.getElementById(
+        "resultWrap"
+    );
+
+
+const compareLine =
+    document.getElementById(
+        "compareLine"
+    );
+
+
+const compareHandle =
+    document.getElementById(
+        "compareHandle"
     );
 
 
@@ -1341,68 +1404,44 @@ const progressText =
     );
 
 
-const removalControl =
-    document.getElementById(
-        "removalControl"
-    );
-
-
-const removalSlider =
-    document.getElementById(
-        "removalSlider"
-    );
-
-
-const removalValue =
-    document.getElementById(
-        "removalValue"
-    );
-
-
 /* =====================================================
-   СОСТОЯНИЕ
+   STATE
 ===================================================== */
 
 let originalFile =
     null;
 
 
-let originalImage =
+let originalUrl =
     null;
 
 
-let maskImage =
+let resultUrl =
     null;
 
 
-let originalWidth =
-    0;
+let resultBlob =
+    null;
 
 
-let originalHeight =
-    0;
+let comparePosition =
+    50;
 
 
-let processed =
+let dragging =
     false;
 
+
+/* =====================================================
+   SETTINGS
+===================================================== */
 
 const MAX_PIXELS =
     20000000;
 
 
-/*
-    Сохраняем исходную маску в ImageData.
-    Это позволит менять степень удаления
-    без повторного запуска модели.
-*/
-
-let maskData =
-    null;
-
-
 /* =====================================================
-   СТАТУС
+   STATUS
 ===================================================== */
 
 function setStatus(
@@ -1441,78 +1480,10 @@ function setProgress(
 
 
 /* =====================================================
-   ЗАГРУЗКА БИБЛИОТЕКИ
+   LOAD IMAGE SIZE
 ===================================================== */
 
-async function loadLibrary(){
-
-    if(libraryReady){
-
-        return true;
-
-    }
-
-
-    try{
-
-        setProgress(
-            5,
-            "Загрузка инструмента..."
-        );
-
-
-        const module =
-            await import(
-                "https://esm.sh/@imgly/background-removal@1.7.0"
-            );
-
-
-        segmentForeground =
-            module.segmentForeground;
-
-
-        if(
-            typeof segmentForeground !==
-            "function"
-        ){
-
-            throw new Error(
-                "segmentForeground недоступна."
-            );
-
-        }
-
-
-        libraryReady =
-            true;
-
-
-        return true;
-
-    }catch(error){
-
-        console.error(
-            error
-        );
-
-
-        setStatus(
-            "Не удалось загрузить инструмент удаления фона."
-        );
-
-
-        return false;
-
-    }
-
-}
-
-
-/* =====================================================
-   ПРОВЕРКА ФОТО
-===================================================== */
-
-function readImage(
+function getImageSize(
     file
 ){
 
@@ -1532,13 +1503,24 @@ function readImage(
             img.onload =
                 function(){
 
+                    const size = {
+
+                        width:
+                            img.naturalWidth,
+
+                        height:
+                            img.naturalHeight
+
+                    };
+
+
                     URL.revokeObjectURL(
                         url
                     );
 
 
                     resolve(
-                        img
+                        size
                     );
 
                 };
@@ -1571,372 +1553,68 @@ function readImage(
 
 
 /* =====================================================
-   ОТОБРАЖЕНИЕ ИЗОБРАЖЕНИЯ
+   LIBRARY
 ===================================================== */
 
-function showOriginalPreview(){
+async function loadLibrary(){
 
-    if(!originalImage){
+    if(libraryReady){
 
-        return;
-
-    }
-
-
-    previewCanvas.width =
-        originalWidth;
-
-
-    previewCanvas.height =
-        originalHeight;
-
-
-    previewCtx.clearRect(
-        0,
-        0,
-        originalWidth,
-        originalHeight
-    );
-
-
-    previewCtx.globalAlpha =
-        1;
-
-
-    previewCtx.drawImage(
-        originalImage,
-        0,
-        0,
-        originalWidth,
-        originalHeight
-    );
-
-
-    previewCtx.globalAlpha =
-        1;
-
-
-    previewCanvas.style.display =
-        "block";
-
-
-    empty.style.display =
-        "none";
-
-}
-
-
-function showMaskPreview(
-    strength
-){
-
-    if(
-        !originalImage ||
-        !maskData
-    ){
-
-        return;
+        return true;
 
     }
-
-
-    const output =
-        previewCtx.createImageData(
-            originalWidth,
-            originalHeight
-        );
-
-
-    const sourceCanvas =
-        document.createElement(
-            "canvas"
-        );
-
-
-    sourceCanvas.width =
-        originalWidth;
-
-
-    sourceCanvas.height =
-        originalHeight;
-
-
-    const sourceCtx =
-        sourceCanvas.getContext(
-            "2d"
-        );
-
-
-    sourceCtx.drawImage(
-        originalImage,
-        0,
-        0,
-        originalWidth,
-        originalHeight
-    );
-
-
-    const sourceData =
-        sourceCtx.getImageData(
-            0,
-            0,
-            originalWidth,
-            originalHeight
-        );
-
-
-    const src =
-        sourceData.data;
-
-
-    const mask =
-        maskData.data;
-
-
-    const dst =
-        output.data;
-
-
-    /*
-        strength:
-        0 = оригинал
-        1 = полное удаление
-
-        Маска IMG.LY содержит альфа-канал:
-        0 = фон
-        255 = передний план.
-
-        Смешиваем оригинальную непрозрачность
-        с маской.
-    */
-
-    for(
-        let i = 0,
-        pixel = 0;
-        i < src.length;
-        i += 4,
-        pixel++
-    ){
-
-        const originalAlpha =
-            src[i + 3];
-
-
-        const maskAlpha =
-            mask[i + 3];
-
-
-        const finalAlpha =
-            Math.round(
-                originalAlpha *
-                (1 - strength)
-                +
-                maskAlpha *
-                strength
-            );
-
-
-        dst[i] =
-            src[i];
-
-        dst[i + 1] =
-            src[i + 1];
-
-        dst[i + 2] =
-            src[i + 2];
-
-        dst[i + 3] =
-            finalAlpha;
-
-    }
-
-
-    previewCtx.clearRect(
-        0,
-        0,
-        originalWidth,
-        originalHeight
-    );
-
-
-    previewCtx.putImageData(
-        output,
-        0,
-        0
-    );
-
-
-    previewCanvas.style.display =
-        "block";
-
-
-    empty.style.display =
-        "none";
-
-}
-
-
-/* =====================================================
-   ЗАПОЛНЕНИЕ МАСКИ
-===================================================== */
-
-async function prepareMask(){
-
-    if(
-        !originalFile ||
-        !originalImage
-    ){
-
-        throw new Error(
-            "Нет исходного изображения."
-        );
-
-    }
-
-
-    const ready =
-        await loadLibrary();
-
-
-    if(!ready){
-
-        throw new Error(
-            "Не удалось загрузить библиотеку."
-        );
-
-    }
-
-
-    setProgress(
-        35,
-        "Определение объекта..."
-    );
-
-
-    /*
-        segmentForeground возвращает PNG,
-        содержащий маску переднего плана.
-    */
-
-    const maskBlob =
-        await segmentForeground(
-            originalFile,
-            {
-                model:
-                    "isnet_quint8",
-
-                device:
-                    "gpu",
-
-                output:
-                {
-                    format:
-                        "image/png",
-
-                    type:
-                        "foreground"
-                }
-            }
-        );
-
-
-    setProgress(
-        80,
-        "Подготовка маски..."
-    );
-
-
-    const maskUrl =
-        URL.createObjectURL(
-            maskBlob
-        );
 
 
     try{
 
-        const img =
-            new Image();
-
-
-        await new Promise(
-            function(resolve,reject){
-
-                img.onload =
-                    resolve;
-
-                img.onerror =
-                    reject;
-
-                img.src =
-                    maskUrl;
-
-            }
+        setProgress(
+            5,
+            "Загрузка инструмента..."
         );
 
 
-        maskImage =
-            img;
-
-
-        /*
-            Создаём маску нужного размера.
-        */
-
-        const maskCanvas =
-            document.createElement(
-                "canvas"
+        const module =
+            await import(
+                "https://esm.sh/@imgly/background-removal@1.7.0"
             );
 
 
-        maskCanvas.width =
-            originalWidth;
+        removeBackgroundFunction =
+            module.removeBackground ||
+            module.default;
 
 
-        maskCanvas.height =
-            originalHeight;
+        if(
+            typeof removeBackgroundFunction !==
+            "function"
+        ){
 
-
-        const maskCtx =
-            maskCanvas.getContext(
-                "2d"
+            throw new Error(
+                "Функция удаления фона не найдена."
             );
 
-
-        maskCtx.clearRect(
-            0,
-            0,
-            originalWidth,
-            originalHeight
-        );
+        }
 
 
-        maskCtx.drawImage(
-            maskImage,
-            0,
-            0,
-            originalWidth,
-            originalHeight
-        );
-
-
-        maskData =
-            maskCtx.getImageData(
-                0,
-                0,
-                originalWidth,
-                originalHeight
-            );
-
-
-        processed =
+        libraryReady =
             true;
 
 
-    }finally{
+        return true;
 
-        URL.revokeObjectURL(
-            maskUrl
+    }catch(error){
+
+        console.error(
+            error
         );
+
+
+        setStatus(
+            "Не удалось загрузить инструмент удаления фона."
+        );
+
+
+        return false;
 
     }
 
@@ -1944,14 +1622,89 @@ async function prepareMask(){
 
 
 /* =====================================================
-   ПОЛЗУНОК
+   COMPARE
 ===================================================== */
 
-function updateRemovalStrength(){
+function setComparePosition(
+    value
+){
+
+    comparePosition =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                value
+            )
+        );
+
+
+    /*
+        Левая часть:
+        исходное изображение.
+
+        Правая часть:
+        результат.
+
+        При 50%:
+        половина исходника
+        + половина результата.
+    */
+
+    resultWrap.style.width =
+        (100 - comparePosition) +
+        "%";
+
+
+    /*
+        Результат должен начинаться
+        именно в точке разделителя.
+
+        Так как resultWrap расположен
+        от left=comparePosition,
+        задаём его left.
+    */
+
+    resultWrap.style.left =
+        comparePosition +
+        "%";
+
+
+    resultImage.style.left =
+        (-comparePosition) +
+        "%";
+
+
+    compareLine.style.left =
+        comparePosition +
+        "%";
+
+
+    removalHandlePosition();
+
+}
+
+
+function removalHandlePosition(){
+
+    compareHandle.style.left =
+        "50%";
+
+}
+
+
+/* =====================================================
+   FIXED COMPARE IMAGE WIDTH
+===================================================== */
+
+function syncResultImage(){
+
+    const width =
+        compare.clientWidth;
+
 
     if(
-        !processed ||
-        !maskData
+        width <= 0
     ){
 
         return;
@@ -1959,56 +1712,186 @@ function updateRemovalStrength(){
     }
 
 
-    const value =
-        Number(
-            removalSlider.value
-        );
+    resultImage.style.width =
+        width +
+        "px";
+
+}
 
 
-    removalValue.textContent =
-        value + "%";
+/* =====================================================
+   POINTER POSITION
+===================================================== */
 
+function pointerToPercent(
+    event
+){
 
-    const strength =
-        value / 100;
+    const rect =
+        compare.getBoundingClientRect();
 
 
     if(
-        strength <= 0
+        rect.width <= 0
     ){
 
-        showOriginalPreview();
-
-    }else{
-
-        showMaskPreview(
-            strength
-        );
+        return 50;
 
     }
 
 
-    setInfo(
-        "Степень удаления фона: " +
-        value +
-        "%"
+    const x =
+        event.clientX -
+        rect.left;
+
+
+    return (
+        x /
+        rect.width
+    ) * 100;
+
+}
+
+
+/* =====================================================
+   DRAG
+===================================================== */
+
+function startDrag(
+    event
+){
+
+    if(
+        !resultUrl
+    ){
+
+        return;
+
+    }
+
+
+    event.preventDefault();
+
+
+    dragging =
+        true;
+
+
+    try{
+
+        compare.setPointerCapture(
+            event.pointerId
+        );
+
+    }catch(error){
+
+    }
+
+
+    setComparePosition(
+        pointerToPercent(
+            event
+        )
     );
 
 }
 
 
-removalSlider.addEventListener(
-    "input",
-    function(){
+function moveDrag(
+    event
+){
 
-        updateRemovalStrength();
+    if(
+        !dragging
+    ){
+
+        return;
+
+    }
+
+
+    event.preventDefault();
+
+
+    setComparePosition(
+        pointerToPercent(
+            event
+        )
+    );
+
+}
+
+
+function stopDrag(){
+
+    dragging =
+        false;
+
+}
+
+
+compareLine.addEventListener(
+    "pointerdown",
+    startDrag
+);
+
+compareLine.addEventListener(
+    "pointermove",
+    moveDrag
+);
+
+compareLine.addEventListener(
+    "pointerup",
+    stopDrag
+);
+
+compareLine.addEventListener(
+    "pointercancel",
+    stopDrag
+);
+
+
+/*
+    Клик по самому сравнению
+    также перемещает разделитель.
+*/
+
+compare.addEventListener(
+    "pointerdown",
+    function(event){
+
+        if(
+            event.target ===
+            compareLine ||
+            compareLine.contains(
+                event.target
+            )
+        ){
+
+            return;
+
+        }
+
+
+        if(!resultUrl){
+
+            return;
+
+        }
+
+
+        setComparePosition(
+            pointerToPercent(
+                event
+            )
+        );
 
     }
 );
 
 
 /* =====================================================
-   ЗАГРУЗКА ФОТО
+   FILE INPUT
 ===================================================== */
 
 fileInput.addEventListener(
@@ -2043,34 +1926,15 @@ fileInput.addEventListener(
 
         try{
 
-            const img =
-                await readImage(
+            const size =
+                await getImageSize(
                     file
                 );
 
 
-            const width =
-                img.naturalWidth;
-
-
-            const height =
-                img.naturalHeight;
-
-
             if(
-                width <= 0 ||
-                height <= 0
-            ){
-
-                throw new Error(
-                    "Некорректный размер."
-                );
-
-            }
-
-
-            if(
-                width * height >
+                size.width *
+                size.height >
                 MAX_PIXELS
             ){
 
@@ -2083,55 +1947,70 @@ fileInput.addEventListener(
             }
 
 
+            /*
+                Освобождаем старые URL.
+            */
+
+            if(originalUrl){
+
+                URL.revokeObjectURL(
+                    originalUrl
+                );
+
+            }
+
+
+            if(resultUrl){
+
+                URL.revokeObjectURL(
+                    resultUrl
+                );
+
+            }
+
+
             originalFile =
                 file;
 
 
-            originalImage =
-                img;
-
-
-            originalWidth =
-                width;
-
-
-            originalHeight =
-                height;
-
-
-            maskImage =
+            resultBlob =
                 null;
 
 
-            maskData =
+            originalUrl =
+                URL.createObjectURL(
+                    file
+                );
+
+
+            resultUrl =
                 null;
 
 
-            processed =
-                false;
+            originalImage.src =
+                originalUrl;
 
 
-            removalSlider.value =
-                100;
+            originalImage.onload =
+                function(){
+
+                    syncResultImage();
+
+                };
 
 
-            removalValue.textContent =
-                "100%";
+            resultImage.removeAttribute(
+                "src"
+            );
 
 
-            removalControl.style.display =
-                "none";
+            compare.classList.remove(
+                "visible"
+            );
 
 
-            previewCanvas.width =
-                width;
-
-
-            previewCanvas.height =
-                height;
-
-
-            showOriginalPreview();
+            empty.style.display =
+                "block";
 
 
             removeButton.disabled =
@@ -2142,26 +2021,30 @@ fileInput.addEventListener(
                 true;
 
 
-            restoreButton.disabled =
+            showOriginalButton.disabled =
                 false;
+
+
+            comparePosition =
+                50;
+
+
+            progressWrap.style.display =
+                "none";
 
 
             setInfo(
                 "Размер: " +
-                width +
+                size.width +
                 " × " +
-                height +
+                size.height +
                 " px"
             );
 
 
             setStatus(
-                "Фотография загружена."
+                "Фотография загружена. Нажмите «Удалить фон»."
             );
-
-
-            progressWrap.style.display =
-                "none";
 
         }catch(error){
 
@@ -2181,7 +2064,7 @@ fileInput.addEventListener(
 
 
 /* =====================================================
-   УДАЛЕНИЕ ФОНА
+   REMOVE BACKGROUND
 ===================================================== */
 
 removeButton.addEventListener(
@@ -2207,13 +2090,17 @@ removeButton.addEventListener(
             true;
 
 
+        showOriginalButton.disabled =
+            true;
+
+
         progressWrap.style.display =
             "block";
 
 
         setProgress(
             10,
-            "Подготовка..."
+            "Подготовка изображения..."
         );
 
 
@@ -2224,41 +2111,113 @@ removeButton.addEventListener(
 
         try{
 
-            await prepareMask();
+            const ready =
+                await loadLibrary();
+
+
+            if(!ready){
+
+                throw new Error(
+                    "Library failed"
+                );
+
+            }
 
 
             setProgress(
-                95,
-                "Готово..."
+                35,
+                "Удаление фона..."
             );
 
 
-            /*
-                После обработки сразу показываем
-                полный результат — 100%.
-            */
+            resultBlob =
+                await removeBackgroundFunction(
+                    originalFile,
+                    {
+                        model:
+                            "isnet_quint8",
 
-            removalSlider.value =
-                100;
+                        device:
+                            "gpu",
+
+                        output:
+                        {
+                            format:
+                                "image/png",
+
+                            type:
+                                "foreground"
+                        }
+                    }
+                );
 
 
-            removalValue.textContent =
-                "100%";
+            if(!resultBlob){
+
+                throw new Error(
+                    "Empty result"
+                );
+
+            }
 
 
-            removalControl.style.display =
-                "block";
+            setProgress(
+                90,
+                "Подготовка результата..."
+            );
 
 
-            updateRemovalStrength();
+            if(resultUrl){
+
+                URL.revokeObjectURL(
+                    resultUrl
+                );
+
+            }
+
+
+            resultUrl =
+                URL.createObjectURL(
+                    resultBlob
+                );
+
+
+            resultImage.onload =
+                function(){
+
+                    syncResultImage();
+
+                    setComparePosition(
+                        50
+                    );
+
+                };
+
+
+            resultImage.src =
+                resultUrl;
+
+
+            compare.classList.add(
+                "visible"
+            );
+
+
+            empty.style.display =
+                "none";
 
 
             downloadButton.disabled =
                 false;
 
 
-            restoreButton.disabled =
+            showOriginalButton.disabled =
                 false;
+
+
+            setComparePosition(
+                50
+            );
 
 
             setProgress(
@@ -2268,7 +2227,7 @@ removeButton.addEventListener(
 
 
             setStatus(
-                "Фон удалён. Используйте ползунок для настройки результата."
+                "Фон удалён. Перемещайте линию для сравнения до и после."
             );
 
 
@@ -2289,16 +2248,26 @@ removeButton.addEventListener(
             );
 
 
-            maskData =
+            resultBlob =
                 null;
 
 
-            processed =
-                false;
+            if(resultUrl){
+
+                URL.revokeObjectURL(
+                    resultUrl
+                );
 
 
-            removalControl.style.display =
-                "none";
+                resultUrl =
+                    null;
+
+            }
+
+
+            compare.classList.remove(
+                "visible"
+            );
 
 
             setProgress(
@@ -2323,58 +2292,64 @@ removeButton.addEventListener(
 
 
 /* =====================================================
-   ПОКАЗАТЬ ИСХОДНОЕ
+   SHOW ORIGINAL
 ===================================================== */
 
-restoreButton.addEventListener(
+showOriginalButton.addEventListener(
     "click",
     function(){
 
-        if(!originalImage){
+        if(!originalUrl){
 
             return;
 
         }
 
 
-        removalSlider.value =
-            0;
+        compare.classList.add(
+            "visible"
+        );
 
 
-        removalValue.textContent =
-            "0%";
+        resultUrl
+        &&
+        resultImage.src;
 
 
-        if(processed && maskData){
+        if(resultUrl){
 
-            showOriginalPreview();
+            /*
+                Полностью показываем исходник:
+                разделитель справа.
+            */
 
-
-            setInfo(
-                "Степень удаления фона: 0%"
-            );
-
-
-            setStatus(
-                "Показано исходное изображение."
+            setComparePosition(
+                100
             );
 
         }else{
 
-            showOriginalPreview();
-
-            setStatus(
-                "Показано исходное изображение."
+            compare.classList.remove(
+                "visible"
             );
 
+
+            empty.style.display =
+                "block";
+
         }
+
+
+        setStatus(
+            "Показано исходное изображение."
+        );
 
     }
 );
 
 
 /* =====================================================
-   СКАЧИВАНИЕ PNG
+   DOWNLOAD
 ===================================================== */
 
 downloadButton.addEventListener(
@@ -2382,9 +2357,8 @@ downloadButton.addEventListener(
     function(){
 
         if(
-            !originalImage ||
-            !processed ||
-            !maskData
+            !resultBlob ||
+            !resultUrl
         ){
 
             setStatus(
@@ -2396,74 +2370,33 @@ downloadButton.addEventListener(
         }
 
 
-        /*
-            Canvas уже содержит текущую настройку
-            ползунка.
-        */
-
-        previewCanvas.toBlob(
-            function(blob){
-
-                if(!blob){
-
-                    setStatus(
-                        "Не удалось подготовить PNG."
-                    );
-
-                    return;
-
-                }
+        const link =
+            document.createElement(
+                "a"
+            );
 
 
-                const url =
-                    URL.createObjectURL(
-                        blob
-                    );
+        link.href =
+            resultUrl;
 
 
-                const link =
-                    document.createElement(
-                        "a"
-                    );
+        link.download =
+            "photo-without-background.png";
 
 
-                link.href =
-                    url;
+        document.body.appendChild(
+            link
+        );
 
 
-                link.download =
-                    "photo-without-background.png";
+        link.click();
 
 
-                document.body.appendChild(
-                    link
-                );
+        link.remove();
 
 
-                link.click();
-
-
-                link.remove();
-
-
-                setTimeout(
-                    function(){
-
-                        URL.revokeObjectURL(
-                            url
-                        );
-
-                    },
-                    1000
-                );
-
-
-                setStatus(
-                    "PNG готов к сохранению."
-                );
-
-            },
-            "image/png"
+        setStatus(
+            "PNG готов к сохранению."
         );
 
     }
@@ -2471,7 +2404,7 @@ downloadButton.addEventListener(
 
 
 /* =====================================================
-   НОВОЕ ФОТО
+   NEW PHOTO
 ===================================================== */
 
 newButton.addEventListener(
@@ -2482,60 +2415,57 @@ newButton.addEventListener(
             "";
 
 
+        if(originalUrl){
+
+            URL.revokeObjectURL(
+                originalUrl
+            );
+
+        }
+
+
+        if(resultUrl){
+
+            URL.revokeObjectURL(
+                resultUrl
+            );
+
+        }
+
+
         originalFile =
             null;
 
 
-        originalImage =
+        originalUrl =
             null;
 
 
-        maskImage =
+        resultUrl =
             null;
 
 
-        maskData =
+        resultBlob =
             null;
 
 
-        processed =
-            false;
-
-
-        originalWidth =
-            0;
-
-
-        originalHeight =
-            0;
-
-
-        previewCtx.clearRect(
-            0,
-            0,
-            previewCanvas.width,
-            previewCanvas.height
+        originalImage.removeAttribute(
+            "src"
         );
 
 
-        previewCanvas.width =
-            1;
+        resultImage.removeAttribute(
+            "src"
+        );
 
 
-        previewCanvas.height =
-            1;
-
-
-        previewCanvas.style.display =
-            "none";
+        compare.classList.remove(
+            "visible"
+        );
 
 
         empty.style.display =
             "block";
-
-
-        removalControl.style.display =
-            "none";
 
 
         progressWrap.style.display =
@@ -2550,16 +2480,17 @@ newButton.addEventListener(
             true;
 
 
-        restoreButton.disabled =
+        showOriginalButton.disabled =
             true;
 
 
-        removalSlider.value =
-            100;
+        comparePosition =
+            50;
 
 
-        removalValue.textContent =
-            "100%";
+        setComparePosition(
+            50
+        );
 
 
         setInfo(
@@ -2576,51 +2507,40 @@ newButton.addEventListener(
 
 
 /* =====================================================
-   ЗАЩИТА ОТ ОГРОМНЫХ CANVAS
+   RESIZE
 ===================================================== */
 
 window.addEventListener(
     "resize",
     function(){
 
-        /*
-            Canvas хранит исходный размер,
-            а CSS сам уменьшает его отображение.
-            Дополнительная перерисовка здесь не нужна.
-        */
+        syncResultImage();
+
+        setComparePosition(
+            comparePosition
+        );
 
     }
 );
 
 
 /* =====================================================
-   НАЧАЛЬНОЕ СОСТОЯНИЕ
+   INITIAL
 ===================================================== */
 
-previewCanvas.width =
-    1;
+compare.classList.remove(
+    "visible"
+);
 
-previewCanvas.height =
-    1;
-
-
-previewCanvas.style.display =
-    "none";
+empty.style.display =
+    "block";
 
 
-removeButton.disabled =
-    true;
-
-
-downloadButton.disabled =
-    true;
-
-
-restoreButton.disabled =
-    true;
+setComparePosition(
+    50
+);
 
 </script>
-
 
 </body>
 

@@ -149,11 +149,6 @@ header{
     border-color:#4a566b;
 }
 
-/*
-   Кнопка "Загрузить фото"
-   Теперь выглядит как настоящая активная
-   кнопка, а не как простая надпись.
-*/
 .tool-nav a.upload-nav-button{
     background:#315fa8;
     border-color:#4b7fd0;
@@ -291,6 +286,13 @@ input[type="file"]{
 #compareCanvas{
     display:block;
 
+    /*
+       ВАЖНО:
+       width/height задаются браузером
+       только визуально через max-width/max-height.
+       Сам Canvas сохраняет своё исходное
+       внутреннее разрешение.
+    */
     max-width:100%;
     max-height:76vh;
 
@@ -300,9 +302,6 @@ input[type="file"]{
     background:transparent;
 }
 
-/*
-   Вертикальная линия сравнения.
-*/
 .compare-line{
     position:absolute;
 
@@ -327,9 +326,6 @@ input[type="file"]{
     z-index:5;
 }
 
-/*
-   Круглая ручка.
-*/
 .compare-handle{
     position:absolute;
 
@@ -363,9 +359,6 @@ input[type="file"]{
     background:#1c2633;
 }
 
-/*
-   Подписи До / После.
-*/
 .compare-label{
     position:absolute;
 
@@ -774,10 +767,6 @@ footer{
 
 <main>
 
-<!-- =========================
-     HERO
-========================= -->
-
 <section class="hero">
 
     <div class="container">
@@ -796,19 +785,11 @@ footer{
 </section>
 
 
-<!-- =========================
-     EDITOR
-========================= -->
-
 <section>
 
     <div class="container">
 
         <div class="card">
-
-            <!-- =========================
-                 НАВИГАЦИЯ ПО ИНСТРУМЕНТАМ
-            ========================= -->
 
             <div class="tool-nav">
 
@@ -821,21 +802,15 @@ footer{
                 </a>
 
                 <a href="../crop/">
-
                     Обрезать фото
-
                 </a>
 
                 <a href="../resize/">
-
                     Изменить размер
-
                 </a>
 
                 <a href="../rotate/">
-
                     Повернуть фото
-
                 </a>
 
                 <a
@@ -849,16 +824,10 @@ footer{
             </div>
 
 
-            <!-- =========================
-                 КНОПКИ РЕДАКТОРА
-            ========================= -->
-
             <div class="controls">
 
                 <label for="fileInput">
-
                     Загрузить фото в редактор
-
                 </label>
 
                 <button
@@ -895,18 +864,12 @@ footer{
             </div>
 
 
-            <!-- INPUT -->
-
             <input
                 id="fileInput"
                 type="file"
                 accept="image/*"
             >
 
-
-            <!-- =========================
-                 РАБОЧАЯ ОБЛАСТЬ
-            ========================= -->
 
             <div
                 class="workspace"
@@ -929,12 +892,8 @@ footer{
                     class="compare-stage"
                     id="compareStage">
 
-                    <!-- ЕДИНСТВЕННЫЙ ВИДИМЫЙ CANVAS -->
-
                     <canvas id="compareCanvas"></canvas>
 
-
-                    <!-- ЛИНИЯ СРАВНЕНИЯ -->
 
                     <div
                         class="compare-line"
@@ -946,8 +905,6 @@ footer{
 
                     </div>
 
-
-                    <!-- ПОДПИСИ -->
 
                     <div class="compare-label compare-before">
                         До
@@ -961,10 +918,6 @@ footer{
 
             </div>
 
-
-            <!-- =========================
-                 ПРОГРЕСС
-            ========================= -->
 
             <div
                 class="progress-wrap"
@@ -990,15 +943,11 @@ footer{
             </div>
 
 
-            <!-- STATUS -->
-
             <div
                 class="status"
                 id="status">
             </div>
 
-
-            <!-- INFO -->
 
             <div
                 class="info"
@@ -1015,10 +964,6 @@ footer{
 
 </section>
 
-
-<!-- =========================
-     YANDEX ADS
-========================= -->
 
 <div class="container ad-wrap">
 
@@ -1049,10 +994,6 @@ footer{
 
 </div>
 
-
-<!-- =========================
-     HOW TO
-========================= -->
 
 <section
     class="content-section"
@@ -1123,10 +1064,6 @@ footer{
 </section>
 
 
-<!-- =========================
-     ABOUT
-========================= -->
-
 <section
     class="content-section"
     id="about">
@@ -1151,10 +1088,6 @@ footer{
 
 </section>
 
-
-<!-- =========================
-     FAQ
-========================= -->
 
 <section
     class="faq"
@@ -1199,6 +1132,20 @@ footer{
         <details>
 
             <summary>
+                В каком разрешении сохраняется фото?
+            </summary>
+
+            <p>
+                Рабочее изображение сохраняет исходное разрешение фотографии.
+                Визуальное уменьшение в рабочей области не уменьшает разрешение PNG.
+            </p>
+
+        </details>
+
+
+        <details>
+
+            <summary>
                 В каком формате сохраняется результат?
             </summary>
 
@@ -1227,10 +1174,6 @@ footer{
 </section>
 
 
-<!-- =========================
-     PRIVACY
-========================= -->
-
 <section
     class="privacy"
     id="privacy">
@@ -1254,20 +1197,13 @@ footer{
 </main>
 
 
-<!-- =========================
-     FOOTER
-========================= -->
-
 <footer>
 
     <div class="container footer-inner">
 
         <div class="copyright">
-
             © 2026 Photo Effect
-
         </div>
-
 
         <div class="footer-links">
 
@@ -1305,7 +1241,7 @@ footer{
 <script type="module">
 
 /* =========================================================
-   БИБЛИОТЕКА
+   БИБЛИОТЕКА УДАЛЕНИЯ ФОНА
 ========================================================= */
 
 import * as backgroundRemovalModule
@@ -1391,8 +1327,6 @@ let resultUrl = null;
 let comparePosition = 50;
 
 let dragging = false;
-
-const MAX_PIXELS = 20000000;
 
 
 /* =========================================================
@@ -1493,10 +1427,6 @@ fileInput.addEventListener(
         originalFile = file;
 
 
-        /*
-           Удаляем старый результат.
-        */
-
         if(resultUrl){
 
             URL.revokeObjectURL(
@@ -1541,12 +1471,14 @@ fileInput.addEventListener(
 
                 originalImage = image;
 
+                /*
+                   Здесь НЕТ уменьшения изображения.
+                   Canvas получает полностью исходное
+                   разрешение фотографии.
+                */
+
                 setupCanvas();
 
-
-                /*
-                   100% = полностью исходное фото.
-                */
 
                 comparePosition = 100;
 
@@ -1615,45 +1547,22 @@ function setupCanvas(){
     }
 
 
-    let width =
+    /*
+       САМОЕ ВАЖНОЕ ИЗМЕНЕНИЕ:
+
+       Canvas получает 100% исходного разрешения.
+       Никаких MAX_PIXELS и уменьшения здесь нет.
+    */
+
+    const width =
         originalImage.naturalWidth;
 
-    let height =
+    const height =
         originalImage.naturalHeight;
 
 
     if(!width || !height){
         return;
-    }
-
-
-    const pixels =
-        width * height;
-
-
-    /*
-       Ограничиваем слишком большие изображения.
-    */
-
-    if(pixels > MAX_PIXELS){
-
-        const scale =
-            Math.sqrt(
-                MAX_PIXELS / pixels
-            );
-
-        width =
-            Math.max(
-                1,
-                Math.round(width * scale)
-            );
-
-        height =
-            Math.max(
-                1,
-                Math.round(height * scale)
-            );
-
     }
 
 
@@ -1663,6 +1572,19 @@ function setupCanvas(){
     compareCanvas.height =
         height;
 
+
+    /*
+       CSS-ширина и CSS-высота НЕ уменьшают
+       внутреннее разрешение Canvas.
+
+       Например:
+       оригинал 6000x4000
+       Canvas остаётся 6000x4000
+
+       На экране браузер может показать
+       его как 900x600, но скачанный PNG
+       остаётся 6000x4000.
+    */
 
     compareCanvas.style.width =
         width + "px";
@@ -1694,12 +1616,6 @@ function drawComparison(){
         compareCanvas.height;
 
 
-    /*
-       Полностью очищаем Canvas.
-       Поэтому прозрачная часть результата
-       НЕ показывает исходную фотографию.
-    */
-
     ctx.clearRect(
         0,
         0,
@@ -1714,7 +1630,7 @@ function drawComparison(){
 
 
     /* =====================================================
-       ЛЕВО — ОРИГИНАЛ С ФОНОМ
+       ЛЕВО — ОРИГИНАЛ
     ===================================================== */
 
     if(dividerX > 0){
@@ -1824,10 +1740,6 @@ removeBtn.addEventListener(
 
         try{
 
-            /*
-               Сохраняем рабочий вызов.
-            */
-
             const blob =
                 await removeBackgroundFunction(
                     originalFile,
@@ -1894,13 +1806,13 @@ removeBtn.addEventListener(
                 resultImage = image;
 
 
-                /*
-                   После обработки
-                   линия всегда начинается по центру.
-                */
-
                 comparePosition = 50;
 
+
+                /*
+                   Canvas остаётся в исходном
+                   разрешении originalImage.
+                */
 
                 setupCanvas();
 
@@ -1988,6 +1900,11 @@ downloadBtn.addEventListener(
             return;
         }
 
+
+        /*
+           Скачивается исходный Blob результата
+           удаления фона, а не уменьшенный Canvas.
+        */
 
         const url =
             URL.createObjectURL(
@@ -2082,7 +1999,7 @@ function updatePositionFromPointer(event){
 
 
 /* =========================================================
-   POINTER DOWN
+   НАКАЧАЛО ПОЛЗУНКА
 ========================================================= */
 
 compareLine.addEventListener(
@@ -2111,7 +2028,7 @@ compareLine.addEventListener(
 
 
 /* =========================================================
-   POINTER MOVE
+   ДВИЖЕНИЕ
 ========================================================= */
 
 compareStage.addEventListener(
@@ -2135,7 +2052,7 @@ compareStage.addEventListener(
 
 
 /* =========================================================
-   POINTER UP
+   ОТПУСКАНИЕ
 ========================================================= */
 
 function stopDragging(event){
@@ -2281,7 +2198,7 @@ newBtn.addEventListener(
 
 
 /* =========================================================
-   RESIZE
+   RESIZE ОКНА
 ========================================================= */
 
 window.addEventListener(

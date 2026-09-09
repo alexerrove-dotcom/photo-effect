@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+>
 
 <title>Удалить фон с фото онлайн бесплатно — Photo Effect</title>
-<meta name="description" content="Удалите фон с фотографии онлайн автоматически. Быстро, бесплатно и без установки программ. Сравните исходное фото и результат с прозрачным фоном.">
-<meta name="keywords" content="удалить фон с фото, убрать фон с фотографии, удаление фона онлайн, прозрачный фон, remove background">
+
+<meta
+    name="description"
+    content="Удалите фон с фотографии онлайн автоматически. Быстро, бесплатно и без установки программ. Сравните исходное фото и результат с прозрачным фоном."
+>
+
+<meta
+    name="keywords"
+    content="удалить фон с фото, убрать фон с фотографии, удаление фона онлайн, прозрачный фон, remove background"
+>
 
 <style>
+
 *{
     box-sizing:border-box;
 }
@@ -23,6 +37,7 @@ body{
     color:#f2f4f8;
     font-family:Arial,Helvetica,sans-serif;
     line-height:1.6;
+    overflow-x:hidden;
 }
 
 a{
@@ -35,54 +50,59 @@ a{
     margin:0 auto;
 }
 
-/* =========================
-   HEADER
-========================= */
+/* =====================================================
+   HEADER — ЕДИНЫЙ ДЛЯ ВСЕХ СТРАНИЦ
+===================================================== */
 
 header{
     position:sticky;
     top:0;
     z-index:1000;
     background:rgba(11,13,18,.94);
+    border-bottom:1px solid #252a35;
     backdrop-filter:blur(12px);
-    border-bottom:1px solid #1b202b;
 }
 
-.header-inner{
-    min-height:72px;
+.nav{
+    max-width:1180px;
+    margin:auto;
+    padding:14px 20px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:20px;
 }
 
 .logo{
-    font-size:21px;
+    text-decoration:none;
+    font-size:20px;
     font-weight:800;
     white-space:nowrap;
 }
 
-.logo span{
-    color:#6ea8fe;
-}
-
-.top-nav{
+.navLinks{
     display:flex;
-    align-items:center;
-    justify-content:flex-end;
-    gap:18px;
     flex-wrap:wrap;
+    justify-content:flex-end;
+    gap:15px;
+
     font-size:14px;
-    color:#b9c0cc;
 }
 
-.top-nav a:hover{
+.navLinks a{
+    color:#b8beca;
+    text-decoration:none;
+}
+
+.navLinks a:hover{
     color:#fff;
 }
 
-/* =========================
+/* =====================================================
    HERO
-========================= */
+===================================================== */
 
 .hero{
     padding:58px 0 34px;
@@ -91,6 +111,7 @@ header{
 
 .hero h1{
     margin:0 0 14px;
+
     font-size:clamp(32px,5vw,56px);
     line-height:1.08;
 }
@@ -98,25 +119,28 @@ header{
 .hero p{
     max-width:760px;
     margin:0 auto;
+
     color:#a8b0bd;
     font-size:17px;
 }
 
-/* =========================
+/* =====================================================
    CARD
-========================= */
+===================================================== */
 
 .card{
     background:#12161e;
     border:1px solid #242b38;
     border-radius:22px;
+
     padding:24px;
+
     box-shadow:0 20px 70px rgba(0,0,0,.25);
 }
 
-/* =========================
+/* =====================================================
    TOOL NAV
-========================= */
+===================================================== */
 
 .tool-nav{
     display:flex;
@@ -126,79 +150,101 @@ header{
 }
 
 .tool-nav a{
-    border:1px solid #303949;
-    background:#181d26;
-    color:#f2f4f8;
-    border-radius:12px;
+    border:1px solid #343b48;
+    background:#1b202a;
+    color:#fff;
+
+    border-radius:10px;
+
     min-height:46px;
-    padding:11px 16px;
+    padding:10px 17px;
+
     font-size:14px;
+    font-weight:700;
+
     cursor:pointer;
-    transition:.18s ease;
+
+    transition:.15s;
+
     display:inline-flex;
     align-items:center;
     justify-content:center;
+
     text-align:center;
 }
 
 .tool-nav a:hover{
-    background:#202735;
-    border-color:#4a566b;
+    background:#252b36;
 }
 
-.tool-nav .upload-nav-button,
 .tool-nav .active{
-    background:#315fa8;
-    border-color:#4b7fd0;
+    background:#fff;
+    color:#101217;
+    border-color:#fff;
 }
 
-.tool-nav .upload-nav-button:hover,
 .tool-nav .active:hover{
-    background:#3a6fbd;
-    border-color:#5a8de0;
+    background:#e7e9ed;
 }
 
-/* =========================
+/* =====================================================
    CONTROLS
-========================= */
+===================================================== */
 
 .controls{
     display:flex;
     flex-wrap:wrap;
+
     gap:10px;
+
     margin-bottom:20px;
 }
 
 .controls button,
 .controls label{
-    border:1px solid #303949;
-    background:#181d26;
-    color:#f2f4f8;
-    border-radius:12px;
+
+    border:1px solid #343b48;
+
+    background:#1b202a;
+
+    color:#fff;
+
+    border-radius:10px;
+
     min-height:46px;
-    padding:11px 16px;
+
+    padding:10px 17px;
+
     font-size:14px;
+
+    font-weight:700;
+
     cursor:pointer;
-    transition:.18s ease;
+
+    transition:.15s;
+
     display:inline-flex;
+
     align-items:center;
+
     justify-content:center;
+
     text-align:center;
 }
 
 .controls button:hover,
 .controls label:hover{
-    background:#202735;
-    border-color:#4a566b;
+    background:#252b36;
 }
 
 .controls button.primary{
-    background:#315fa8;
-    border-color:#4b7fd0;
+    background:#fff;
+    color:#101217;
+    border-color:#fff;
 }
 
 .controls button.primary:hover{
-    background:#3a6fbd;
+    background:#e7e9ed;
 }
 
 .controls button:disabled{
@@ -210,51 +256,57 @@ input[type="file"]{
     display:none;
 }
 
-/* =========================
+/* =====================================================
    WORKSPACE
-========================= */
+===================================================== */
 
 .workspace{
     position:relative;
+
     min-height:420px;
 
-    border:2px dashed #333b4b;
-    border-radius:18px;
+    border:1px dashed #394150;
+
+    border-radius:14px;
 
     background-color:#11151c;
 
     background-image:
-        linear-gradient(45deg,#191e27 25%,transparent 25%),
-        linear-gradient(-45deg,#191e27 25%,transparent 25%),
-        linear-gradient(45deg,transparent 75%,#191e27 75%),
-        linear-gradient(-45deg,transparent 75%,#191e27 75%);
+        linear-gradient(45deg,#151a22 25%,transparent 25%),
+        linear-gradient(-45deg,#151a22 25%,transparent 25%),
+        linear-gradient(45deg,transparent 75%,#151a22 75%),
+        linear-gradient(-45deg,transparent 75%,#151a22 75%);
 
-    background-size:28px 28px;
+    background-size:24px 24px;
 
     background-position:
         0 0,
-        0 14px,
-        14px -14px,
-        -14px 0;
+        0 12px,
+        12px -12px,
+        -12px 0;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     overflow:hidden;
 }
 
-/* =========================
+/* =====================================================
    ORIGINAL PREVIEW
-========================= */
+===================================================== */
 
 .original-preview{
     display:none;
 
     width:100%;
+
     min-height:416px;
 
     align-items:center;
+
     justify-content:center;
 
     padding:12px;
@@ -264,66 +316,67 @@ input[type="file"]{
     display:block;
 
     max-width:100%;
+
     max-height:76vh;
 
     width:auto;
+
     height:auto;
 
     object-fit:contain;
 
     user-select:none;
+
     -webkit-user-drag:none;
 }
 
-/* =========================
+/* =====================================================
    EMPTY
-========================= */
+===================================================== */
 
 .empty-state{
     padding:30px;
+
     text-align:center;
+
     color:#7f8998;
 }
 
 .empty-state strong{
     display:block;
+
     color:#c8ced8;
+
     font-size:19px;
+
     margin-bottom:6px;
 }
 
-/* =========================
+/* =====================================================
    COMPARE
-========================= */
+===================================================== */
 
 .compare-stage{
     position:relative;
+
     display:none;
 
-    /*
-       Не задаём ширину и высоту вручную.
-       Canvas сам сохраняет свои пропорции.
-    */
     max-width:100%;
+
     max-height:76vh;
 
     line-height:0;
 
     user-select:none;
+
     touch-action:none;
 }
 
 #compareCanvas{
     display:block;
 
-    /*
-       Внутреннее разрешение Canvas определяется
-       compareCanvas.width / height.
-
-       CSS здесь только ограничивает отображение.
-       Пропорции сохраняются автоматически.
-    */
     max-width:100%;
+
     max-height:76vh;
 
     background:transparent;
@@ -333,7 +386,9 @@ input[type="file"]{
     position:absolute;
 
     top:0;
+
     bottom:0;
+
     left:50%;
 
     width:3px;
@@ -357,9 +412,11 @@ input[type="file"]{
     position:absolute;
 
     left:50%;
+
     top:50%;
 
     width:46px;
+
     height:46px;
 
     transform:translate(-50%,-50%);
@@ -373,7 +430,9 @@ input[type="file"]{
     color:#fff;
 
     display:flex;
+
     align-items:center;
+
     justify-content:center;
 
     font-size:20px;
@@ -415,9 +474,9 @@ input[type="file"]{
     right:14px;
 }
 
-/* =========================
+/* =====================================================
    STATUS
-========================= */
+===================================================== */
 
 .status{
     display:none;
@@ -449,6 +508,7 @@ input[type="file"]{
 
 .progress-fill{
     width:0%;
+
     height:100%;
 
     background:#4b7fd0;
@@ -478,9 +538,9 @@ input[type="file"]{
     font-size:13px;
 }
 
-/* =========================
+/* =====================================================
    AD
-========================= */
+===================================================== */
 
 .ad-wrap{
     margin:28px 0;
@@ -494,9 +554,9 @@ input[type="file"]{
     align-items:center;
 }
 
-/* =========================
+/* =====================================================
    CONTENT
-========================= */
+===================================================== */
 
 .content-section{
     padding:58px 0 10px;
@@ -504,6 +564,7 @@ input[type="file"]{
 
 .content-section h2{
     margin:0 0 14px;
+
     font-size:30px;
 }
 
@@ -513,8 +574,11 @@ input[type="file"]{
 
 .feature-grid{
     display:grid;
+
     grid-template-columns:repeat(3,1fr);
+
     gap:16px;
+
     margin-top:22px;
 }
 
@@ -530,17 +594,19 @@ input[type="file"]{
 
 .feature-card h3{
     margin:0 0 8px;
+
     font-size:18px;
 }
 
 .feature-card p{
     margin:0;
+
     font-size:14px;
 }
 
-/* =========================
+/* =====================================================
    FAQ
-========================= */
+===================================================== */
 
 .faq{
     padding:54px 0 10px;
@@ -564,17 +630,19 @@ details{
 
 summary{
     cursor:pointer;
+
     font-weight:700;
 }
 
 details p{
     color:#a8b0bd;
+
     margin:12px 0 0;
 }
 
-/* =========================
+/* =====================================================
    PRIVACY
-========================= */
+===================================================== */
 
 .privacy{
     padding:54px 0;
@@ -584,70 +652,64 @@ details p{
     color:#a8b0bd;
 }
 
-/* =========================
+/* =====================================================
    FOOTER
-========================= */
+===================================================== */
 
 footer{
-    border-top:1px solid #1b202b;
+    border-top:1px solid #252a35;
 
-    margin-top:40px;
+    padding:28px 20px 40px;
 
-    padding:28px 0 40px;
+    color:#858e9d;
+
+    font-size:14px;
+
+    text-align:center;
 }
 
-.footer-inner{
+.footerNav{
     display:flex;
-
-    justify-content:space-between;
-
-    gap:20px;
-
-    flex-wrap:wrap;
-}
-
-.footer-links{
-    display:flex;
-
-    gap:16px;
 
     flex-wrap:wrap;
 
-    color:#9da6b4;
+    justify-content:center;
 
-    font-size:14px;
+    gap:10px 18px;
+
+    margin-bottom:12px;
 }
 
-.copyright{
-    color:#6f7784;
+.footerNav a{
+    color:#aeb5c2;
 
-    font-size:14px;
+    text-decoration:none;
 }
 
-/* =========================
+.footerNav a:hover{
+    color:#fff;
+}
+
+/* =====================================================
    MOBILE
-========================= */
+===================================================== */
 
 @media(max-width:800px){
 
-    .container{
-        width:min(100% - 20px,1180px);
-    }
-
-    .header-inner{
-        min-height:auto;
-        padding:14px 0;
-
+    .nav{
         align-items:flex-start;
+
         flex-direction:column;
     }
 
-    .top-nav{
+    .navLinks{
         justify-content:flex-start;
 
-        gap:11px 15px;
+        gap:10px 14px;
+    }
 
-        font-size:13px;
+    .container{
+        width:min(100% - 20px,1180px);
     }
 
     .hero{
@@ -663,8 +725,9 @@ footer{
     }
 
     .card{
-        padding:14px;
-        border-radius:17px;
+        padding:15px;
+
+        border-radius:14px;
     }
 
     .tool-nav,
@@ -688,7 +751,6 @@ footer{
 
     .workspace{
         min-height:300px;
-        border-radius:15px;
     }
 
     .original-preview{
@@ -701,11 +763,13 @@ footer{
 
     .compare-stage{
         max-width:100%;
+
         max-height:65vh;
     }
 
     #compareCanvas{
         max-width:100%;
+
         max-height:65vh;
     }
 
@@ -716,6 +780,13 @@ footer{
     .content-section{
         padding-top:42px;
     }
+
+    .footerNav{
+        flex-direction:column;
+
+        gap:8px;
+    }
+
 }
 
 @media(max-width:460px){
@@ -727,537 +798,30 @@ footer{
 
     .compare-handle{
         width:42px;
+
         height:42px;
     }
+
 }
+
 </style>
+
 </head>
 
 <body>
 
 <header>
 
-<div class="container header-inner">
+<div class="nav">
 
-    <a href="../" class="logo">
-        Photo <span>Effect</span>
+    <a
+        href="../"
+        class="logo"
+    >
+        Фото + эффект
     </a>
 
-    <nav class="top-nav">
-
-        <a href="../">
-            Инструмент
-        </a>
-
-        <a href="../crop/">
-            Обрезка фото
-        </a>
-
-        <a href="../resize/">
-            Изменить размер
-        </a>
-
-        <a href="../rotate/">
-            Повернуть фото
-        </a>
-
-        <a href="#how">
-            Как пользоваться
-        </a>
-
-        <a href="#about">
-            О сервисе
-        </a>
-
-        <a href="#faq">
-            FAQ
-        </a>
-
-        <a href="#privacy">
-            Конфиденциальность
-        </a>
-
-    </nav>
-
-</div>
-
-</header>
-
-
-<main>
-
-<section class="hero">
-
-<div class="container">
-
-    <h1>
-        Удалить фон с фото
-    </h1>
-
-    <p>
-        Автоматически удалите фон с фотографии прямо в браузере.
-        После обработки сравните исходное фото и результат с помощью вертикального ползунка.
-    </p>
-
-</div>
-
-</section>
-
-
-<section>
-
-<div class="container">
-
-<div class="card">
-
-    <!-- НАВИГАЦИЯ ПО ИНСТРУМЕНТАМ -->
-
-    <div class="tool-nav">
-
-        <a
-            href="../"
-            class="upload-nav-button">
-
-            Загрузить фото
-
-        </a>
-
-        <a href="../crop/">
-            Обрезать фото
-        </a>
-
-        <a href="../resize/">
-            Изменить размер
-        </a>
-
-        <a href="../rotate/">
-            Повернуть фото
-        </a>
-
-        <a
-            href="./"
-            class="active">
-
-            Удалить фон
-
-        </a>
-
-    </div>
-
-
-    <!-- КНОПКИ -->
-
-    <div class="controls">
-
-        <label for="fileInput">
-            Загрузить фото в редактор
-        </label>
-
-        <button
-            id="removeBtn"
-            class="primary"
-            disabled>
-
-            Удалить фон
-
-        </button>
-
-        <button
-            id="downloadBtn"
-            disabled>
-
-            Скачать PNG
-
-        </button>
-
-        <button
-            id="originalBtn"
-            disabled>
-
-            Показать исходное
-
-        </button>
-
-        <button id="newBtn">
-
-            Новое фото
-
-        </button>
-
-    </div>
-
-
-    <input
-        id="fileInput"
-        type="file"
-        accept="image/*"
-    >
-
-
-    <!-- РАБОЧАЯ ОБЛАСТЬ -->
-
-    <div
-        class="workspace"
-        id="workspace">
-
-
-        <!-- ИСХОДНАЯ ФОТОГРАФИЯ -->
-
-        <div
-            class="original-preview"
-            id="originalPreviewWrap">
-
-            <img
-                id="originalPreview"
-                alt="Загруженная фотография"
-            >
-
-        </div>
-
-
-        <!-- ПУСТОЕ СОСТОЯНИЕ -->
-
-        <div
-            class="empty-state"
-            id="emptyState">
-
-            <strong>
-                Загрузите фотографию
-            </strong>
-
-            После удаления фона здесь появится сравнение результата
-
-        </div>
-
-
-        <!-- СРАВНЕНИЕ -->
-
-        <div
-            class="compare-stage"
-            id="compareStage">
-
-            <canvas id="compareCanvas"></canvas>
-
-            <div
-                class="compare-line"
-                id="compareLine">
-
-                <div class="compare-handle">
-                    ↔
-                </div>
-
-            </div>
-
-            <div class="compare-label compare-before">
-                До
-            </div>
-
-            <div class="compare-label compare-after">
-                После
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ПРОГРЕСС -->
-
-    <div
-        class="progress-wrap"
-        id="progressWrap">
-
-        <div class="progress-bar">
-
-            <div
-                class="progress-fill"
-                id="progressFill">
-            </div>
-
-        </div>
-
-        <div
-            class="progress-text"
-            id="progressText">
-
-            Подготовка...
-
-        </div>
-
-    </div>
-
-
-    <div
-        class="status"
-        id="status">
-    </div>
-
-
-    <div
-        class="info"
-        id="info">
-
-        Перемещайте вертикальную линию пальцем или мышью,
-        чтобы сравнить исходное фото с результатом.
-
-    </div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- РЕКЛАМА -->
-
-<div class="container ad-wrap">
-
-    <div id="yandex_rtb_R-A-20003018-1"></div>
-
-    <script>
-    window.yaContextCb = window.yaContextCb || [];
-    </script>
-
-    <script
-        src="https://yandex.ru/ads/system/context.js"
-        async>
-    </script>
-
-    <script>
-    window.yaContextCb.push(() => {
-
-        Ya.Context.AdvManager.renderWidget({
-
-            blockId:"R-A-20003018-1",
-
-            renderTo:"yandex_rtb_R-A-20003018-1"
-
-        });
-
-    });
-    </script>
-
-</div>
-
-
-<!-- КАК ПОЛЬЗОВАТЬСЯ -->
-
-<section
-    class="content-section"
-    id="how">
-
-<div class="container">
-
-    <h2>
-        Как удалить фон с фотографии
-    </h2>
-
-    <p>
-        Загрузите изображение, нажмите «Удалить фон» и дождитесь завершения обработки.
-        После этого появится вертикальный разделитель.
-        Слева будет исходное изображение, справа — результат с удалённым фоном.
-    </p>
-
-    <p>
-        Перемещайте разделитель мышью или пальцем,
-        чтобы сравнить результат обработки.
-    </p>
-
-
-    <div class="feature-grid">
-
-        <div class="feature-card">
-
-            <h3>
-                1. Загрузите фото
-            </h3>
-
-            <p>
-                Выберите фотографию с компьютера или телефона.
-            </p>
-
-        </div>
-
-
-        <div class="feature-card">
-
-            <h3>
-                2. Удалите фон
-            </h3>
-
-            <p>
-                Нажмите кнопку удаления фона и дождитесь обработки.
-            </p>
-
-        </div>
-
-
-        <div class="feature-card">
-
-            <h3>
-                3. Скачайте PNG
-            </h3>
-
-            <p>
-                Результат сохраняется в формате PNG с прозрачным фоном.
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-</section>
-
-
-<!-- О СЕРВИСЕ -->
-
-<section
-    class="content-section"
-    id="about">
-
-<div class="container">
-
-    <h2>
-        Удаление фона онлайн
-    </h2>
-
-    <p>
-        Photo Effect — простой онлайн-сервис для обработки изображений.
-        Фотография обрабатывается непосредственно в браузере пользователя.
-    </p>
-
-    <p>
-        После обработки можно сравнить исходную фотографию
-        с результатом с помощью вертикального разделителя.
-    </p>
-
-</div>
-
-</section>
-
-
-<!-- FAQ -->
-
-<section
-    class="faq"
-    id="faq">
-
-<div class="container">
-
-    <h2>
-        Частые вопросы
-    </h2>
-
-
-    <details>
-
-        <summary>
-            Как работает сравнение До / После?
-        </summary>
-
-        <p>
-            Используется один Canvas.
-            Слева показывается исходная фотография,
-            справа — обработанный результат с прозрачным фоном.
-        </p>
-
-    </details>
-
-
-    <details>
-
-        <summary>
-            Можно ли двигать ползунок пальцем?
-        </summary>
-
-        <p>
-            Да. Ползунок работает мышью и пальцем.
-        </p>
-
-    </details>
-
-
-    <details>
-
-        <summary>
-            Сохраняется ли разрешение фотографии?
-        </summary>
-
-        <p>
-            Исходное фото не уменьшается при загрузке.
-            Результат скачивается непосредственно из готового PNG.
-        </p>
-
-    </details>
-
-
-    <details>
-
-        <summary>
-            В каком формате скачивается результат?
-        </summary>
-
-        <p>
-            PNG с прозрачным фоном.
-        </p>
-
-    </details>
-
-
-    <details>
-
-        <summary>
-            Нужно ли устанавливать программу?
-        </summary>
-
-        <p>
-            Нет. Инструмент работает непосредственно в браузере.
-        </p>
-
-    </details>
-
-</div>
-
-</section>
-
-
-<!-- PRIVACY -->
-
-<section
-    class="privacy"
-    id="privacy">
-
-<div class="container">
-
-    <h2>
-        Конфиденциальность
-    </h2>
-
-    <p>
-        Выбранное изображение обрабатывается в браузере пользователя.
-        Сервис не предоставляет отдельной формы для постоянного хранения
-        загруженных фотографий.
-    </p>
-
-</div>
-
-</section>
-
-</main>
-
-
-<footer>
-
-<div class="container footer-inner">
-
-    <div class="copyright">
-        © 2026 Photo Effect
-    </div>
-
-    <div class="footer-links">
+    <nav class="navLinks">
 
         <a href="../">
             Инструмент
@@ -1279,16 +843,504 @@ footer{
             Удалить фон
         </a>
 
-        <a href="#privacy">
+        <a href="../#how-to">
+            Как пользоваться
+        </a>
+
+        <a href="../#about">
+            О сервисе
+        </a>
+
+        <a href="../#faq">
+            FAQ
+        </a>
+
+        <a href="../#privacy">
             Конфиденциальность
         </a>
+
+    </nav>
+
+</div>
+
+</header>
+
+<main>
+
+<section class="hero">
+
+<div class="container">
+
+    <h1>
+        Удалить фон с фото
+    </h1>
+
+    <p>
+        Автоматически удалите фон с фотографии прямо в браузере.
+        После обработки сравните исходное фото и результат с помощью вертикального ползунка.
+    </p>
+
+</div>
+
+</section>
+
+<section>
+
+<div class="container">
+
+<div class="card">
+
+    <div class="tool-nav">
+
+        <a href="../">
+            Инструмент
+        </a>
+
+        <a href="../crop/">
+            Обрезка фото
+        </a>
+
+        <a href="../resize/">
+            Изменить размер
+        </a>
+
+        <a href="../rotate/">
+            Повернуть фото
+        </a>
+
+        <a
+            href="./"
+            class="active"
+        >
+            Удалить фон
+        </a>
+
+    </div>
+
+    <div class="controls">
+
+        <label for="fileInput">
+            Загрузить фото
+        </label>
+
+        <button
+            id="removeBtn"
+            class="primary"
+            disabled
+        >
+            Удалить фон
+        </button>
+
+        <button
+            id="downloadBtn"
+            disabled
+        >
+            Скачать PNG
+        </button>
+
+        <button
+            id="originalBtn"
+            disabled
+        >
+            Показать исходное
+        </button>
+
+        <button id="newBtn">
+            Новое фото
+        </button>
+
+    </div>
+
+    <input
+        id="fileInput"
+        type="file"
+        accept="image/*"
+    >
+
+    <div
+        class="workspace"
+        id="workspace"
+    >
+
+        <div
+            class="original-preview"
+            id="originalPreviewWrap"
+        >
+
+            <img
+                id="originalPreview"
+                alt="Загруженная фотография"
+            >
+
+        </div>
+
+        <div
+            class="empty-state"
+            id="emptyState"
+        >
+
+            <strong>
+                Загрузите фотографию
+            </strong>
+
+            После удаления фона здесь появится сравнение результата
+
+        </div>
+
+        <div
+            class="compare-stage"
+            id="compareStage"
+        >
+
+            <canvas id="compareCanvas"></canvas>
+
+            <div
+                class="compare-line"
+                id="compareLine"
+            >
+
+                <div class="compare-handle">
+                    ↔
+                </div>
+
+            </div>
+
+            <div class="compare-label compare-before">
+                До
+            </div>
+
+            <div class="compare-label compare-after">
+                После
+            </div>
+
+        </div>
+
+    </div>
+
+    <div
+        class="progress-wrap"
+        id="progressWrap"
+    >
+
+        <div class="progress-bar">
+
+            <div
+                class="progress-fill"
+                id="progressFill"
+            ></div>
+
+        </div>
+
+        <div
+            class="progress-text"
+            id="progressText"
+        >
+            Подготовка...
+        </div>
+
+    </div>
+
+    <div
+        class="status"
+        id="status"
+    ></div>
+
+    <div
+        class="info"
+        id="info"
+    >
+        Перемещайте вертикальную линию пальцем или мышью,
+        чтобы сравнить исходное фото с результатом.
+    </div>
+
+</div>
+
+</div>
+
+</section>
+
+<div class="container ad-wrap">
+
+    <div id="yandex_rtb_R-A-20003018-1"></div>
+
+    <script>
+    window.yaContextCb = window.yaContextCb || [];
+    </script>
+
+    <script
+        src="https://yandex.ru/ads/system/context.js"
+        async>
+    </script>
+
+    <script>
+    window.yaContextCb.push(() => {
+
+        if (
+            window.Ya &&
+            Ya.Context &&
+            Ya.Context.AdvManager
+        ) {
+
+            Ya.Context.AdvManager.render({
+
+                blockId:
+                    "R-A-20003018-1",
+
+                renderTo:
+                    "yandex_rtb_R-A-20003018-1"
+
+            });
+
+        }
+
+    });
+    </script>
+
+</div>
+
+<section
+    class="content-section"
+    id="how"
+>
+
+<div class="container">
+
+    <h2>
+        Как удалить фон с фотографии
+    </h2>
+
+    <p>
+        Загрузите изображение, нажмите «Удалить фон» и дождитесь завершения обработки.
+        После этого появится вертикальный разделитель.
+        Слева будет исходное изображение, справа — результат с удалённым фоном.
+    </p>
+
+    <p>
+        Перемещайте разделитель мышью или пальцем,
+        чтобы сравнить результат обработки.
+    </p>
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+
+            <h3>
+                1. Загрузите фото
+            </h3>
+
+            <p>
+                Выберите фотографию с компьютера или телефона.
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <h3>
+                2. Удалите фон
+            </h3>
+
+            <p>
+                Нажмите кнопку удаления фона и дождитесь обработки.
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <h3>
+                3. Скачайте PNG
+            </h3>
+
+            <p>
+                Результат сохраняется в формате PNG с прозрачным фоном.
+            </p>
+
+        </div>
 
     </div>
 
 </div>
 
-</footer>
+</section>
 
+<section
+    class="content-section"
+    id="about"
+>
+
+<div class="container">
+
+    <h2>
+        Удаление фона онлайн
+    </h2>
+
+    <p>
+        Photo Effect — простой онлайн-сервис для обработки изображений.
+        Фотография обрабатывается непосредственно в браузере пользователя.
+    </p>
+
+    <p>
+        После обработки можно сравнить исходную фотографию
+        с результатом с помощью вертикального разделителя.
+    </p>
+
+</div>
+
+</section>
+
+<section
+    class="faq"
+    id="faq"
+>
+
+<div class="container">
+
+    <h2>
+        Частые вопросы
+    </h2>
+
+    <details>
+
+        <summary>
+            Как работает сравнение До / После?
+        </summary>
+
+        <p>
+            Используется один Canvas.
+            Слева показывается исходная фотография,
+            справа — обработанный результат с прозрачным фоном.
+        </p>
+
+    </details>
+
+    <details>
+
+        <summary>
+            Можно ли двигать ползунок пальцем?
+        </summary>
+
+        <p>
+            Да. Ползунок работает мышью и пальцем.
+        </p>
+
+    </details>
+
+    <details>
+
+        <summary>
+            Сохраняется ли разрешение фотографии?
+        </summary>
+
+        <p>
+            Исходное фото не уменьшается при загрузке.
+            Результат скачивается непосредственно из готового PNG.
+        </p>
+
+    </details>
+
+    <details>
+
+        <summary>
+            В каком формате скачивается результат?
+        </summary>
+
+        <p>
+            PNG с прозрачным фоном.
+        </p>
+
+    </details>
+
+    <details>
+
+        <summary>
+            Нужно ли устанавливать программу?
+        </summary>
+
+        <p>
+            Нет. Инструмент работает непосредственно в браузере.
+        </p>
+
+    </details>
+
+</div>
+
+</section>
+
+<section
+    class="privacy"
+    id="privacy"
+>
+
+<div class="container">
+
+    <h2>
+        Конфиденциальность
+    </h2>
+
+    <p>
+        Выбранное изображение обрабатывается в браузере пользователя.
+        Сервис не предоставляет отдельной формы для постоянного хранения
+        загруженных фотографий.
+    </p>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+
+<div class="container">
+
+    <nav class="footerNav">
+
+        <a href="../">
+            Инструмент
+        </a>
+
+        <a href="../crop/">
+            Обрезка фото
+        </a>
+
+        <a href="../resize/">
+            Изменить размер
+        </a>
+
+        <a href="../rotate/">
+            Повернуть фото
+        </a>
+
+        <a href="./">
+            Удалить фон
+        </a>
+
+        <a href="../#how-to">
+            Как пользоваться
+        </a>
+
+        <a href="../#about">
+            О сервисе
+        </a>
+
+        <a href="../#faq">
+            FAQ
+        </a>
+
+        <a href="../#privacy">
+            Конфиденциальность
+        </a>
+
+    </nav>
+
+    <div>
+        Фото + эффект — бесплатные онлайн-инструменты для работы с фотографиями.
+    </div>
+
+</div>
+
+</footer>
 
 <script type="module">
 
@@ -1299,18 +1351,21 @@ footer{
 import * as backgroundRemovalModule
     from "https://esm.sh/@imgly/background-removal@1.7.0";
 
+
 const removeBackgroundFunction =
     backgroundRemovalModule.removeBackground ||
     backgroundRemovalModule.default;
 
-if(typeof removeBackgroundFunction !== "function"){
+
+if(
+    typeof removeBackgroundFunction !== "function"
+){
 
     throw new Error(
         "Не удалось загрузить модуль удаления фона."
     );
 
 }
-
 
 /* =========================================================
    ELEMENTS
@@ -1352,7 +1407,6 @@ const compareLine =
 const ctx =
     compareCanvas.getContext("2d");
 
-
 const progressWrap =
     document.getElementById("progressWrap");
 
@@ -1368,62 +1422,85 @@ const status =
 const info =
     document.getElementById("info");
 
-
 /* =========================================================
    STATE
 ========================================================= */
 
-let originalFile = null;
+let originalFile =
+    null;
 
-let originalImage = null;
+let originalImage =
+    null;
 
-let resultImage = null;
+let resultImage =
+    null;
 
-let resultBlob = null;
+let resultBlob =
+    null;
 
-let resultUrl = null;
+let resultUrl =
+    null;
 
-let originalUrl = null;
+let originalUrl =
+    null;
 
-let comparePosition = 50;
+let comparePosition =
+    50;
 
-let dragging = false;
-
+let dragging =
+    false;
 
 /* =========================================================
    HELPERS
 ========================================================= */
 
-function clamp(value,min,max){
+function clamp(
+    value,
+    min,
+    max
+){
 
     return Math.max(
         min,
-        Math.min(max,value)
+        Math.min(
+            max,
+            value
+        )
     );
 
 }
 
+function setStatus(
+    text,
+    show = true
+){
 
-function setStatus(text,show=true){
-
-    status.textContent = text;
+    status.textContent =
+        text;
 
     status.style.display =
-        show ? "block" : "none";
+        show
+            ? "block"
+            : "none";
 
 }
 
-
-function setProgress(value,text){
+function setProgress(
+    value,
+    text
+){
 
     progressFill.style.width =
-        clamp(value,0,100) + "%";
+        clamp(
+            value,
+            0,
+            100
+        ) + "%";
 
     progressText.textContent =
         text;
 
 }
-
 
 function showEmpty(){
 
@@ -1441,7 +1518,6 @@ function showEmpty(){
 
 }
 
-
 function showOriginal(){
 
     emptyState.style.display =
@@ -1457,7 +1533,6 @@ function showOriginal(){
         "none";
 
 }
-
 
 function showCompare(){
 
@@ -1475,7 +1550,6 @@ function showCompare(){
 
 }
 
-
 function updateLine(){
 
     compareLine.style.left =
@@ -1483,37 +1557,38 @@ function updateLine(){
 
 }
 
-
 /* =========================================================
    LOAD PHOTO
 ========================================================= */
 
 fileInput.addEventListener(
     "change",
-    event=>{
+    event => {
 
         const file =
             event.target.files &&
             event.target.files[0];
 
         if(!file){
+
             return;
+
         }
 
-
-        if(!file.type.startsWith("image/")){
+        if(
+            !file.type.startsWith("image/")
+        ){
 
             setStatus(
                 "Выберите файл изображения."
             );
 
             return;
-        }
 
+        }
 
         originalFile =
             file;
-
 
         if(resultUrl){
 
@@ -1523,7 +1598,6 @@ fileInput.addEventListener(
 
         }
 
-
         if(originalUrl){
 
             URL.revokeObjectURL(
@@ -1531,7 +1605,6 @@ fileInput.addEventListener(
             );
 
         }
-
 
         resultUrl =
             null;
@@ -1542,12 +1615,10 @@ fileInput.addEventListener(
         resultImage =
             null;
 
-
         originalUrl =
             URL.createObjectURL(
                 file
             );
-
 
         downloadBtn.disabled =
             true;
@@ -1558,69 +1629,54 @@ fileInput.addEventListener(
         removeBtn.disabled =
             true;
 
-
         progressWrap.style.display =
             "none";
-
 
         setStatus(
             "",
             false
         );
 
-
-        /*
-           ВАЖНО:
-           До удаления фона фото показывается
-           напрямую через обычный IMG.
-        */
-
         const image =
             new Image();
 
+        image.onload =
+            () => {
 
-        image.onload = ()=>{
+                originalImage =
+                    image;
 
-            originalImage =
-                image;
+                originalPreview.src =
+                    originalUrl;
 
+                showOriginal();
 
-            originalPreview.src =
-                originalUrl;
+                removeBtn.disabled =
+                    false;
 
+                setStatus(
+                    "Фото загружено. Нажмите «Удалить фон»."
+                );
 
-            showOriginal();
+            };
 
+        image.onerror =
+            () => {
 
-            removeBtn.disabled =
-                false;
+                originalImage =
+                    null;
 
+                setStatus(
+                    "Не удалось открыть это изображение."
+                );
 
-            setStatus(
-                "Фото загружено. Нажмите «Удалить фон»."
-            );
-
-        };
-
-
-        image.onerror = ()=>{
-
-            originalImage =
-                null;
-
-            setStatus(
-                "Не удалось открыть это изображение."
-            );
-
-        };
-
+            };
 
         image.src =
             originalUrl;
 
     }
 );
-
 
 /* =========================================================
    CANVAS SETUP
@@ -1629,20 +1685,10 @@ fileInput.addEventListener(
 function setupCanvas(){
 
     if(!originalImage){
+
         return;
+
     }
-
-
-    /*
-       Canvas получает реальное исходное
-       разрешение фотографии.
-
-       Например:
-
-       Фото 6000 × 4000
-
-       Canvas 6000 × 4000
-    */
 
     const width =
         originalImage.naturalWidth;
@@ -1650,11 +1696,14 @@ function setupCanvas(){
     const height =
         originalImage.naturalHeight;
 
+    if(
+        !width ||
+        !height
+    ){
 
-    if(!width || !height){
         return;
-    }
 
+    }
 
     compareCanvas.width =
         width;
@@ -1662,20 +1711,7 @@ function setupCanvas(){
     compareCanvas.height =
         height;
 
-
-    /*
-       НИЧЕГО не задаём через
-       compareCanvas.style.width
-       compareCanvas.style.height.
-
-       Браузер самостоятельно вписывает
-       Canvas в рабочую область через
-       max-width/max-height,
-       сохраняя исходные пропорции.
-    */
-
 }
-
 
 /* =========================================================
    DRAW COMPARISON
@@ -1684,16 +1720,16 @@ function setupCanvas(){
 function drawComparison(){
 
     if(!originalImage){
-        return;
-    }
 
+        return;
+
+    }
 
     const width =
         compareCanvas.width;
 
     const height =
         compareCanvas.height;
-
 
     ctx.clearRect(
         0,
@@ -1702,17 +1738,18 @@ function drawComparison(){
         height
     );
 
-
     const dividerX =
         width *
-        (comparePosition / 100);
+        (
+            comparePosition /
+            100
+        );
 
+    /* LEFT — ORIGINAL */
 
-    /* =====================================================
-       LEFT — ORIGINAL
-    ===================================================== */
-
-    if(dividerX > 0){
+    if(
+        dividerX > 0
+    ){
 
         ctx.save();
 
@@ -1727,7 +1764,6 @@ function drawComparison(){
 
         ctx.clip();
 
-
         ctx.drawImage(
             originalImage,
             0,
@@ -1736,15 +1772,11 @@ function drawComparison(){
             height
         );
 
-
         ctx.restore();
 
     }
 
-
-    /* =====================================================
-       RIGHT — RESULT
-    ===================================================== */
+    /* RIGHT — RESULT */
 
     if(
         resultImage &&
@@ -1764,7 +1796,6 @@ function drawComparison(){
 
         ctx.clip();
 
-
         ctx.drawImage(
             resultImage,
             0,
@@ -1773,16 +1804,13 @@ function drawComparison(){
             height
         );
 
-
         ctx.restore();
 
     }
 
-
     updateLine();
 
 }
-
 
 /* =========================================================
    REMOVE BACKGROUND
@@ -1790,12 +1818,13 @@ function drawComparison(){
 
 removeBtn.addEventListener(
     "click",
-    async()=>{
+    async () => {
 
         if(!originalFile){
-            return;
-        }
 
+            return;
+
+        }
 
         removeBtn.disabled =
             true;
@@ -1803,28 +1832,19 @@ removeBtn.addEventListener(
         downloadBtn.disabled =
             true;
 
-
         progressWrap.style.display =
             "block";
-
 
         setProgress(
             2,
             "Подготовка фотографии..."
         );
 
-
         setStatus(
             "Удаление фона..."
         );
 
-
         try{
-
-            /*
-               Рабочий вызов библиотеки
-               оставлен без изменений.
-            */
 
             const blob =
                 await removeBackgroundFunction(
@@ -1837,20 +1857,24 @@ removeBtn.addEventListener(
                             "gpu",
 
                         output:{
+
                             format:
                                 "image/png",
 
                             type:
                                 "foreground"
+
                         },
 
                         progress:(
                             key,
                             current,
                             total
-                        )=>{
+                        ) => {
 
-                            if(total > 0){
+                            if(
+                                total > 0
+                            ){
 
                                 const percent =
                                     (
@@ -1873,101 +1897,85 @@ removeBtn.addEventListener(
                     }
                 );
 
-
             resultBlob =
                 blob;
-
 
             resultUrl =
                 URL.createObjectURL(
                     resultBlob
                 );
 
-
             const processed =
                 new Image();
 
+            processed.onload =
+                () => {
 
-            processed.onload = ()=>{
+                    resultImage =
+                        processed;
 
-                resultImage =
-                    processed;
+                    setupCanvas();
 
+                    comparePosition =
+                        50;
 
-                /*
-                   Canvas создаётся только после
-                   получения результата.
-                */
+                    drawComparison();
 
-                setupCanvas();
+                    showCompare();
 
+                    downloadBtn.disabled =
+                        false;
 
-                comparePosition =
-                    50;
+                    originalBtn.disabled =
+                        false;
 
+                    setProgress(
+                        100,
+                        "Готово"
+                    );
 
-                drawComparison();
+                    setStatus(
+                        "Фон удалён. Перемещайте вертикальный ползунок, чтобы сравнить результат."
+                    );
 
-                showCompare();
+                    setTimeout(
+                        () => {
 
+                            progressWrap.style.display =
+                                "none";
 
-                downloadBtn.disabled =
-                    false;
+                        },
+                        700
+                    );
 
-                originalBtn.disabled =
-                    false;
+                };
 
+            processed.onerror =
+                () => {
 
-                setProgress(
-                    100,
-                    "Готово"
-                );
+                    throw new Error(
+                        "Не удалось открыть результат обработки."
+                    );
 
-
-                setStatus(
-                    "Фон удалён. Перемещайте вертикальный ползунок, чтобы сравнить результат."
-                );
-
-
-                setTimeout(()=>{
-
-                    progressWrap.style.display =
-                        "none";
-
-                },700);
-
-            };
-
-
-            processed.onerror = ()=>{
-
-                throw new Error(
-                    "Не удалось открыть результат обработки."
-                );
-
-            };
-
+                };
 
             processed.src =
                 resultUrl;
 
-
-        }catch(error){
+        }
+        catch(error){
 
             console.error(
                 "Background removal error:",
                 error
             );
 
-
             progressWrap.style.display =
                 "none";
-
 
             setStatus(
                 "Не удалось удалить фон. Попробуйте другое фото или изображение меньшего размера."
             );
-
 
             removeBtn.disabled =
                 false;
@@ -1977,34 +1985,29 @@ removeBtn.addEventListener(
     }
 );
 
-
 /* =========================================================
    DOWNLOAD
 ========================================================= */
 
 downloadBtn.addEventListener(
     "click",
-    ()=>{
+    () => {
 
         if(!resultBlob){
+
             return;
+
         }
-
-
-        /*
-           Скачивается непосредственно
-           готовый PNG результата.
-        */
 
         const url =
             URL.createObjectURL(
                 resultBlob
             );
 
-
         const link =
-            document.createElement("a");
-
+            document.createElement(
+                "a"
+            );
 
         link.href =
             url;
@@ -2012,25 +2015,27 @@ downloadBtn.addEventListener(
         link.download =
             "photo-without-background.png";
 
-
-        document.body.appendChild(link);
+        document.body.appendChild(
+            link
+        );
 
         link.click();
 
         link.remove();
 
+        setTimeout(
+            () => {
 
-        setTimeout(()=>{
+                URL.revokeObjectURL(
+                    url
+                );
 
-            URL.revokeObjectURL(
-                url
-            );
-
-        },1000);
+            },
+            1000
+        );
 
     }
 );
-
 
 /* =========================================================
    SHOW ORIGINAL
@@ -2038,20 +2043,15 @@ downloadBtn.addEventListener(
 
 originalBtn.addEventListener(
     "click",
-    ()=>{
+    () => {
 
         if(!originalImage){
+
             return;
+
         }
 
-
-        /*
-           Возвращаем обычный оригинал,
-           поэтому он не проходит через Canvas.
-        */
-
         showOriginal();
-
 
         setStatus(
             "Показано исходное фото."
@@ -2060,30 +2060,32 @@ originalBtn.addEventListener(
     }
 );
 
-
 /* =========================================================
    SLIDER
 ========================================================= */
 
-function updatePositionFromPointer(event){
+function updatePositionFromPointer(
+    event
+){
 
     const rect =
         compareStage.getBoundingClientRect();
 
-
     if(!rect.width){
-        return;
-    }
 
+        return;
+
+    }
 
     const x =
         event.clientX -
         rect.left;
 
-
     const percent =
-        (x / rect.width) * 100;
-
+        (
+            x /
+            rect.width
+        ) * 100;
 
     comparePosition =
         clamp(
@@ -2092,11 +2094,9 @@ function updatePositionFromPointer(event){
             100
         );
 
-
     drawComparison();
 
 }
-
 
 /* =========================================================
    POINTER DOWN ON LINE
@@ -2104,21 +2104,18 @@ function updatePositionFromPointer(event){
 
 compareLine.addEventListener(
     "pointerdown",
-    event=>{
+    event => {
 
         dragging =
             true;
-
 
         compareLine.setPointerCapture?.(
             event.pointerId
         );
 
-
         event.preventDefault();
 
         event.stopPropagation();
-
 
         updatePositionFromPointer(
             event
@@ -2126,7 +2123,6 @@ compareLine.addEventListener(
 
     }
 );
-
 
 /* =========================================================
    POINTER MOVE
@@ -2134,33 +2130,33 @@ compareLine.addEventListener(
 
 compareStage.addEventListener(
     "pointermove",
-    event=>{
+    event => {
 
         if(!dragging){
-            return;
-        }
 
+            return;
+
+        }
 
         updatePositionFromPointer(
             event
         );
-
 
         event.preventDefault();
 
     }
 );
 
-
 /* =========================================================
    POINTER UP
 ========================================================= */
 
-function stopDragging(event){
+function stopDragging(
+    event
+){
 
     dragging =
         false;
-
 
     try{
 
@@ -2168,22 +2164,20 @@ function stopDragging(event){
             event.pointerId
         );
 
-    }catch(e){}
+    }
+    catch(e){}
 
 }
-
 
 compareStage.addEventListener(
     "pointerup",
     stopDragging
 );
 
-
 compareStage.addEventListener(
     "pointercancel",
     stopDragging
 );
-
 
 /* =========================================================
    CLICK ON PHOTO
@@ -2191,12 +2185,11 @@ compareStage.addEventListener(
 
 compareStage.addEventListener(
     "pointerdown",
-    event=>{
+    event => {
 
         if(
             event.target ===
             compareLine ||
-
             compareLine.contains(
                 event.target
             )
@@ -2206,7 +2199,6 @@ compareStage.addEventListener(
 
         }
 
-
         updatePositionFromPointer(
             event
         );
@@ -2214,14 +2206,13 @@ compareStage.addEventListener(
     }
 );
 
-
 /* =========================================================
    NEW PHOTO
 ========================================================= */
 
 newBtn.addEventListener(
     "click",
-    ()=>{
+    () => {
 
         if(originalUrl){
 
@@ -2231,7 +2222,6 @@ newBtn.addEventListener(
 
         }
 
-
         if(resultUrl){
 
             URL.revokeObjectURL(
@@ -2239,7 +2229,6 @@ newBtn.addEventListener(
             );
 
         }
-
 
         originalFile =
             null;
@@ -2259,11 +2248,9 @@ newBtn.addEventListener(
         originalUrl =
             null;
 
-
         originalPreview.removeAttribute(
             "src"
         );
-
 
         compareCanvas.width =
             1;
@@ -2271,17 +2258,14 @@ newBtn.addEventListener(
         compareCanvas.height =
             1;
 
-
         comparePosition =
             50;
 
         dragging =
             false;
 
-
         fileInput.value =
             "";
-
 
         removeBtn.disabled =
             true;
@@ -2292,16 +2276,13 @@ newBtn.addEventListener(
         originalBtn.disabled =
             true;
 
-
         progressWrap.style.display =
             "none";
-
 
         setStatus(
             "",
             false
         );
-
 
         showEmpty();
 
@@ -2310,14 +2291,13 @@ newBtn.addEventListener(
     }
 );
 
-
 /* =========================================================
    RESIZE
 ========================================================= */
 
 window.addEventListener(
     "resize",
-    ()=>{
+    () => {
 
         if(
             resultImage &&
@@ -2330,7 +2310,6 @@ window.addEventListener(
 
     }
 );
-
 
 /* =========================================================
    INITIAL

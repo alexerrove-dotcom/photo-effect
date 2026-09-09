@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+
+>
+
+<title>Удалить фон с фото онлайн — бесплатно | Фото + эффект</title>
+
+<meta
+name="description"
+content="Бесплатно удалите фон с фотографии онлайн. Загрузите изображение, автоматически удалите фон и скачайте PNG с прозрачным фоном."
+
+>
+
+<meta
+name="robots"
+content="index, follow"
+
+>
+
+<script>
+window.yaContextCb = window.yaContextCb || [];
+</script>
+
+<script
+    src="https://yandex.ru/ads/system/context.js"
+    async>
+</script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#0b0d12;
+    color:#f2f4f8;
+    line-height:1.6;
+    overflow-x:hidden;
+}
+
+a{
+    color:inherit;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(11,13,18,.94);
+    border-bottom:1px solid #252a35;
+    backdrop-filter:blur(12px);
+}
+
+.nav{
+    max-width:1180px;
+    margin:auto;
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    text-decoration:none;
+    font-size:20px;
+    font-weight:800;
+    white-space:nowrap;
+}
+
+.navLinks{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    gap:15px;
+    font-size:14px;
+}
+
+.navLinks a{
+    color:#b8beca;
+    text-decoration:none;
+}
+
+.navLinks a:hover{
+    color:#fff;
+}
+
+main{
+    max-width:1180px;
+    margin:auto;
+    padding:35px 20px 70px;
+}
+
+.hero{
+    text-align:center;
+    padding:15px 0 30px;
+}
+
+.hero h1{
+    margin:0 0 12px;
+    font-size:clamp(30px,5vw,54px);
+    line-height:1.1;
+}
+
+.hero p{
+    max-width:760px;
+    margin:0 auto;
+    color:#aeb5c2;
+    font-size:17px;
+}
+
+.card{
+    background:#12161e;
+    border:1px solid #272d38;
+    border-radius:18px;
+    padding:22px;
+    margin-top:20px;
+}
+
+.toolbar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.button,
+.fileLabel{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:46px;
+    padding:10px 17px;
+    border:1px solid #343b48;
+    border-radius:10px;
+    background:#1b202a;
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
+    text-decoration:none;
+    font-size:14px;
+    transition:.15s;
+}
+
+.button:hover,
+.fileLabel:hover{
+    background:#252b36;
+}
+
+.button.primary,
+.fileLabel.primary{
+    background:#fff;
+    color:#101217;
+    border-color:#fff;
+}
+
+.button.primary:hover,
+.fileLabel.primary:hover{
+    background:#e7e9ed;
+}
+
+.button:disabled{
+    opacity:.45;
+    cursor:default;
+}
+
+input[type="file"]{
+    display:none;
+}
+
+.workspace{
+    position:relative;
+    width:100%;
+    min-height:420px;
+    border:1px dashed #394150;
+    border-radius:14px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+        linear-gradient(45deg,#151a22 25%,transparent 25%),
+        linear-gradient(-45deg,#151a22 25%,transparent 25%),
+        linear-gradient(45deg,transparent 75%,#151a22 75%),
+        linear-gradient(-45deg,transparent 75%,#151a22 75%);
+    background-size:24px 24px;
+    background-position:
+        0 0,
+        0 12px,
+        12px -12px,
+        -12px 0;
+}
+
+#preview{
+    display:none;
+    max-width:100%;
+    max-height:75vh;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+}
+
+.empty{
+    color:#818a99;
+    text-align:center;
+    padding:30px;
+}
+
+.empty strong{
+    display:block;
+    color:#cbd1da;
+    font-size:20px;
+    margin-bottom:8px;
+}
+
+.status{
+    min-height:25px;
+    margin-top:15px;
+    text-align:center;
+    color:#aeb6c4;
+}
+
+.info{
+    margin-top:10px;
+    text-align:center;
+    color:#7f8998;
+    font-size:13px;
+}
+
+.progressWrap{
+    margin-top:20px;
+    display:none;
+}
+
+.progressBarBg{
+    width:100%;
+    height:10px;
+    background:#0d1016;
+    border:1px solid #252b35;
+    border-radius:999px;
+    overflow:hidden;
+}
+
+.progressBar{
+    width:0%;
+    height:100%;
+    background:#fff;
+    transition:width .2s ease;
+}
+
+.progressText{
+    margin-top:8px;
+    text-align:center;
+    color:#858e9d;
+    font-size:13px;
+}
+
+.actions{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    margin-top:18px;
+}
+
+.adBox{
+    margin:25px auto;
+    min-height:90px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.textSection{
+    margin-top:50px;
+}
+
+.textSection h2{
+    margin:0 0 14px;
+    font-size:29px;
+    line-height:1.25;
+}
+
+.textSection h3{
+    margin-top:25px;
+    margin-bottom:8px;
+    font-size:19px;
+}
+
+.textSection p,
+.textSection li{
+    color:#b7bec9;
+}
+
+.textSection ul,
+.textSection ol{
+    padding-left:23px;
+}
+
+.toolsGrid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-top:20px;
+}
+
+.toolCard{
+    display:block;
+    padding:20px;
+    border:1px solid #292f39;
+    border-radius:14px;
+    background:#12161e;
+    text-decoration:none;
+    transition:.15s;
+}
+
+.toolCard:hover{
+    background:#181d26;
+    border-color:#414958;
+}
+
+.toolCard h3{
+    margin:0 0 7px;
+    color:#fff;
+    font-size:17px;
+}
+
+.toolCard p{
+    margin:0;
+    color:#969fad;
+    font-size:14px;
+}
+
+.faqItem{
+    border-top:1px solid #292f39;
+    padding:17px 0;
+}
+
+.faqItem:first-child{
+    border-top:0;
+}
+
+.faqItem h3{
+    margin:0 0 7px;
+    font-size:17px;
+}
+
+.faqItem p{
+    margin:0;
+}
+
+footer{
+    border-top:1px solid #252a35;
+    padding:28px 20px;
+    text-align:center;
+    color:#858e9d;
+    font-size:14px;
+}
+
+.footerNav{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px 18px;
+    margin-bottom:12px;
+}
+
+.footerNav a{
+    color:#aeb5c2;
+    text-decoration:none;
+}
+
+.footerNav a:hover{
+    color:#fff;
+}
+
+@media(max-width:900px){
+
+    .toolsGrid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:800px){
+
+    .nav{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .navLinks{
+        justify-content:flex-start;
+        gap:10px 14px;
+    }
+
+    main{
+        padding:25px 13px 55px;
+    }
+
+    .card{
+        padding:15px;
+        border-radius:14px;
+    }
+
+    .workspace{
+        min-height:300px;
+    }
+
+    #preview{
+        max-height:60vh;
+    }
+
+    .toolbar{
+        flex-direction:column;
+    }
+
+    .button,
+    .fileLabel{
+        width:100%;
+    }
+
+    .actions{
+        flex-direction:column;
+    }
+
+    .actions .button{
+        width:100%;
+    }
+
+    .toolsGrid{
+        grid-template-columns:1fr;
+    }
+
+    .footerNav{
+        flex-direction:column;
+        gap:8px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="nav">
+
+<a
+href="../"
+class="logo"
+
+>
+
+Фото + эффект </a>
+
+<nav class="navLinks">
+
+<a href="../">
+Инструмент
+</a>
+
+<a href="../crop/">
+Обрезка фото
+</a>
+
+<a href="../resize/">
+Изменить размер
+</a>
+
+<a href="../rotate/">
+Повернуть фото
+</a>
+
+<a href="./">
+Удалить фон
+</a>
+
+<a href="../#how-to">
+Как пользоваться
+</a>
+
+<a href="../#about">
+О сервисе
+</a>
+
+<a href="../#faq">
+FAQ
+</a>
+
+<a href="../#privacy">
+Конфиденциальность
+</a>
+
+</nav>
+
+</div>
+
+</header>
+
+<main>
+
+<section class="hero">
+
+<h1>
+Удалить фон с фото онлайн
+</h1>
+
+<p>
+Автоматически удалите фон с фотографии прямо в браузере
+и скачайте изображение в формате PNG с прозрачным фоном.
+</p>
+
+</section>
+
+<section
+    id="tool"
+    class="card"
+>
+
+<!-- НАВИГАЦИЯ ПО ИНСТРУМЕНТАМ -->
+
+<div class="toolbar">
+
+<a
+href="../"
+class="fileLabel primary"
+
+>
+
+Загрузить фото </a>
+
+<a
+href="../crop/"
+class="fileLabel"
+
+>
+
+Обрезать фото </a>
+
+<a
+href="../resize/"
+class="fileLabel"
+
+>
+
+Изменить размер </a>
+
+<a
+href="../rotate/"
+class="fileLabel"
+
+>
+
+Повернуть фото </a>
+
+<a
+href="./"
+class="fileLabel"
+
+>
+
+Удалить фон </a>
+
+</div>
+
+<!-- УПРАВЛЕНИЕ ИНСТРУМЕНТОМ -->
+
+<div class="toolbar">
+
+<label
+class="fileLabel primary"
+
+>
+
+Загрузить фото в редактор
+
+<input
+id="fileInput"
+type="file"
+accept="image/*"
+
+>
+
+</label>
+
+<button
+id="removeButton"
+class="button"
+type="button"
+disabled
+
+>
+
+Удалить фон </button>
+
+<button
+id="downloadButton"
+class="button primary"
+type="button"
+disabled
+
+>
+
+Скачать PNG </button>
+
+<button
+id="newButton"
+class="button"
+type="button"
+
+>
+
+Новое фото </button>
+
+</div>
+
+<div class="workspace">
+
+<img
+id="preview"
+alt="Результат удаления фона"
+
+>
+
+<div
+    id="empty"
+    class="empty"
+>
+
+<strong>
+Загрузите фотографию
+</strong>
+
+Затем нажмите «Удалить фон».
+
+</div>
+
+</div>
+
+<div
+    id="progressWrap"
+    class="progressWrap"
+>
+
+<div class="progressBarBg">
+
+<div
+    id="progressBar"
+    class="progressBar"
+>
+</div>
+
+</div>
+
+<div
+    id="progressText"
+    class="progressText"
+>
+Подготовка...
+</div>
+
+</div>
+
+<div
+    id="status"
+    class="status"
+>
+Фотография пока не загружена.
+</div>
+
+<div
+    id="info"
+    class="info"
+>
+</div>
+
+<div class="actions">
+
+<button
+id="restoreButton"
+class="button"
+type="button"
+disabled
+
+>
+
+Показать исходное </button>
+
+</div>
+
+</section>
+
+<div class="adBox">
+
+<div id="yandex_rtb_R-A-20003018-1"></div>
+
+<script>
+
+window.yaContextCb.push(() => {
+
+    Ya.Context.AdvManager.render({
+
+        "blockId":
+            "R-A-20003018-1",
+
+        "renderTo":
+            "yandex_rtb_R-A-20003018-1"
+
+    })
+
+})
+
+</script>
+
+</div>
+
+<section
+    class="textSection"
+>
+
+<h2>
+Как удалить фон с фотографии
+</h2>
+
+<p>
+Загрузите изображение с компьютера или телефона.
+После этого нажмите кнопку «Удалить фон».
+</p>
+
+<ol>
+
+<li>
+Нажмите «Загрузить фото в редактор».
+</li>
+
+<li>
+Выберите фотографию.
+</li>
+
+<li>
+Нажмите «Удалить фон».
+</li>
+
+<li>
+Дождитесь завершения обработки.
+</li>
+
+<li>
+Проверьте результат на прозрачном фоне.
+</li>
+
+<li>
+Нажмите «Скачать PNG».
+</li>
+
+</ol>
+
+<h3>
+Прозрачный фон
+</h3>
+
+<p>
+Результат сохраняется в PNG, поэтому удалённая область
+остается прозрачной и изображение можно использовать
+поверх другого фона.
+</p>
+
+</section>
+
+<section
+    class="textSection"
+>
+
+<h2>
+Инструменты для работы с фото
+</h2>
+
+<div class="toolsGrid">
+
+<a
+href="../"
+class="toolCard"
+
+>
+
+<h3>
+Фото + эффект
+</h3>
+
+<p>
+Добавьте эффект поверх фотографии
+и настройте его прозрачность.
+</p>
+
+</a>
+
+<a
+href="../crop/"
+class="toolCard"
+
+>
+
+<h3>
+Обрезать фото
+</h3>
+
+<p>
+Выберите нужную область изображения
+и сохраните результат в PNG.
+</p>
+
+</a>
+
+<a
+href="../resize/"
+class="toolCard"
+
+>
+
+<h3>
+Изменить размер
+</h3>
+
+<p>
+Измените ширину и высоту изображения
+с сохранением пропорций.
+</p>
+
+</a>
+
+<a
+href="../rotate/"
+class="toolCard"
+
+>
+
+<h3>
+Повернуть фото
+</h3>
+
+<p>
+Поверните или отразите фотографию
+и сохраните результат в PNG.
+</p>
+
+</a>
+
+</div>
+
+</section>
+
+<section
+    class="textSection"
+>
+
+<h2>
+Удаление фона без установки программ
+</h2>
+
+<p>
+Удаление фона выполняется непосредственно в браузере
+с использованием модели машинного обучения.
+</p>
+
+<p>
+Первый запуск может занимать больше времени, поскольку
+необходимые файлы модели загружаются в браузер.
+После загрузки они могут использоваться повторно.
+</p>
+
+<h3>
+Для каких фотографий подходит инструмент
+</h3>
+
+<ul>
+
+<li>
+портреты людей;
+</li>
+
+<li>
+товары и предметы;
+</li>
+
+<li>
+фотографии с хорошо различимым объектом;
+</li>
+
+<li>
+изображения для последующего монтажа.
+</li>
+
+</ul>
+
+</section>
+
+<section
+    class="textSection"
+    id="faq"
+>
+
+<h2>
+Частые вопросы
+</h2>
+
+<div class="faqItem">
+
+<h3>
+Фотография загружается на сервер?
+</h3>
+
+<p>
+Обработка удаления фона выполняется в браузере пользователя.
+</p>
+
+</div>
+
+<div class="faqItem">
+
+<h3>
+В каком формате сохраняется результат?
+</h3>
+
+<p>
+Результат сохраняется в формате PNG с прозрачным фоном.
+</p>
+
+</div>
+
+<div class="faqItem">
+
+<h3>
+Почему первая обработка может быть долгой?
+</h3>
+
+<p>
+При первом запуске браузеру необходимо загрузить
+файлы модели и вычислительные компоненты.
+</p>
+
+</div>
+
+<div class="faqItem">
+
+<h3>
+Можно ли вернуть исходную фотографию?
+</h3>
+
+<p>
+Да. Кнопка «Показать исходное» возвращает
+оригинальное изображение без удаления фона.
+</p>
+
+</div>
+
+<div class="faqItem">
+
+<h3>
+Работает ли инструмент на телефоне?
+</h3>
+
+<p>
+Да. Страница адаптирована для современных мобильных браузеров.
+</p>
+
+</div>
+
+<div class="faqItem">
+
+<h3>
+Нужно ли устанавливать программу?
+</h3>
+
+<p>
+Нет. Обработка выполняется непосредственно на странице.
+</p>
+
+</div>
+
+</section>
+
+<section
+    class="textSection"
+>
+
+<h2>
+Конфиденциальность
+</h2>
+
+<p>
+Изображение обрабатывается непосредственно в браузере.
+Сам сервис не требует загрузки фотографии на собственный сервер.
+</p>
+
+<p>
+Для загрузки библиотек и модели используются сторонние
+инфраструктурные сервисы. Их работа регулируется
+соответствующими правилами и политиками конфиденциальности.
+</p>
+
+</section>
+
+</main>
+
+<footer>
+
+<nav class="footerNav">
+
+<a href="../">
+Инструмент
+</a>
+
+<a href="../crop/">
+Обрезка фото
+</a>
+
+<a href="../resize/">
+Изменить размер
+</a>
+
+<a href="../rotate/">
+Повернуть фото
+</a>
+
+<a href="./">
+Удалить фон
+</a>
+
+<a href="../#how-to">
+Как пользоваться
+</a>
+
+<a href="../#about">
+О сервисе
+</a>
+
+<a href="../#faq">
+FAQ
+</a>
+
+<a href="../#privacy">
+Конфиденциальность
+</a>
+
+</nav>
+
+<div>
+Фото + эффект — бесплатные онлайн-инструменты для работы с фотографиями.
+</div>
+
+</footer>
+
+<script type="module">
+
+"use strict";
+
+
+/*
+    Подключаем библиотеку удаления фона.
+
+    Используем ESM CDN, чтобы страница могла работать
+    без сборщика и npm непосредственно на GitHub Pages.
+*/
+
+let removeBackgroundFunction = null;
+
+let libraryReady = false;
+
+
+/*
+    Элементы
+*/
+
+const fileInput =
+    document.getElementById(
+        "fileInput"
+    );
+
+
+const removeButton =
+    document.getElementById(
+        "removeButton"
+    );
+
+
+const downloadButton =
+    document.getElementById(
+        "downloadButton"
+    );
+
+
+const newButton =
+    document.getElementById(
+        "newButton"
+    );
+
+
+const restoreButton =
+    document.getElementById(
+        "restoreButton"
+    );
+
+
+const preview =
+    document.getElementById(
+        "preview"
+    );
+
+
+const empty =
+    document.getElementById(
+        "empty"
+    );
+
+
+const status =
+    document.getElementById(
+        "status"
+    );
+
+
+const info =
+    document.getElementById(
+        "info"
+    );
+
+
+const progressWrap =
+    document.getElementById(
+        "progressWrap"
+    );
+
+
+const progressBar =
+    document.getElementById(
+        "progressBar"
+    );
+
+
+const progressText =
+    document.getElementById(
+        "progressText"
+    );
+
+
+let originalUrl =
+    null;
+
+
+let resultUrl =
+    null;
+
+
+let originalFile =
+    null;
+
+
+let resultBlob =
+    null;
+
+
+/*
+    Максимальный размер фотографии,
+    который разрешаем отдавать модели.
+*/
+
+const MAX_PIXELS =
+    20000000;
+
+
+/*
+    Проверка изображения.
+*/
+
+function validateImage(
+    file
+){
+
+    if(
+        !file ||
+        !file.type ||
+        !file.type.startsWith("image/")
+    ){
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/*
+    Статус.
+*/
+
+function setStatus(
+    text
+){
+
+    status.textContent =
+        text;
+
+}
+
+
+/*
+    Информация.
+*/
+
+function setInfo(
+    text
+){
+
+    info.textContent =
+        text;
+
+}
+
+
+/*
+    Прогресс.
+*/
+
+function setProgress(
+    value,
+    text
+){
+
+    progressBar.style.width =
+        value + "%";
+
+
+    progressText.textContent =
+        text;
+
+}
+
+
+/*
+    Показываем исходное изображение.
+*/
+
+function showOriginal(){
+
+    if(!originalUrl){
+
+        return;
+
+    }
+
+
+    if(resultUrl){
+
+        URL.revokeObjectURL(
+            resultUrl
+        );
+
+        resultUrl =
+            null;
+
+    }
+
+
+    resultBlob =
+        null;
+
+
+    preview.src =
+        originalUrl;
+
+
+    preview.style.display =
+        "block";
+
+
+    empty.style.display =
+        "none";
+
+
+    restoreButton.disabled =
+        true;
+
+
+    downloadButton.disabled =
+        true;
+
+
+    setStatus(
+        "Показано исходное изображение."
+    );
+
+}
+
+
+/*
+    Отображаем результат.
+*/
+
+function showResult(
+    blob
+){
+
+    if(resultUrl){
+
+        URL.revokeObjectURL(
+            resultUrl
+        );
+
+    }
+
+
+    resultBlob =
+        blob;
+
+
+    resultUrl =
+        URL.createObjectURL(
+            blob
+        );
+
+
+    preview.src =
+        resultUrl;
+
+
+    preview.style.display =
+        "block";
+
+
+    empty.style.display =
+        "none";
+
+
+    restoreButton.disabled =
+        false;
+
+
+    downloadButton.disabled =
+        false;
+
+}
+
+
+/*
+    Размер изображения.
+*/
+
+function readImageSize(
+    file
+){
+
+    return new Promise(
+        function(resolve){
+
+            const url =
+                URL.createObjectURL(
+                    file
+                );
+
+
+            const img =
+                new Image();
+
+
+            img.onload =
+                function(){
+
+                    const data = {
+
+                        width:
+                            img.naturalWidth,
+
+                        height:
+                            img.naturalHeight
+
+                    };
+
+
+                    URL.revokeObjectURL(
+                        url
+                    );
+
+
+                    resolve(
+                        data
+                    );
+
+                };
+
+
+            img.onerror =
+                function(){
+
+                    URL.revokeObjectURL(
+                        url
+                    );
+
+
+                    resolve(
+                        null
+                    );
+
+                };
+
+
+            img.src =
+                url;
+
+        }
+    );
+
+}
+
+
+/*
+    Загружаем библиотеку.
+*/
+
+async function loadLibrary(){
+
+    if(libraryReady){
+
+        return true;
+
+    }
+
+
+    try{
+
+        setProgress(
+            5,
+            "Загрузка инструмента..."
+        );
+
+
+        /*
+            ESM CDN позволяет подключить пакет
+            непосредственно со статической страницы.
+        */
+
+        const module =
+            await import(
+                "https://esm.sh/@imgly/background-removal@1.7.0"
+            );
+
+
+        removeBackgroundFunction =
+            module.removeBackground ||
+            module.default;
+
+
+        if(
+            typeof removeBackgroundFunction !==
+            "function"
+        ){
+
+            throw new Error(
+                "Функция удаления фона не найдена."
+            );
+
+        }
+
+
+        libraryReady =
+            true;
+
+
+        return true;
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+
+        libraryReady =
+            false;
+
+
+        setStatus(
+            "Не удалось загрузить инструмент удаления фона."
+        );
+
+
+        return false;
+
+    }
+
+}
+
+
+/*
+    Загрузка фото.
+*/
+
+fileInput.addEventListener(
+    "change",
+    async function(){
+
+        const file =
+            this.files &&
+            this.files[0];
+
+
+        if(!file){
+
+            return;
+
+        }
+
+
+        if(
+            !validateImage(
+                file
+            )
+        ){
+
+            setStatus(
+                "Пожалуйста, выберите изображение."
+            );
+
+            return;
+
+        }
+
+
+        const size =
+            await readImageSize(
+                file
+            );
+
+
+        if(
+            size &&
+            size.width *
+            size.height >
+            MAX_PIXELS
+        ){
+
+            setStatus(
+                "Изображение слишком большое для обработки."
+            );
+
+            return;
+
+        }
+
+
+        if(originalUrl){
+
+            URL.revokeObjectURL(
+                originalUrl
+            );
+
+            originalUrl =
+                null;
+
+        }
+
+
+        if(resultUrl){
+
+            URL.revokeObjectURL(
+                resultUrl
+            );
+
+            resultUrl =
+                null;
+
+        }
+
+
+        originalFile =
+            file;
+
+
+        resultBlob =
+            null;
+
+
+        originalUrl =
+            URL.createObjectURL(
+                file
+            );
+
+
+        preview.src =
+            originalUrl;
+
+
+        preview.style.display =
+            "block";
+
+
+        empty.style.display =
+            "none";
+
+
+        removeButton.disabled =
+            false;
+
+
+        downloadButton.disabled =
+            true;
+
+
+        restoreButton.disabled =
+            true;
+
+
+        progressWrap.style.display =
+            "none";
+
+
+        setInfo(
+            "Исходный размер: " +
+            (
+                size
+                    ? size.width
+                    : "?"
+            ) +
+            " × " +
+            (
+                size
+                    ? size.height
+                    : "?"
+            ) +
+            " px"
+        );
+
+
+        setStatus(
+            "Фотография загружена."
+        );
+
+    }
+);
+
+
+/*
+    Удаление фона.
+*/
+
+removeButton.addEventListener(
+    "click",
+    async function(){
+
+        if(!originalFile){
+
+            setStatus(
+                "Сначала загрузите фотографию."
+            );
+
+            return;
+
+        }
+
+
+        removeButton.disabled =
+            true;
+
+
+        downloadButton.disabled =
+            true;
+
+
+        restoreButton.disabled =
+            true;
+
+
+        progressWrap.style.display =
+            "block";
+
+
+        setProgress(
+            10,
+            "Подготовка изображения..."
+        );
+
+
+        setStatus(
+            "Удаление фона..."
+        );
+
+
+        try{
+
+            const ready =
+                await loadLibrary();
+
+
+            if(!ready){
+
+                throw new Error(
+                    "Library load failed"
+                );
+
+            }
+
+
+            setProgress(
+                30,
+                "Удаление фона..."
+            );
+
+
+            /*
+                Передаём Blob напрямую.
+                Библиотека поддерживает Blob
+                как входной тип.
+            */
+
+            const result =
+                await removeBackgroundFunction(
+                    originalFile,
+                    {
+                        model:
+                            "isnet_quint8",
+
+                        device:
+                            "gpu",
+
+                        output:
+                        {
+                            format:
+                                "image/png",
+
+                            type:
+                                "foreground"
+                        }
+                    }
+                );
+
+
+            setProgress(
+                90,
+                "Подготовка PNG..."
+            );
+
+
+            showResult(
+                result
+            );
+
+
+            setProgress(
+                100,
+                "Готово"
+            );
+
+
+            setStatus(
+                "Фон удалён. Готов прозрачный PNG."
+            );
+
+
+            setTimeout(
+                function(){
+
+                    progressWrap.style.display =
+                        "none";
+
+                },
+                800
+            );
+
+        }catch(error){
+
+            console.error(
+                error
+            );
+
+
+            setProgress(
+                0,
+                "Ошибка"
+            );
+
+
+            setStatus(
+                "Не удалось удалить фон. Попробуйте другое изображение."
+            );
+
+        }finally{
+
+            removeButton.disabled =
+                false;
+
+        }
+
+    }
+);
+
+
+/*
+    Показать исходное.
+*/
+
+restoreButton.addEventListener(
+    "click",
+    function(){
+
+        showOriginal();
+
+    }
+);
+
+
+/*
+    Скачать PNG.
+*/
+
+downloadButton.addEventListener(
+    "click",
+    function(){
+
+        if(
+            !resultBlob ||
+            !resultUrl
+        ){
+
+            setStatus(
+                "Сначала удалите фон."
+            );
+
+            return;
+
+        }
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.href =
+            resultUrl;
+
+
+        link.download =
+            "photo-without-background.png";
+
+
+        document.body.appendChild(
+            link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        setStatus(
+            "PNG готов к сохранению."
+        );
+
+    }
+);
+
+
+/*
+    Новое фото.
+*/
+
+newButton.addEventListener(
+    "click",
+    function(){
+
+        fileInput.value =
+            "";
+
+
+        if(originalUrl){
+
+            URL.revokeObjectURL(
+                originalUrl
+            );
+
+            originalUrl =
+                null;
+
+        }
+
+
+        if(resultUrl){
+
+            URL.revokeObjectURL(
+                resultUrl
+            );
+
+            resultUrl =
+                null;
+
+        }
+
+
+        originalFile =
+            null;
+
+
+        resultBlob =
+            null;
+
+
+        preview.removeAttribute(
+            "src"
+        );
+
+
+        preview.style.display =
+            "none";
+
+
+        empty.style.display =
+            "block";
+
+
+        removeButton.disabled =
+            true;
+
+
+        downloadButton.disabled =
+            true;
+
+
+        restoreButton.disabled =
+            true;
+
+
+        progressWrap.style.display =
+            "none";
+
+
+        setInfo(
+            ""
+        );
+
+
+        setStatus(
+            "Загрузите новую фотографию."
+        );
+
+    }
+);
+
+
+/*
+    Освобождение URL.
+*/
+
+window.addEventListener(
+    "beforeunload",
+    function(){
+
+        if(originalUrl){
+
+            URL.revokeObjectURL(
+                originalUrl
+            );
+
+        }
+
+
+        if(resultUrl){
+
+            URL.revokeObjectURL(
+                resultUrl
+            );
+
+        }
+
+    }
+);
+
+
+</script>
+
+</body>
+
+</html>

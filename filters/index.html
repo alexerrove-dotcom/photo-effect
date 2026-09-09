@@ -10,11 +10,11 @@
     content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
 >
 
-<title>Фильтры для фото онлайн — мультфильм и игровой стиль</title>
+<title>Фильтры для фото онлайн — бесплатно</title>
 
 <meta
     name="description"
-    content="Бесплатный онлайн-инструмент для стилизации фотографий. Превратите фото в мультяшный, комиксный, игровой или ретро-стиль прямо в браузере."
+    content="Бесплатные фильтры для фотографий онлайн. Мультфильм, комикс, игровой стиль и ретро."
 >
 
 <meta
@@ -52,7 +52,8 @@ body{
 }
 
 button,
-label{
+label,
+input{
     font-family:inherit;
 }
 
@@ -208,7 +209,7 @@ h1{
     font-size:14px;
 }
 
-.strength-row input{
+.strength-range{
     width:min(300px,80vw);
     accent-color:#168cff;
 }
@@ -265,12 +266,12 @@ h1{
     left:15px;
     right:15px;
     bottom:15px;
-    padding:11px 14px;
-    border-radius:10px;
+    padding:10px 14px;
+    border-radius:9px;
     background:rgba(0,0,0,.72);
     color:#fff;
     text-align:center;
-    font-size:14px;
+    font-size:13px;
     display:none;
     z-index:10;
 }
@@ -298,6 +299,14 @@ h1{
     text-align:center;
     color:#7fc8ff;
     font-size:14px;
+}
+
+.model-status{
+    min-height:18px;
+    margin-top:2px;
+    text-align:center;
+    color:#666;
+    font-size:12px;
 }
 
 .actions{
@@ -385,13 +394,6 @@ h1{
     font-size:13px;
     line-height:1.6;
     text-align:center;
-}
-
-.model-status{
-    margin-top:7px;
-    color:#777;
-    text-align:center;
-    font-size:12px;
 }
 
 @media(max-width:600px){
@@ -611,6 +613,14 @@ h1{
             Ретро
         </button>
 
+        <button
+            class="filter-button"
+            type="button"
+            data-filter="pixel"
+        >
+            Pixel
+        </button>
+
     </div>
 
 
@@ -622,6 +632,7 @@ h1{
 
         <input
             id="strengthRange"
+            class="strength-range"
             type="range"
             min="0"
             max="100"
@@ -648,7 +659,7 @@ h1{
             class="placeholder"
         >
             Загрузите фотографию,<br>
-            затем выберите нужный стиль.
+            затем выберите нужный фильтр.
         </div>
 
         <canvas
@@ -659,7 +670,7 @@ h1{
             id="loading"
             class="loading"
         >
-            Подготавливаем нейросетевой фильтр...
+            Обрабатываем изображение...
         </div>
 
     </div>
@@ -681,11 +692,12 @@ h1{
         aria-live="polite"
     ></div>
 
+
     <div
         id="modelStatus"
         class="model-status"
     >
-        Нейросетевая модель ещё не загружена
+        Обработка выполняется непосредственно в браузере
     </div>
 
 
@@ -720,11 +732,11 @@ h1{
     <ol>
 
         <li>
-            Нажмите «Загрузить фото» и выберите фотографию.
+            Нажмите «Загрузить фото».
         </li>
 
         <li>
-            Выберите «Мультфильм», «Комикс» или «Игровой».
+            Выберите фильтр.
         </li>
 
         <li>
@@ -737,14 +749,24 @@ h1{
 
     </ol>
 
-    <h3>
-        Мультфильм
-    </h3>
+</section>
+
+
+<section>
+
+    <h2>
+        Фильтр «Мультфильм»
+    </h2>
 
     <p>
-        Этот режим использует нейросетевую стилизацию:
-        фотография сохраняет исходное содержание, а её
-        визуальная манера меняется на рисованную.
+        Фильтр уменьшает количество мелких цветовых деталей,
+        сглаживает изображение, усиливает выразительность
+        цветов и добавляет контуры между заметными областями.
+    </p>
+
+    <p>
+        Благодаря этому фотография приобретает более
+        рисованный и мультяшный вид.
     </p>
 
 </section>
@@ -753,27 +775,25 @@ h1{
 <section>
 
     <h2>
-        Стили
+        Другие стили
     </h2>
 
     <p>
-        «Мультфильм» ориентирован на мягкую иллюстративную
-        рисовку с упрощёнными формами и более выразительными
-        цветами.
+        «Комикс» делает изображение более контрастным
+        и подчёркивает границы объектов.
     </p>
 
     <p>
-        «Комикс» делает результат контрастнее и визуально
-        ближе к рисованной комиксной графике.
+        «Игровой» усиливает насыщенность и контраст.
     </p>
 
     <p>
-        «Игровой» использует более насыщенный и выразительный
-        визуальный стиль.
+        «Ретро» создаёт тёплый винтажный вид.
     </p>
 
     <p>
-        «Ретро» добавляет стилизацию под старую иллюстрацию.
+        «Pixel» уменьшает количество цветов и создаёт
+        пиксельную структуру изображения.
     </p>
 
 </section>
@@ -793,9 +813,8 @@ h1{
         </h3>
 
         <p>
-            Сама стилизация выполняется в браузере.
-            Изображение передаётся нейросетевой модели
-            локально на устройстве.
+            Нет. Фильтр применяется непосредственно
+            в браузере пользователя.
         </p>
 
     </div>
@@ -804,13 +823,14 @@ h1{
     <div class="faq-item">
 
         <h3>
-            Почему первый запуск может быть долгим?
+            Почему большие фотографии обрабатываются
+            не в полном разрешении?
         </h3>
 
         <p>
-            Браузеру необходимо загрузить файлы нейросетевой
-            модели. После загрузки повторная обработка
-            происходит быстрее.
+            Для стабильной работы браузера изображение
+            временно уменьшается для обработки. Это
+            предотвращает зависание страницы.
         </p>
 
     </div>
@@ -823,7 +843,7 @@ h1{
         </h3>
 
         <p>
-            Да. Результат можно сохранить в формате PNG.
+            Да. Результат сохраняется в PNG.
         </p>
 
     </div>
@@ -832,12 +852,13 @@ h1{
     <div class="faq-item">
 
         <h3>
-            Можно ли использовать инструмент на телефоне?
+            Работает ли это на телефоне?
         </h3>
 
         <p>
-            Да. Страница рассчитана на работу как
-            на компьютере, так и на мобильном устройстве.
+            Да. Обработка специально ограничивает размер
+            рабочей копии изображения для более стабильной
+            работы на мобильных устройствах.
         </p>
 
     </div>
@@ -853,13 +874,8 @@ h1{
 
     <p>
         «Фильтры для фото онлайн» — отдельный инструмент
-        сервиса «Фото + эффект» для стилизации фотографий
-        без установки отдельной программы.
-    </p>
-
-    <p>
-        Нейросетевая стилизация использует TensorFlow.js
-        и выполняется непосредственно в браузере.
+        сервиса «Фото + эффект» для быстрого преобразования
+        изображений непосредственно в браузере.
     </p>
 
 </section>
@@ -883,15 +899,6 @@ h1{
 </div>
 
 
-<!-- =====================================================
-     TENSORFLOW.JS
-===================================================== -->
-
-<script
-    src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"
-></script>
-
-
 <script>
 
 "use strict";
@@ -908,7 +915,12 @@ const imageCanvas =
     document.getElementById("imageCanvas");
 
 const ctx =
-    imageCanvas.getContext("2d");
+    imageCanvas.getContext(
+        "2d",
+        {
+            willReadFrequently:true
+        }
+    );
 
 const placeholder =
     document.getElementById("placeholder");
@@ -931,9 +943,6 @@ const status =
 const loading =
     document.getElementById("loading");
 
-const modelStatus =
-    document.getElementById("modelStatus");
-
 const year =
     document.getElementById("year");
 
@@ -944,7 +953,9 @@ const strengthValue =
     document.getElementById("strengthValue");
 
 const filterButtons =
-    document.querySelectorAll(".filter-button");
+    document.querySelectorAll(
+        ".filter-button"
+    );
 
 
 /* =====================================================
@@ -954,30 +965,38 @@ const filterButtons =
 let originalImage =
     null;
 
+let originalCanvas =
+    null;
+
+let workingCanvas =
+    null;
+
+let resultCanvas =
+    null;
+
 let imageObjectUrl =
     null;
 
 let currentFilter =
     "normal";
 
-let currentResultCanvas =
-    null;
+let currentStrength =
+    85;
 
-let modelReady =
+let processing =
     false;
+
+let queuedFilter =
+    null;
 
 
 /*
-    Сетевые модели.
-    Используются официально опубликованные модели
-    из проекта arbitrary-image-stylization-tfjs.
+    Максимальный размер рабочей копии.
+    Это главное ограничение против зависания.
 */
 
-let styleNet =
-    null;
-
-let transformNet =
-    null;
+const MAX_WORK_SIZE =
+    900;
 
 
 /* =====================================================
@@ -1001,6 +1020,31 @@ function setStatus(text){
 
 
 /* =====================================================
+   LOADING
+===================================================== */
+
+function setLoading(
+    value,
+    text
+){
+
+    if(text){
+
+        loading.textContent =
+            text;
+
+    }
+
+
+    loading.classList.toggle(
+        "visible",
+        value
+    );
+
+}
+
+
+/* =====================================================
    КНОПКИ
 ===================================================== */
 
@@ -1008,6 +1052,7 @@ function updateButtons(){
 
     const ready =
         !!originalImage;
+
 
     downloadButton.disabled =
         !ready;
@@ -1022,94 +1067,149 @@ function updateButtons(){
 
 
 /* =====================================================
-   LOADING
+   УТИЛИТЫ
 ===================================================== */
 
-function setLoading(
-    visible,
-    text
+function clamp(
+    value,
+    min,
+    max
 ){
 
-    if(text){
+    return Math.min(
+        max,
+        Math.max(
+            min,
+            value
+        )
+    );
 
-        loading.textContent =
-            text;
+}
+
+
+function mix(
+    a,
+    b,
+    amount
+){
+
+    return a +
+        (
+            b - a
+        ) *
+        amount;
+
+}
+
+
+function posterize(
+    value,
+    levels
+){
+
+    if(
+        levels <= 1
+    ){
+
+        return value;
 
     }
 
-    loading.classList.toggle(
-        "visible",
-        visible
+
+    const step =
+        255 /
+        (
+            levels - 1
+        );
+
+
+    return Math.round(
+        Math.round(
+            value / step
+        ) *
+        step
     );
 
 }
 
 
 /* =====================================================
-   РАЗМЕР ПРЕВЬЮ
+   СОЗДАНИЕ РАБОЧЕГО CANVAS
 ===================================================== */
 
-function getDisplaySize(){
+function createWorkingCanvas(
+    image
+){
 
-    if(!originalImage){
-        return null;
-    }
+    const sourceWidth =
+        image.naturalWidth;
 
-
-    const workspace =
-        document.getElementById(
-            "workspace"
-        );
-
-
-    const availableWidth =
-        Math.max(
-            50,
-            workspace.clientWidth - 20
-        );
-
-
-    const availableHeight =
-        Math.max(
-            50,
-            workspace.clientHeight - 20
-        );
-
-
-    const imageW =
-        originalImage.naturalWidth;
-
-    const imageH =
-        originalImage.naturalHeight;
+    const sourceHeight =
+        image.naturalHeight;
 
 
     const scale =
         Math.min(
-            availableWidth / imageW,
-            availableHeight / imageH,
+            MAX_WORK_SIZE / sourceWidth,
+            MAX_WORK_SIZE / sourceHeight,
             1
         );
 
 
-    return {
-
-        width:
-            Math.max(
-                1,
-                Math.round(
-                    imageW * scale
-                )
-            ),
-
-        height:
-            Math.max(
-                1,
-                Math.round(
-                    imageH * scale
-                )
+    const width =
+        Math.max(
+            1,
+            Math.round(
+                sourceWidth * scale
             )
+        );
 
-    };
+
+    const height =
+        Math.max(
+            1,
+            Math.round(
+                sourceHeight * scale
+            )
+        );
+
+
+    const canvas =
+        document.createElement(
+            "canvas"
+        );
+
+
+    canvas.width =
+        width;
+
+    canvas.height =
+        height;
+
+
+    const canvasContext =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    canvasContext.imageSmoothingEnabled =
+        true;
+
+    canvasContext.imageSmoothingQuality =
+        "high";
+
+
+    canvasContext.drawImage(
+        image,
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    return canvas;
 
 }
 
@@ -1123,7 +1223,9 @@ function loadPhoto(file){
     if(
         !file ||
         !file.type ||
-        !file.type.startsWith("image/")
+        !file.type.startsWith(
+            "image/"
+        )
     ){
 
         setStatus(
@@ -1148,7 +1250,10 @@ function loadPhoto(file){
 
 
     const url =
-        URL.createObjectURL(file);
+        URL.createObjectURL(
+            file
+        );
+
 
     imageObjectUrl =
         url;
@@ -1159,42 +1264,56 @@ function loadPhoto(file){
 
 
     img.onload =
-        async function(){
+        function(){
 
             originalImage =
                 img;
 
-            currentResultCanvas =
-                null;
+
+            originalCanvas =
+                createWorkingCanvas(
+                    img
+                );
+
+
+            workingCanvas =
+                document.createElement(
+                    "canvas"
+                );
+
+
+            workingCanvas.width =
+                originalCanvas.width;
+
+            workingCanvas.height =
+                originalCanvas.height;
+
+
+            resultCanvas =
+                document.createElement(
+                    "canvas"
+                );
+
+
+            resultCanvas.width =
+                originalCanvas.width;
+
+            resultCanvas.height =
+                originalCanvas.height;
+
 
             currentFilter =
                 "normal";
 
+            currentStrength =
+                Number(
+                    strengthRange.value
+                );
 
-            filterButtons.forEach(
-                function(button){
 
-                    button.classList.remove(
-                        "active"
-                    );
-
-                }
+            updateFilterButtons(
+                "normal"
             );
-
-
-            const normalButton =
-                document.querySelector(
-                    '[data-filter="normal"]'
-                );
-
-
-            if(normalButton){
-
-                normalButton.classList.add(
-                    "active"
-                );
-
-            }
 
 
             placeholder.style.display =
@@ -1206,29 +1325,22 @@ function loadPhoto(file){
 
 
             imageInfo.innerHTML =
-                "<span>Размер: " +
+                "<span>Исходный размер: " +
                 img.naturalWidth +
                 " × " +
                 img.naturalHeight +
                 " px</span>";
 
 
-            renderOriginal();
+            renderNormal();
 
 
             setStatus(
-                "Фото загружено. Выберите стиль."
+                "Фото загружено. Выберите фильтр."
             );
 
 
             updateButtons();
-
-
-            if(!modelReady){
-
-                await ensureModel();
-
-            }
 
         };
 
@@ -1255,871 +1367,35 @@ function loadPhoto(file){
 
 
 /* =====================================================
-   ОТРИСОВКА ОРИГИНАЛА
+   ОБНОВЛЕНИЕ АКТИВНОЙ КНОПКИ
 ===================================================== */
 
-function renderOriginal(){
-
-    if(!originalImage){
-        return;
-    }
-
-
-    const size =
-        getDisplaySize();
-
-
-    if(!size){
-        return;
-    }
-
-
-    imageCanvas.width =
-        size.width;
-
-    imageCanvas.height =
-        size.height;
-
-
-    imageCanvas.style.width =
-        size.width + "px";
-
-    imageCanvas.style.height =
-        size.height + "px";
-
-
-    ctx.clearRect(
-        0,
-        0,
-        size.width,
-        size.height
-    );
-
-
-    ctx.drawImage(
-        originalImage,
-        0,
-        0,
-        size.width,
-        size.height
-    );
-
-}
-
-
-/* =====================================================
-   СОЗДАНИЕ МУЛЬТЯШНОГО STYLE IMAGE
-===================================================== */
-
-function createCartoonStyleImage(){
-
-    const canvas =
-        document.createElement(
-            "canvas"
-        );
-
-
-    canvas.width =
-        256;
-
-    canvas.height =
-        256;
-
-
-    const c =
-        canvas.getContext("2d");
-
-
-    /*
-        Собственный стилистический референс.
-        Он не содержит чужих персонажей.
-    */
-
-    const gradient =
-        c.createLinearGradient(
-            0,
-            0,
-            256,
-            256
-        );
-
-
-    gradient.addColorStop(
-        0,
-        "#ffd166"
-    );
-
-    gradient.addColorStop(
-        .35,
-        "#ff8fab"
-    );
-
-    gradient.addColorStop(
-        .7,
-        "#70d6ff"
-    );
-
-    gradient.addColorStop(
-        1,
-        "#8338ec"
-    );
-
-
-    c.fillStyle =
-        gradient;
-
-    c.fillRect(
-        0,
-        0,
-        256,
-        256
-    );
-
-
-    /*
-        крупные мягкие мультяшные формы
-    */
-
-    c.fillStyle =
-        "#f7cad0";
-
-    c.beginPath();
-
-    c.arc(
-        128,
-        124,
-        70,
-        0,
-        Math.PI * 2
-    );
-
-    c.fill();
-
-
-    c.fillStyle =
-        "#2b2d42";
-
-    c.beginPath();
-
-    c.arc(
-        101,
-        112,
-        12,
-        0,
-        Math.PI * 2
-    );
-
-    c.fill();
-
-
-    c.beginPath();
-
-    c.arc(
-        155,
-        112,
-        12,
-        0,
-        Math.PI * 2
-    );
-
-    c.fill();
-
-
-    c.fillStyle =
-        "#ff6b6b";
-
-    c.beginPath();
-
-    c.arc(
-        128,
-        142,
-        24,
-        0,
-        Math.PI
-    );
-
-    c.fill();
-
-
-    /*
-        волосы / контуры
-    */
-
-    c.strokeStyle =
-        "#202030";
-
-    c.lineWidth =
-        14;
-
-    c.lineCap =
-        "round";
-
-    c.beginPath();
-
-    c.moveTo(
-        70,
-        86
-    );
-
-    c.quadraticCurveTo(
-        95,
-        48,
-        128,
-        58
-    );
-
-    c.quadraticCurveTo(
-        163,
-        46,
-        187,
-        87
-    );
-
-    c.stroke();
-
-
-    /*
-        декоративные мазки
-    */
-
-    c.lineWidth =
-        8;
-
-    c.strokeStyle =
-        "rgba(255,255,255,.42)";
-
-
-    for(
-        let i = 0;
-        i < 9;
-        i++
-    ){
-
-        const x =
-            18 +
-            i * 28;
-
-        const y =
-            205 +
-            (i % 2) * 15;
-
-
-        c.beginPath();
-
-        c.moveTo(
-            x,
-            y
-        );
-
-        c.lineTo(
-            x + 17,
-            y - 11
-        );
-
-        c.stroke();
-
-    }
-
-
-    return canvas;
-
-}
-
-
-/* =====================================================
-   STYLE IMAGE ДЛЯ ДРУГИХ РЕЖИМОВ
-===================================================== */
-
-function createStyleImage(
-    mode
+function updateFilterButtons(
+    name
 ){
 
-    const canvas =
-        createCartoonStyleImage();
+    filterButtons.forEach(
+        function(button){
 
-
-    const c =
-        canvas.getContext("2d");
-
-
-    if(mode === "comic"){
-
-        c.globalAlpha =
-            .45;
-
-        c.fillStyle =
-            "#111";
-
-        c.fillRect(
-            0,
-            0,
-            256,
-            256
-        );
-
-
-        c.globalAlpha =
-            1;
-
-        c.strokeStyle =
-            "#fff";
-
-        c.lineWidth =
-            5;
-
-
-        for(
-            let y = 0;
-            y < 256;
-            y += 18
-        ){
-
-            c.beginPath();
-
-            c.moveTo(
-                0,
-                y
+            button.classList.toggle(
+                "active",
+                button.dataset.filter === name
             );
-
-            c.lineTo(
-                256,
-                y
-            );
-
-            c.stroke();
 
         }
-
-    }
-
-
-    if(mode === "game"){
-
-        const gradient =
-            c.createLinearGradient(
-                0,
-                0,
-                256,
-                256
-            );
-
-
-        gradient.addColorStop(
-            0,
-            "#00e5ff"
-        );
-
-        gradient.addColorStop(
-            .5,
-            "#4361ee"
-        );
-
-        gradient.addColorStop(
-            1,
-            "#7209b7"
-        );
-
-
-        c.globalAlpha =
-            .45;
-
-        c.fillStyle =
-            gradient;
-
-        c.fillRect(
-            0,
-            0,
-            256,
-            256
-        );
-
-        c.globalAlpha =
-            1;
-
-    }
-
-
-    if(mode === "retro"){
-
-        c.fillStyle =
-            "rgba(190,130,70,.40)";
-
-        c.fillRect(
-            0,
-            0,
-            256,
-            256
-        );
-
-    }
-
-
-    return canvas;
-
-}
-
-
-/* =====================================================
-   МОДЕЛИ
-===================================================== */
-
-async function ensureModel(){
-
-    if(modelReady){
-        return true;
-    }
-
-
-    setLoading(
-        true,
-        "Загружаем нейросетевую модель..."
     );
 
-
-    modelStatus.textContent =
-        "Загрузка нейросетевой модели...";
-
-
-    try{
-
-        /*
-            MobileNet style network
-        */
-
-        styleNet =
-            await tf.loadGraphModel(
-                "https://raw.githubusercontent.com/reiinakano/arbitrary-image-stylization-tfjs/master/saved_model_style_js/model.json"
-            );
-
-
-        /*
-            Separable transformer
-        */
-
-        transformNet =
-            await tf.loadGraphModel(
-                "https://raw.githubusercontent.com/reiinakano/arbitrary-image-stylization-tfjs/master/saved_model_transformer_separable_js/model.json"
-            );
-
-
-        modelReady =
-            true;
-
-
-        modelStatus.textContent =
-            "Нейросетевая модель загружена";
-
-
-        setLoading(
-            false
-        );
-
-
-        setStatus(
-            "Модель готова. Можно применять фильтры."
-        );
-
-
-        return true;
-
-    }catch(error){
-
-        console.error(
-            error
-        );
-
-
-        modelReady =
-            false;
-
-
-        modelStatus.textContent =
-            "Не удалось загрузить нейросетевую модель";
-
-
-        setLoading(
-            false
-        );
-
-
-        setStatus(
-            "Не удалось загрузить нейросетевую модель. Проверьте интернет-соединение."
-        );
-
-
-        return false;
-
-    }
-
 }
 
 
 /* =====================================================
-   ПОДГОТОВКА IMAGE ДЛЯ МОДЕЛИ
+   РАЗМЕР ПРОСМОТРА
 ===================================================== */
 
-function createModelInput(
-    source
+function getDisplaySize(
+    width,
+    height
 ){
-
-    const maxSize =
-        384;
-
-
-    const width =
-        source.naturalWidth ||
-        source.width;
-
-    const height =
-        source.naturalHeight ||
-        source.height;
-
-
-    const scale =
-        Math.min(
-            maxSize / width,
-            maxSize / height,
-            1
-        );
-
-
-    const w =
-        Math.max(
-            1,
-            Math.round(
-                width * scale
-            )
-        );
-
-
-    const h =
-        Math.max(
-            1,
-            Math.round(
-                height * scale
-            )
-        );
-
-
-    const canvas =
-        document.createElement(
-            "canvas"
-        );
-
-
-    canvas.width =
-        w;
-
-    canvas.height =
-        h;
-
-
-    const c =
-        canvas.getContext("2d");
-
-
-    c.drawImage(
-        source,
-        0,
-        0,
-        w,
-        h
-    );
-
-
-    return canvas;
-
-}
-
-
-/* =====================================================
-   НЕЙРОСТИЛИЗАЦИЯ
-===================================================== */
-
-async function neuralStylize(
-    filterName
-){
-
-    if(!originalImage){
-        return;
-    }
-
-
-    const ready =
-        await ensureModel();
-
-
-    if(!ready){
-        return;
-    }
-
-
-    setLoading(
-        true,
-        "Создаём мультяшную стилизацию..."
-    );
-
-
-    setStatus(
-        "Нейросеть обрабатывает изображение..."
-    );
-
-
-    /*
-        Не обрабатываем огромную фотографию
-        целиком, чтобы браузер не зависал.
-    */
-
-    const contentCanvas =
-        createModelInput(
-            originalImage
-        );
-
-
-    const styleCanvas =
-        createStyleImage(
-            filterName
-        );
-
-
-    let contentTensor =
-        null;
-
-    let styleTensor =
-        null;
-
-    let contentBottleneck =
-        null;
-
-    let styleBottleneck =
-        null;
-
-    let combinedBottleneck =
-        null;
-
-    let stylized =
-        null;
-
-
-    try{
-
-        contentTensor =
-            tf.browser
-                .fromPixels(
-                    contentCanvas
-                )
-                .toFloat()
-                .div(
-                    tf.scalar(255)
-                )
-                .expandDims();
-
-
-        styleTensor =
-            tf.browser
-                .fromPixels(
-                    styleCanvas
-                )
-                .toFloat()
-                .div(
-                    tf.scalar(255)
-                )
-                .expandDims();
-
-
-        /*
-            Стилевой вектор
-        */
-
-        styleBottleneck =
-            await tf.tidy(
-                function(){
-
-                    return styleNet.predict(
-                        styleTensor
-                    );
-
-                }
-            );
-
-
-        /*
-            Identity vector
-            нужен для сохранения содержания
-            фотографии.
-        */
-
-        contentBottleneck =
-            await tf.tidy(
-                function(){
-
-                    return styleNet.predict(
-                        contentTensor
-                    );
-
-                }
-            );
-
-
-        const strength =
-            Number(
-                strengthRange.value
-            ) / 100;
-
-
-        combinedBottleneck =
-            await tf.tidy(
-                function(){
-
-                    return styleBottleneck
-                        .mul(
-                            tf.scalar(
-                                strength
-                            )
-                        )
-                        .add(
-                            contentBottleneck
-                                .mul(
-                                    tf.scalar(
-                                        1 - strength
-                                    )
-                                )
-                        );
-
-                }
-            );
-
-
-        /*
-            Перенос стиля
-        */
-
-        stylized =
-            await tf.tidy(
-                function(){
-
-                    return transformNet
-                        .predict(
-                            [
-                                contentTensor,
-                                combinedBottleneck
-                            ]
-                        )
-                        .squeeze();
-
-                }
-            );
-
-
-        const resultCanvas =
-            document.createElement(
-                "canvas"
-            );
-
-
-        resultCanvas.width =
-            contentCanvas.width;
-
-        resultCanvas.height =
-            contentCanvas.height;
-
-
-        await tf.browser.toPixels(
-            stylized,
-            resultCanvas
-        );
-
-
-        /*
-            Возвращаем результат на экран
-            с исходным соотношением сторон.
-        */
-
-        currentResultCanvas =
-            resultCanvas;
-
-
-        renderResult(
-            resultCanvas
-        );
-
-
-        setStatus(
-            "Фильтр применён."
-        );
-
-
-    }catch(error){
-
-        console.error(
-            error
-        );
-
-
-        setStatus(
-            "Не удалось применить нейросетевой фильтр."
-        );
-
-    }finally{
-
-        if(contentTensor){
-
-            contentTensor.dispose();
-
-        }
-
-        if(styleTensor){
-
-            styleTensor.dispose();
-
-        }
-
-        if(contentBottleneck){
-
-            contentBottleneck.dispose();
-
-        }
-
-        if(styleBottleneck){
-
-            styleBottleneck.dispose();
-
-        }
-
-        if(combinedBottleneck){
-
-            combinedBottleneck.dispose();
-
-        }
-
-        if(stylized){
-
-            stylized.dispose();
-
-        }
-
-
-        setLoading(
-            false
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   РЕНДЕР РЕЗУЛЬТАТА
-===================================================== */
-
-function renderResult(
-    sourceCanvas
-){
-
-    if(!sourceCanvas){
-        return;
-    }
-
 
     const workspace =
         document.getElementById(
@@ -2143,99 +1419,1564 @@ function renderResult(
 
     const scale =
         Math.min(
-            availableWidth /
-                sourceCanvas.width,
-
-            availableHeight /
-                sourceCanvas.height,
-
+            availableWidth / width,
+            availableHeight / height,
             1
         );
 
 
-    const width =
-        Math.max(
-            1,
-            Math.round(
-                sourceCanvas.width *
-                scale
-            )
-        );
+    return {
 
+        width:
+            Math.max(
+                1,
+                Math.round(
+                    width * scale
+                )
+            ),
+
+        height:
+            Math.max(
+                1,
+                Math.round(
+                    height * scale
+                )
+            )
+
+    };
+
+}
+
+
+/* =====================================================
+   РЕНДЕР ОБЫЧНОГО ИЗОБРАЖЕНИЯ
+===================================================== */
+
+function renderNormal(){
+
+    if(!originalCanvas){
+        return;
+    }
+
+
+    const width =
+        originalCanvas.width;
 
     const height =
-        Math.max(
-            1,
-            Math.round(
-                sourceCanvas.height *
-                scale
-            )
+        originalCanvas.height;
+
+
+    const size =
+        getDisplaySize(
+            width,
+            height
         );
 
 
     imageCanvas.width =
-        width;
+        size.width;
 
     imageCanvas.height =
-        height;
+        size.height;
 
 
     imageCanvas.style.width =
-        width + "px";
+        size.width + "px";
 
     imageCanvas.style.height =
-        height + "px";
+        size.height + "px";
+
+
+    ctx.imageSmoothingEnabled =
+        true;
+
+    ctx.imageSmoothingQuality =
+        "high";
 
 
     ctx.clearRect(
         0,
         0,
-        width,
-        height
+        size.width,
+        size.height
     );
 
 
     ctx.drawImage(
-        sourceCanvas,
+        originalCanvas,
         0,
         0,
-        width,
-        height
+        size.width,
+        size.height
     );
 
 }
 
 
 /* =====================================================
-   ПРИМЕНЕНИЕ ФИЛЬТРА
+   COPY CANVAS
 ===================================================== */
 
-async function applyCurrentFilter(){
+function copyCanvas(
+    source,
+    target
+){
 
-    if(!originalImage){
-        return;
-    }
+    target.width =
+        source.width;
+
+    target.height =
+        source.height;
 
 
-    if(currentFilter === "normal"){
-
-        currentResultCanvas =
-            null;
-
-        renderOriginal();
-
-        setStatus(
-            "Оригинал."
+    const targetContext =
+        target.getContext(
+            "2d"
         );
 
+
+    targetContext.clearRect(
+        0,
+        0,
+        target.width,
+        target.height
+    );
+
+
+    targetContext.drawImage(
+        source,
+        0,
+        0
+    );
+
+}
+
+
+/* =====================================================
+   BLUR CANVAS
+===================================================== */
+
+function createBlurCanvas(
+    source,
+    amount
+){
+
+    const canvas =
+        document.createElement(
+            "canvas"
+        );
+
+
+    canvas.width =
+        source.width;
+
+    canvas.height =
+        source.height;
+
+
+    const canvasContext =
+        canvas.getContext(
+            "2d"
+        );
+
+
+    canvasContext.filter =
+        "blur(" +
+        amount +
+        "px)";
+
+
+    canvasContext.drawImage(
+        source,
+        0,
+        0
+    );
+
+
+    canvasContext.filter =
+        "none";
+
+
+    return canvas;
+
+}
+
+
+/* =====================================================
+   CARTOON
+===================================================== */
+
+function applyCartoon(
+    source,
+    strength
+){
+
+    /*
+        1. Слегка сглаживаем мелкие детали.
+    */
+
+    const blurSize =
+        1.2;
+
+
+    const blurred =
+        createBlurCanvas(
+            source,
+            blurSize
+        );
+
+
+    const width =
+        source.width;
+
+    const height =
+        source.height;
+
+
+    const sourceContext =
+        blurred.getContext(
+            "2d"
+        );
+
+
+    const sourceData =
+        sourceContext.getImageData(
+            0,
+            0,
+            width,
+            height
+        );
+
+
+    const sourcePixels =
+        sourceData.data;
+
+
+    /*
+        Исходник нужен для сохранения
+        яркости и смешивания результата.
+    */
+
+    const originalContext =
+        source.getContext(
+            "2d"
+        );
+
+
+    const originalData =
+        originalContext.getImageData(
+            0,
+            0,
+            width,
+            height
+        );
+
+
+    const originalPixels =
+        originalData.data;
+
+
+    const output =
+        document.createElement(
+            "canvas"
+        );
+
+
+    output.width =
+        width;
+
+    output.height =
+        height;
+
+
+    const outputContext =
+        output.getContext(
+            "2d"
+        );
+
+
+    const outputData =
+        outputContext.createImageData(
+            width,
+            height
+        );
+
+
+    const outputPixels =
+        outputData.data;
+
+
+    const levels =
+        strength < 35
+            ? 10
+            : strength < 70
+                ? 8
+                : 6;
+
+
+    const amount =
+        strength / 100;
+
+
+    /*
+        Упрощение цветов.
+    */
+
+    for(
+        let i = 0;
+        i < sourcePixels.length;
+        i += 4
+    ){
+
+        const r =
+            posterize(
+                sourcePixels[i],
+                levels
+            );
+
+
+        const g =
+            posterize(
+                sourcePixels[i + 1],
+                levels
+            );
+
+
+        const b =
+            posterize(
+                sourcePixels[i + 2],
+                levels
+            );
+
+
+        outputPixels[i] =
+            mix(
+                originalPixels[i],
+                r,
+                amount
+            );
+
+
+        outputPixels[i + 1] =
+            mix(
+                originalPixels[i + 1],
+                g,
+                amount
+            );
+
+
+        outputPixels[i + 2] =
+            mix(
+                originalPixels[i + 2],
+                b,
+                amount
+            );
+
+
+        outputPixels[i + 3] =
+            255;
+
+    }
+
+
+    outputContext.putImageData(
+        outputData,
+        0,
+        0
+    );
+
+
+    /*
+        2. Контуры.
+    */
+
+    return applyEdges(
+        output,
+        source,
+        strength
+    );
+
+}
+
+
+/* =====================================================
+   КОНТУРЫ
+===================================================== */
+
+function applyEdges(
+    stylized,
+    source,
+    strength
+){
+
+    const width =
+        stylized.width;
+
+    const height =
+        stylized.height;
+
+
+    const baseContext =
+        stylized.getContext(
+            "2d"
+        );
+
+
+    const baseData =
+        baseContext.getImageData(
+            0,
+            0,
+            width,
+            height
+        );
+
+
+    const base =
+        baseData.data;
+
+
+    const sourceContext =
+        source.getContext(
+            "2d"
+        );
+
+
+    const sourceData =
+        sourceContext.getImageData(
+            0,
+            0,
+            width,
+            height
+        );
+
+
+    const src =
+        sourceData.data;
+
+
+    const result =
+        document.createElement(
+            "canvas"
+        );
+
+
+    result.width =
+        width;
+
+    result.height =
+        height;
+
+
+    const resultContext =
+        result.getContext(
+            "2d"
+        );
+
+
+    const resultData =
+        resultContext.createImageData(
+            width,
+            height
+        );
+
+
+    const out =
+        resultData.data;
+
+
+    const edgeThreshold =
+        95;
+
+
+    const edgeStrength =
+        clamp(
+            strength / 100,
+            0,
+            1
+        );
+
+
+    for(
+        let y = 1;
+        y < height - 1;
+        y++
+    ){
+
+        for(
+            let x = 1;
+            x < width - 1;
+            x++
+        ){
+
+            const index =
+                (
+                    y * width +
+                    x
+                ) * 4;
+
+
+            const right =
+                index + 4;
+
+
+            const bottom =
+                index +
+                width * 4;
+
+
+            const diffX =
+                Math.abs(
+                    src[index] -
+                    src[right]
+                ) +
+                Math.abs(
+                    src[index + 1] -
+                    src[right + 1]
+                ) +
+                Math.abs(
+                    src[index + 2] -
+                    src[right + 2]
+                );
+
+
+            const diffY =
+                Math.abs(
+                    src[index] -
+                    src[bottom]
+                ) +
+                Math.abs(
+                    src[index + 1] -
+                    src[bottom + 1]
+                ) +
+                Math.abs(
+                    src[index + 2] -
+                    src[bottom + 2]
+                );
+
+
+            const edge =
+                diffX +
+                diffY;
+
+
+            let r =
+                base[index];
+
+            let g =
+                base[index + 1];
+
+            let b =
+                base[index + 2];
+
+
+            if(
+                edge >
+                edgeThreshold
+            ){
+
+                const darken =
+                    0.72 *
+                    edgeStrength;
+
+
+                r *=
+                    1 -
+                    darken;
+
+                g *=
+                    1 -
+                    darken;
+
+                b *=
+                    1 -
+                    darken;
+
+            }
+
+
+            out[index] =
+                r;
+
+            out[index + 1] =
+                g;
+
+            out[index + 2] =
+                b;
+
+            out[index + 3] =
+                255;
+
+        }
+
+    }
+
+
+    resultContext.putImageData(
+        resultData,
+        0,
+        0
+    );
+
+
+    return result;
+
+}
+
+
+/* =====================================================
+   COMIC
+===================================================== */
+
+function applyComic(
+    source,
+    strength
+){
+
+    const width =
+        source.width;
+
+    const height =
+        source.height;
+
+
+    const sourceContext =
+        source.getContext(
+            "2d"
+        );
+
+
+    const sourceData =
+        sourceContext.getImageData(
+            0,
+            0,
+            width,
+            height
+        );
+
+
+    const pixels =
+        sourceData.data;
+
+
+    const output =
+        sourceContext.createImageData(
+            width,
+            height
+        );
+
+
+    const out =
+        output.data;
+
+
+    const amount =
+        strength / 100;
+
+
+    for(
+        let i = 0;
+        i < pixels.length;
+        i += 4
+    ){
+
+        let r =
+            pixels[i];
+
+        let g =
+            pixels[i + 1];
+
+        let b =
+            pixels[i + 2];
+
+
+        /*
+            Контраст
+        */
+
+        r =
+            clamp(
+                (
+                    r - 128
+                ) *
+                1.30 +
+                128,
+                0,
+                255
+            );
+
+
+        g =
+            clamp(
+                (
+                    g - 128
+                ) *
+                1.30 +
+                128,
+                0,
+                255
+            );
+
+
+        b =
+            clamp(
+                (
+                    b - 128
+                ) *
+                1.30 +
+                128,
+                0,
+                255
+            );
+
+
+        /*
+            Небольшое усиление цвета.
+        */
+
+        r =
+            clamp(
+                r + 8 * amount,
+                0,
+                255
+            );
+
+        g =
+            clamp(
+                g + 4 * amount,
+                0,
+                255
+            );
+
+
+        /*
+            Упрощение цветов.
+        */
+
+        const levels =
+            7;
+
+
+        r =
+            posterize(
+                r,
+                levels
+            );
+
+        g =
+            posterize(
+                g,
+                levels
+            );
+
+        b =
+            posterize(
+                b,
+                levels
+            );
+
+
+        out[i] =
+            r;
+
+        out[i + 1] =
+            g;
+
+        out[i + 2] =
+            b;
+
+        out[i + 3] =
+            255;
+
+    }
+
+
+    const temporary =
+        document.createElement(
+            "canvas"
+        );
+
+
+    temporary.width =
+        width;
+
+    temporary.height =
+        height;
+
+
+    temporary
+        .getContext("2d")
+        .putImageData(
+            output,
+            0,
+            0
+        );
+
+
+    return applyEdges(
+        temporary,
+        source,
+        clamp(
+            strength + 15,
+            0,
+            100
+        )
+    );
+
+}
+
+
+/* =====================================================
+   GAME
+===================================================== */
+
+function applyGame(
+    source,
+    strength
+){
+
+    const width =
+        source.width;
+
+    const height =
+        source.height;
+
+
+    const sourceContext =
+        source.getContext(
+            "2d"
+        );
+
+
+    const sourceData =
+        sourceContext.getImageData(
+            0,
+            0,
+            width,
+            height
+        );
+
+
+    const pixels =
+        sourceData.data;
+
+
+    const output =
+        sourceContext.createImageData(
+            width,
+            height
+        );
+
+
+    const out =
+        output.data;
+
+
+    const amount =
+        strength / 100;
+
+
+    for(
+        let i = 0;
+        i < pixels.length;
+        i += 4
+    ){
+
+        let r =
+            pixels[i];
+
+        let g =
+            pixels[i + 1];
+
+        let b =
+            pixels[i + 2];
+
+
+        const contrast =
+            1.12 +
+            0.38 *
+            amount;
+
+
+        r =
+            (
+                r - 128
+            ) *
+            contrast +
+            128;
+
+
+        g =
+            (
+                g - 128
+            ) *
+            contrast +
+            128;
+
+
+        b =
+            (
+                b - 128
+            ) *
+            contrast +
+            128;
+
+
+        /*
+            Немного усиливаем зелёный и синий
+            для более игрового вида.
+        */
+
+        g *=
+            1 +
+            0.08 *
+            amount;
+
+        b *=
+            1 +
+            0.10 *
+            amount;
+
+
+        r =
+            clamp(
+                r,
+                0,
+                255
+            );
+
+        g =
+            clamp(
+                g,
+                0,
+                255
+            );
+
+        b =
+            clamp(
+                b,
+                0,
+                255
+            );
+
+
+        out[i] =
+            r;
+
+        out[i + 1] =
+            g;
+
+        out[i + 2] =
+            b;
+
+        out[i + 3] =
+            255;
+
+    }
+
+
+    const temporary =
+        document.createElement(
+            "canvas"
+        );
+
+
+    temporary.width =
+        width;
+
+    temporary.height =
+        height;
+
+
+    temporary
+        .getContext("2d")
+        .putImageData(
+            output,
+            0,
+            0
+        );
+
+
+    return temporary;
+
+}
+
+
+/* =====================================================
+   RETRO
+===================================================== */
+
+function applyRetro(
+    source,
+    strength
+){
+
+    const width =
+        source.width;
+
+    const height =
+        source.height;
+
+
+    const sourceContext =
+        source.getContext(
+            "2d"
+        );
+
+
+    const imageData =
+        sourceContext.getImageData(
+            0,
+            0,
+            width,
+            height
+        );
+
+
+    const pixels =
+        imageData.data;
+
+
+    const amount =
+        strength / 100;
+
+
+    for(
+        let i = 0;
+        i < pixels.length;
+        i += 4
+    ){
+
+        const r =
+            pixels[i];
+
+        const g =
+            pixels[i + 1];
+
+        const b =
+            pixels[i + 2];
+
+
+        const tr =
+            0.393 * r +
+            0.769 * g +
+            0.189 * b;
+
+
+        const tg =
+            0.349 * r +
+            0.686 * g +
+            0.168 * b;
+
+
+        const tb =
+            0.272 * r +
+            0.534 * g +
+            0.131 * b;
+
+
+        pixels[i] =
+            mix(
+                r,
+                clamp(
+                    tr,
+                    0,
+                    255
+                ),
+                amount
+            );
+
+
+        pixels[i + 1] =
+            mix(
+                g,
+                clamp(
+                    tg,
+                    0,
+                    255
+                ),
+                amount
+            );
+
+
+        pixels[i + 2] =
+            mix(
+                b,
+                clamp(
+                    tb,
+                    0,
+                    255
+                ),
+                amount
+            );
+
+    }
+
+
+    const temporary =
+        document.createElement(
+            "canvas"
+        );
+
+
+    temporary.width =
+        width;
+
+    temporary.height =
+        height;
+
+
+    temporary
+        .getContext("2d")
+        .putImageData(
+            imageData,
+            0,
+            0
+        );
+
+
+    return temporary;
+
+}
+
+
+/* =====================================================
+   PIXEL
+===================================================== */
+
+function applyPixel(
+    source,
+    strength
+){
+
+    const width =
+        source.width;
+
+    const height =
+        source.height;
+
+
+    const output =
+        document.createElement(
+            "canvas"
+        );
+
+
+    output.width =
+        width;
+
+    output.height =
+        height;
+
+
+    const outputContext =
+        output.getContext(
+            "2d"
+        );
+
+
+    const pixelSize =
+        Math.max(
+            3,
+            Math.round(
+                3 +
+                strength *
+                0.08
+            )
+        );
+
+
+    /*
+        Сначала уменьшаем изображение.
+    */
+
+    const smallWidth =
+        Math.max(
+            1,
+            Math.floor(
+                width /
+                pixelSize
+            )
+        );
+
+
+    const smallHeight =
+        Math.max(
+            1,
+            Math.floor(
+                height /
+                pixelSize
+            )
+        );
+
+
+    const small =
+        document.createElement(
+            "canvas"
+        );
+
+
+    small.width =
+        smallWidth;
+
+    small.height =
+        smallHeight;
+
+
+    const smallContext =
+        small.getContext(
+            "2d"
+        );
+
+
+    smallContext.imageSmoothingEnabled =
+        false;
+
+
+    smallContext.drawImage(
+        source,
+        0,
+        0,
+        smallWidth,
+        smallHeight
+    );
+
+
+    /*
+        Возвращаем вверх без сглаживания.
+    */
+
+    outputContext.imageSmoothingEnabled =
+        false;
+
+
+    outputContext.drawImage(
+        small,
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    return output;
+
+}
+
+
+/* =====================================================
+   ОСНОВНОЙ ФИЛЬТР
+===================================================== */
+
+function processImage(
+    filter,
+    strength
+){
+
+    if(!originalCanvas){
+        return null;
+    }
+
+
+    if(filter === "normal"){
+
+        return originalCanvas;
+
+    }
+
+
+    const base =
+        document.createElement(
+            "canvas"
+        );
+
+
+    base.width =
+        originalCanvas.width;
+
+    base.height =
+        originalCanvas.height;
+
+
+    copyCanvas(
+        originalCanvas,
+        base
+    );
+
+
+    if(filter === "cartoon"){
+
+        return applyCartoon(
+            base,
+            strength
+        );
+
+    }
+
+
+    if(filter === "comic"){
+
+        return applyComic(
+            base,
+            strength
+        );
+
+    }
+
+
+    if(filter === "game"){
+
+        return applyGame(
+            base,
+            strength
+        );
+
+    }
+
+
+    if(filter === "retro"){
+
+        return applyRetro(
+            base,
+            strength
+        );
+
+    }
+
+
+    if(filter === "pixel"){
+
+        return applyPixel(
+            base,
+            strength
+        );
+
+    }
+
+
+    return originalCanvas;
+
+}
+
+
+/* =====================================================
+   ПОКАЗ РЕЗУЛЬТАТА
+===================================================== */
+
+function showResult(
+    source
+){
+
+    if(!source){
+        return;
+    }
+
+
+    const size =
+        getDisplaySize(
+            source.width,
+            source.height
+        );
+
+
+    imageCanvas.width =
+        size.width;
+
+    imageCanvas.height =
+        size.height;
+
+
+    imageCanvas.style.width =
+        size.width + "px";
+
+    imageCanvas.style.height =
+        size.height + "px";
+
+
+    ctx.imageSmoothingEnabled =
+        true;
+
+    ctx.imageSmoothingQuality =
+        "high";
+
+
+    ctx.clearRect(
+        0,
+        0,
+        size.width,
+        size.height
+    );
+
+
+    ctx.drawImage(
+        source,
+        0,
+        0,
+        size.width,
+        size.height
+    );
+
+}
+
+
+/* =====================================================
+   ОБРАБОТКА
+===================================================== */
+
+async function applyFilter(
+    filter,
+    strength
+){
+
+    if(!originalCanvas){
+        return;
+    }
+
+
+    /*
+        Если изображение уже обрабатывается,
+        запоминаем последний выбранный фильтр.
+    */
+
+    if(processing){
+
+        queuedFilter = {
+
+            filter:
+                filter,
+
+            strength:
+                strength
+
+        };
+
         return;
 
     }
 
 
-    await neuralStylize(
-        currentFilter
+    processing =
+        true;
+
+
+    setLoading(
+        true,
+        "Обрабатываем изображение..."
     );
+
+
+    /*
+        setTimeout позволяет браузеру
+        сначала обновить интерфейс.
+    */
+
+    await new Promise(
+        function(resolve){
+
+            setTimeout(
+                resolve,
+                20
+            );
+
+        }
+    );
+
+
+    try{
+
+        const result =
+            processImage(
+                filter,
+                strength
+            );
+
+
+        resultCanvas =
+            result;
+
+
+        showResult(
+            result
+        );
+
+
+        const names = {
+
+            normal:
+                "Оригинал",
+
+            cartoon:
+                "Мультфильм",
+
+            comic:
+                "Комикс",
+
+            game:
+                "Игровой",
+
+            retro:
+                "Ретро",
+
+            pixel:
+                "Pixel"
+
+        };
+
+
+        setStatus(
+            "Применён фильтр: " +
+            names[filter] +
+            " • сила " +
+            Math.round(
+                strength
+            ) +
+            "%."
+        );
+
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+
+        setStatus(
+            "Не удалось применить фильтр."
+        );
+
+    }
+
+
+    processing =
+        false;
+
+
+    setLoading(
+        false
+    );
+
+
+    /*
+        Если во время обработки
+        пользователь уже выбрал другой фильтр,
+        запускаем только последний.
+    */
+
+    if(queuedFilter){
+
+        const next =
+            queuedFilter;
+
+        queuedFilter =
+            null;
+
+
+        applyFilter(
+            next.filter,
+            next.strength
+        );
+
+    }
 
 }
 
@@ -2249,34 +2990,26 @@ filterButtons.forEach(
 
         button.addEventListener(
             "click",
-            async function(){
+            function(){
 
                 if(!originalImage){
                     return;
                 }
 
 
-                filterButtons.forEach(
-                    function(item){
-
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-                this.classList.add(
-                    "active"
-                );
-
-
                 currentFilter =
                     this.dataset.filter;
 
 
-                await applyCurrentFilter();
+                updateFilterButtons(
+                    currentFilter
+                );
+
+
+                applyFilter(
+                    currentFilter,
+                    currentStrength
+                );
 
             }
         );
@@ -2286,23 +3019,46 @@ filterButtons.forEach(
 
 
 /* =====================================================
-   СИЛА ФИЛЬТРА
+   СИЛА
 ===================================================== */
 
 strengthRange.addEventListener(
     "input",
-    async function(){
+    function(){
+
+        currentStrength =
+            Number(
+                this.value
+            );
+
 
         strengthValue.textContent =
-            this.value + "%";
+            currentStrength +
+            "%";
 
+    }
+);
+
+
+/*
+    Применение по отпусканию ползунка.
+    Благодаря этому браузер не запускает
+    фильтр сотни раз подряд.
+*/
+
+strengthRange.addEventListener(
+    "change",
+    function(){
 
         if(
             originalImage &&
             currentFilter !== "normal"
         ){
 
-            await applyCurrentFilter();
+            applyFilter(
+                currentFilter,
+                currentStrength
+            );
 
         }
 
@@ -2327,37 +3083,28 @@ resetButton.addEventListener(
             "normal";
 
 
-        filterButtons.forEach(
-            function(button){
+        currentStrength =
+            85;
 
-                button.classList.remove(
-                    "active"
-                );
 
-            }
+        strengthRange.value =
+            "85";
+
+
+        strengthValue.textContent =
+            "85%";
+
+
+        updateFilterButtons(
+            "normal"
         );
 
 
-        const normalButton =
-            document.querySelector(
-                '[data-filter="normal"]'
-            );
+        resultCanvas =
+            originalCanvas;
 
 
-        if(normalButton){
-
-            normalButton.classList.add(
-                "active"
-            );
-
-        }
-
-
-        currentResultCanvas =
-            null;
-
-
-        renderOriginal();
+        renderNormal();
 
 
         setStatus(
@@ -2378,8 +3125,7 @@ downloadButton.addEventListener(
 
         if(
             !originalImage ||
-            !imageCanvas.width ||
-            !imageCanvas.height
+            !resultCanvas
         ){
 
             return;
@@ -2389,46 +3135,9 @@ downloadButton.addEventListener(
 
         try{
 
-            let sourceCanvas =
-                currentResultCanvas;
-
-
-            /*
-                Для оригинала делаем полный исходный
-                canvas, а не маленькое превью.
-            */
-
-            if(
-                currentFilter === "normal" ||
-                !sourceCanvas
-            ){
-
-                sourceCanvas =
-                    document.createElement(
-                        "canvas"
-                    );
-
-
-                sourceCanvas.width =
-                    originalImage.naturalWidth;
-
-                sourceCanvas.height =
-                    originalImage.naturalHeight;
-
-
-                const sourceCtx =
-                    sourceCanvas.getContext(
-                        "2d"
-                    );
-
-
-                sourceCtx.drawImage(
-                    originalImage,
-                    0,
-                    0
-                );
-
-            }
+            setStatus(
+                "Подготавливаем PNG..."
+            );
 
 
             const link =
@@ -2442,7 +3151,7 @@ downloadButton.addEventListener(
 
 
             link.href =
-                sourceCanvas.toDataURL(
+                resultCanvas.toDataURL(
                     "image/png"
                 );
 
@@ -2467,6 +3176,7 @@ downloadButton.addEventListener(
             console.error(
                 error
             );
+
 
             setStatus(
                 "Не удалось сохранить изображение."
@@ -2534,15 +3244,18 @@ window.addEventListener(
         }
 
 
-        if(currentResultCanvas){
+        if(
+            currentFilter ===
+            "normal"
+        ){
 
-            renderResult(
-                currentResultCanvas
+            renderNormal();
+
+        }else if(resultCanvas){
+
+            showResult(
+                resultCanvas
             );
-
-        }else{
-
-            renderOriginal();
 
         }
 
@@ -2555,52 +3268,10 @@ window.addEventListener(
 ===================================================== */
 
 strengthValue.textContent =
-    strengthRange.value + "%";
+    strengthRange.value;
 
 
 updateButtons();
-
-
-/* =====================================================
-   ПРОВЕРКА TENSORFLOW
-===================================================== */
-
-if(
-    typeof tf === "undefined"
-){
-
-    modelStatus.textContent =
-        "TensorFlow.js не загрузился";
-
-    setStatus(
-        "Не удалось загрузить библиотеку фильтров."
-    );
-
-}else{
-
-    /*
-        Выбираем WebGL при наличии.
-    */
-
-    tf.setBackend("webgl")
-        .then(
-            function(){
-
-                return tf.ready();
-
-            }
-        )
-        .catch(
-            function(error){
-
-                console.warn(
-                    error
-                );
-
-            }
-        );
-
-}
 
 </script>
 

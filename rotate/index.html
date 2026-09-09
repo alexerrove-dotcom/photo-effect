@@ -1,29 +1,23 @@
 <!DOCTYPE html>
-
 <html lang="ru">
-
 <head>
-
 <meta charset="UTF-8">
 
 <meta
-name="viewport"
-content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
-
+    name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
 >
 
 <title>Повернуть фото онлайн — бесплатно | Фото + эффект</title>
 
 <meta
-name="description"
-content="Бесплатный онлайн-инструмент для поворота и отражения фотографий. Поверните фото на 90° или 180°, отразите по горизонтали или вертикали и скачайте результат в PNG."
-
+    name="description"
+    content="Бесплатный онлайн-инструмент для поворота и отражения фотографий. Поверните фото на 90° или 180°, отразите по горизонтали или вертикали и скачайте результат в PNG."
 >
 
 <meta
-name="robots"
-content="index, follow"
-
+    name="robots"
+    content="index, follow"
 >
 
 <script>
@@ -36,7 +30,6 @@ window.yaContextCb = window.yaContextCb || [];
 </script>
 
 <style>
-
 *{
     box-sizing:border-box;
 }
@@ -430,80 +423,77 @@ footer{
         flex-direction:column;
         gap:8px;
     }
-
 }
-
 </style>
-
 </head>
 
 <body>
 
 <header>
+    <div class="nav">
 
-<div class="nav">
+        <a
+            href="../"
+            class="logo"
+        >
+            Фото + эффект
+        </a>
 
-<a
-href="../"
-class="logo"
+        <nav class="navLinks">
 
->
+            <a href="../">
+                Инструмент
+            </a>
 
-Фото + эффект </a>
+            <a href="../crop/">
+                Обрезка фото
+            </a>
 
-<nav class="navLinks">
+            <a href="../resize/">
+                Изменить размер
+            </a>
 
-<a href="../">
-Инструмент
-</a>
+            <a href="./">
+                Повернуть фото
+            </a>
 
-<a href="../crop/">
-Обрезка фото
-</a>
+            <a href="../remove-background/">
+                Удалить фон
+            </a>
 
-<a href="../resize/">
-Изменить размер
-</a>
+            <a href="../#how-to">
+                Как пользоваться
+            </a>
 
-<a href="./">
-Повернуть фото
-</a>
+            <a href="../#about">
+                О сервисе
+            </a>
 
-<a href="../#how-to">
-Как пользоваться
-</a>
+            <a href="../#faq">
+                FAQ
+            </a>
 
-<a href="../#about">
-О сервисе
-</a>
+            <a href="../#privacy">
+                Конфиденциальность
+            </a>
 
-<a href="../#faq">
-FAQ
-</a>
-
-<a href="../#privacy">
-Конфиденциальность
-</a>
-
-</nav>
-
-</div>
-
+        </nav>
+    </div>
 </header>
 
 <main>
 
 <section class="hero">
 
-<h1>
-Повернуть фото онлайн
-</h1>
+    <h1>
+        Повернуть фото онлайн
+    </h1>
 
-<p>
-Бесплатно поверните фотографию на 90° или 180°,
-отразите её по горизонтали или вертикали и скачайте
-готовое изображение в формате PNG.
-</p>
+    <p>
+        Бесплатно поверните фотографию на 90° или 180°,
+        отразите её по горизонтали или вертикали и скачайте
+        готовое изображение в формате PNG.
+    </p>
 
 </section>
 
@@ -512,488 +502,443 @@ FAQ
     class="card"
 >
 
-<!-- =====================================================
-     НАВИГАЦИЯ МЕЖДУ ИНСТРУМЕНТАМИ
-===================================================== -->
+    <div class="toolbar">
 
-<div class="toolbar">
+        <a
+            href="../"
+            class="fileLabel primary"
+        >
+            Загрузить фото
+        </a>
 
-<a
-href="../"
-class="fileLabel primary"
+        <a
+            href="../crop/"
+            class="fileLabel"
+        >
+            Обрезать фото
+        </a>
 
->
+        <a
+            href="../resize/"
+            class="fileLabel"
+        >
+            Изменить размер
+        </a>
 
-Загрузить фото </a>
+        <a
+            href="./"
+            class="fileLabel"
+        >
+            Повернуть фото
+        </a>
 
-<a
-href="../crop/"
-class="fileLabel"
+        <a
+            href="../remove-background/"
+            class="fileLabel"
+        >
+            Удалить фон
+        </a>
 
->
+    </div>
 
-Обрезать фото </a>
+    <div class="toolbar">
 
-<a
-href="../resize/"
-class="fileLabel"
+        <label class="fileLabel primary">
 
->
+            Загрузить фото в редактор
 
-Изменить размер </a>
+            <input
+                id="fileInput"
+                type="file"
+                accept="image/*"
+            >
 
-<a
-href="./"
-class="fileLabel"
+        </label>
 
->
+        <button
+            id="leftBtn"
+            class="button"
+            type="button"
+        >
+            ↶ 90° влево
+        </button>
 
-Повернуть фото </a>
+        <button
+            id="rightBtn"
+            class="button"
+            type="button"
+        >
+            ↷ 90° вправо
+        </button>
 
-</div>
+        <button
+            id="rotate180Btn"
+            class="button"
+            type="button"
+        >
+            ↻ 180°
+        </button>
 
-<!-- =====================================================
-     УПРАВЛЕНИЕ ИНСТРУМЕНТОМ ПОВОРОТА
-===================================================== -->
+        <button
+            id="flipHBtn"
+            class="button"
+            type="button"
+        >
+            ↔ Отразить
+        </button>
 
-<div class="toolbar">
+        <button
+            id="flipVBtn"
+            class="button"
+            type="button"
+        >
+            ↕ Перевернуть
+        </button>
 
-<label
-class="fileLabel primary"
+        <button
+            id="downloadBtn"
+            class="button download"
+            type="button"
+            disabled
+        >
+            Скачать PNG
+        </button>
 
->
+        <button
+            id="newBtn"
+            class="button"
+            type="button"
+        >
+            Новое фото
+        </button>
 
-Загрузить фото в редактор
+        <button
+            id="resetBtn"
+            class="button danger"
+            type="button"
+            disabled
+        >
+            Сбросить
+        </button>
 
-<input
-id="fileInput"
-type="file"
-accept="image/*"
+    </div>
 
->
+    <div class="workspace">
 
-</label>
+        <canvas
+            id="canvas"
+            style="display:none"
+        ></canvas>
 
-<button
-id="leftBtn"
-class="button"
-type="button"
+        <div
+            id="empty"
+            class="empty"
+        >
+            <strong>
+                Загрузите фотографию
+            </strong>
 
->
+            Затем используйте кнопки поворота
+            или отражения для изменения изображения.
+        </div>
 
-↶ 90° влево </button>
+    </div>
 
-<button
-id="rightBtn"
-class="button"
-type="button"
+    <div
+        id="status"
+        class="status"
+    >
+        Фотография пока не загружена
+    </div>
 
->
-
-↷ 90° вправо </button>
-
-<button
-id="rotate180Btn"
-class="button"
-type="button"
-
->
-
-↻ 180° </button>
-
-<button
-id="flipHBtn"
-class="button"
-type="button"
-
->
-
-↔ Отразить </button>
-
-<button
-id="flipVBtn"
-class="button"
-type="button"
-
->
-
-↕ Перевернуть </button>
-
-<button
-id="downloadBtn"
-class="button download"
-type="button"
-disabled
-
->
-
-Скачать PNG </button>
-
-<button
-id="newBtn"
-class="button"
-type="button"
-
->
-
-Новое фото </button>
-
-<button
-id="resetBtn"
-class="button danger"
-type="button"
-disabled
-
->
-
-Сбросить </button>
-
-</div>
-
-<div
-    class="workspace"
->
-
-<canvas
-id="canvas"
-style="display:none"
-
->
-
-</canvas>
-
-<div
-    id="empty"
-    class="empty"
->
-
-<strong>
-Загрузите фотографию
-</strong>
-
-Затем используйте кнопки поворота
-или отражения для изменения изображения.
-
-</div>
-
-</div>
-
-<div
-    id="status"
-    class="status"
->
-Фотография пока не загружена
-</div>
-
-<div
-    id="info"
-    class="info"
->
-</div>
+    <div
+        id="info"
+        class="info"
+    ></div>
 
 </section>
 
 <div class="adBox">
 
-<div id="yandex_rtb_R-A-20003018-1"></div>
+    <div id="yandex_rtb_R-A-20003018-1"></div>
 
-<script>
+    <script>
+    window.yaContextCb.push(() => {
 
-window.yaContextCb.push(() => {
+        Ya.Context.AdvManager.render({
 
-    Ya.Context.AdvManager.render({
+            "blockId":
+                "R-A-20003018-1",
 
-        "blockId":
-            "R-A-20003018-1",
+            "renderTo":
+                "yandex_rtb_R-A-20003018-1"
 
-        "renderTo":
-            "yandex_rtb_R-A-20003018-1"
+        });
 
-    })
-
-})
-
-</script>
+    });
+    </script>
 
 </div>
 
-<section
-    class="textSection"
->
+<section class="textSection">
 
-<h2>
-Как пользоваться поворотом фото
-</h2>
+    <h2>
+        Как пользоваться поворотом фото
+    </h2>
 
-<p>
-Загрузите фотографию с компьютера или телефона.
-После загрузки изображение появится в рабочей области.
-</p>
+    <p>
+        Загрузите фотографию с компьютера или телефона.
+        После загрузки изображение появится в рабочей области.
+    </p>
 
-<ol>
+    <ol>
 
-<li>
-Нажмите «90° влево» или «90° вправо», чтобы повернуть фотографию.
-</li>
+        <li>
+            Нажмите «90° влево» или «90° вправо», чтобы повернуть фотографию.
+        </li>
 
-<li>
-Используйте «180°», чтобы развернуть фотографию на полный полуоборот.
-</li>
+        <li>
+            Используйте «180°», чтобы развернуть фотографию на полный полуоборот.
+        </li>
 
-<li>
-Кнопка «Отразить» зеркально отражает изображение по горизонтали.
-</li>
+        <li>
+            Кнопка «Отразить» зеркально отражает изображение по горизонтали.
+        </li>
 
-<li>
-Кнопка «Перевернуть» отражает изображение по вертикали.
-</li>
+        <li>
+            Кнопка «Перевернуть» отражает изображение по вертикали.
+        </li>
 
-<li>
-Нажмите «Скачать PNG», чтобы сохранить результат.
-</li>
+        <li>
+            Нажмите «Скачать PNG», чтобы сохранить результат.
+        </li>
 
-</ol>
+    </ol>
 
-<h3>
-Изменение фотографии перед обработкой
-</h3>
+    <h3>
+        Изменение фотографии перед обработкой
+    </h3>
 
-<p>
-Другие инструменты сайта позволяют подготовить фотографию
-перед поворотом. Можно сначала
-<a href="../crop/">обрезать фото</a>
-или
-<a href="../resize/">изменить размер</a>,
-а затем открыть инструмент поворота.
-</p>
+    <p>
+        Другие инструменты сайта позволяют подготовить фотографию
+        перед поворотом. Можно сначала
+        <a href="../crop/">обрезать фото</a>
+        или
+        <a href="../resize/">изменить размер</a>,
+        удалить фон с помощью инструмента
+        <a href="../remove-background/">удаления фона</a>,
+        а затем открыть инструмент поворота.
+    </p>
+
+</section>
+
+<section class="textSection">
+
+    <h2>
+        Инструмент поворота фотографии
+    </h2>
+
+    <p>
+        Этот онлайн-инструмент позволяет быстро изменить ориентацию
+        изображения без установки дополнительных программ.
+        Обработка выполняется непосредственно в браузере.
+    </p>
+
+    <p>
+        Можно повернуть изображение на 90 градусов влево,
+        на 90 градусов вправо или сразу на 180 градусов.
+        Также доступны горизонтальное и вертикальное отражение.
+    </p>
+
+    <p>
+        После обработки результат можно скачать в формате PNG.
+    </p>
+
+</section>
+
+<section class="textSection">
+
+    <h2 id="about">
+        Другие инструменты
+    </h2>
+
+    <div class="toolsGrid">
+
+        <a
+            href="../"
+            class="toolCard"
+        >
+            <h3>
+                Фото + эффект
+            </h3>
+
+            <p>
+                Добавьте эффект поверх своей фотографии
+                и сохраните готовый результат.
+            </p>
+        </a>
+
+        <a
+            href="../crop/"
+            class="toolCard"
+        >
+            <h3>
+                Обрезка фото
+            </h3>
+
+            <p>
+                Обрежьте фотографию до нужного размера
+                или выберите готовое соотношение сторон.
+            </p>
+        </a>
+
+        <a
+            href="../resize/"
+            class="toolCard"
+        >
+            <h3>
+                Изменить размер
+            </h3>
+
+            <p>
+                Измените ширину и высоту изображения
+                с сохранением пропорций.
+            </p>
+        </a>
+
+        <a
+            href="./"
+            class="toolCard"
+        >
+            <h3>
+                Повернуть фото
+            </h3>
+
+            <p>
+                Поверните или отразите фотографию
+                по горизонтали или вертикали.
+            </p>
+        </a>
+
+        <a
+            href="../remove-background/"
+            class="toolCard"
+        >
+            <h3>
+                Удалить фон
+            </h3>
+
+            <p>
+                Автоматически удалите фон изображения
+                и получите фотографию с прозрачным фоном.
+            </p>
+        </a>
+
+    </div>
 
 </section>
 
 <section
+    id="how-to"
     class="textSection"
 >
 
-<h2>
-Инструменты для работы с фото
-</h2>
+    <h2>
+        Как пользоваться сервисом
+    </h2>
 
-<div class="toolsGrid">
+    <p>
+        Выберите нужный инструмент, загрузите изображение
+        и выполните необходимую операцию.
+        Все действия выполняются непосредственно в браузере.
+    </p>
 
-<a
-href="../"
-class="toolCard"
-
->
-
-<h3>
-Фото + эффект
-</h3>
-
-<p>
-Добавьте изображение-эффект поверх фотографии
-и настройте его прозрачность.
-</p>
-
-</a>
-
-<a
-href="../crop/"
-class="toolCard"
-
->
-
-<h3>
-Обрезать фото
-</h3>
-
-<p>
-Выберите нужную область фотографии и сохраните результат в PNG.
-</p>
-
-</a>
-
-<a
-href="../resize/"
-class="toolCard"
-
->
-
-<h3>
-Изменить размер
-</h3>
-
-<p>
-Измените ширину и высоту изображения с сохранением пропорций.
-</p>
-
-</a>
-
-</div>
+    <p>
+        После завершения обработки нажмите кнопку скачивания,
+        чтобы сохранить готовое изображение.
+    </p>
 
 </section>
 
 <section
-    class="textSection"
->
-
-<h2>
-Поворот и отражение без установки программ
-</h2>
-
-<p>
-Инструмент работает непосредственно в браузере.
-Дополнительные программы для обычной обработки
-фотографии устанавливать не требуется.
-</p>
-
-<p>
-Изображение можно повернуть в любом направлении
-с шагом 90 градусов, а также отразить горизонтально
-или вертикально.
-</p>
-
-<h3>
-Доступные действия
-</h3>
-
-<ul>
-
-<li>
-поворот на 90° против часовой стрелки;
-</li>
-
-<li>
-поворот на 90° по часовой стрелке;
-</li>
-
-<li>
-поворот на 180°;
-</li>
-
-<li>
-горизонтальное отражение;
-</li>
-
-<li>
-вертикальное отражение;
-</li>
-
-<li>
-сохранение результата в PNG.
-</li>
-
-</ul>
-
-</section>
-
-<section
-    class="textSection"
     id="faq"
+    class="textSection"
 >
 
-<h2>
-Частые вопросы
-</h2>
+    <h2>
+        Часто задаваемые вопросы
+    </h2>
 
-<div class="faqItem">
+    <div class="faqItem">
 
-<h3>
-Можно ли повернуть фото на 90 градусов?
-</h3>
+        <h3>
+            Можно ли повернуть фото на 90 градусов?
+        </h3>
 
-<p>
-Да. Используйте кнопку «90° влево»
-или «90° вправо».
-</p>
+        <p>
+            Да. Доступен поворот на 90 градусов как влево,
+            так и вправо.
+        </p>
 
-</div>
+    </div>
 
-<div class="faqItem">
+    <div class="faqItem">
 
-<h3>
-Можно ли повернуть фотографию на 180 градусов?
-</h3>
+        <h3>
+            Можно ли повернуть фото на 180 градусов?
+        </h3>
 
-<p>
-Да. Нажмите кнопку «180°».
-</p>
+        <p>
+            Да. Для этого используйте кнопку «180°».
+        </p>
 
-</div>
+    </div>
 
-<div class="faqItem">
+    <div class="faqItem">
 
-<h3>
-Можно ли отразить фотографию зеркально?
-</h3>
+        <h3>
+            Можно ли отразить фотографию?
+        </h3>
 
-<p>
-Да. Кнопка «Отразить» выполняет горизонтальное
-зеркальное отражение, а «Перевернуть» —
-вертикальное.
-</p>
+        <p>
+            Да. Доступно отражение по горизонтали
+            и по вертикали.
+        </p>
 
-</div>
+    </div>
 
-<div class="faqItem">
+    <div class="faqItem">
 
-<h3>
-В каком формате сохраняется результат?
-</h3>
+        <h3>
+            В каком формате сохраняется результат?
+        </h3>
 
-<p>
-Результат сохраняется в формате PNG.
-</p>
+        <p>
+            Изображение скачивается в формате PNG.
+        </p>
 
-</div>
-
-<div class="faqItem">
-
-<h3>
-Работает ли инструмент на телефоне?
-</h3>
-
-<p>
-Да. Страница адаптирована для мобильных устройств.
-</p>
-
-</div>
-
-<div class="faqItem">
-
-<h3>
-Нужно ли устанавливать программу?
-</h3>
-
-<p>
-Нет. Инструмент работает непосредственно
-в современном браузере.
-</p>
-
-</div>
+    </div>
 
 </section>
 
 <section
+    id="privacy"
     class="textSection"
 >
 
-<h2>
-Конфиденциальность
-</h2>
+    <h2>
+        Конфиденциальность
+    </h2>
 
-<p>
-Изображение обрабатывается непосредственно
-в браузере пользователя. Для работы инструмента
-не требуется отправлять фотографию на сервер
-этого сервиса.
-</p>
+    <p>
+        Обработка фотографий выполняется непосредственно
+        в браузере пользователя.
+    </p>
 
-<p>
-Для работы сайта могут использоваться технические
-и рекламные сервисы сторонних компаний.
-Их работа регулируется соответствующими
-политиками конфиденциальности.
-</p>
+    <p>
+        Загруженные изображения не передаются на сервер
+        данного инструмента для выполнения операции поворота.
+    </p>
 
 </section>
 
@@ -1001,983 +946,401 @@ class="toolCard"
 
 <footer>
 
-<nav class="footerNav">
+    <div class="footerNav">
 
-<a href="../">
-Инструмент
-</a>
+        <a href="../">
+            Инструмент
+        </a>
 
-<a href="../crop/">
-Обрезка фото
-</a>
+        <a href="../crop/">
+            Обрезка фото
+        </a>
 
-<a href="../resize/">
-Изменить размер
-</a>
+        <a href="../resize/">
+            Изменить размер
+        </a>
 
-<a href="./">
-Повернуть фото
-</a>
+        <a href="./">
+            Повернуть фото
+        </a>
 
-<a href="../#how-to">
-Как пользоваться
-</a>
+        <a href="../remove-background/">
+            Удалить фон
+        </a>
 
-<a href="../#about">
-О сервисе
-</a>
+        <a href="../#how-to">
+            Как пользоваться
+        </a>
 
-<a href="../#faq">
-FAQ
-</a>
+        <a href="../#about">
+            О сервисе
+        </a>
 
-<a href="../#privacy">
-Конфиденциальность
-</a>
+        <a href="../#faq">
+            FAQ
+        </a>
 
-</nav>
+        <a href="../#privacy">
+            Конфиденциальность
+        </a>
 
-<div>
-Фото + эффект — бесплатные онлайн-инструменты для работы с фотографиями.
-</div>
+    </div>
+
+    © Фото + эффект
 
 </footer>
 
 <script>
+const fileInput = document.getElementById("fileInput");
 
-"use strict";
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
+const empty = document.getElementById("empty");
+const status = document.getElementById("status");
+const info = document.getElementById("info");
 
-const fileInput =
-    document.getElementById("fileInput");
+const leftBtn = document.getElementById("leftBtn");
+const rightBtn = document.getElementById("rightBtn");
+const rotate180Btn = document.getElementById("rotate180Btn");
 
+const flipHBtn = document.getElementById("flipHBtn");
+const flipVBtn = document.getElementById("flipVBtn");
 
-const canvas =
-    document.getElementById("canvas");
+const downloadBtn = document.getElementById("downloadBtn");
+const newBtn = document.getElementById("newBtn");
+const resetBtn = document.getElementById("resetBtn");
 
+let img = new Image();
+let loaded = false;
 
-const ctx =
-    canvas.getContext("2d");
-
-
-const empty =
-    document.getElementById("empty");
-
-
-const status =
-    document.getElementById("status");
-
-
-const info =
-    document.getElementById("info");
-
-
-const leftBtn =
-    document.getElementById("leftBtn");
-
-
-const rightBtn =
-    document.getElementById("rightBtn");
-
-
-const rotate180Btn =
-    document.getElementById("rotate180Btn");
-
-
-const flipHBtn =
-    document.getElementById("flipHBtn");
-
-
-const flipVBtn =
-    document.getElementById("flipVBtn");
-
-
-const downloadBtn =
-    document.getElementById("downloadBtn");
-
-
-const newBtn =
-    document.getElementById("newBtn");
-
-
-const resetBtn =
-    document.getElementById("resetBtn");
-
-
-let image =
-    null;
-
-
-let objectUrl =
-    null;
-
-
-let rotation =
-    0;
-
-
-let flipHorizontal =
-    false;
-
-
-let flipVertical =
-    false;
-
-
-const MAX_PIXELS =
-    20000000;
-
-
-/* =====================================================
-   НОРМАЛИЗАЦИЯ ПОВОРОТА
-===================================================== */
+let rotation = 0;
+let flipH = false;
+let flipV = false;
 
 function normalizeRotation(value){
-
-    value =
-        value % 360;
-
+    value %= 360;
 
     if(value < 0){
-
         value += 360;
-
     }
-
 
     return value;
-
 }
 
+function updateButtons(){
 
-/* =====================================================
-   РАЗМЕР CANVAS
-===================================================== */
+    const state = loaded;
 
-function getCanvasSize(){
+    leftBtn.disabled = !state;
+    rightBtn.disabled = !state;
+    rotate180Btn.disabled = !state;
+    flipHBtn.disabled = !state;
+    flipVBtn.disabled = !state;
+    downloadBtn.disabled = !state;
+    resetBtn.disabled = !state;
+}
 
-    if(!image){
+function updateInfo(){
 
-        return {
-
-            width:0,
-
-            height:0
-
-        };
-
+    if(!loaded){
+        info.textContent = "";
+        return;
     }
 
+    const degrees = normalizeRotation(rotation);
 
-    const rotated =
-        rotation === 90 ||
-        rotation === 270;
-
-
-    return {
-
-        width:
-            rotated
-                ? image.naturalHeight
-                : image.naturalWidth,
-
-        height:
-            rotated
-                ? image.naturalWidth
-                : image.naturalHeight
-
-    };
-
+    info.textContent =
+        `${canvas.width} × ${canvas.height}px • Поворот: ${degrees}°` +
+        ` • Горизонтально: ${flipH ? "да" : "нет"}` +
+        ` • Вертикально: ${flipV ? "да" : "нет"}`;
 }
-
-
-/* =====================================================
-   ОТРИСОВКА
-===================================================== */
 
 function render(){
 
-    if(!image){
-
-        canvas.style.display =
-            "none";
-
-
-        empty.style.display =
-            "block";
-
-
-        downloadBtn.disabled =
-            true;
-
-
-        resetBtn.disabled =
-            true;
-
-
+    if(!loaded){
         return;
-
     }
 
+    const angle = normalizeRotation(rotation);
+    const rad = angle * Math.PI / 180;
 
-    const size =
-        getCanvasSize();
+    const quarterTurn =
+        angle === 90 ||
+        angle === 270;
 
+    const sourceWidth = img.naturalWidth;
+    const sourceHeight = img.naturalHeight;
 
-    let width =
-        size.width;
-
-
-    let height =
-        size.height;
-
-
-    if(
-        width * height >
-        MAX_PIXELS
-    ){
-
-        const scale =
-            Math.sqrt(
-                MAX_PIXELS /
-                (
-                    width *
-                    height
-                )
-            );
-
-
-        width =
-            Math.floor(
-                width * scale
-            );
-
-
-        height =
-            Math.floor(
-                height * scale
-            );
-
+    if(quarterTurn){
+        canvas.width = sourceHeight;
+        canvas.height = sourceWidth;
+    }else{
+        canvas.width = sourceWidth;
+        canvas.height = sourceHeight;
     }
 
-
-    canvas.width =
-        width;
-
-
-    canvas.height =
-        height;
-
+    ctx.save();
 
     ctx.clearRect(
         0,
         0,
-        width,
-        height
+        canvas.width,
+        canvas.height
     );
-
-
-    ctx.save();
-
 
     ctx.translate(
-        width / 2,
-        height / 2
+        canvas.width / 2,
+        canvas.height / 2
     );
 
-
-    ctx.rotate(
-        rotation *
-        Math.PI /
-        180
-    );
-
-
-    const scaleX =
-        flipHorizontal
-            ? -1
-            : 1;
-
-
-    const scaleY =
-        flipVertical
-            ? -1
-            : 1;
-
+    ctx.rotate(rad);
 
     ctx.scale(
-        scaleX,
-        scaleY
+        flipH ? -1 : 1,
+        flipV ? -1 : 1
     );
-
-
-    let drawWidth =
-        image.naturalWidth;
-
-
-    let drawHeight =
-        image.naturalHeight;
-
-
-    if(
-        drawWidth *
-        drawHeight >
-        MAX_PIXELS
-    ){
-
-        const scale =
-            Math.sqrt(
-                MAX_PIXELS /
-                (
-                    drawWidth *
-                    drawHeight
-                )
-            );
-
-
-        drawWidth =
-            Math.floor(
-                drawWidth * scale
-            );
-
-
-        drawHeight =
-            Math.floor(
-                drawHeight * scale
-            );
-
-    }
-
 
     ctx.drawImage(
-
-        image,
-
-        -drawWidth / 2,
-
-        -drawHeight / 2,
-
-        drawWidth,
-
-        drawHeight
-
+        img,
+        -sourceWidth / 2,
+        -sourceHeight / 2,
+        sourceWidth,
+        sourceHeight
     );
-
 
     ctx.restore();
 
-
-    canvas.style.display =
-        "block";
-
-
-    empty.style.display =
-        "none";
-
-
-    downloadBtn.disabled =
-        false;
-
-
-    resetBtn.disabled =
-        false;
-
+    canvas.style.display = "block";
+    empty.style.display = "none";
 
     updateInfo();
-
+    updateButtons();
 }
 
+function resetTransform(){
 
-/* =====================================================
-   ИНФОРМАЦИЯ
-===================================================== */
+    rotation = 0;
+    flipH = false;
+    flipV = false;
 
-function updateInfo(){
+    if(loaded){
+        render();
+    }
 
-    if(!image){
+    status.textContent = loaded
+        ? "Изображение возвращено к исходному состоянию"
+        : "Фотография пока не загружена";
+}
 
-        status.textContent =
-            "Фотография пока не загружена";
+fileInput.addEventListener("change", function(){
 
+    const file = this.files && this.files[0];
 
-        info.textContent =
-            "";
-
-
+    if(!file){
         return;
-
     }
 
-
-    const transformations =
-        [];
-
-
-    if(rotation !== 0){
-
-        transformations.push(
-            "поворот " +
-            rotation +
-            "°"
-        );
-
+    if(!file.type.startsWith("image/")){
+        status.textContent = "Пожалуйста, выберите изображение";
+        return;
     }
 
+    const url = URL.createObjectURL(file);
 
-    if(flipHorizontal){
+    img = new Image();
 
-        transformations.push(
-            "горизонтальное отражение"
-        );
+    img.onload = function(){
 
-    }
+        URL.revokeObjectURL(url);
 
+        loaded = true;
 
-    if(flipVertical){
+        rotation = 0;
+        flipH = false;
+        flipV = false;
 
-        transformations.push(
-            "вертикальное отражение"
-        );
+        render();
 
-    }
+        status.textContent = "Фотография загружена";
 
+        updateButtons();
+        updateInfo();
+    };
 
-    if(
-        transformations.length === 0
-    ){
+    img.onerror = function(){
+
+        URL.revokeObjectURL(url);
+
+        loaded = false;
+
+        canvas.style.display = "none";
+        empty.style.display = "block";
 
         status.textContent =
-            "Исходное изображение";
+            "Не удалось открыть изображение";
 
-    }else{
+        updateButtons();
+        updateInfo();
+    };
+
+    img.src = url;
+});
+
+leftBtn.addEventListener("click", function(){
+
+    if(!loaded){
+        return;
+    }
+
+    rotation -= 90;
+
+    render();
+
+    status.textContent =
+        "Фотография повернута на 90° влево";
+});
+
+rightBtn.addEventListener("click", function(){
+
+    if(!loaded){
+        return;
+    }
+
+    rotation += 90;
+
+    render();
+
+    status.textContent =
+        "Фотография повернута на 90° вправо";
+});
+
+rotate180Btn.addEventListener("click", function(){
+
+    if(!loaded){
+        return;
+    }
+
+    rotation += 180;
+
+    render();
+
+    status.textContent =
+        "Фотография повернута на 180°";
+});
+
+flipHBtn.addEventListener("click", function(){
+
+    if(!loaded){
+        return;
+    }
+
+    flipH = !flipH;
+
+    render();
+
+    status.textContent =
+        flipH
+        ? "Фотография отражена по горизонтали"
+        : "Горизонтальное отражение отключено";
+});
+
+flipVBtn.addEventListener("click", function(){
+
+    if(!loaded){
+        return;
+    }
+
+    flipV = !flipV;
+
+    render();
+
+    status.textContent =
+        flipV
+        ? "Фотография отражена по вертикали"
+        : "Вертикальное отражение отключено";
+});
+
+resetBtn.addEventListener("click", function(){
+
+    if(!loaded){
+        return;
+    }
+
+    resetTransform();
+});
+
+newBtn.addEventListener("click", function(){
+
+    fileInput.value = "";
+
+    loaded = false;
+
+    img = new Image();
+
+    rotation = 0;
+    flipH = false;
+    flipV = false;
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    canvas.style.display = "none";
+    empty.style.display = "block";
+
+    status.textContent =
+        "Фотография пока не загружена";
+
+    info.textContent = "";
+
+    updateButtons();
+
+    fileInput.click();
+});
+
+downloadBtn.addEventListener("click", function(){
+
+    if(!loaded){
+        return;
+    }
+
+    canvas.toBlob(function(blob){
+
+        if(!blob){
+            status.textContent =
+                "Не удалось подготовить изображение";
+            return;
+        }
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "photo-rotated.png";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+        setTimeout(function(){
+            URL.revokeObjectURL(url);
+        },1000);
 
         status.textContent =
-            "Изменения: " +
-            transformations.join(
-                ", "
-            );
+            "Изображение подготовлено к скачиванию";
 
-    }
+    },"image/png");
+});
 
-
-    info.textContent =
-        "Исходный размер: " +
-        image.naturalWidth +
-        " × " +
-        image.naturalHeight +
-        " px";
-
-}
-
-
-/* =====================================================
-   ЗАГРУЗКА ФОТО
-===================================================== */
-
-fileInput.addEventListener(
-    "change",
-    function(){
-
-        const file =
-            this.files &&
-            this.files[0];
-
-
-        if(!file){
-
-            return;
-
-        }
-
-
-        if(
-            !file.type ||
-            !file.type.startsWith("image/")
-        ){
-
-            status.textContent =
-                "Выберите файл изображения.";
-
-            return;
-
-        }
-
-
-        if(objectUrl){
-
-            URL.revokeObjectURL(
-                objectUrl
-            );
-
-        }
-
-
-        objectUrl =
-            URL.createObjectURL(
-                file
-            );
-
-
-        const newImage =
-            new Image();
-
-
-        newImage.onload =
-            function(){
-
-                image =
-                    newImage;
-
-
-                rotation =
-                    0;
-
-
-                flipHorizontal =
-                    false;
-
-
-                flipVertical =
-                    false;
-
-
-                render();
-
-
-                status.textContent =
-                    "Фотография загружена.";
-
-            };
-
-
-        newImage.onerror =
-            function(){
-
-                status.textContent =
-                    "Не удалось открыть изображение.";
-
-
-                image =
-                    null;
-
-
-                render();
-
-            };
-
-
-        newImage.src =
-            objectUrl;
-
-    }
-);
-
-
-/* =====================================================
-   ВЛЕВО
-===================================================== */
-
-leftBtn.addEventListener(
-    "click",
-    function(){
-
-        if(!image){
-
-            status.textContent =
-                "Сначала загрузите фотографию.";
-
-            return;
-
-        }
-
-
-        rotation =
-            normalizeRotation(
-                rotation - 90
-            );
-
-
-        render();
-
-    }
-);
-
-
-/* =====================================================
-   ВПРАВО
-===================================================== */
-
-rightBtn.addEventListener(
-    "click",
-    function(){
-
-        if(!image){
-
-            status.textContent =
-                "Сначала загрузите фотографию.";
-
-            return;
-
-        }
-
-
-        rotation =
-            normalizeRotation(
-                rotation + 90
-            );
-
-
-        render();
-
-    }
-);
-
-
-/* =====================================================
-   180
-===================================================== */
-
-rotate180Btn.addEventListener(
-    "click",
-    function(){
-
-        if(!image){
-
-            status.textContent =
-                "Сначала загрузите фотографию.";
-
-            return;
-
-        }
-
-
-        rotation =
-            normalizeRotation(
-                rotation + 180
-            );
-
-
-        render();
-
-    }
-);
-
-
-/* =====================================================
-   ГОРИЗОНТАЛЬНОЕ ОТРАЖЕНИЕ
-===================================================== */
-
-flipHBtn.addEventListener(
-    "click",
-    function(){
-
-        if(!image){
-
-            status.textContent =
-                "Сначала загрузите фотографию.";
-
-            return;
-
-        }
-
-
-        flipHorizontal =
-            !flipHorizontal;
-
-
-        render();
-
-    }
-);
-
-
-/* =====================================================
-   ВЕРТИКАЛЬНОЕ ОТРАЖЕНИЕ
-===================================================== */
-
-flipVBtn.addEventListener(
-    "click",
-    function(){
-
-        if(!image){
-
-            status.textContent =
-                "Сначала загрузите фотографию.";
-
-            return;
-
-        }
-
-
-        flipVertical =
-            !flipVertical;
-
-
-        render();
-
-    }
-);
-
-
-/* =====================================================
-   СКАЧИВАНИЕ PNG
-===================================================== */
-
-downloadBtn.addEventListener(
-    "click",
-    function(){
-
-        if(!image){
-
-            status.textContent =
-                "Сначала загрузите фотографию.";
-
-            return;
-
-        }
-
-
-        if(
-            canvas.width <= 0 ||
-            canvas.height <= 0
-        ){
-
-            status.textContent =
-                "Не удалось подготовить изображение.";
-
-            return;
-
-        }
-
-
-        canvas.toBlob(
-            function(blob){
-
-                if(!blob){
-
-                    status.textContent =
-                        "Не удалось подготовить PNG.";
-
-                    return;
-
-                }
-
-
-                const url =
-                    URL.createObjectURL(
-                        blob
-                    );
-
-
-                const link =
-                    document.createElement(
-                        "a"
-                    );
-
-
-                link.href =
-                    url;
-
-
-                link.download =
-                    "photo-rotated.png";
-
-
-                document.body.appendChild(
-                    link
-                );
-
-
-                link.click();
-
-
-                link.remove();
-
-
-                setTimeout(
-                    function(){
-
-                        URL.revokeObjectURL(
-                            url
-                        );
-
-                    },
-                    1000
-                );
-
-
-                status.textContent =
-                    "PNG готов к сохранению.";
-
-            },
-            "image/png"
-        );
-
-    }
-);
-
-
-/* =====================================================
-   СБРОС
-===================================================== */
-
-resetBtn.addEventListener(
-    "click",
-    function(){
-
-        if(!image){
-
-            status.textContent =
-                "Сначала загрузите фотографию.";
-
-            return;
-
-        }
-
-
-        rotation =
-            0;
-
-
-        flipHorizontal =
-            false;
-
-
-        flipVertical =
-            false;
-
-
-        render();
-
-
-        status.textContent =
-            "Изменения сброшены.";
-
-    }
-);
-
-
-/* =====================================================
-   НОВОЕ ФОТО
-===================================================== */
-
-newBtn.addEventListener(
-    "click",
-    function(){
-
-        image =
-            null;
-
-
-        rotation =
-            0;
-
-
-        flipHorizontal =
-            false;
-
-
-        flipVertical =
-            false;
-
-
-        if(objectUrl){
-
-            URL.revokeObjectURL(
-                objectUrl
-            );
-
-
-            objectUrl =
-                null;
-
-        }
-
-
-        fileInput.value =
-            "";
-
-
-        canvas.width =
-            1;
-
-
-        canvas.height =
-            1;
-
-
-        canvas.style.display =
-            "none";
-
-
-        empty.style.display =
-            "block";
-
-
-        downloadBtn.disabled =
-            true;
-
-
-        resetBtn.disabled =
-            true;
-
-
-        status.textContent =
-            "Фотография пока не загружена";
-
-
-        info.textContent =
-            "";
-
-    }
-);
-
-
-/* =====================================================
-   ОСВОБОЖДЕНИЕ URL
-===================================================== */
-
-window.addEventListener(
-    "beforeunload",
-    function(){
-
-        if(objectUrl){
-
-            URL.revokeObjectURL(
-                objectUrl
-            );
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   НАЧАЛЬНОЕ СОСТОЯНИЕ
-===================================================== */
-
-canvas.style.display =
-    "none";
-
-
-canvas.width =
-    1;
-
-
-canvas.height =
-    1;
-
-
-downloadBtn.disabled =
-    true;
-
-
-resetBtn.disabled =
-    true;
-
+updateButtons();
 </script>
 
 </body>
-
 </html>

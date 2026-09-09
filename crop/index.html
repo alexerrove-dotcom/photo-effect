@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 
 <html lang="ru">
@@ -28,8 +29,8 @@ window.yaContextCb = window.yaContextCb || [];
 </script>
 
 <script
-    src="https://yandex.ru/ads/system/context.js"
-    async>
+src="https://yandex.ru/ads/system/context.js"
+async>
 </script>
 
 <style>
@@ -171,6 +172,17 @@ main{
 
 .button.primary:hover,
 .fileLabel.primary:hover{
+    background:#e7e9ed;
+}
+
+/* Активный текущий инструмент */
+.fileLabel.active{
+    background:#fff;
+    color:#101217;
+    border-color:#fff;
+}
+
+.fileLabel.active:hover{
     background:#e7e9ed;
 }
 
@@ -559,6 +571,14 @@ footer{
         border-radius:14px;
     }
 
+    .workspace{
+        min-height:300px;
+    }
+
+    #imageCanvas{
+        max-height:60vh;
+    }
+
     .toolbar{
         flex-direction:column;
     }
@@ -581,14 +601,6 @@ footer{
     .aspectButton{
         flex:1;
         min-width:0;
-    }
-
-    .workspace{
-        min-height:300px;
-    }
-
-    #imageCanvas{
-        max-height:60vh;
     }
 
     .actions{
@@ -646,12 +658,10 @@ footer{
 <div class="nav">
 
 <a
-href="../"
-class="logo"
+    href="../"
+    class="logo"
 >
-
 Фото + эффект
-
 </a>
 
 <nav class="navLinks">
@@ -660,7 +670,10 @@ class="logo"
 Инструмент
 </a>
 
-<a href="./">
+<a
+    href="./"
+    class="active"
+>
 Обрезка фото
 </a>
 
@@ -723,7 +736,7 @@ FAQ
 
 <a
 href="../"
-class="fileLabel primary"
+class="fileLabel"
 >
 
 Загрузить фото
@@ -731,7 +744,7 @@ class="fileLabel primary"
 
 <a
 href="./"
-class="fileLabel"
+class="fileLabel active"
 >
 
 Обрезать фото
@@ -781,8 +794,8 @@ accept="image/*"
 </label>
 
 <button
-id="cropButton"
-class="button"
+id="applyCropButton"
+class="button primary"
 type="button"
 disabled
 >
@@ -803,10 +816,9 @@ disabled
 </button>
 
 <button
-id="newPhotoButton"
+id="newButton"
 class="button"
 type="button"
-disabled
 >
 
 Новое фото
@@ -820,7 +832,7 @@ type="button"
 disabled
 >
 
-Сбросить область
+Сбросить
 
 </button>
 
@@ -834,132 +846,169 @@ disabled
 
 <button
 class="aspectButton active"
-type="button"
 data-ratio="free"
+type="button"
 >
-
-Свободная
-
+Свободно
 </button>
 
 <button
 class="aspectButton"
-type="button"
 data-ratio="1"
+type="button"
 >
-
 1:1
-
 </button>
 
 <button
 class="aspectButton"
+data-ratio="4/3"
 type="button"
-data-ratio="1.3333333333"
 >
-
 4:3
-
 </button>
 
 <button
 class="aspectButton"
+data-ratio="16/9"
 type="button"
-data-ratio="1.7777777778"
 >
-
 16:9
-
 </button>
 
 <button
 class="aspectButton"
+data-ratio="9/16"
 type="button"
-data-ratio="0.5625"
 >
-
 9:16
-
 </button>
 
 </div>
 
-<div
-    id="workspace"
-    class="workspace"
->
+<div class="workspace">
 
 <div
-    id="placeholder"
-    class="placeholder"
->
-
-Загрузите фотографию, затем выделите область для обрезки.
-
-</div>
-
-<div
-    id="canvasStage"
-    class="canvasStage"
+id="canvasStage"
+class="canvasStage"
 >
 
 <canvas
 id="imageCanvas"
+></canvas>
+
+<div
+id="cropBox"
+class="cropBox"
 >
-</canvas>
 
 <div
-    id="cropBox"
-    class="cropBox"
->
-
-<div class="grid-v1"></div>
-<div class="grid-v2"></div>
-<div class="grid-h1"></div>
-<div class="grid-h2"></div>
-
-<div
-    class="handle nw"
-    data-handle="nw"
+class="grid-v1"
 ></div>
 
 <div
-    class="handle ne"
-    data-handle="ne"
+class="grid-v2"
 ></div>
 
 <div
-    class="handle sw"
-    data-handle="sw"
+class="grid-h1"
 ></div>
 
 <div
-    class="handle se"
-    data-handle="se"
+class="grid-h2"
+></div>
+
+<div
+class="handle nw"
+data-handle="nw"
+></div>
+
+<div
+class="handle ne"
+data-handle="ne"
+></div>
+
+<div
+class="handle sw"
+data-handle="sw"
+></div>
+
+<div
+class="handle se"
+data-handle="se"
 ></div>
 
 </div>
 
 </div>
 
-</div>
-
 <div
-    id="imageInfo"
-    class="infoLine"
+id="placeholder"
+class="placeholder"
 >
 
-<span>
-Фото не загружено
+Загрузите фотографию, чтобы начать обрезку.
+
+</div>
+
+</div>
+
+<div class="infoLine">
+
+<span id="imageSize">
+Размер: —
+</span>
+
+<span id="cropSize">
+Область: —
 </span>
 
 </div>
 
 <div
-    id="status"
-    class="status"
-    aria-live="polite"
+id="status"
+class="status"
 >
+Загрузите изображение.
+</div>
+
+<div class="actions">
+
+<button
+id="applyCropButtonBottom"
+class="button primary"
+type="button"
+disabled
+>
+Обрезать фото
+</button>
+
+<button
+id="downloadButtonBottom"
+class="button"
+type="button"
+disabled
+>
+Скачать PNG
+</button>
+
+<button
+id="newButtonBottom"
+class="button"
+type="button"
+>
+Новое фото
+</button>
+
+<button
+id="resetButtonBottom"
+class="button"
+type="button"
+disabled
+>
+Сбросить
+</button>
+
 </div>
 
 </section>
@@ -969,104 +1018,64 @@ id="imageCanvas"
 <div id="yandex_rtb_R-A-20003018-1"></div>
 
 <script>
-
 window.yaContextCb.push(() => {
-
     Ya.Context.AdvManager.render({
-
-        "blockId":
-            "R-A-20003018-1",
-
-        "renderTo":
-            "yandex_rtb_R-A-20003018-1"
-
+        "blockId": "R-A-20003018-1",
+        "renderTo": "yandex_rtb_R-A-20003018-1"
     })
-
 })
-
 </script>
 
 </div>
 
-<section
-    class="textSection"
->
+<section class="textSection">
 
 <h2>
-Как обрезать фотографию онлайн
+Как обрезать фотографию
 </h2>
 
 <p>
-Нажмите «Загрузить фото» внутри редактора и выберите
-изображение с компьютера или телефона.
+Загрузите фотографию с компьютера или телефона.
+После загрузки появится область обрезки,
+которую можно перемещать и изменять по размеру.
 </p>
 
 <ol>
 
 <li>
-Выберите нужное соотношение сторон или оставьте
-режим «Свободная».
+Выберите нужное соотношение сторон или оставьте свободное выделение.
 </li>
 
 <li>
-Переместите область обрезки в нужное место.
+Перемещайте область обрезки по фотографии.
 </li>
 
 <li>
-Потяните за один из углов области, чтобы изменить
-её размер.
+Используйте угловые маркеры для изменения её размера.
 </li>
 
 <li>
-Нажмите «Обрезать».
+Нажмите «Обрезать фото».
 </li>
 
 <li>
-Нажмите «Скачать PNG», чтобы сохранить результат.
+Скачайте готовое изображение в формате PNG.
 </li>
 
 </ol>
 
-<h3>
-Обрезка на телефоне
-</h3>
-
-<p>
-На сенсорном экране область можно перемещать пальцем.
-Размер области изменяется перетаскиванием одного
-из четырёх углов.
-</p>
-
 </section>
 
-<section
-    class="textSection"
->
+<section class="textSection">
 
 <h2>
-Пропорции изображения
+Другие инструменты
 </h2>
 
 <p>
-В режиме «Свободная» область обрезки может иметь
-произвольные пропорции.
+После обрезки фотографии можно использовать другие инструменты
+сервиса для дальнейшей обработки изображения.
 </p>
-
-<p>
-Режим 1:1 подходит для квадратных изображений.
-4:3 и 16:9 используются для распространённых
-горизонтальных форматов, а 9:16 — для вертикальных.
-</p>
-
-</section>
-
-<section
-    class="textSection"
->
-
-<h2>
-Инструменты для работы с фото
-</h2>
 
 <div class="toolsGrid">
 
@@ -1080,8 +1089,7 @@ class="toolCard"
 </h3>
 
 <p>
-Добавьте изображение-эффект поверх фотографии
-и настройте его прозрачность.
+Наложите эффект поверх фотографии и настройте его прозрачность.
 </p>
 
 </a>
@@ -1096,8 +1104,7 @@ class="toolCard"
 </h3>
 
 <p>
-Измените ширину и высоту изображения
-с сохранением пропорций.
+Измените ширину и высоту фотографии с сохранением пропорций.
 </p>
 
 </a>
@@ -1112,8 +1119,7 @@ class="toolCard"
 </h3>
 
 <p>
-Поверните или отразите фотографию и сохраните
-готовый результат в PNG.
+Поверните или отразите изображение.
 </p>
 
 </a>
@@ -1128,8 +1134,7 @@ class="toolCard"
 </h3>
 
 <p>
-Автоматически удалите фон фотографии
-и получите PNG с прозрачным фоном.
+Автоматически удалите фон фотографии и сохраните PNG.
 </p>
 
 </a>
@@ -1138,24 +1143,20 @@ class="toolCard"
 
 </section>
 
-<section
-    class="textSection"
-    id="faq"
->
+<section class="textSection">
 
-<h2>
+<h2 id="faq">
 Частые вопросы
 </h2>
 
 <div class="faqItem">
 
 <h3>
-Загружается ли фотография на сервер?
+Можно ли выбрать квадратную область?
 </h3>
 
 <p>
-Нет. Изображение обрабатывается непосредственно
-в браузере с помощью Canvas.
+Да. Выберите соотношение сторон 1:1.
 </p>
 
 </div>
@@ -1163,11 +1164,11 @@ class="toolCard"
 <div class="faqItem">
 
 <h3>
-Какой формат у результата?
+Можно ли обрезать фото без фиксированных пропорций?
 </h3>
 
 <p>
-Результат сохраняется в формате PNG.
+Да. Используйте режим «Свободно».
 </p>
 
 </div>
@@ -1175,11 +1176,12 @@ class="toolCard"
 <div class="faqItem">
 
 <h3>
-Можно ли обрезать фотографию на телефоне?
+Можно ли изменить размер фотографии после обрезки?
 </h3>
 
 <p>
-Да. Интерфейс поддерживает сенсорное управление.
+Да. После сохранения результата откройте инструмент
+«Изменить размер».
 </p>
 
 </div>
@@ -1187,12 +1189,11 @@ class="toolCard"
 <div class="faqItem">
 
 <h3>
-Можно ли изменить пропорции?
+Можно ли повернуть фотографию?
 </h3>
 
 <p>
-Да. Доступны свободная область, 1:1, 4:3,
-16:9 и 9:16.
+Да. Для этого используется инструмент «Повернуть фото».
 </p>
 
 </div>
@@ -1200,57 +1201,45 @@ class="toolCard"
 <div class="faqItem">
 
 <h3>
-Что произойдёт с исходным файлом?
+Можно ли удалить фон?
 </h3>
 
 <p>
-Исходный файл на устройстве пользователя
-не изменяется. Обрезанная версия создаётся
-отдельно.
+Да. Для этого используйте инструмент «Удалить фон».
 </p>
 
 </div>
 
 </section>
 
-<section
-    class="textSection"
->
+<section class="textSection">
 
-<h2>
+<h2 id="about">
 О сервисе
 </h2>
 
 <p>
-«Обрезка фото онлайн» — простой браузерный инструмент
-для выбора нужной области фотографии и сохранения
-получившегося изображения.
+«Фото + эффект» — набор бесплатных онлайн-инструментов
+для базовой обработки фотографий прямо в браузере.
 </p>
 
 <p>
-Инструмент является частью сервиса «Фото + эффект»
-и предназначен для быстрой подготовки изображений
-без установки отдельной программы.
+Вы можете обрезать, изменить размер, повернуть фотографию,
+добавить эффект или удалить фон.
 </p>
 
 </section>
 
-<section
-    class="textSection"
->
+<section class="textSection">
 
-<h2>
+<h2 id="privacy">
 Конфиденциальность
 </h2>
 
 <p>
-Обработка изображения выполняется непосредственно
-в браузере пользователя.
-</p>
-
-<p>
-Для обычной работы инструмента не требуется отправлять
-исходную фотографию на сервер этого сервиса.
+Обработка изображения выполняется непосредственно в браузере
+пользователя. Выбранная фотография не используется для постоянного
+хранения сервисом.
 </p>
 
 </section>
@@ -1307,12 +1296,6 @@ FAQ
 
 <script>
 
-"use strict";
-
-/* =====================================================
-   ЭЛЕМЕНТЫ
-===================================================== */
-
 const photoInput =
     document.getElementById("photoInput");
 
@@ -1331,83 +1314,119 @@ const cropBox =
 const placeholder =
     document.getElementById("placeholder");
 
-const cropButton =
-    document.getElementById("cropButton");
+const imageSize =
+    document.getElementById("imageSize");
 
-const downloadButton =
-    document.getElementById("downloadButton");
-
-const newPhotoButton =
-    document.getElementById("newPhotoButton");
-
-const resetButton =
-    document.getElementById("resetButton");
-
-const imageInfo =
-    document.getElementById("imageInfo");
+const cropSize =
+    document.getElementById("cropSize");
 
 const status =
     document.getElementById("status");
 
+const applyCropButton =
+    document.getElementById("applyCropButton");
+
+const downloadButton =
+    document.getElementById("downloadButton");
+
+const newButton =
+    document.getElementById("newButton");
+
+const resetButton =
+    document.getElementById("resetButton");
+
+const applyCropButtonBottom =
+    document.getElementById("applyCropButtonBottom");
+
+const downloadButtonBottom =
+    document.getElementById("downloadButtonBottom");
+
+const newButtonBottom =
+    document.getElementById("newButtonBottom");
+
+const resetButtonBottom =
+    document.getElementById("resetButtonBottom");
+
 const aspectButtons =
     document.querySelectorAll(".aspectButton");
 
-/* =====================================================
-   НАСТРОЙКИ
-===================================================== */
-
-const MAX_PIXELS =
-    20000000;
-
-const MIN_CROP_SIZE =
-    30;
-
-/* =====================================================
-   СОСТОЯНИЕ
-===================================================== */
-
 let image =
-    null;
+    new Image();
 
-let imageObjectUrl =
-    null;
-
-let selectedRatio =
-    null;
-
-let isCroppedResult =
+let imageLoaded =
     false;
+
+let imageUrl =
+    null;
+
+let naturalWidth =
+    0;
+
+let naturalHeight =
+    0;
+
+let scale =
+    1;
+
+let displayWidth =
+    0;
+
+let displayHeight =
+    0;
+
+let crop = {
+    x:0,
+    y:0,
+    width:0,
+    height:0
+};
+
+let aspectRatio =
+    null;
 
 let dragging =
     false;
 
-let resizing =
-    false;
-
-let activeHandle =
+let dragMode =
     null;
 
-let startPointer =
+let dragHandle =
     null;
 
-let startCrop =
-    null;
+let startPointer = {
+    x:0,
+    y:0
+};
 
-let cropX =
-    0;
+let startCrop = {
+    x:0,
+    y:0,
+    width:0,
+    height:0
+};
 
-let cropY =
-    0;
+const MIN_CROP_SIZE =
+    30;
 
-let cropW =
-    0;
-
-let cropH =
-    0;
 
 /* =====================================================
-   STATUS
+   HELPERS
 ===================================================== */
+
+function clamp(
+    value,
+    min,
+    max
+){
+    return Math.max(
+        min,
+        Math.min(
+            max,
+            value
+        )
+    );
+}
+
 
 function setStatus(text){
 
@@ -1416,539 +1435,426 @@ function setStatus(text){
 
 }
 
+
+/* =====================================================
+   INITIAL UI
+===================================================== */
+
 function updateButtons(){
 
-    const ready =
-        !!image &&
-        cropW > 0 &&
-        cropH > 0;
+    const enabled =
+        imageLoaded;
 
-    cropButton.disabled =
-        !ready;
+    applyCropButton.disabled =
+        !enabled;
 
     downloadButton.disabled =
-        !ready;
-
-    newPhotoButton.disabled =
-        !image;
+        !enabled;
 
     resetButton.disabled =
-        !image;
+        !enabled;
 
+    applyCropButtonBottom.disabled =
+        !enabled;
+
+    downloadButtonBottom.disabled =
+        !enabled;
+
+    resetButtonBottom.disabled =
+        !enabled;
 }
 
-function clamp(
-    value,
-    min,
-    max
-){
-
-    return Math.min(
-        max,
-        Math.max(
-            min,
-            value
-        )
-    );
-
-}
-
-function getRatio(){
-
-    if(
-        selectedRatio === null
-    ){
-
-        return null;
-
-    }
-
-    return selectedRatio;
-
-}
 
 /* =====================================================
-   ЗАГРУЗКА
+   DISPLAY GEOMETRY
 ===================================================== */
 
-function loadPhoto(file){
-
-    if(
-        !file ||
-        !file.type ||
-        !file.type.startsWith("image/")
-    ){
-
-        setStatus(
-            "Пожалуйста, выберите изображение."
-        );
-
-        return;
-
-    }
-
-    if(imageObjectUrl){
-
-        URL.revokeObjectURL(
-            imageObjectUrl
-        );
-
-        imageObjectUrl =
-            null;
-
-    }
-
-    const url =
-        URL.createObjectURL(file);
-
-    imageObjectUrl =
-        url;
-
-    const img =
-        new Image();
-
-    img.onload =
-        function(){
-
-            image =
-                img;
-
-            isCroppedResult =
-                false;
-
-            initializeCrop();
-
-            placeholder.style.display =
-                "none";
-
-            canvasStage.classList.add(
-                "visible"
-            );
-
-            imageInfo.innerHTML =
-                "<span>Исходный размер: " +
-                image.naturalWidth +
-                " × " +
-                image.naturalHeight +
-                " px</span>";
-
-            setStatus(
-                "Фото загружено. Выберите область для обрезки."
-            );
-
-            render();
-
-            updateButtons();
-
-        };
-
-    img.onerror =
-        function(){
-
-            image =
-                null;
-
-            setStatus(
-                "Не удалось загрузить фотографию."
-            );
-
-            updateButtons();
-
-        };
-
-    img.src =
-        url;
-
-}
-
-/* =====================================================
-   ИНИЦИАЛИЗАЦИЯ
-===================================================== */
-
-function initializeCrop(){
-
-    if(!image){
-        return;
-    }
-
-    const w =
-        image.naturalWidth;
-
-    const h =
-        image.naturalHeight;
-
-    if(
-        selectedRatio === null
-    ){
-
-        cropW =
-            w * 0.85;
-
-        cropH =
-            h * 0.85;
-
-    }
-    else{
-
-        const ratio =
-            selectedRatio;
-
-        if(
-            w / h >= ratio
-        ){
-
-            cropH =
-                h * 0.85;
-
-            cropW =
-                cropH * ratio;
-
-        }
-        else{
-
-            cropW =
-                w * 0.85;
-
-            cropH =
-                cropW / ratio;
-
-        }
-
-    }
-
-    cropW =
-        Math.min(
-            cropW,
-            w
-        );
-
-    cropH =
-        Math.min(
-            cropH,
-            h
-        );
-
-    cropX =
-        (w - cropW) / 2;
-
-    cropY =
-        (h - cropH) / 2;
-
-    ensureCropInsideImage();
-
-}
-
-/* =====================================================
-   ГРАНИЦЫ
-===================================================== */
-
-function ensureCropInsideImage(){
-
-    if(!image){
-        return;
-    }
-
-    const w =
-        image.naturalWidth;
-
-    const h =
-        image.naturalHeight;
-
-    cropW =
-        clamp(
-            cropW,
-            MIN_CROP_SIZE,
-            w
-        );
-
-    cropH =
-        clamp(
-            cropH,
-            MIN_CROP_SIZE,
-            h
-        );
-
-    cropX =
-        clamp(
-            cropX,
-            0,
-            Math.max(
-                0,
-                w - cropW
-            )
-        );
-
-    cropY =
-        clamp(
-            cropY,
-            0,
-            Math.max(
-                0,
-                h - cropH
-            )
-        );
-
-}
-
-/* =====================================================
-   РАЗМЕР ОТОБРАЖЕНИЯ
-===================================================== */
-
-function getDisplaySize(){
-
-    if(!image){
-        return null;
-    }
+function calculateDisplaySize(){
 
     const workspace =
-        document.getElementById(
-            "workspace"
-        );
+        canvasStage.parentElement;
 
-    const availableWidth =
-        Math.max(
-            50,
-            workspace.clientWidth - 20
-        );
+    const maxWidth =
+        workspace.clientWidth -
+        40;
 
-    const availableHeight =
-        Math.max(
-            50,
-            workspace.clientHeight - 20
-        );
+    const maxHeight =
+        workspace.clientHeight -
+        40;
 
-    const imageW =
-        image.naturalWidth;
+    const widthRatio =
+        maxWidth /
+        naturalWidth;
 
-    const imageH =
-        image.naturalHeight;
+    const heightRatio =
+        maxHeight /
+        naturalHeight;
 
-    const scale =
+    scale =
         Math.min(
-            availableWidth / imageW,
-            availableHeight / imageH,
-            1
+            1,
+            widthRatio,
+            heightRatio
         );
 
-    return {
-
-        width:
-            Math.max(
-                1,
-                Math.round(
-                    imageW * scale
-                )
-            ),
-
-        height:
-            Math.max(
-                1,
-                Math.round(
-                    imageH * scale
-                )
+    displayWidth =
+        Math.max(
+            1,
+            Math.round(
+                naturalWidth *
+                scale
             )
+        );
 
-    };
+    displayHeight =
+        Math.max(
+            1,
+            Math.round(
+                naturalHeight *
+                scale
+            )
+        );
+
+    imageCanvas.width =
+        displayWidth;
+
+    imageCanvas.height =
+        displayHeight;
+
+    imageCanvas.style.width =
+        displayWidth + "px";
+
+    imageCanvas.style.height =
+        displayHeight + "px";
 
 }
 
+
 /* =====================================================
-   ОТРИСОВКА
+   DRAW IMAGE
 ===================================================== */
 
-function render(){
+function drawImage(){
 
-    if(!image){
+    if(!imageLoaded){
         return;
     }
-
-    const size =
-        getDisplaySize();
-
-    if(!size){
-        return;
-    }
-
-    imageCanvas.width =
-        size.width;
-
-    imageCanvas.height =
-        size.height;
-
-    imageCanvas.style.width =
-        size.width + "px";
-
-    imageCanvas.style.height =
-        size.height + "px";
-
-    canvasStage.style.width =
-        size.width + "px";
-
-    canvasStage.style.height =
-        size.height + "px";
 
     ctx.clearRect(
         0,
         0,
-        size.width,
-        size.height
+        displayWidth,
+        displayHeight
     );
 
     ctx.drawImage(
         image,
         0,
         0,
-        size.width,
-        size.height
+        displayWidth,
+        displayHeight
     );
+
+}
+
+
+/* =====================================================
+   INITIAL CROP
+===================================================== */
+
+function setInitialCrop(){
+
+    let width =
+        displayWidth;
+
+    let height =
+        displayHeight;
+
+    if(aspectRatio){
+
+        if(
+            width /
+            height >
+            aspectRatio
+        ){
+
+            width =
+                height *
+                aspectRatio;
+
+        }
+        else{
+
+            height =
+                width /
+                aspectRatio;
+
+        }
+
+    }
+    else{
+
+        width =
+            displayWidth *
+            .8;
+
+        height =
+            displayHeight *
+            .8;
+
+    }
+
+    crop.width =
+        Math.max(
+            MIN_CROP_SIZE,
+            width
+        );
+
+    crop.height =
+        Math.max(
+            MIN_CROP_SIZE,
+            height
+        );
+
+    crop.x =
+        (
+            displayWidth -
+            crop.width
+        ) /
+        2;
+
+    crop.y =
+        (
+            displayHeight -
+            crop.height
+        ) /
+        2;
 
     updateCropBox();
 
 }
 
+
 /* =====================================================
-   ОБЛАСТЬ ОБРЕЗКИ
+   UPDATE CROP BOX
 ===================================================== */
 
 function updateCropBox(){
 
-    if(!image){
-        return;
-    }
+    crop.x =
+        clamp(
+            crop.x,
+            0,
+            displayWidth -
+            crop.width
+        );
 
-    const displayWidth =
-        imageCanvas.clientWidth;
+    crop.y =
+        clamp(
+            crop.y,
+            0,
+            displayHeight -
+            crop.height
+        );
 
-    const displayHeight =
-        imageCanvas.clientHeight;
+    crop.width =
+        clamp(
+            crop.width,
+            MIN_CROP_SIZE,
+            displayWidth
+        );
 
-    const scaleX =
-        displayWidth /
-        image.naturalWidth;
-
-    const scaleY =
-        displayHeight /
-        image.naturalHeight;
+    crop.height =
+        clamp(
+            crop.height,
+            MIN_CROP_SIZE,
+            displayHeight
+        );
 
     cropBox.style.left =
-        (cropX * scaleX) + "px";
+        crop.x + "px";
 
     cropBox.style.top =
-        (cropY * scaleY) + "px";
+        crop.y + "px";
 
     cropBox.style.width =
-        (cropW * scaleX) + "px";
+        crop.width + "px";
 
     cropBox.style.height =
-        (cropH * scaleY) + "px";
+        crop.height + "px";
+
+    cropSize.textContent =
+        "Область: " +
+        Math.round(crop.width / scale) +
+        " × " +
+        Math.round(crop.height / scale) +
+        " px";
 
 }
 
-/* =====================================================
-   POINTER
-===================================================== */
-
-function pointerToImage(event){
-
-    const rect =
-        imageCanvas.getBoundingClientRect();
-
-    const x =
-        event.clientX -
-        rect.left;
-
-    const y =
-        event.clientY -
-        rect.top;
-
-    const scaleX =
-        image.naturalWidth /
-        rect.width;
-
-    const scaleY =
-        image.naturalHeight /
-        rect.height;
-
-    return {
-
-        x:
-            x * scaleX,
-
-        y:
-            y * scaleY
-
-    };
-
-}
 
 /* =====================================================
-   ПРОПОРЦИИ
+   LOAD IMAGE
 ===================================================== */
 
-function setAspectRatio(
-    ratio,
-    button
-){
+photoInput.addEventListener(
+    "change",
+    function(){
 
-    selectedRatio =
-        ratio;
+        const file =
+            photoInput.files &&
+            photoInput.files[0];
 
-    aspectButtons.forEach(
-        function(item){
+        if(!file){
+            return;
+        }
 
-            item.classList.remove(
-                "active"
+        if(
+            !file.type ||
+            !file.type.startsWith("image/")
+        ){
+
+            setStatus(
+                "Пожалуйста, выберите файл изображения."
+            );
+
+            return;
+
+        }
+
+        if(imageUrl){
+
+            URL.revokeObjectURL(
+                imageUrl
             );
 
         }
-    );
 
-    button.classList.add(
-        "active"
-    );
+        imageUrl =
+            URL.createObjectURL(
+                file
+            );
 
-    if(image){
+        image =
+            new Image();
 
-        initializeCrop();
+        image.onload =
+            function(){
 
-        render();
+                naturalWidth =
+                    image.naturalWidth;
 
-        setStatus(
-            ratio === null
-                ? "Свободная область обрезки."
-                : "Пропорции изменены."
-        );
+                naturalHeight =
+                    image.naturalHeight;
+
+                imageLoaded =
+                    true;
+
+                calculateDisplaySize();
+
+                canvasStage.classList.add(
+                    "visible"
+                );
+
+                placeholder.style.display =
+                    "none";
+
+                drawImage();
+
+                setInitialCrop();
+
+                imageSize.textContent =
+                    "Размер: " +
+                    naturalWidth +
+                    " × " +
+                    naturalHeight +
+                    " px";
+
+                setStatus(
+                    "Фото загружено. Выберите область для обрезки."
+                );
+
+                updateButtons();
+
+            };
+
+        image.onerror =
+            function(){
+
+                imageLoaded =
+                    false;
+
+                setStatus(
+                    "Не удалось открыть изображение."
+                );
+
+                updateButtons();
+
+            };
+
+        image.src =
+            imageUrl;
 
     }
+);
 
-}
+
+/* =====================================================
+   ASPECT RATIO
+===================================================== */
 
 aspectButtons.forEach(
-    function(button){
+    button => {
 
         button.addEventListener(
             "click",
             function(){
 
-                const value =
-                    this.dataset.ratio;
+                aspectButtons.forEach(
+                    item => {
+                        item.classList.remove(
+                            "active"
+                        );
+                    }
+                );
 
-                if(
-                    value === "free"
+                button.classList.add(
+                    "active"
+                );
+
+                const value =
+                    button.dataset.ratio;
+
+                if(value === "free"){
+
+                    aspectRatio =
+                        null;
+
+                }
+                else if(
+                    value.includes("/")
                 ){
 
-                    setAspectRatio(
-                        null,
-                        this
-                    );
+                    const parts =
+                        value.split("/");
+
+                    aspectRatio =
+                        Number(parts[0]) /
+                        Number(parts[1]);
 
                 }
                 else{
 
-                    setAspectRatio(
-                        Number(value),
-                        this
-                    );
+                    aspectRatio =
+                        Number(value);
+
+                }
+
+                if(
+                    imageLoaded
+                ){
+
+                    setInitialCrop();
 
                 }
 
@@ -1958,8 +1864,33 @@ aspectButtons.forEach(
     }
 );
 
+
 /* =====================================================
-   ПЕРЕМЕЩЕНИЕ
+   POINTER POSITION
+===================================================== */
+
+function getPointerPosition(
+    event
+){
+
+    const rect =
+        imageCanvas.getBoundingClientRect();
+
+    return {
+        x:
+            event.clientX -
+            rect.left,
+
+        y:
+            event.clientY -
+            rect.top
+    };
+
+}
+
+
+/* =====================================================
+   START DRAG
 ===================================================== */
 
 cropBox.addEventListener(
@@ -1967,810 +1898,681 @@ cropBox.addEventListener(
     function(event){
 
         if(
-            !image ||
             event.target.classList.contains(
                 "handle"
             )
         ){
 
-            return;
+            dragging =
+                true;
+
+            dragMode =
+                "resize";
+
+            dragHandle =
+                event.target.dataset.handle;
+
+        }
+        else{
+
+            dragging =
+                true;
+
+            dragMode =
+                "move";
+
+            dragHandle =
+                null;
 
         }
 
-        event.preventDefault();
-
-        dragging =
-            true;
-
-        resizing =
-            false;
-
-        activeHandle =
-            null;
-
-        cropBox.setPointerCapture(
-            event.pointerId
-        );
-
         startPointer =
-            pointerToImage(
+            getPointerPosition(
                 event
             );
 
-        startCrop = {
+        startCrop =
+            {
+                x:crop.x,
+                y:crop.y,
+                width:crop.width,
+                height:crop.height
+            };
 
-            x:
-                cropX,
-
-            y:
-                cropY,
-
-            w:
-                cropW,
-
-            h:
-                cropH
-
-        };
-
-    }
-);
-
-/* =====================================================
-   RESIZE
-===================================================== */
-
-document.querySelectorAll(
-    ".handle"
-).forEach(
-    function(handle){
-
-        handle.addEventListener(
-            "pointerdown",
-            function(event){
-
-                if(!image){
-                    return;
-                }
-
-                event.preventDefault();
-
-                event.stopPropagation();
-
-                resizing =
-                    true;
-
-                dragging =
-                    false;
-
-                activeHandle =
-                    this.dataset.handle;
-
-                cropBox.setPointerCapture(
-                    event.pointerId
-                );
-
-                startPointer =
-                    pointerToImage(
-                        event
-                    );
-
-                startCrop = {
-
-                    x:
-                        cropX,
-
-                    y:
-                        cropY,
-
-                    w:
-                        cropW,
-
-                    h:
-                        cropH
-
-                };
-
-            }
+        cropBox.setPointerCapture?.(
+            event.pointerId
         );
 
+        event.preventDefault();
+
     }
 );
 
+
 /* =====================================================
-   POINTER MOVE
+   DRAGGING
 ===================================================== */
 
 cropBox.addEventListener(
     "pointermove",
     function(event){
 
-        if(
-            !image ||
-            (!dragging && !resizing)
-        ){
-
+        if(!dragging){
             return;
-
         }
 
-        event.preventDefault();
-
-        const current =
-            pointerToImage(
+        const pointer =
+            getPointerPosition(
                 event
             );
 
         const dx =
-            current.x -
+            pointer.x -
             startPointer.x;
 
         const dy =
-            current.y -
+            pointer.y -
             startPointer.y;
 
-        if(dragging){
+        if(
+            dragMode ===
+            "move"
+        ){
 
-            cropX =
-                startCrop.x +
-                dx;
+            crop.x =
+                clamp(
+                    startCrop.x + dx,
+                    0,
+                    displayWidth -
+                    crop.width
+                );
 
-            cropY =
-                startCrop.y +
-                dy;
-
-            ensureCropInsideImage();
+            crop.y =
+                clamp(
+                    startCrop.y + dy,
+                    0,
+                    displayHeight -
+                    crop.height
+                );
 
             updateCropBox();
+
+            event.preventDefault();
 
             return;
+        }
+
+
+        let left =
+            startCrop.x;
+
+        let top =
+            startCrop.y;
+
+        let right =
+            startCrop.x +
+            startCrop.width;
+
+        let bottom =
+            startCrop.y +
+            startCrop.height;
+
+
+        if(
+            dragHandle ===
+            "nw"
+        ){
+
+            left += dx;
+            top += dy;
 
         }
 
-        if(resizing){
+        else if(
+            dragHandle ===
+            "ne"
+        ){
 
-            resizeCrop(
-                dx,
-                dy
+            right += dx;
+            top += dy;
+
+        }
+
+        else if(
+            dragHandle ===
+            "sw"
+        ){
+
+            left += dx;
+            bottom += dy;
+
+        }
+
+        else if(
+            dragHandle ===
+            "se"
+        ){
+
+            right += dx;
+            bottom += dy;
+
+        }
+
+
+        if(aspectRatio){
+
+            if(
+                dragHandle === "nw" ||
+                dragHandle === "sw"
+            ){
+
+                const width =
+                    right -
+                    left;
+
+                const newHeight =
+                    width /
+                    aspectRatio;
+
+                if(
+                    dragHandle ===
+                    "nw"
+                ){
+
+                    top =
+                        bottom -
+                        newHeight;
+
+                }
+                else{
+
+                    bottom =
+                        top +
+                        newHeight;
+
+                }
+
+            }
+            else{
+
+                const width =
+                    right -
+                    left;
+
+                const newHeight =
+                    width /
+                    aspectRatio;
+
+                if(
+                    dragHandle ===
+                    "ne"
+                ){
+
+                    top =
+                        bottom -
+                        newHeight;
+
+                }
+                else{
+
+                    bottom =
+                        top +
+                        newHeight;
+
+                }
+
+            }
+
+        }
+
+
+        left =
+            Math.max(
+                0,
+                left
             );
 
-            updateCropBox();
+        top =
+            Math.max(
+                0,
+                top
+            );
+
+        right =
+            Math.min(
+                displayWidth,
+                right
+            );
+
+        bottom =
+            Math.min(
+                displayHeight,
+                bottom
+            );
+
+
+        if(
+            right -
+            left <
+            MIN_CROP_SIZE
+        ){
+
+            if(
+                dragHandle ===
+                "nw" ||
+                dragHandle ===
+                "sw"
+            ){
+
+                left =
+                    right -
+                    MIN_CROP_SIZE;
+
+            }
+            else{
+
+                right =
+                    left +
+                    MIN_CROP_SIZE;
+
+            }
 
         }
+
+
+        if(
+            bottom -
+            top <
+            MIN_CROP_SIZE
+        ){
+
+            if(
+                dragHandle ===
+                "nw" ||
+                dragHandle ===
+                "ne"
+            ){
+
+                top =
+                    bottom -
+                    MIN_CROP_SIZE;
+
+            }
+            else{
+
+                bottom =
+                    top +
+                    MIN_CROP_SIZE;
+
+            }
+
+        }
+
+
+        if(
+            aspectRatio
+        ){
+
+            const currentWidth =
+                right -
+                left;
+
+            const currentHeight =
+                bottom -
+                top;
+
+            const targetHeight =
+                currentWidth /
+                aspectRatio;
+
+            if(
+                targetHeight <=
+                displayHeight -
+                top
+            ){
+
+                if(
+                    dragHandle === "nw" ||
+                    dragHandle === "ne"
+                ){
+
+                    top =
+                        bottom -
+                        targetHeight;
+
+                }
+                else{
+
+                    bottom =
+                        top +
+                        targetHeight;
+
+                }
+
+            }
+            else{
+
+                const targetWidth =
+                    currentHeight *
+                    aspectRatio;
+
+                if(
+                    dragHandle === "nw" ||
+                    dragHandle === "sw"
+                ){
+
+                    left =
+                        right -
+                        targetWidth;
+
+                }
+                else{
+
+                    right =
+                        left +
+                        targetWidth;
+
+                }
+
+            }
+
+        }
+
+
+        crop.x =
+            clamp(
+                left,
+                0,
+                displayWidth -
+                MIN_CROP_SIZE
+            );
+
+        crop.y =
+            clamp(
+                top,
+                0,
+                displayHeight -
+                MIN_CROP_SIZE
+            );
+
+        crop.width =
+            Math.max(
+                MIN_CROP_SIZE,
+                right -
+                left
+            );
+
+        crop.height =
+            Math.max(
+                MIN_CROP_SIZE,
+                bottom -
+                top
+            );
+
+
+        if(
+            crop.x +
+            crop.width >
+            displayWidth
+        ){
+
+            crop.width =
+                displayWidth -
+                crop.x;
+
+        }
+
+        if(
+            crop.y +
+            crop.height >
+            displayHeight
+        ){
+
+            crop.height =
+                displayHeight -
+                crop.y;
+
+        }
+
+
+        updateCropBox();
+
+        event.preventDefault();
 
     }
 );
 
+
 /* =====================================================
-   STOP POINTER
+   STOP DRAG
 ===================================================== */
 
-function stopPointerAction(){
+function stopDragging(
+    event
+){
 
     dragging =
         false;
 
-    resizing =
-        false;
+    try{
 
-    activeHandle =
-        null;
+        cropBox.releasePointerCapture?.(
+            event.pointerId
+        );
+
+    }
+    catch(error){}
 
 }
 
 cropBox.addEventListener(
     "pointerup",
-    stopPointerAction
+    stopDragging
 );
 
 cropBox.addEventListener(
     "pointercancel",
-    stopPointerAction
+    stopDragging
 );
 
+
 /* =====================================================
-   RESIZE CROP
+   APPLY CROP
 ===================================================== */
 
-function resizeCrop(
-    dx,
-    dy
-){
+function applyCrop(){
 
-    if(!image){
+    if(!imageLoaded){
         return;
     }
 
-    const imageW =
-        image.naturalWidth;
+    const sourceX =
+        Math.round(
+            crop.x /
+            scale
+        );
 
-    const imageH =
-        image.naturalHeight;
+    const sourceY =
+        Math.round(
+            crop.y /
+            scale
+        );
 
-    const ratio =
-        getRatio();
+    const sourceWidth =
+        Math.round(
+            crop.width /
+            scale
+        );
 
-    let x =
-        startCrop.x;
+    const sourceHeight =
+        Math.round(
+            crop.height /
+            scale
+        );
 
-    let y =
-        startCrop.y;
+    if(
+        sourceWidth <= 0 ||
+        sourceHeight <= 0
+    ){
 
-    let w =
-        startCrop.w;
+        setStatus(
+            "Не удалось создать область обрезки."
+        );
 
-    let h =
-        startCrop.h;
-
-    if(ratio === null){
-
-        if(
-            activeHandle === "se"
-        ){
-
-            w =
-                startCrop.w +
-                dx;
-
-            h =
-                startCrop.h +
-                dy;
-
-        }
-
-        else if(
-            activeHandle === "sw"
-        ){
-
-            x =
-                startCrop.x +
-                dx;
-
-            w =
-                startCrop.w -
-                dx;
-
-            h =
-                startCrop.h +
-                dy;
-
-        }
-
-        else if(
-            activeHandle === "ne"
-        ){
-
-            y =
-                startCrop.y +
-                dy;
-
-            w =
-                startCrop.w +
-                dx;
-
-            h =
-                startCrop.h -
-                dy;
-
-        }
-
-        else if(
-            activeHandle === "nw"
-        ){
-
-            x =
-                startCrop.x +
-                dx;
-
-            y =
-                startCrop.y +
-                dy;
-
-            w =
-                startCrop.w -
-                dx;
-
-            h =
-                startCrop.h -
-                dy;
-
-        }
-
-        if(
-            w < MIN_CROP_SIZE
-        ){
-
-            if(
-                activeHandle === "nw" ||
-                activeHandle === "sw"
-            ){
-
-                x =
-                    startCrop.x +
-                    startCrop.w -
-                    MIN_CROP_SIZE;
-
-            }
-
-            w =
-                MIN_CROP_SIZE;
-
-        }
-
-        if(
-            h < MIN_CROP_SIZE
-        ){
-
-            if(
-                activeHandle === "nw" ||
-                activeHandle === "ne"
-            ){
-
-                y =
-                    startCrop.y +
-                    startCrop.h -
-                    MIN_CROP_SIZE;
-
-            }
-
-            h =
-                MIN_CROP_SIZE;
-
-        }
-
-        if(
-            x < 0
-        ){
-
-            w += x;
-
-            x = 0;
-
-        }
-
-        if(
-            y < 0
-        ){
-
-            h += y;
-
-            y = 0;
-
-        }
-
-        if(
-            x + w > imageW
-        ){
-
-            w =
-                imageW - x;
-
-        }
-
-        if(
-            y + h > imageH
-        ){
-
-            h =
-                imageH - y;
-
-        }
+        return;
 
     }
-    else{
 
-        let anchorX;
-
-        let anchorY;
-
-        if(
-            activeHandle === "se"
-        ){
-
-            anchorX =
-                startCrop.x;
-
-            anchorY =
-                startCrop.y;
-
-            const requestedW =
-                Math.max(
-                    MIN_CROP_SIZE,
-                    startCrop.w + dx
-                );
-
-            const requestedH =
-                requestedW /
-                ratio;
-
-            w =
-                requestedW;
-
-            h =
-                requestedH;
-
-            x =
-                anchorX;
-
-            y =
-                anchorY;
-
-        }
-
-        else if(
-            activeHandle === "sw"
-        ){
-
-            anchorX =
-                startCrop.x +
-                startCrop.w;
-
-            anchorY =
-                startCrop.y;
-
-            const requestedW =
-                Math.max(
-                    MIN_CROP_SIZE,
-                    startCrop.w - dx
-                );
-
-            const requestedH =
-                requestedW /
-                ratio;
-
-            w =
-                requestedW;
-
-            h =
-                requestedH;
-
-            x =
-                anchorX -
-                w;
-
-            y =
-                anchorY;
-
-        }
-
-        else if(
-            activeHandle === "ne"
-        ){
-
-            anchorX =
-                startCrop.x;
-
-            anchorY =
-                startCrop.y +
-                startCrop.h;
-
-            const requestedW =
-                Math.max(
-                    MIN_CROP_SIZE,
-                    startCrop.w + dx
-                );
-
-            const requestedH =
-                requestedW /
-                ratio;
-
-            w =
-                requestedW;
-
-            h =
-                requestedH;
-
-            x =
-                anchorX;
-
-            y =
-                anchorY -
-                h;
-
-        }
-
-        else if(
-            activeHandle === "nw"
-        ){
-
-            anchorX =
-                startCrop.x +
-                startCrop.w;
-
-            anchorY =
-                startCrop.y +
-                startCrop.h;
-
-            const requestedW =
-                Math.max(
-                    MIN_CROP_SIZE,
-                    startCrop.w - dx
-                );
-
-            const requestedH =
-                requestedW /
-                ratio;
-
-            w =
-                requestedW;
-
-            h =
-                requestedH;
-
-            x =
-                anchorX -
-                w;
-
-            y =
-                anchorY -
-                h;
-
-        }
-
-        if(
-            x < 0
-        ){
-
-            x = 0;
-
-            w =
-                Math.min(
-                    w,
-                    imageW
-                );
-
-            h =
-                w /
-                ratio;
-
-        }
-
-        if(
-            y < 0
-        ){
-
-            y = 0;
-
-            h =
-                Math.min(
-                    h,
-                    imageH
-                );
-
-            w =
-                h *
-                ratio;
-
-        }
-
-        if(
-            x + w > imageW
-        ){
-
-            w =
-                imageW -
-                x;
-
-            h =
-                w /
-                ratio;
-
-        }
-
-        if(
-            y + h > imageH
-        ){
-
-            h =
-                imageH -
-                y;
-
-            w =
-                h *
-                ratio;
-
-        }
-
-        if(
-            w < MIN_CROP_SIZE ||
-            h < MIN_CROP_SIZE
-        ){
-
-            return;
-
-        }
-
-    }
-
-    cropX =
-        x;
-
-    cropY =
-        y;
-
-    cropW =
-        w;
-
-    cropH =
-        h;
-
-    ensureCropInsideImage();
+    const resultCanvas =
+        document.createElement(
+            "canvas"
+        );
+
+    resultCanvas.width =
+        sourceWidth;
+
+    resultCanvas.height =
+        sourceHeight;
+
+    const resultContext =
+        resultCanvas.getContext(
+            "2d"
+        );
+
+    resultContext.drawImage(
+        image,
+        sourceX,
+        sourceY,
+        sourceWidth,
+        sourceHeight,
+        0,
+        0,
+        sourceWidth,
+        sourceHeight
+    );
+
+
+    imageCanvas.width =
+        sourceWidth;
+
+    imageCanvas.height =
+        sourceHeight;
+
+    imageCanvas.style.width =
+        Math.min(
+            sourceWidth,
+            displayWidth
+        ) + "px";
+
+    imageCanvas.style.height =
+        Math.min(
+            sourceHeight,
+            displayHeight
+        ) + "px";
+
+    ctx.clearRect(
+        0,
+        0,
+        sourceWidth,
+        sourceHeight
+    );
+
+    ctx.drawImage(
+        resultCanvas,
+        0,
+        0
+    );
+
+
+    naturalWidth =
+        sourceWidth;
+
+    naturalHeight =
+        sourceHeight;
+
+    displayWidth =
+        Math.min(
+            sourceWidth,
+            displayWidth
+        );
+
+    displayHeight =
+        Math.min(
+            sourceHeight,
+            displayHeight
+        );
+
+    scale =
+        displayWidth /
+        sourceWidth;
+
+
+    image =
+        new Image();
+
+    image.onload =
+        function(){
+
+            setInitialCrop();
+
+            setStatus(
+                "Фото обрезано."
+            );
+
+        };
+
+    image.src =
+        resultCanvas.toDataURL(
+            "image/png"
+        );
+
+    imageSize.textContent =
+        "Размер: " +
+        sourceWidth +
+        " × " +
+        sourceHeight +
+        " px";
+
+    updateButtons();
 
 }
 
+
 /* =====================================================
-   RESET
+   APPLY BUTTONS
 ===================================================== */
 
-resetButton.addEventListener(
+applyCropButton.addEventListener(
     "click",
-    function(){
-
-        if(!image){
-            return;
-        }
-
-        initializeCrop();
-
-        render();
-
-        setStatus(
-            "Область обрезки сброшена."
-        );
-
-    }
+    applyCrop
 );
 
-/* =====================================================
-   CROP
-===================================================== */
-
-cropButton.addEventListener(
+applyCropButtonBottom.addEventListener(
     "click",
-    function(){
-
-        if(
-            !image ||
-            cropW <= 0 ||
-            cropH <= 0
-        ){
-
-            return;
-
-        }
-
-        try{
-
-            const outputW =
-                Math.max(
-                    1,
-                    Math.round(cropW)
-                );
-
-            const outputH =
-                Math.max(
-                    1,
-                    Math.round(cropH)
-                );
-
-            const resultCanvas =
-                document.createElement(
-                    "canvas"
-                );
-
-            let safeW =
-                outputW;
-
-            let safeH =
-                outputH;
-
-            if(
-                safeW *
-                safeH >
-                MAX_PIXELS
-            ){
-
-                const scale =
-                    Math.sqrt(
-                        MAX_PIXELS /
-                        (
-                            safeW *
-                            safeH
-                        )
-                    );
-
-                safeW =
-                    Math.max(
-                        1,
-                        Math.floor(
-                            safeW *
-                            scale
-                        )
-                    );
-
-                safeH =
-                    Math.max(
-                        1,
-                        Math.floor(
-                            safeH *
-                            scale
-                        )
-                    );
-
-            }
-
-            resultCanvas.width =
-                safeW;
-
-            resultCanvas.height =
-                safeH;
-
-            const resultCtx =
-                resultCanvas.getContext(
-                    "2d"
-                );
-
-            resultCtx.drawImage(
-                image,
-                cropX,
-                cropY,
-                cropW,
-                cropH,
-                0,
-                0,
-                safeW,
-                safeH
-            );
-
-            replaceImageFromCanvas(
-                resultCanvas
-            );
-
-        }
-        catch(error){
-
-            console.error(
-                error
-            );
-
-            setStatus(
-                "Не удалось обрезать изображение."
-            );
-
-        }
-
-    }
+    applyCrop
 );
 
+
 /* =====================================================
-   CANVAS -> IMAGE
+   DOWNLOAD
 ===================================================== */
 
-function replaceImageFromCanvas(
-    sourceCanvas
-){
+function downloadImage(){
 
-    sourceCanvas.toBlob(
+    if(!imageLoaded){
+        return;
+    }
+
+    imageCanvas.toBlob(
         function(blob){
 
             if(!blob){
 
                 setStatus(
-                    "Не удалось подготовить результат."
+                    "Не удалось подготовить PNG."
                 );
 
                 return;
-
-            }
-
-            if(imageObjectUrl){
-
-                URL.revokeObjectURL(
-                    imageObjectUrl
-                );
-
-                imageObjectUrl =
-                    null;
 
             }
 
@@ -2779,61 +2581,39 @@ function replaceImageFromCanvas(
                     blob
                 );
 
-            imageObjectUrl =
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+            link.href =
                 url;
 
-            const img =
-                new Image();
+            link.download =
+                "cropped-photo.png";
 
-            img.onload =
+            document.body.appendChild(
+                link
+            );
+
+            link.click();
+
+            link.remove();
+
+            setTimeout(
                 function(){
 
-                    image =
-                        img;
-
-                    isCroppedResult =
-                        true;
-
-                    cropX =
-                        0;
-
-                    cropY =
-                        0;
-
-                    cropW =
-                        image.naturalWidth;
-
-                    cropH =
-                        image.naturalHeight;
-
-                    imageInfo.innerHTML =
-                        "<span>Размер результата: " +
-                        image.naturalWidth +
-                        " × " +
-                        image.naturalHeight +
-                        " px</span>";
-
-                    setStatus(
-                        "Фото обрезано."
+                    URL.revokeObjectURL(
+                        url
                     );
 
-                    render();
+                },
+                1000
+            );
 
-                    updateButtons();
-
-                };
-
-            img.onerror =
-                function(){
-
-                    setStatus(
-                        "Не удалось открыть результат обрезки."
-                    );
-
-                };
-
-            img.src =
-                url;
+            setStatus(
+                "PNG готов к сохранению."
+            );
 
         },
         "image/png"
@@ -2841,180 +2621,113 @@ function replaceImageFromCanvas(
 
 }
 
-/* =====================================================
-   DOWNLOAD
-===================================================== */
-
 downloadButton.addEventListener(
     "click",
-    function(){
-
-        if(
-            !image ||
-            cropW <= 0 ||
-            cropH <= 0
-        ){
-
-            return;
-
-        }
-
-        try{
-
-            const exportCanvas =
-                document.createElement(
-                    "canvas"
-                );
-
-            const exportW =
-                Math.max(
-                    1,
-                    Math.round(cropW)
-                );
-
-            const exportH =
-                Math.max(
-                    1,
-                    Math.round(cropH)
-                );
-
-            exportCanvas.width =
-                exportW;
-
-            exportCanvas.height =
-                exportH;
-
-            const exportCtx =
-                exportCanvas.getContext(
-                    "2d"
-                );
-
-            exportCtx.drawImage(
-                image,
-                cropX,
-                cropY,
-                cropW,
-                cropH,
-                0,
-                0,
-                exportW,
-                exportH
-            );
-
-            setStatus(
-                "Подготовка PNG..."
-            );
-
-            exportCanvas.toBlob(
-                function(blob){
-
-                    if(!blob){
-
-                        setStatus(
-                            "Не удалось подготовить PNG."
-                        );
-
-                        return;
-
-                    }
-
-                    const url =
-                        URL.createObjectURL(
-                            blob
-                        );
-
-                    const link =
-                        document.createElement(
-                            "a"
-                        );
-
-                    link.href =
-                        url;
-
-                    link.download =
-                        "cropped-photo.png";
-
-                    document.body.appendChild(
-                        link
-                    );
-
-                    link.click();
-
-                    link.remove();
-
-                    setTimeout(
-                        function(){
-
-                            URL.revokeObjectURL(
-                                url
-                            );
-
-                        },
-                        1000
-                    );
-
-                    setStatus(
-                        "PNG готов к сохранению."
-                    );
-
-                },
-                "image/png"
-            );
-
-        }
-        catch(error){
-
-            console.error(
-                error
-            );
-
-            setStatus(
-                "Не удалось сохранить изображение."
-            );
-
-        }
-
-    }
+    downloadImage
 );
+
+downloadButtonBottom.addEventListener(
+    "click",
+    downloadImage
+);
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+function resetCrop(){
+
+    if(!imageLoaded){
+        return;
+    }
+
+    calculateDisplaySize();
+
+    drawImage();
+
+    setInitialCrop();
+
+    setStatus(
+        "Обрезка сброшена."
+    );
+
+}
+
+resetButton.addEventListener(
+    "click",
+    resetCrop
+);
+
+resetButtonBottom.addEventListener(
+    "click",
+    resetCrop
+);
+
 
 /* =====================================================
    NEW PHOTO
 ===================================================== */
 
-newPhotoButton.addEventListener(
-    "click",
-    function(){
+function newPhoto(){
 
-        photoInput.value =
-            "";
+    if(imageUrl){
 
-        photoInput.click();
-
-    }
-);
-
-/* =====================================================
-   INPUT
-===================================================== */
-
-photoInput.addEventListener(
-    "change",
-    function(){
-
-        const file =
-            this.files &&
-            this.files[0];
-
-        if(!file){
-            return;
-        }
-
-        loadPhoto(
-            file
+        URL.revokeObjectURL(
+            imageUrl
         );
 
     }
+
+    imageUrl =
+        null;
+
+    imageLoaded =
+        false;
+
+    image =
+        new Image();
+
+    photoInput.value =
+        "";
+
+    imageCanvas.width =
+        1;
+
+    imageCanvas.height =
+        1;
+
+    canvasStage.classList.remove(
+        "visible"
+    );
+
+    placeholder.style.display =
+        "flex";
+
+    imageSize.textContent =
+        "Размер: —";
+
+    cropSize.textContent =
+        "Область: —";
+
+    setStatus(
+        "Загрузите новую фотографию."
+    );
+
+    updateButtons();
+
+}
+
+newButton.addEventListener(
+    "click",
+    newPhoto
 );
+
+newButtonBottom.addEventListener(
+    "click",
+    newPhoto
+);
+
 
 /* =====================================================
    RESIZE
@@ -3024,17 +2737,24 @@ window.addEventListener(
     "resize",
     function(){
 
-        if(image){
+        if(
+            imageLoaded
+        ){
 
-            render();
+            calculateDisplaySize();
+
+            drawImage();
+
+            setInitialCrop();
 
         }
 
     }
 );
 
+
 /* =====================================================
-   START
+   INITIAL
 ===================================================== */
 
 updateButtons();
@@ -3044,3 +2764,4 @@ updateButtons();
 </body>
 
 </html>
+```

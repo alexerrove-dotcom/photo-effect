@@ -1,23 +1,27 @@
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-```
-<url>
-    <loc>https://alexerrove-dotcom.github.io/photo-effect/</loc>
-</url>
+    <url>
+        <loc>https://alexerrove-dotcom.github.io/photo-effect/</loc>
+    </url>
 
-<url>
-    <loc>https://alexerrove-dotcom.github.io/photo-effect/crop/</loc>
-</url>
+    <url>
+        <loc>https://alexerrove-dotcom.github.io/photo-effect/crop/</loc>
+    </url>
 
-<url>
-    <loc>https://alexerrove-dotcom.github.io/photo-effect/resize/</loc>
-</url>
+    <url>
+        <loc>https://alexerrove-dotcom.github.io/photo-effect/resize/</loc>
+    </url>
 
-<url>
-    <loc>https://alexerrove-dotcom.github.io/photo-effect/rotate/</loc>
-</url>
-```
+    <url>
+        <loc>https://alexerrove-dotcom.github.io/photo-effect/rotate/</loc>
+    </url>
+
+    <url>
+        <loc>https://alexerrove-dotcom.github.io/photo-effect/remove-background/</loc>
+    </url>
 
 </urlset>
+```

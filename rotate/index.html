@@ -47,10 +47,12 @@ html{
 
 body{
     margin:0;
+    min-height:100vh;
     font-family:Arial,Helvetica,sans-serif;
     background:#0b0d12;
     color:#f2f4f8;
     line-height:1.6;
+    overflow-x:hidden;
 }
 
 a{
@@ -154,6 +156,7 @@ main{
     cursor:pointer;
     text-decoration:none;
     font-size:14px;
+    transition:.15s;
 }
 
 .button:hover,
@@ -186,6 +189,11 @@ main{
 .button.danger{
     background:#1b202a;
     color:#fff;
+}
+
+.button:disabled{
+    opacity:.45;
+    cursor:default;
 }
 
 input[type="file"]{
@@ -389,14 +397,6 @@ footer{
         border-radius:14px;
     }
 
-    .workspace{
-        min-height:300px;
-    }
-
-    #canvas{
-        max-height:60vh;
-    }
-
     .toolbar{
         flex-direction:column;
     }
@@ -404,6 +404,14 @@ footer{
     .button,
     .fileLabel{
         width:100%;
+    }
+
+    .workspace{
+        min-height:300px;
+    }
+
+    #canvas{
+        max-height:60vh;
     }
 
     .actions{
@@ -500,8 +508,53 @@ FAQ
 </section>
 
 <section
+    id="tool"
     class="card"
 >
+
+<!-- =====================================================
+     НАВИГАЦИЯ МЕЖДУ ИНСТРУМЕНТАМИ
+===================================================== -->
+
+<div class="toolbar">
+
+<a
+href="../"
+class="fileLabel primary"
+
+>
+
+Загрузить фото </a>
+
+<a
+href="../crop/"
+class="fileLabel"
+
+>
+
+Обрезать фото </a>
+
+<a
+href="../resize/"
+class="fileLabel"
+
+>
+
+Изменить размер </a>
+
+<a
+href="./"
+class="fileLabel"
+
+>
+
+Повернуть фото </a>
+
+</div>
+
+<!-- =====================================================
+     УПРАВЛЕНИЕ ИНСТРУМЕНТОМ ПОВОРОТА
+===================================================== -->
 
 <div class="toolbar">
 
@@ -510,7 +563,7 @@ class="fileLabel primary"
 
 >
 
-Загрузить фото
+Загрузить фото в редактор
 
 <input
 id="fileInput"
@@ -605,7 +658,9 @@ disabled
 id="canvas"
 style="display:none"
 
-> </canvas>
+>
+
+</canvas>
 
 <div
     id="empty"
@@ -636,18 +691,6 @@ style="display:none"
 >
 </div>
 
-<div class="actions">
-
-<a
-href="../"
-class="button"
-
->
-
-← Вернуться к «Фото + эффект» </a>
-
-</div>
-
 </section>
 
 <div class="adBox">
@@ -660,7 +703,8 @@ window.yaContextCb.push(() => {
 
     Ya.Context.AdvManager.render({
 
-        "blockId": "R-A-20003018-1",
+        "blockId":
+            "R-A-20003018-1",
 
         "renderTo":
             "yandex_rtb_R-A-20003018-1"
@@ -1084,6 +1128,9 @@ const MAX_PIXELS =
     20000000;
 
 
+/* =====================================================
+   НОРМАЛИЗАЦИЯ ПОВОРОТА
+===================================================== */
 
 function normalizeRotation(value){
 
@@ -1103,14 +1150,20 @@ function normalizeRotation(value){
 }
 
 
+/* =====================================================
+   РАЗМЕР CANVAS
+===================================================== */
 
 function getCanvasSize(){
 
     if(!image){
 
         return {
+
             width:0,
+
             height:0
+
         };
 
     }
@@ -1138,6 +1191,9 @@ function getCanvasSize(){
 }
 
 
+/* =====================================================
+   ОТРИСОВКА
+===================================================== */
 
 function render(){
 
@@ -1146,8 +1202,18 @@ function render(){
         canvas.style.display =
             "none";
 
+
         empty.style.display =
             "block";
+
+
+        downloadBtn.disabled =
+            true;
+
+
+        resetBtn.disabled =
+            true;
+
 
         return;
 
@@ -1322,6 +1388,9 @@ function render(){
 }
 
 
+/* =====================================================
+   ИНФОРМАЦИЯ
+===================================================== */
 
 function updateInfo(){
 
@@ -1373,7 +1442,9 @@ function updateInfo(){
     }
 
 
-    if(transformations.length === 0){
+    if(
+        transformations.length === 0
+    ){
 
         status.textContent =
             "Исходное изображение";
@@ -1382,7 +1453,9 @@ function updateInfo(){
 
         status.textContent =
             "Изменения: " +
-            transformations.join(", ");
+            transformations.join(
+                ", "
+            );
 
     }
 
@@ -1397,6 +1470,9 @@ function updateInfo(){
 }
 
 
+/* =====================================================
+   ЗАГРУЗКА ФОТО
+===================================================== */
 
 fileInput.addEventListener(
     "change",
@@ -1497,6 +1573,9 @@ fileInput.addEventListener(
 );
 
 
+/* =====================================================
+   ВЛЕВО
+===================================================== */
 
 leftBtn.addEventListener(
     "click",
@@ -1524,6 +1603,9 @@ leftBtn.addEventListener(
 );
 
 
+/* =====================================================
+   ВПРАВО
+===================================================== */
 
 rightBtn.addEventListener(
     "click",
@@ -1551,6 +1633,9 @@ rightBtn.addEventListener(
 );
 
 
+/* =====================================================
+   180
+===================================================== */
 
 rotate180Btn.addEventListener(
     "click",
@@ -1578,6 +1663,9 @@ rotate180Btn.addEventListener(
 );
 
 
+/* =====================================================
+   ГОРИЗОНТАЛЬНОЕ ОТРАЖЕНИЕ
+===================================================== */
 
 flipHBtn.addEventListener(
     "click",
@@ -1603,6 +1691,9 @@ flipHBtn.addEventListener(
 );
 
 
+/* =====================================================
+   ВЕРТИКАЛЬНОЕ ОТРАЖЕНИЕ
+===================================================== */
 
 flipVBtn.addEventListener(
     "click",
@@ -1628,6 +1719,9 @@ flipVBtn.addEventListener(
 );
 
 
+/* =====================================================
+   СКАЧИВАНИЕ PNG
+===================================================== */
 
 downloadBtn.addEventListener(
     "click",
@@ -1676,7 +1770,9 @@ downloadBtn.addEventListener(
 
 
                 const link =
-                    document.createElement("a");
+                    document.createElement(
+                        "a"
+                    );
 
 
                 link.href =
@@ -1721,6 +1817,9 @@ downloadBtn.addEventListener(
 );
 
 
+/* =====================================================
+   СБРОС
+===================================================== */
 
 resetBtn.addEventListener(
     "click",
@@ -1758,6 +1857,9 @@ resetBtn.addEventListener(
 );
 
 
+/* =====================================================
+   НОВОЕ ФОТО
+===================================================== */
 
 newBtn.addEventListener(
     "click",
@@ -1831,6 +1933,9 @@ newBtn.addEventListener(
 );
 
 
+/* =====================================================
+   ОСВОБОЖДЕНИЕ URL
+===================================================== */
 
 window.addEventListener(
     "beforeunload",
@@ -1847,6 +1952,29 @@ window.addEventListener(
     }
 );
 
+
+/* =====================================================
+   НАЧАЛЬНОЕ СОСТОЯНИЕ
+===================================================== */
+
+canvas.style.display =
+    "none";
+
+
+canvas.width =
+    1;
+
+
+canvas.height =
+    1;
+
+
+downloadBtn.disabled =
+    true;
+
+
+resetBtn.disabled =
+    true;
 
 </script>
 

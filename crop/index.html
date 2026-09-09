@@ -7,10 +7,10 @@
 
 <meta
     name="viewport"
-    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
 >
 
-<title>Обрезка фото онлайн — бесплатно</title>
+<title>Обрезка фото онлайн — бесплатно | Фото + эффект</title>
 
 <meta
     name="description"
@@ -24,205 +24,331 @@
 
 <meta
     name="theme-color"
-    content="#111111"
+    content="#0b0d12"
 >
 
 <style>
 
 *{
     box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
 }
 
 html{
-    margin:0;
-    padding:0;
-    background:#111;
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
     scroll-behavior:smooth;
 }
 
 body{
     margin:0;
-    min-height:100vh;
-    background:#111;
-    color:#fff;
+    background:#0b0d12;
+    color:#f2f4f8;
+    font-family:Arial,Helvetica,sans-serif;
+    line-height:1.6;
     overflow-x:hidden;
 }
 
-button,
-label,
-select{
-    font-family:inherit;
-}
-
-button,
-.file-label{
-    border:0;
-    border-radius:10px;
-    min-height:46px;
-    padding:12px 17px;
-    background:#168cff;
-    color:#fff;
-    font-size:15px;
-    font-weight:700;
-    cursor:pointer;
-    touch-action:manipulation;
-    user-select:none;
-    -webkit-user-select:none;
-    transition:
-        background .15s,
-        transform .1s,
-        opacity .15s;
-}
-
-button:hover,
-.file-label:hover{
-    background:#0879df;
-}
-
-button:active,
-.file-label:active{
-    transform:scale(.98);
-}
-
-button:disabled{
-    opacity:.45;
-    cursor:default;
-}
-
-button.secondary{
-    background:#303030;
-}
-
-button.secondary:hover{
-    background:#3d3d3d;
-}
-
-input[type=file]{
-    display:none;
-}
-
-.app{
-    width:min(1100px,96vw);
-    min-height:100vh;
-    margin:0 auto;
-    padding:18px;
-}
-
-.header{
-    margin-bottom:16px;
-}
-
-h1{
-    margin:0 0 14px;
-    text-align:center;
-    font-size:clamp(25px,4vw,35px);
-    line-height:1.2;
-}
-
-.nav{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:7px;
-}
-
-.nav a{
-    display:inline-block;
-    padding:8px 12px;
-    border-radius:8px;
-    background:#1d1d1d;
-    color:#bbb;
-    font-size:13px;
+a{
+    color:inherit;
     text-decoration:none;
 }
 
-.nav a:hover{
-    background:#292929;
+.container{
+    width:min(1180px,calc(100% - 32px));
+    margin:0 auto;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(11,13,18,.94);
+    border-bottom:1px solid #252a35;
+    backdrop-filter:blur(12px);
+}
+
+.nav{
+    max-width:1180px;
+    margin:auto;
+    padding:14px 20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+.logo{
+    text-decoration:none;
+    font-size:20px;
+    font-weight:800;
+    white-space:nowrap;
+}
+
+.navLinks{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    gap:15px;
+    font-size:14px;
+}
+
+.navLinks a{
+    color:#b8beca;
+    text-decoration:none;
+}
+
+.navLinks a:hover{
     color:#fff;
 }
 
-/* АКТИВНАЯ СТРАНИЦА */
+/* =====================================================
+   HERO
+===================================================== */
 
-.nav a.active{
-    background:#fff;
-    color:#111;
+.hero{
+    padding:58px 0 34px;
+    text-align:center;
 }
 
-.nav a.active:hover{
-    background:#e7e7e7;
-    color:#111;
+.hero h1{
+    margin:0 0 14px;
+    font-size:clamp(32px,5vw,56px);
+    line-height:1.08;
 }
 
-.tool{
-    width:100%;
+.hero p{
+    max-width:760px;
+    margin:0 auto;
+    color:#a8b0bd;
+    font-size:17px;
 }
 
-.top-controls{
+/* =====================================================
+   CARD
+===================================================== */
+
+.card{
+    background:#12161e;
+    border:1px solid #242b38;
+    border-radius:22px;
+
+    padding:24px;
+
+    box-shadow:0 20px 70px rgba(0,0,0,.25);
+}
+
+/* =====================================================
+   TOOL NAV
+===================================================== */
+
+.tool-nav{
     display:flex;
-    justify-content:center;
-    align-items:center;
     flex-wrap:wrap;
-    gap:8px;
-    margin-bottom:12px;
+    gap:10px;
+    margin-bottom:18px;
 }
+
+.tool-nav a{
+    border:1px solid #343b48;
+    background:#1b202a;
+    color:#fff;
+
+    border-radius:10px;
+
+    min-height:46px;
+    padding:10px 17px;
+
+    font-size:14px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.15s;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+}
+
+.tool-nav a:hover{
+    background:#252b36;
+}
+
+.tool-nav .active{
+    background:#fff;
+    color:#101217;
+    border-color:#fff;
+}
+
+.tool-nav .active:hover{
+    background:#e7e9ed;
+}
+
+/* =====================================================
+   CONTROLS
+===================================================== */
+
+.controls{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.controls button,
+.controls label{
+    border:1px solid #343b48;
+    background:#1b202a;
+    color:#fff;
+
+    border-radius:10px;
+
+    min-height:46px;
+    padding:10px 17px;
+
+    font-size:14px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.15s;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+}
+
+.controls button:hover,
+.controls label:hover{
+    background:#252b36;
+}
+
+.controls button.primary,
+.controls label.primary{
+    background:#fff;
+    color:#101217;
+    border-color:#fff;
+}
+
+.controls button.primary:hover,
+.controls label.primary:hover{
+    background:#e7e9ed;
+}
+
+.controls button:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+}
+
+input[type="file"]{
+    display:none;
+}
+
+/* =====================================================
+   ASPECT CONTROLS
+===================================================== */
 
 .aspect-controls{
     display:flex;
-    justify-content:center;
-    align-items:center;
     flex-wrap:wrap;
-    gap:7px;
-    margin-bottom:12px;
+    align-items:center;
+    gap:8px;
+    margin-bottom:20px;
 }
 
 .aspect-title{
-    color:#aaa;
+    color:#9fa7b4;
     font-size:14px;
-    margin-right:2px;
+    font-weight:700;
 }
 
 .aspect-button{
-    min-height:40px;
-    padding:9px 13px;
-    background:#252525;
-    color:#ccc;
+    border:1px solid #343b48;
+    background:#1b202a;
+    color:#c7cdd6;
+
+    border-radius:10px;
+
+    min-height:42px;
+    padding:9px 14px;
+
     font-size:14px;
+    font-weight:700;
+
+    cursor:pointer;
+    transition:.15s;
 }
 
 .aspect-button:hover{
-    background:#333;
+    background:#252b36;
 }
 
 .aspect-button.active{
-    background:#168cff;
-    color:#fff;
+    background:#fff;
+    color:#101217;
+    border-color:#fff;
 }
+
+.aspect-button.active:hover{
+    background:#e7e9ed;
+}
+
+/* =====================================================
+   WORKSPACE
+===================================================== */
 
 .workspace{
     position:relative;
-    width:100%;
-    height:min(65vh,680px);
-    min-height:320px;
-    border-radius:13px;
-    background:#202020;
-    overflow:hidden;
+
+    min-height:420px;
+
+    border:1px dashed #394150;
+
+    border-radius:14px;
+
+    background-color:#11151c;
+
+    background-image:
+        linear-gradient(45deg,#151a22 25%,transparent 25%),
+        linear-gradient(-45deg,#151a22 25%,transparent 25%),
+        linear-gradient(45deg,transparent 75%,#151a22 75%),
+        linear-gradient(-45deg,transparent 75%,#151a22 75%);
+
+    background-size:24px 24px;
+
+    background-position:
+        0 0,
+        0 12px,
+        12px -12px,
+        -12px 0;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:10px;
-    box-shadow:
-        inset 0 0 0 1px #2c2c2c;
+
+    overflow:hidden;
 }
+
+/* =====================================================
+   CANVAS
+===================================================== */
 
 .canvas-stage{
     position:relative;
+
     max-width:100%;
     max-height:100%;
+
     display:none;
+
     touch-action:none;
 }
 
@@ -232,18 +358,29 @@ h1{
 
 #imageCanvas{
     display:block;
+
     max-width:100%;
-    max-height:100%;
+    max-height:76vh;
+
     border-radius:4px;
+
     touch-action:none;
 }
 
+/* =====================================================
+   CROP BOX
+===================================================== */
+
 .crop-box{
     position:absolute;
+
     border:2px solid #fff;
+
     box-shadow:
         0 0 0 99999px rgba(0,0,0,.58);
+
     cursor:move;
+
     touch-action:none;
 }
 
@@ -258,17 +395,25 @@ h1{
     left:33.333%;
     top:0;
     bottom:0;
+
     width:1px;
+
     background:rgba(255,255,255,.35);
+
     box-shadow:
-        calc(100% + var(--third, 0px)) 0 0 rgba(255,255,255,0);
+        calc(100% + var(--third,0px))
+        0
+        0
+        rgba(255,255,255,0);
 }
 
 .crop-box::after{
     top:33.333%;
     left:0;
     right:0;
+
     height:1px;
+
     background:rgba(255,255,255,.35);
 }
 
@@ -311,14 +456,24 @@ h1{
     top:66.666%;
 }
 
+/* =====================================================
+   HANDLES
+===================================================== */
+
 .handle{
     position:absolute;
+
     width:18px;
     height:18px;
+
     border:2px solid #fff;
-    background:#168cff;
+
+    background:#fff;
+
     border-radius:4px;
+
     z-index:5;
+
     touch-action:none;
 }
 
@@ -346,228 +501,349 @@ h1{
     cursor:nwse-resize;
 }
 
+/* =====================================================
+   PLACEHOLDER
+===================================================== */
+
 .placeholder{
     position:absolute;
+
     inset:0;
+
     display:flex;
+
     align-items:center;
     justify-content:center;
+
     text-align:center;
-    padding:25px;
-    color:#777;
+
+    padding:30px;
+
+    color:#7f8998;
+
     font-size:15px;
+
     line-height:1.6;
 }
 
+.placeholder strong{
+    display:block;
+    color:#c8ced8;
+    font-size:19px;
+    margin-bottom:6px;
+}
+
+/* =====================================================
+   INFO
+===================================================== */
+
 .info-line{
     display:flex;
+
     justify-content:center;
     align-items:center;
+
     flex-wrap:wrap;
+
     gap:15px;
+
     min-height:28px;
-    margin-top:10px;
-    color:#aaa;
+
+    margin-top:14px;
+
+    color:#929cab;
+
     font-size:13px;
+
     text-align:center;
 }
 
 .status{
-    min-height:22px;
-    margin-top:6px;
-    text-align:center;
-    color:#7fc8ff;
+    min-height:25px;
+
+    margin-top:10px;
+
+    color:#aeb6c4;
+
     font-size:14px;
+
+    text-align:center;
 }
 
 .actions{
     display:flex;
-    justify-content:center;
+
     flex-wrap:wrap;
-    gap:9px;
-    margin-top:12px;
-}
 
-.ad-container{
-    width:100%;
-    min-height:100px;
-    margin:28px 0 10px;
-    display:flex;
     justify-content:center;
+
+    gap:10px;
+
+    margin-top:16px;
+}
+
+.actions button{
+    border:1px solid #343b48;
+
+    background:#1b202a;
+
+    color:#fff;
+
+    border-radius:10px;
+
+    min-height:46px;
+
+    padding:10px 17px;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.15s;
+}
+
+.actions button:hover{
+    background:#252b36;
+}
+
+.actions button:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+}
+
+/* =====================================================
+   AD
+===================================================== */
+
+.ad-wrap{
+    margin:28px 0;
+
+    min-height:90px;
+
+    display:flex;
+
+    justify-content:center;
+
     align-items:center;
-    overflow:hidden;
 }
 
-.info{
-    margin-top:30px;
-    padding:0 5px 25px;
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.content-section{
+    padding:58px 0 10px;
 }
 
-.info section{
-    margin-bottom:34px;
-    scroll-margin-top:20px;
+.content-section h2{
+    margin:0 0 14px;
+    font-size:30px;
 }
 
-.info h2{
-    margin:0 0 13px;
-    font-size:24px;
-    line-height:1.3;
+.content-section h3{
+    margin-top:24px;
+    margin-bottom:9px;
+    font-size:19px;
 }
 
-.info h3{
-    margin:23px 0 9px;
-    font-size:18px;
+.content-section p,
+.content-section li{
+    color:#a8b0bd;
 }
 
-.info p,
-.info li{
-    color:#ccc;
-    font-size:15px;
-    line-height:1.7;
-}
-
-.info p{
-    margin:0 0 13px;
-}
-
-.info ol,
-.info ul{
+.content-section ol,
+.content-section ul{
     padding-left:24px;
 }
 
-.info li{
+.content-section li{
     margin-bottom:6px;
 }
 
-.faq-item{
-    margin-bottom:9px;
-    padding:15px;
-    border-radius:10px;
-    border:1px solid #292929;
-    background:#191919;
+/* =====================================================
+   FAQ
+===================================================== */
+
+.faq{
+    padding:54px 0 10px;
 }
 
-.faq-item h3{
-    margin:0 0 7px;
-    font-size:16px;
+.faq h2{
+    margin-bottom:18px;
 }
 
-.faq-item p{
-    margin:0;
+details{
+    background:#12161e;
+
+    border:1px solid #242b38;
+
+    border-radius:14px;
+
+    padding:16px 18px;
+
+    margin-bottom:10px;
+}
+
+summary{
+    cursor:pointer;
+    font-weight:700;
+}
+
+details p{
+    color:#a8b0bd;
+    margin:12px 0 0;
+}
+
+/* =====================================================
+   PRIVACY
+===================================================== */
+
+.privacy{
+    padding:54px 0;
+}
+
+.privacy p{
+    color:#a8b0bd;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+    border-top:1px solid #252a35;
+
+    padding:28px 20px 40px;
+
+    color:#858e9d;
+
     font-size:14px;
-    color:#bbb;
-}
 
-.footer{
-    padding:20px 5px 10px;
-    border-top:1px solid #292929;
-    color:#777;
-    font-size:13px;
-    line-height:1.6;
     text-align:center;
 }
 
-@media(max-width:600px){
+.footerNav{
+    display:flex;
 
-    .app{
-        width:100%;
-        padding:10px;
-    }
+    flex-wrap:wrap;
 
-    h1{
-        margin-bottom:10px;
-    }
+    justify-content:center;
+
+    gap:10px 18px;
+
+    margin-bottom:12px;
+}
+
+.footerNav a{
+    color:#aeb5c2;
+    text-decoration:none;
+}
+
+.footerNav a:hover{
+    color:#fff;
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:800px){
 
     .nav{
-        gap:5px;
+        align-items:flex-start;
+        flex-direction:column;
     }
 
-    .nav a{
-        padding:7px 9px;
-        font-size:12px;
+    .navLinks{
+        justify-content:flex-start;
+        gap:10px 14px;
     }
 
-    button,
-    .file-label{
-        min-height:43px;
-        padding:10px 13px;
-        font-size:14px;
+    .container{
+        width:min(100% - 20px,1180px);
+    }
+
+    .hero{
+        padding:38px 0 24px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .card{
+        padding:15px;
+        border-radius:14px;
+    }
+
+    .tool-nav,
+    .controls{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .tool-nav a,
+    .controls button,
+    .controls label{
+        width:100%;
+        min-height:44px;
+        padding:10px 8px;
+        font-size:13px;
     }
 
     .aspect-controls{
-        gap:5px;
+        gap:7px;
     }
 
     .aspect-title{
         width:100%;
-        margin-bottom:1px;
     }
 
     .aspect-button{
-        min-height:38px;
-        padding:8px 11px;
-        font-size:13px;
+        flex:1;
+        min-width:0;
+        min-height:42px;
+        padding:9px 8px;
     }
 
     .workspace{
-        height:56vh;
-        min-height:240px;
-        padding:7px;
+        min-height:300px;
     }
 
-    .handle{
-        width:20px;
-        height:20px;
+    #imageCanvas{
+        max-height:65vh;
     }
 
-    .handle.nw{
-        left:-10px;
-        top:-10px;
+    .actions{
+        flex-direction:column;
     }
 
-    .handle.ne{
-        right:-10px;
-        top:-10px;
+    .actions button{
+        width:100%;
     }
 
-    .handle.sw{
-        left:-10px;
-        bottom:-10px;
+    .content-section{
+        padding-top:42px;
     }
 
-    .handle.se{
-        right:-10px;
-        bottom:-10px;
+    .footerNav{
+        flex-direction:column;
+        gap:8px;
     }
 
-    .ad-container{
-        min-height:80px;
-        margin:20px 0 8px;
-    }
-
-    .info{
-        margin-top:22px;
-    }
-
-    .info h2{
-        font-size:21px;
-    }
-
-    .info p,
-    .info li{
-        font-size:14px;
-    }
 }
 
-@media(prefers-reduced-motion:reduce){
+@media(max-width:460px){
 
-    html{
-        scroll-behavior:auto;
-    }
-
-    button,
-    .file-label{
-        transition:none;
+    .tool-nav,
+    .controls{
+        grid-template-columns:1fr;
     }
 
 }
@@ -578,52 +854,128 @@ h1{
 
 <body>
 
-<div class="app">
 
-<header class="header">
+<header>
+
+<div class="nav">
+
+    <a
+        href="../"
+        class="logo"
+    >
+        Фото + эффект
+    </a>
+
+    <nav class="navLinks">
+
+        <a href="../">
+            Инструмент
+        </a>
+
+        <a
+            href="./"
+            class="active"
+            aria-current="page"
+        >
+            Обрезка фото
+        </a>
+
+        <a href="../resize/">
+            Изменить размер
+        </a>
+
+        <a href="../rotate/">
+            Повернуть фото
+        </a>
+
+        <a href="../remove-background/">
+            Удалить фон
+        </a>
+
+        <a href="../#how-to">
+            Как пользоваться
+        </a>
+
+        <a href="../#about">
+            О сервисе
+        </a>
+
+        <a href="../#faq">
+            FAQ
+        </a>
+
+        <a href="../#privacy">
+            Конфиденциальность
+        </a>
+
+    </nav>
+
+</div>
+
+</header>
+
+
+<main>
+
+<div class="container">
+
+
+<section class="hero">
 
     <h1>
         Обрезка фото онлайн
     </h1>
 
-    <nav
-        class="nav"
-        aria-label="Навигация"
-    >
+    <p>
+        Бесплатный онлайн-инструмент для обрезки фотографии.
+        Выберите нужную область, настройте пропорции и
+        скачайте готовое изображение в формате PNG.
+    </p>
 
-        <a href="../">
-            Фото + эффект
-        </a>
-
-        <a
-            href="#tool"
-            class="active"
-            aria-current="page"
-        >
-            Обрезка
-        </a>
-
-        <a href="#how-to">
-            Как пользоваться
-        </a>
-
-        <a href="#faq">
-            Частые вопросы
-        </a>
-
-    </nav>
-
-</header>
+</section>
 
 
 <section
     id="tool"
-    class="tool"
+    class="card"
 >
 
-    <div class="top-controls">
 
-        <label class="file-label">
+    <div class="tool-nav">
+
+        <a href="../">
+            Инструмент
+        </a>
+
+        <a
+            href="./"
+            class="active"
+            aria-current="page"
+        >
+            Обрезка фото
+        </a>
+
+        <a href="../resize/">
+            Изменить размер
+        </a>
+
+        <a href="../rotate/">
+            Повернуть фото
+        </a>
+
+        <a href="../remove-background/">
+            Удалить фон
+        </a>
+
+    </div>
+
+
+    <div class="controls">
+
+        <label
+            for="photoInput"
+            class="primary"
+        >
 
             Загрузить фото
 
@@ -635,6 +987,7 @@ h1{
 
         </label>
 
+
         <button
             id="cropButton"
             type="button"
@@ -642,6 +995,7 @@ h1{
         >
             Обрезать
         </button>
+
 
         <button
             id="downloadButton"
@@ -651,9 +1005,9 @@ h1{
             Скачать PNG
         </button>
 
+
         <button
             id="newPhotoButton"
-            class="secondary"
             type="button"
             disabled
         >
@@ -669,6 +1023,7 @@ h1{
             Пропорции:
         </span>
 
+
         <button
             class="aspect-button active"
             type="button"
@@ -676,6 +1031,7 @@ h1{
         >
             Свободная
         </button>
+
 
         <button
             class="aspect-button"
@@ -685,6 +1041,7 @@ h1{
             1:1
         </button>
 
+
         <button
             class="aspect-button"
             type="button"
@@ -693,6 +1050,7 @@ h1{
             4:3
         </button>
 
+
         <button
             class="aspect-button"
             type="button"
@@ -700,6 +1058,7 @@ h1{
         >
             16:9
         </button>
+
 
         <button
             class="aspect-button"
@@ -721,9 +1080,16 @@ h1{
             id="placeholder"
             class="placeholder"
         >
-            Загрузите фотографию,<br>
-            затем выделите область для обрезки.
+            <div>
+                <strong>
+                    Загрузите фотографию
+                </strong>
+
+                Затем выделите область,
+                которую хотите оставить.
+            </div>
         </div>
+
 
         <div
             id="canvasStage"
@@ -734,6 +1100,7 @@ h1{
                 id="imageCanvas"
             ></canvas>
 
+
             <div
                 id="cropBox"
                 class="crop-box"
@@ -741,23 +1108,28 @@ h1{
 
                 <div class="grid-v1"></div>
                 <div class="grid-v2"></div>
+
                 <div class="grid-h1"></div>
                 <div class="grid-h2"></div>
+
 
                 <div
                     class="handle nw"
                     data-handle="nw"
                 ></div>
 
+
                 <div
                     class="handle ne"
                     data-handle="ne"
                 ></div>
 
+
                 <div
                     class="handle sw"
                     data-handle="sw"
                 ></div>
+
 
                 <div
                     class="handle se"
@@ -792,7 +1164,6 @@ h1{
 
         <button
             id="resetButton"
-            class="secondary"
             type="button"
             disabled
         >
@@ -801,27 +1172,23 @@ h1{
 
     </div>
 
+
 </section>
 
 
-<div class="ad-container">
-
-    <!--
-        Рекламный блок намеренно пока не добавляем.
-        После проверки инструмента его можно подключить
-        тем же блоком РСЯ, который используется на главной.
-    -->
-
+<div class="ad-wrap">
 </div>
 
 
-<main class="info">
-
-<section id="how-to">
+<section
+    id="how-to"
+    class="content-section"
+>
 
     <h2>
         Как обрезать фотографию онлайн
     </h2>
+
 
     <ol>
 
@@ -854,9 +1221,11 @@ h1{
 
     </ol>
 
+
     <h3>
         Обрезка на телефоне
     </h3>
+
 
     <p>
         На сенсорном экране область можно перемещать пальцем.
@@ -867,16 +1236,21 @@ h1{
 </section>
 
 
-<section>
+<section
+    id="about"
+    class="content-section"
+>
 
     <h2>
         Пропорции изображения
     </h2>
 
+
     <p>
         В режиме «Свободная» область обрезки может иметь
         произвольные пропорции.
     </p>
+
 
     <p>
         Режим 1:1 подходит для квадратных изображений.
@@ -887,72 +1261,76 @@ h1{
 </section>
 
 
-<section id="faq">
+<section
+    id="faq"
+    class="faq"
+>
 
     <h2>
         Частые вопросы
     </h2>
 
 
-    <div class="faq-item">
+    <details>
 
-        <h3>
+        <summary>
             Загружается ли фотография на сервер?
-        </h3>
+        </summary>
 
         <p>
-            Данная страница обрабатывает выбранное изображение
-            непосредственно в браузере с помощью Canvas.
+            Нет. Обработка выбранного изображения
+            выполняется непосредственно в браузере
+            с помощью Canvas.
         </p>
 
-    </div>
+    </details>
 
 
-    <div class="faq-item">
+    <details>
 
-        <h3>
+        <summary>
             Какой формат у результата?
-        </h3>
+        </summary>
 
         <p>
             Результат сохраняется в формате PNG.
         </p>
 
-    </div>
+    </details>
 
 
-    <div class="faq-item">
+    <details>
 
-        <h3>
+        <summary>
             Можно ли обрезать фотографию на телефоне?
-        </h3>
+        </summary>
 
         <p>
             Да. Интерфейс поддерживает сенсорное управление.
         </p>
 
-    </div>
+    </details>
 
 
-    <div class="faq-item">
+    <details>
 
-        <h3>
+        <summary>
             Можно ли изменить пропорции?
-        </h3>
+        </summary>
 
         <p>
             Да. Доступны свободная область, 1:1, 4:3,
             16:9 и 9:16.
         </p>
 
-    </div>
+    </details>
 
 
-    <div class="faq-item">
+    <details>
 
-        <h3>
+        <summary>
             Что произойдёт с исходным файлом?
-        </h3>
+        </summary>
 
         <p>
             Исходный файл на устройстве пользователя
@@ -960,22 +1338,27 @@ h1{
             отдельно.
         </p>
 
-    </div>
+    </details>
 
 </section>
 
 
-<section>
+<section
+    id="privacy"
+    class="privacy"
+>
 
     <h2>
         О сервисе
     </h2>
+
 
     <p>
         «Обрезка фото онлайн» — простой браузерный инструмент
         для выбора нужной области фотографии и сохранения
         получившегося изображения.
     </p>
+
 
     <p>
         Инструмент является частью сервиса «Фото + эффект»
@@ -985,23 +1368,44 @@ h1{
 
 </section>
 
+
+</div>
+
 </main>
 
 
-<footer class="footer">
+<footer>
 
-    <div>
-        Обрезка фото онлайн — бесплатный инструмент
-        для подготовки изображений.
-    </div>
+<div class="footerNav">
 
-    <div>
-        © <span id="year"></span> Фото + эффект
-    </div>
+    <a href="../">
+        Фото + эффект
+    </a>
 
-</footer>
+    <a href="./">
+        Обрезка фото
+    </a>
+
+    <a href="../resize/">
+        Изменить размер
+    </a>
+
+    <a href="../rotate/">
+        Повернуть фото
+    </a>
+
+    <a href="../remove-background/">
+        Удалить фон
+    </a>
 
 </div>
+
+
+<div>
+    © <span id="year"></span> Фото + эффект
+</div>
+
+</footer>
 
 
 <script>
@@ -1314,11 +1718,6 @@ function initializeCrop(){
     if(
         selectedRatio === null
     ){
-
-        /*
-            Свободная область:
-            начинаем примерно с 85% изображения.
-        */
 
         cropW =
             w * 0.85;

@@ -252,8 +252,6 @@ input[type="file"]{
     display:none;
 
     width:100%;
-    height:100%;
-
     min-height:416px;
 
     align-items:center;
@@ -270,12 +268,6 @@ input[type="file"]{
 
     width:auto;
     height:auto;
-
-    /*
-       Фото НЕ перерисовывается в Canvas.
-       Поэтому исходный предпросмотр остаётся
-       максимально резким.
-    */
 
     object-fit:contain;
 
@@ -306,27 +298,33 @@ input[type="file"]{
 
 .compare-stage{
     position:relative;
-
     display:none;
 
+    /*
+       Не задаём ширину и высоту вручную.
+       Canvas сам сохраняет свои пропорции.
+    */
     max-width:100%;
     max-height:76vh;
 
     line-height:0;
 
     user-select:none;
-
     touch-action:none;
 }
 
 #compareCanvas{
     display:block;
 
+    /*
+       Внутреннее разрешение Canvas определяется
+       compareCanvas.width / height.
+
+       CSS здесь только ограничивает отображение.
+       Пропорции сохраняются автоматически.
+    */
     max-width:100%;
     max-height:76vh;
-
-    width:auto;
-    height:auto;
 
     background:transparent;
 }
@@ -515,12 +513,8 @@ input[type="file"]{
 
 .feature-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:16px;
-
     margin-top:22px;
 }
 
@@ -643,13 +637,16 @@ footer{
     .header-inner{
         min-height:auto;
         padding:14px 0;
+
         align-items:flex-start;
         flex-direction:column;
     }
 
     .top-nav{
         justify-content:flex-start;
+
         gap:11px 15px;
+
         font-size:13px;
     }
 
@@ -673,6 +670,7 @@ footer{
     .tool-nav,
     .controls{
         display:grid;
+
         grid-template-columns:1fr 1fr;
     }
 
@@ -680,8 +678,11 @@ footer{
     .controls button,
     .controls label{
         width:100%;
+
         min-height:44px;
+
         padding:10px 8px;
+
         font-size:13px;
     }
 
@@ -699,14 +700,13 @@ footer{
     }
 
     .compare-stage{
-        width:100%;
+        max-width:100%;
+        max-height:65vh;
     }
 
     #compareCanvas{
+        max-width:100%;
         max-height:65vh;
-
-        width:100%;
-        height:auto;
     }
 
     .feature-grid{
@@ -810,7 +810,7 @@ footer{
 
 <div class="card">
 
-    <!-- НАВИГАЦИЯ -->
+    <!-- НАВИГАЦИЯ ПО ИНСТРУМЕНТАМ -->
 
     <div class="tool-nav">
 
@@ -901,7 +901,7 @@ footer{
         id="workspace">
 
 
-        <!-- ИСХОДНЫЙ ПРЕДПРОСМОТР -->
+        <!-- ИСХОДНАЯ ФОТОГРАФИЯ -->
 
         <div
             class="original-preview"
@@ -938,7 +938,6 @@ footer{
 
             <canvas id="compareCanvas"></canvas>
 
-
             <div
                 class="compare-line"
                 id="compareLine">
@@ -948,7 +947,6 @@ footer{
                 </div>
 
             </div>
-
 
             <div class="compare-label compare-before">
                 До
@@ -1062,8 +1060,8 @@ footer{
     </p>
 
     <p>
-        Передвигайте разделитель мышью или пальцем,
-        чтобы сравнить результат.
+        Перемещайте разделитель мышью или пальцем,
+        чтобы сравнить результат обработки.
     </p>
 
 
@@ -1102,7 +1100,7 @@ footer{
             </h3>
 
             <p>
-                Результат сохраняется в PNG с прозрачным фоном.
+                Результат сохраняется в формате PNG с прозрачным фоном.
             </p>
 
         </div>
@@ -1128,7 +1126,7 @@ footer{
 
     <p>
         Photo Effect — простой онлайн-сервис для обработки изображений.
-        Фотография обрабатывается непосредственно в браузере.
+        Фотография обрабатывается непосредственно в браузере пользователя.
     </p>
 
     <p>
@@ -1157,27 +1155,13 @@ footer{
     <details>
 
         <summary>
-            Почему исходное фото теперь не должно становиться мыльным?
-        </summary>
-
-        <p>
-            До обработки фотография показывается непосредственно как изображение,
-            без предварительной отрисовки в Canvas.
-        </p>
-
-    </details>
-
-
-    <details>
-
-        <summary>
             Как работает сравнение До / После?
         </summary>
 
         <p>
-            После обработки используется один Canvas.
+            Используется один Canvas.
             Слева показывается исходная фотография,
-            справа — обработанная версия с прозрачным фоном.
+            справа — обработанный результат с прозрачным фоном.
         </p>
 
     </details>
@@ -1199,12 +1183,12 @@ footer{
     <details>
 
         <summary>
-            Сохраняется ли разрешение результата?
+            Сохраняется ли разрешение фотографии?
         </summary>
 
         <p>
-            Для скачивания используется непосредственно готовый PNG-результат
-            удаления фона, а не уменьшенная копия рабочего поля.
+            Исходное фото не уменьшается при загрузке.
+            Результат скачивается непосредственно из готового PNG.
         </p>
 
     </details>
@@ -1213,11 +1197,24 @@ footer{
     <details>
 
         <summary>
-            В каком формате скачивается фото?
+            В каком формате скачивается результат?
         </summary>
 
         <p>
             PNG с прозрачным фоном.
+        </p>
+
+    </details>
+
+
+    <details>
+
+        <summary>
+            Нужно ли устанавливать программу?
+        </summary>
+
+        <p>
+            Нет. Инструмент работает непосредственно в браузере.
         </p>
 
     </details>
@@ -1488,7 +1485,7 @@ function updateLine(){
 
 
 /* =========================================================
-   FILE UPLOAD
+   LOAD PHOTO
 ========================================================= */
 
 fileInput.addEventListener(
@@ -1514,10 +1511,9 @@ fileInput.addEventListener(
         }
 
 
-        originalFile = file;
+        originalFile =
+            file;
 
-
-        /* Очистить старый результат */
 
         if(resultUrl){
 
@@ -1526,12 +1522,6 @@ fileInput.addEventListener(
             );
 
         }
-
-        resultUrl = null;
-
-        resultBlob = null;
-
-        resultImage = null;
 
 
         if(originalUrl){
@@ -1543,8 +1533,20 @@ fileInput.addEventListener(
         }
 
 
+        resultUrl =
+            null;
+
+        resultBlob =
+            null;
+
+        resultImage =
+            null;
+
+
         originalUrl =
-            URL.createObjectURL(file);
+            URL.createObjectURL(
+                file
+            );
 
 
         downloadBtn.disabled =
@@ -1569,8 +1571,8 @@ fileInput.addEventListener(
 
         /*
            ВАЖНО:
-           Загруженное фото сейчас показывается
-           обычным <img>, а НЕ Canvas.
+           До удаления фона фото показывается
+           напрямую через обычный IMG.
         */
 
         const image =
@@ -1621,7 +1623,7 @@ fileInput.addEventListener(
 
 
 /* =========================================================
-   SETUP CANVAS ONLY AFTER PROCESSING
+   CANVAS SETUP
 ========================================================= */
 
 function setupCanvas(){
@@ -1632,10 +1634,14 @@ function setupCanvas(){
 
 
     /*
-       Canvas получает ТОЧНОЕ исходное
-       разрешение изображения.
+       Canvas получает реальное исходное
+       разрешение фотографии.
 
-       Никакого уменьшения.
+       Например:
+
+       Фото 6000 × 4000
+
+       Canvas 6000 × 4000
     */
 
     const width =
@@ -1657,11 +1663,16 @@ function setupCanvas(){
         height;
 
 
-    compareCanvas.style.width =
-        width + "px";
+    /*
+       НИЧЕГО не задаём через
+       compareCanvas.style.width
+       compareCanvas.style.height.
 
-    compareCanvas.style.height =
-        height + "px";
+       Браузер самостоятельно вписывает
+       Canvas в рабочую область через
+       max-width/max-height,
+       сохраняя исходные пропорции.
+    */
 
 }
 
@@ -1698,7 +1709,7 @@ function drawComparison(){
 
 
     /* =====================================================
-       LEFT = ORIGINAL
+       LEFT — ORIGINAL
     ===================================================== */
 
     if(dividerX > 0){
@@ -1732,7 +1743,7 @@ function drawComparison(){
 
 
     /* =====================================================
-       RIGHT = REMOVED BACKGROUND
+       RIGHT — RESULT
     ===================================================== */
 
     if(
@@ -1811,7 +1822,8 @@ removeBtn.addEventListener(
         try{
 
             /*
-               Сохраняем тот же рабочий вызов.
+               Рабочий вызов библиотеки
+               оставлен без изменений.
             */
 
             const blob =
@@ -1883,16 +1895,12 @@ removeBtn.addEventListener(
 
 
                 /*
-                   Только теперь создаём Canvas.
+                   Canvas создаётся только после
+                   получения результата.
                 */
 
                 setupCanvas();
 
-
-                /*
-                   Начальная позиция —
-                   ровно 50/50.
-                */
 
                 comparePosition =
                     50;
@@ -1943,6 +1951,7 @@ removeBtn.addEventListener(
             processed.src =
                 resultUrl;
 
+
         }catch(error){
 
             console.error(
@@ -1983,9 +1992,8 @@ downloadBtn.addEventListener(
 
 
         /*
-           ВАЖНО:
-           скачивается оригинальный Blob результата,
-           а не Canvas.
+           Скачивается непосредственно
+           готовый PNG результата.
         */
 
         const url =
@@ -2014,7 +2022,9 @@ downloadBtn.addEventListener(
 
         setTimeout(()=>{
 
-            URL.revokeObjectURL(url);
+            URL.revokeObjectURL(
+                url
+            );
 
         },1000);
 
@@ -2036,8 +2046,8 @@ originalBtn.addEventListener(
 
 
         /*
-           Просто возвращаем обычный
-           исходный <img>.
+           Возвращаем обычный оригинал,
+           поэтому он не проходит через Canvas.
         */
 
         showOriginal();
@@ -2168,6 +2178,7 @@ compareStage.addEventListener(
     stopDragging
 );
 
+
 compareStage.addEventListener(
     "pointercancel",
     stopDragging
@@ -2175,7 +2186,7 @@ compareStage.addEventListener(
 
 
 /* =========================================================
-   CLICK DIRECTLY ON IMAGE
+   CLICK ON PHOTO
 ========================================================= */
 
 compareStage.addEventListener(
@@ -2261,13 +2272,6 @@ newBtn.addEventListener(
             1;
 
 
-        compareCanvas.style.width =
-            "";
-
-        compareCanvas.style.height =
-            "";
-
-
         comparePosition =
             50;
 
@@ -2301,7 +2305,6 @@ newBtn.addEventListener(
 
         showEmpty();
 
-
         updateLine();
 
     }
@@ -2330,7 +2333,7 @@ window.addEventListener(
 
 
 /* =========================================================
-   INITIAL STATE
+   INITIAL
 ========================================================= */
 
 showEmpty();

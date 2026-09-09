@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -302,7 +303,7 @@ input[type="range"]{
 
 .toolsGrid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(4,1fr);
     gap:14px;
     margin-top:20px;
 }
@@ -374,6 +375,14 @@ footer{
 
 .footerNav a:hover{
     color:#fff;
+}
+
+@media(max-width:900px){
+
+    .toolsGrid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
 }
 
 @media(max-width:800px){
@@ -470,6 +479,10 @@ footer{
 Повернуть фото
 </a>
 
+<a href="./remove-background/">
+Удалить фон
+</a>
+
 <a href="#how-to">
 Как пользоваться
 </a>
@@ -556,6 +569,14 @@ FAQ
     class="fileLabel"
 >
 Повернуть фото
+</a>
+
+
+<a
+    href="./remove-background/"
+    class="fileLabel"
+>
+Удалить фон
 </a>
 
 
@@ -752,6 +773,19 @@ window.yaContextCb.push(() => {
 масштаб.
 </p>
 
+
+<h3>
+Удаление фона
+</h3>
+
+<p>
+Если необходимо автоматически удалить фон фотографии,
+используйте отдельный инструмент
+<a href="./remove-background/">«Удалить фон»</a>.
+Результат можно сравнить с исходной фотографией и скачать
+в формате PNG с прозрачным фоном.
+</p>
+
 </section>
 
 
@@ -777,7 +811,7 @@ window.yaContextCb.push(() => {
 
 <p>
 Кроме основного редактора доступны отдельные инструменты для
-обрезки, изменения размера и поворота изображения.
+обрезки, изменения размера, поворота изображения и удаления фона.
 </p>
 
 
@@ -827,6 +861,22 @@ window.yaContextCb.push(() => {
 
 <p>
 Поверните или отразите фотографию и сохраните готовый результат в PNG.
+</p>
+
+</a>
+
+
+<a
+    href="./remove-background/"
+    class="toolCard"
+>
+
+<h3>
+Удалить фон
+</h3>
+
+<p>
+Автоматически удалите фон фотографии и получите PNG с прозрачным фоном.
 </p>
 
 </a>
@@ -935,6 +985,22 @@ window.yaContextCb.push(() => {
 <div class="faqItem">
 
 <h3>
+Можно ли удалить фон с фотографии?
+</h3>
+
+<p>
+Да. Для этого используйте инструмент
+<a href="./remove-background/">«Удалить фон»</a>.
+Он автоматически удаляет фон и позволяет скачать
+результат в формате PNG с прозрачным фоном.
+</p>
+
+</div>
+
+
+<div class="faqItem">
+
+<h3>
 Сервис бесплатный?
 </h3>
 
@@ -993,6 +1059,10 @@ window.yaContextCb.push(() => {
 
 <a href="./rotate/">
 Повернуть фото
+</a>
+
+<a href="./remove-background/">
+Удалить фон
 </a>
 
 <a href="#how-to">
@@ -1594,3 +1664,4 @@ canvas.height =
 </body>
 
 </html>
+```

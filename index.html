@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -303,7 +302,7 @@ input[type="range"]{
 
 .toolsGrid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(3,1fr);
     gap:14px;
     margin-top:20px;
 }
@@ -360,6 +359,23 @@ footer{
     font-size:14px;
 }
 
+.footerNav{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px 18px;
+    margin-bottom:12px;
+}
+
+.footerNav a{
+    color:#aeb5c2;
+    text-decoration:none;
+}
+
+.footerNav a:hover{
+    color:#fff;
+}
+
 @media(max-width:800px){
 
     .nav{
@@ -408,6 +424,11 @@ footer{
 
     .toolsGrid{
         grid-template-columns:1fr;
+    }
+
+    .footerNav{
+        flex-direction:column;
+        gap:8px;
     }
 
 }
@@ -528,6 +549,7 @@ FAQ
 >
 Изменить размер
 </a>
+
 
 <a
     href="./rotate/"
@@ -717,6 +739,7 @@ window.yaContextCb.push(() => {
 а также отразить его по горизонтали или вертикали.
 </p>
 
+
 <h3>
 Изменение размера
 </h3>
@@ -754,7 +777,7 @@ window.yaContextCb.push(() => {
 
 <p>
 Кроме основного редактора доступны отдельные инструменты для
-обрезки и изменения размера изображения.
+обрезки, изменения размера и поворота изображения.
 </p>
 
 
@@ -788,6 +811,22 @@ window.yaContextCb.push(() => {
 
 <p>
 Измените ширину и высоту фотографии с сохранением пропорций.
+</p>
+
+</a>
+
+
+<a
+    href="./rotate/"
+    class="toolCard"
+>
+
+<h3>
+Повернуть фото
+</h3>
+
+<p>
+Поверните или отразите фотографию и сохраните готовый результат в PNG.
 </p>
 
 </a>
@@ -880,6 +919,22 @@ window.yaContextCb.push(() => {
 <div class="faqItem">
 
 <h3>
+Можно ли повернуть фотографию?
+</h3>
+
+<p>
+Да. Для этого используйте инструмент
+<a href="./rotate/">«Повернуть фото»</a>.
+Он позволяет повернуть изображение на 90° или 180°,
+а также отразить его по горизонтали или вертикали.
+</p>
+
+</div>
+
+
+<div class="faqItem">
+
+<h3>
 Сервис бесплатный?
 </h3>
 
@@ -922,7 +977,45 @@ window.yaContextCb.push(() => {
 
 <footer>
 
+<nav class="footerNav">
+
+<a href="#tool">
+Инструмент
+</a>
+
+<a href="./crop/">
+Обрезка фото
+</a>
+
+<a href="./resize/">
+Изменить размер
+</a>
+
+<a href="./rotate/">
+Повернуть фото
+</a>
+
+<a href="#how-to">
+Как пользоваться
+</a>
+
+<a href="#about">
+О сервисе
+</a>
+
+<a href="#faq">
+FAQ
+</a>
+
+<a href="#privacy">
+Конфиденциальность
+</a>
+
+</nav>
+
+<div>
 Фото + эффект — бесплатные онлайн-инструменты для работы с фотографиями.
+</div>
 
 </footer>
 
@@ -1501,4 +1594,3 @@ canvas.height =
 </body>
 
 </html>
-```

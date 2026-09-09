@@ -1,5 +1,5 @@
-
 <!DOCTYPE html>
+
 <html lang="ru">
 
 <head>
@@ -7,26 +7,33 @@
 <meta charset="UTF-8">
 
 <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+name="viewport"
+content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+
 >
 
-<title>Обрезка фото онлайн — бесплатно</title>
+<title>Обрезка фото онлайн — бесплатно | Фото + эффект</title>
 
 <meta
-    name="description"
-    content="Бесплатный онлайн-инструмент для обрезки фотографий. Выберите область, настройте пропорции и скачайте готовое изображение PNG."
->
+name="description"
+content="Бесплатный онлайн-инструмент для обрезки фотографий. Выберите область, настройте пропорции и скачайте готовое изображение PNG."
 
-<meta
-    name="robots"
-    content="index, follow"
 >
 
 <meta
-    name="theme-color"
-    content="#111111"
+name="robots"
+content="index, follow"
+
 >
+
+<script>
+window.yaContextCb = window.yaContextCb || [];
+</script>
+
+<script
+    src="https://yandex.ru/ads/system/context.js"
+    async>
+</script>
 
 <style>
 
@@ -36,159 +43,189 @@
 }
 
 html{
-    margin:0;
-    padding:0;
-    background:#111;
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
     scroll-behavior:smooth;
 }
 
 body{
     margin:0;
     min-height:100vh;
-    background:#111;
-    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#0b0d12;
+    color:#f2f4f8;
+    line-height:1.6;
     overflow-x:hidden;
 }
 
-button,
-label,
-select{
-    font-family:inherit;
+a{
+    color:inherit;
 }
 
-button,
-.file-label{
-    border:0;
-    border-radius:10px;
-    min-height:46px;
-    padding:12px 17px;
-    background:#168cff;
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(11,13,18,.94);
+    border-bottom:1px solid #252a35;
+    backdrop-filter:blur(12px);
+}
+
+.nav{
+    max-width:1180px;
+    margin:auto;
+    padding:14px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    text-decoration:none;
+    font-size:20px;
+    font-weight:800;
+    white-space:nowrap;
+}
+
+.navLinks{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    gap:15px;
+    font-size:14px;
+}
+
+.navLinks a{
+    color:#b8beca;
+    text-decoration:none;
+}
+
+.navLinks a:hover{
     color:#fff;
-    font-size:15px;
+}
+
+main{
+    max-width:1180px;
+    margin:auto;
+    padding:35px 20px 70px;
+}
+
+.hero{
+    text-align:center;
+    padding:15px 0 30px;
+}
+
+.hero h1{
+    margin:0 0 12px;
+    font-size:clamp(30px,5vw,54px);
+    line-height:1.1;
+}
+
+.hero p{
+    max-width:760px;
+    margin:0 auto;
+    color:#aeb5c2;
+    font-size:17px;
+}
+
+.card{
+    background:#12161e;
+    border:1px solid #272d38;
+    border-radius:18px;
+    padding:22px;
+    margin-top:20px;
+}
+
+.toolbar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.button,
+.fileLabel{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:46px;
+    padding:10px 17px;
+    border:1px solid #343b48;
+    border-radius:10px;
+    background:#1b202a;
+    color:#fff;
     font-weight:700;
     cursor:pointer;
-    touch-action:manipulation;
-    user-select:none;
-    -webkit-user-select:none;
-    transition:
-        background .15s,
-        transform .1s,
-        opacity .15s;
+    text-decoration:none;
+    font-size:14px;
+    transition:.15s;
 }
 
-button:hover,
-.file-label:hover{
-    background:#0879df;
+.button:hover,
+.fileLabel:hover{
+    background:#252b36;
 }
 
-button:active,
-.file-label:active{
-    transform:scale(.98);
+.button.primary,
+.fileLabel.primary{
+    background:#fff;
+    color:#101217;
+    border-color:#fff;
 }
 
-button:disabled{
+.button.primary:hover,
+.fileLabel.primary:hover{
+    background:#e7e9ed;
+}
+
+.button:disabled{
     opacity:.45;
     cursor:default;
 }
 
-button.secondary{
-    background:#303030;
+.button.secondary{
+    background:#1b202a;
 }
 
-button.secondary:hover{
-    background:#3d3d3d;
-}
-
-input[type=file]{
+input[type="file"]{
     display:none;
 }
 
-.app{
-    width:min(1100px,96vw);
-    min-height:100vh;
-    margin:0 auto;
-    padding:18px;
-}
-
-.header{
-    margin-bottom:16px;
-}
-
-h1{
-    margin:0 0 14px;
-    text-align:center;
-    font-size:clamp(25px,4vw,35px);
-    line-height:1.2;
-}
-
-.nav{
+.aspectControls{
     display:flex;
-    justify-content:center;
-    align-items:center;
     flex-wrap:wrap;
-    gap:7px;
-}
-
-.nav a{
-    display:inline-block;
-    padding:8px 12px;
-    border-radius:8px;
-    background:#1d1d1d;
-    color:#bbb;
-    font-size:13px;
-    text-decoration:none;
-}
-
-.nav a:hover{
-    background:#292929;
-    color:#fff;
-}
-
-.tool{
-    width:100%;
-}
-
-.top-controls{
-    display:flex;
-    justify-content:center;
     align-items:center;
-    flex-wrap:wrap;
+    justify-content:center;
     gap:8px;
-    margin-bottom:12px;
+    margin-bottom:20px;
 }
 
-.aspect-controls{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:7px;
-    margin-bottom:12px;
-}
-
-.aspect-title{
-    color:#aaa;
+.aspectTitle{
+    color:#aeb5c2;
     font-size:14px;
+    font-weight:700;
     margin-right:2px;
 }
 
-.aspect-button{
-    min-height:40px;
-    padding:9px 13px;
-    background:#252525;
-    color:#ccc;
+.aspectButton{
+    min-height:42px;
+    padding:9px 14px;
+    border:1px solid #343b48;
+    border-radius:10px;
+    background:#1b202a;
+    color:#c7cdd6;
+    font-weight:700;
+    cursor:pointer;
     font-size:14px;
 }
 
-.aspect-button:hover{
-    background:#333;
+.aspectButton:hover{
+    background:#252b36;
 }
 
-.aspect-button.active{
-    background:#168cff;
-    color:#fff;
+.aspectButton.active{
+    background:#fff;
+    color:#101217;
+    border-color:#fff;
 }
 
 .workspace{
@@ -214,7 +251,7 @@ h1{
         -12px 0;
 }
 
-.canvas-stage{
+.canvasStage{
     position:relative;
     max-width:100%;
     max-height:100%;
@@ -222,7 +259,7 @@ h1{
     touch-action:none;
 }
 
-.canvas-stage.visible{
+.canvasStage.visible{
     display:block;
 }
 
@@ -234,7 +271,7 @@ h1{
     touch-action:none;
 }
 
-.crop-box{
+.cropBox{
     position:absolute;
     border:2px solid #fff;
     box-shadow:
@@ -243,24 +280,22 @@ h1{
     touch-action:none;
 }
 
-.crop-box::before,
-.crop-box::after{
+.cropBox::before,
+.cropBox::after{
     content:"";
     position:absolute;
     pointer-events:none;
 }
 
-.crop-box::before{
+.cropBox::before{
     left:33.333%;
     top:0;
     bottom:0;
     width:1px;
     background:rgba(255,255,255,.35);
-    box-shadow:
-        calc(100% + var(--third, 0px)) 0 0 rgba(255,255,255,0);
 }
 
-.crop-box::after{
+.cropBox::after{
     top:33.333%;
     left:0;
     right:0;
@@ -312,7 +347,7 @@ h1{
     width:18px;
     height:18px;
     border:2px solid #fff;
-    background:#168cff;
+    background:#fff;
     border-radius:4px;
     z-index:5;
     touch-action:none;
@@ -350,159 +385,197 @@ h1{
     justify-content:center;
     text-align:center;
     padding:25px;
-    color:#777;
+    color:#818a99;
     font-size:15px;
     line-height:1.6;
 }
 
-.info-line{
+.infoLine{
     display:flex;
     justify-content:center;
     align-items:center;
     flex-wrap:wrap;
     gap:15px;
     min-height:28px;
-    margin-top:10px;
-    color:#aaa;
+    margin-top:12px;
+    color:#aeb6c4;
     font-size:13px;
     text-align:center;
 }
 
 .status{
-    min-height:22px;
-    margin-top:6px;
+    min-height:25px;
+    margin-top:8px;
     text-align:center;
-    color:#7fc8ff;
+    color:#aeb6c4;
     font-size:14px;
 }
 
 .actions{
     display:flex;
-    justify-content:center;
     flex-wrap:wrap;
-    gap:9px;
-    margin-top:12px;
-}
-
-.ad-container{
-    width:100%;
-    min-height:100px;
-    margin:28px 0 10px;
-    display:flex;
     justify-content:center;
+    gap:10px;
+    margin-top:18px;
+}
+
+.adBox{
+    margin:25px auto;
+    min-height:90px;
+    display:flex;
     align-items:center;
-    overflow:hidden;
+    justify-content:center;
 }
 
-.info{
-    margin-top:30px;
-    padding:0 5px 25px;
+.textSection{
+    margin-top:50px;
 }
 
-.info section{
-    margin-bottom:34px;
-    scroll-margin-top:20px;
+.textSection h2{
+    margin:0 0 14px;
+    font-size:29px;
+    line-height:1.25;
 }
 
-.info h2{
-    margin:0 0 13px;
-    font-size:24px;
-    line-height:1.3;
+.textSection h3{
+    margin-top:25px;
+    margin-bottom:8px;
+    font-size:19px;
 }
 
-.info h3{
-    margin:23px 0 9px;
-    font-size:18px;
+.textSection p,
+.textSection li{
+    color:#b7bec9;
 }
 
-.info p,
-.info li{
-    color:#ccc;
-    font-size:15px;
-    line-height:1.7;
+.textSection ul,
+.textSection ol{
+    padding-left:23px;
 }
 
-.info p{
-    margin:0 0 13px;
+.textSection li{
+    margin-bottom:5px;
 }
 
-.info ol,
-.info ul{
-    padding-left:24px;
+.toolsGrid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-top:20px;
 }
 
-.info li{
-    margin-bottom:6px;
+.toolCard{
+    display:block;
+    padding:20px;
+    border:1px solid #292f39;
+    border-radius:14px;
+    background:#12161e;
+    text-decoration:none;
+    transition:.15s;
 }
 
-.faq-item{
-    margin-bottom:9px;
-    padding:15px;
-    border-radius:10px;
-    border:1px solid #292929;
-    background:#191919;
+.toolCard:hover{
+    background:#181d26;
+    border-color:#414958;
 }
 
-.faq-item h3{
+.toolCard h3{
     margin:0 0 7px;
-    font-size:16px;
+    color:#fff;
 }
 
-.faq-item p{
+.toolCard p{
     margin:0;
+    color:#969fad;
     font-size:14px;
-    color:#bbb;
 }
 
-.footer{
-    padding:20px 5px 10px;
-    border-top:1px solid #292929;
-    color:#777;
-    font-size:13px;
-    line-height:1.6;
+.faqItem{
+    border-top:1px solid #292f39;
+    padding:17px 0;
+}
+
+.faqItem:first-child{
+    border-top:0;
+}
+
+.faqItem h3{
+    margin:0 0 7px;
+    font-size:17px;
+}
+
+.faqItem p{
+    margin:0;
+}
+
+footer{
+    border-top:1px solid #252a35;
+    padding:28px 20px;
     text-align:center;
+    color:#858e9d;
+    font-size:14px;
 }
 
-@media(max-width:600px){
+.footerNav{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px 18px;
+    margin-bottom:12px;
+}
 
-    .app{
-        width:100%;
-        padding:10px;
-    }
+.footerNav a{
+    color:#aeb5c2;
+    text-decoration:none;
+}
 
-    h1{
-        margin-bottom:10px;
-    }
+.footerNav a:hover{
+    color:#fff;
+}
+
+@media(max-width:800px){
 
     .nav{
-        gap:5px;
+        align-items:flex-start;
+        flex-direction:column;
     }
 
-    .nav a{
-        padding:7px 9px;
-        font-size:12px;
+    .navLinks{
+        justify-content:flex-start;
+        gap:10px 14px;
     }
 
-    button,
-    .file-label{
-        min-height:43px;
-        padding:10px 13px;
-        font-size:14px;
+    main{
+        padding:25px 13px 55px;
     }
 
-    .aspect-controls{
-        gap:5px;
+    .card{
+        padding:15px;
+        border-radius:14px;
     }
 
-    .aspect-title{
+    .toolbar{
+        flex-direction:column;
+    }
+
+    .button,
+    .fileLabel{
         width:100%;
-        margin-bottom:1px;
     }
 
-    .aspect-button{
-        min-height:38px;
-        padding:8px 11px;
-        font-size:13px;
+    .aspectControls{
+        justify-content:stretch;
+    }
+
+    .aspectTitle{
+        width:100%;
+        text-align:center;
+        margin-bottom:2px;
+    }
+
+    .aspectButton{
+        flex:1;
+        min-width:0;
     }
 
     .workspace{
@@ -511,6 +584,23 @@ h1{
 
     #imageCanvas{
         max-height:60vh;
+    }
+
+    .actions{
+        flex-direction:column;
+    }
+
+    .actions .button{
+        width:100%;
+    }
+
+    .toolsGrid{
+        grid-template-columns:1fr;
+    }
+
+    .footerNav{
+        flex-direction:column;
+        gap:8px;
     }
 
     .handle{
@@ -538,36 +628,6 @@ h1{
         bottom:-10px;
     }
 
-    .ad-container{
-        min-height:80px;
-        margin:20px 0 8px;
-    }
-
-    .info{
-        margin-top:22px;
-    }
-
-    .info h2{
-        font-size:21px;
-    }
-
-    .info p,
-    .info li{
-        font-size:14px;
-    }
-}
-
-@media(prefers-reduced-motion:reduce){
-
-    html{
-        scroll-behavior:auto;
-    }
-
-    button,
-    .file-label{
-        transition:none;
-    }
-
 }
 
 </style>
@@ -576,427 +636,628 @@ h1{
 
 <body>
 
-<div class="app">
+<header>
 
-<header class="header">
+<div class="nav">
 
-    <h1>
-        Обрезка фото онлайн
-    </h1>
+<a
+href="../"
+class="logo"
 
-    <nav
-        class="nav"
-        aria-label="Навигация"
-    >
-
-        <a href="../">
-            Фото + эффект
-        </a>
-
-        <a href="#tool">
-            Обрезка
-        </a>
-
-        <a href="#how-to">
-            Как пользоваться
-        </a>
-
-        <a href="#faq">
-            Частые вопросы
-        </a>
-
-    </nav>
-
-</header>
-
-
-<section
-    id="tool"
-    class="tool"
 >
 
-    <div class="top-controls">
+Фото + эффект </a>
 
-        <label class="file-label">
+<nav class="navLinks">
 
-            Загрузить фото
+<a href="../">
+Инструмент
+</a>
 
-            <input
-                id="photoInput"
-                type="file"
-                accept="image/*"
-            >
+<a href="./">
+Обрезка фото
+</a>
 
-        </label>
+<a href="../resize/">
+Изменить размер
+</a>
 
-        <button
-            id="cropButton"
-            type="button"
-            disabled
-        >
-            Обрезать
-        </button>
+<a href="../rotate/">
+Повернуть фото
+</a>
 
-        <button
-            id="downloadButton"
-            type="button"
-            disabled
-        >
-            Скачать PNG
-        </button>
+<a href="../#how-to">
+Как пользоваться
+</a>
 
-        <button
-            id="newPhotoButton"
-            class="secondary"
-            type="button"
-            disabled
-        >
-            Новое фото
-        </button>
+<a href="../#about">
+О сервисе
+</a>
 
-    </div>
+<a href="../#faq">
+FAQ
+</a>
 
+<a href="../#privacy">
+Конфиденциальность
+</a>
 
-    <div class="aspect-controls">
-
-        <span class="aspect-title">
-            Пропорции:
-        </span>
-
-        <button
-            class="aspect-button active"
-            type="button"
-            data-ratio="free"
-        >
-            Свободная
-        </button>
-
-        <button
-            class="aspect-button"
-            type="button"
-            data-ratio="1"
-        >
-            1:1
-        </button>
-
-        <button
-            class="aspect-button"
-            type="button"
-            data-ratio="1.3333333333"
-        >
-            4:3
-        </button>
-
-        <button
-            class="aspect-button"
-            type="button"
-            data-ratio="1.7777777778"
-        >
-            16:9
-        </button>
-
-        <button
-            class="aspect-button"
-            type="button"
-            data-ratio="0.5625"
-        >
-            9:16
-        </button>
-
-    </div>
-
-
-    <div
-        id="workspace"
-        class="workspace"
-    >
-
-        <div
-            id="placeholder"
-            class="placeholder"
-        >
-            Загрузите фотографию,<br>
-            затем выделите область для обрезки.
-        </div>
-
-        <div
-            id="canvasStage"
-            class="canvas-stage"
-        >
-
-            <canvas
-                id="imageCanvas"
-            ></canvas>
-
-            <div
-                id="cropBox"
-                class="crop-box"
-            >
-
-                <div class="grid-v1"></div>
-                <div class="grid-v2"></div>
-                <div class="grid-h1"></div>
-                <div class="grid-h2"></div>
-
-                <div
-                    class="handle nw"
-                    data-handle="nw"
-                ></div>
-
-                <div
-                    class="handle ne"
-                    data-handle="ne"
-                ></div>
-
-                <div
-                    class="handle sw"
-                    data-handle="sw"
-                ></div>
-
-                <div
-                    class="handle se"
-                    data-handle="se"
-                ></div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div
-        id="imageInfo"
-        class="info-line"
-    >
-        <span>
-            Фото не загружено
-        </span>
-    </div>
-
-
-    <div
-        id="status"
-        class="status"
-        aria-live="polite"
-    ></div>
-
-
-    <div class="actions">
-
-        <button
-            id="resetButton"
-            class="secondary"
-            type="button"
-            disabled
-        >
-            Сбросить область
-        </button>
-
-    </div>
-
-</section>
-
-
-<div class="ad-container">
-
-    <!--
-        Рекламный блок намеренно пока не добавляем.
-        После проверки инструмента его можно подключить
-        тем же блоком РСЯ, который используется на главной.
-    -->
+</nav>
 
 </div>
 
+</header>
 
-<main class="info">
+<main>
 
-<section id="how-to">
+<section class="hero">
 
-    <h2>
-        Как обрезать фотографию онлайн
-    </h2>
+<h1>
+Обрезка фото онлайн
+</h1>
 
-    <ol>
-
-        <li>
-            Нажмите «Загрузить фото» и выберите изображение
-            на компьютере или телефоне.
-        </li>
-
-        <li>
-            Выберите нужное соотношение сторон или оставьте
-            режим «Свободная».
-        </li>
-
-        <li>
-            Переместите область обрезки в нужное место.
-        </li>
-
-        <li>
-            Потяните за один из углов области, чтобы изменить
-            её размер.
-        </li>
-
-        <li>
-            Нажмите «Обрезать».
-        </li>
-
-        <li>
-            Нажмите «Скачать PNG», чтобы сохранить результат.
-        </li>
-
-    </ol>
-
-    <h3>
-        Обрезка на телефоне
-    </h3>
-
-    <p>
-        На сенсорном экране область можно перемещать пальцем.
-        Размер области изменяется перетаскиванием одного из
-        четырёх углов.
-    </p>
+<p>
+Бесплатный онлайн-инструмент для обрезки фотографии.
+Выберите нужную область, настройте пропорции и
+скачайте готовое изображение в формате PNG.
+</p>
 
 </section>
 
+<section
+    id="tool"
+    class="card"
+>
 
-<section>
+<div class="toolbar">
 
-    <h2>
-        Пропорции изображения
-    </h2>
+<a
+href="../"
+class="fileLabel primary"
 
-    <p>
-        В режиме «Свободная» область обрезки может иметь
-        произвольные пропорции.
-    </p>
+>
 
-    <p>
-        Режим 1:1 подходит для квадратных изображений.
-        4:3 и 16:9 используются для распространённых
-        горизонтальных форматов, а 9:16 — для вертикальных.
-    </p>
+Загрузить фото </a>
+
+<a
+href="./"
+class="fileLabel"
+
+>
+
+Обрезать фото </a>
+
+<a
+href="../resize/"
+class="fileLabel"
+
+>
+
+Изменить размер </a>
+
+<a
+href="../rotate/"
+class="fileLabel"
+
+>
+
+Повернуть фото </a>
+
+</div>
+
+<div class="toolbar">
+
+<label
+for="photoInput"
+class="fileLabel primary"
+
+>
+
+Загрузить фото в редактор
+
+<input
+id="photoInput"
+type="file"
+accept="image/*"
+
+>
+
+</label>
+
+<button
+id="cropButton"
+class="button"
+type="button"
+disabled
+
+>
+
+Обрезать </button>
+
+<button
+id="downloadButton"
+class="button"
+type="button"
+disabled
+
+>
+
+Скачать PNG </button>
+
+<button
+id="newPhotoButton"
+class="button"
+type="button"
+disabled
+
+>
+
+Новое фото </button>
+
+<button
+id="resetButton"
+class="button"
+type="button"
+disabled
+
+>
+
+Сбросить область </button>
+
+</div>
+
+<div class="aspectControls">
+
+<span class="aspectTitle">
+Пропорции:
+</span>
+
+<button
+class="aspectButton active"
+type="button"
+data-ratio="free"
+
+>
+
+Свободная </button>
+
+<button
+class="aspectButton"
+type="button"
+data-ratio="1"
+
+>
+
+1:1 </button>
+
+<button
+class="aspectButton"
+type="button"
+data-ratio="1.3333333333"
+
+>
+
+4:3 </button>
+
+<button
+class="aspectButton"
+type="button"
+data-ratio="1.7777777778"
+
+>
+
+16:9 </button>
+
+<button
+class="aspectButton"
+type="button"
+data-ratio="0.5625"
+
+>
+
+9:16 </button>
+
+</div>
+
+<div
+    id="workspace"
+    class="workspace"
+>
+
+<div
+    id="placeholder"
+    class="placeholder"
+>
+Загрузите фотографию, затем выделите область для обрезки.
+</div>
+
+<div
+    id="canvasStage"
+    class="canvasStage"
+>
+
+<canvas
+id="imageCanvas"
+
+> </canvas>
+
+<div
+    id="cropBox"
+    class="cropBox"
+>
+
+<div class="grid-v1"></div>
+<div class="grid-v2"></div>
+<div class="grid-h1"></div>
+<div class="grid-h2"></div>
+
+<div
+    class="handle nw"
+    data-handle="nw"
+></div>
+
+<div
+    class="handle ne"
+    data-handle="ne"
+></div>
+
+<div
+    class="handle sw"
+    data-handle="sw"
+></div>
+
+<div
+    class="handle se"
+    data-handle="se"
+></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div
+    id="imageInfo"
+    class="infoLine"
+>
+<span>
+Фото не загружено
+</span>
+</div>
+
+<div
+    id="status"
+    class="status"
+    aria-live="polite"
+>
+</div>
 
 </section>
 
+<div class="adBox">
 
-<section id="faq">
+<div id="yandex_rtb_R-A-20003018-1"></div>
 
-    <h2>
-        Частые вопросы
-    </h2>
+<script>
 
+window.yaContextCb.push(() => {
 
-    <div class="faq-item">
+    Ya.Context.AdvManager.render({
 
-        <h3>
-            Загружается ли фотография на сервер?
-        </h3>
+        "blockId":
+            "R-A-20003018-1",
 
-        <p>
-            Данная страница обрабатывает выбранное изображение
-            непосредственно в браузере с помощью Canvas.
-        </p>
+        "renderTo":
+            "yandex_rtb_R-A-20003018-1"
 
-    </div>
+    })
 
+})
 
-    <div class="faq-item">
+</script>
 
-        <h3>
-            Какой формат у результата?
-        </h3>
+</div>
 
-        <p>
-            Результат сохраняется в формате PNG.
-        </p>
+<section
+    class="textSection"
+>
 
-    </div>
+<h2>
+Как обрезать фотографию онлайн
+</h2>
 
+<p>
+Нажмите «Загрузить фото» внутри редактора и выберите
+изображение с компьютера или телефона.
+</p>
 
-    <div class="faq-item">
+<ol>
 
-        <h3>
-            Можно ли обрезать фотографию на телефоне?
-        </h3>
+<li>
+Выберите нужное соотношение сторон или оставьте
+режим «Свободная».
+</li>
 
-        <p>
-            Да. Интерфейс поддерживает сенсорное управление.
-        </p>
+<li>
+Переместите область обрезки в нужное место.
+</li>
 
-    </div>
+<li>
+Потяните за один из углов области, чтобы изменить
+её размер.
+</li>
 
+<li>
+Нажмите «Обрезать».
+</li>
 
-    <div class="faq-item">
+<li>
+Нажмите «Скачать PNG», чтобы сохранить результат.
+</li>
 
-        <h3>
-            Можно ли изменить пропорции?
-        </h3>
+</ol>
 
-        <p>
-            Да. Доступны свободная область, 1:1, 4:3,
-            16:9 и 9:16.
-        </p>
+<h3>
+Обрезка на телефоне
+</h3>
 
-    </div>
-
-
-    <div class="faq-item">
-
-        <h3>
-            Что произойдёт с исходным файлом?
-        </h3>
-
-        <p>
-            Исходный файл на устройстве пользователя
-            не изменяется. Обрезанная версия создаётся
-            отдельно.
-        </p>
-
-    </div>
+<p>
+На сенсорном экране область можно перемещать пальцем.
+Размер области изменяется перетаскиванием одного
+из четырёх углов.
+</p>
 
 </section>
 
+<section
+    class="textSection"
+>
 
-<section>
+<h2>
+Пропорции изображения
+</h2>
 
-    <h2>
-        О сервисе
-    </h2>
+<p>
+В режиме «Свободная» область обрезки может иметь
+произвольные пропорции.
+</p>
 
-    <p>
-        «Обрезка фото онлайн» — простой браузерный инструмент
-        для выбора нужной области фотографии и сохранения
-        получившегося изображения.
-    </p>
+<p>
+Режим 1:1 подходит для квадратных изображений.
+4:3 и 16:9 используются для распространённых
+горизонтальных форматов, а 9:16 — для вертикальных.
+</p>
 
-    <p>
-        Инструмент является частью сервиса «Фото + эффект»
-        и предназначен для быстрой подготовки изображений
-        без установки отдельной программы.
-    </p>
+</section>
+
+<section
+    class="textSection"
+>
+
+<h2>
+Инструменты для работы с фото
+</h2>
+
+<div class="toolsGrid">
+
+<a
+href="../"
+class="toolCard"
+
+>
+
+<h3>
+Фото + эффект
+</h3>
+
+<p>
+Добавьте изображение-эффект поверх фотографии
+и настройте его прозрачность.
+</p>
+
+</a>
+
+<a
+href="../resize/"
+class="toolCard"
+
+>
+
+<h3>
+Изменить размер
+</h3>
+
+<p>
+Измените ширину и высоту изображения
+с сохранением пропорций.
+</p>
+
+</a>
+
+<a
+href="../rotate/"
+class="toolCard"
+
+>
+
+<h3>
+Повернуть фото
+</h3>
+
+<p>
+Поверните или отразите фотографию и сохраните
+готовый результат в PNG.
+</p>
+
+</a>
+
+</div>
+
+</section>
+
+<section
+    class="textSection"
+    id="faq"
+>
+
+<h2>
+Частые вопросы
+</h2>
+
+<div class="faqItem">
+
+<h3>
+Загружается ли фотография на сервер?
+</h3>
+
+<p>
+Нет. Изображение обрабатывается непосредственно
+в браузере с помощью Canvas.
+</p>
+
+</div>
+
+<div class="faqItem">
+
+<h3>
+Какой формат у результата?
+</h3>
+
+<p>
+Результат сохраняется в формате PNG.
+</p>
+
+</div>
+
+<div class="faqItem">
+
+<h3>
+Можно ли обрезать фотографию на телефоне?
+</h3>
+
+<p>
+Да. Интерфейс поддерживает сенсорное управление.
+</p>
+
+</div>
+
+<div class="faqItem">
+
+<h3>
+Можно ли изменить пропорции?
+</h3>
+
+<p>
+Да. Доступны свободная область, 1:1, 4:3,
+16:9 и 9:16.
+</p>
+
+</div>
+
+<div class="faqItem">
+
+<h3>
+Что произойдёт с исходным файлом?
+</h3>
+
+<p>
+Исходный файл на устройстве пользователя
+не изменяется. Обрезанная версия создаётся
+отдельно.
+</p>
+
+</div>
+
+</section>
+
+<section
+    class="textSection"
+>
+
+<h2>
+О сервисе
+</h2>
+
+<p>
+«Обрезка фото онлайн» — простой браузерный инструмент
+для выбора нужной области фотографии и сохранения
+получившегося изображения.
+</p>
+
+<p>
+Инструмент является частью сервиса «Фото + эффект»
+и предназначен для быстрой подготовки изображений
+без установки отдельной программы.
+</p>
+
+</section>
+
+<section
+    class="textSection"
+>
+
+<h2>
+Конфиденциальность
+</h2>
+
+<p>
+Обработка изображения выполняется непосредственно
+в браузере пользователя.
+</p>
+
+<p>
+Для обычной работы инструмента не требуется отправлять
+исходную фотографию на сервер этого сервиса.
+</p>
 
 </section>
 
 </main>
 
+<footer>
 
-<footer class="footer">
+<nav class="footerNav">
 
-    <div>
-        Обрезка фото онлайн — бесплатный инструмент
-        для подготовки изображений.
-    </div>
+<a href="../">
+Инструмент
+</a>
 
-    <div>
-        © <span id="year"></span> Фото + эффект
-    </div>
+<a href="./">
+Обрезка фото
+</a>
 
-</footer>
+<a href="../resize/">
+Изменить размер
+</a>
 
+<a href="../rotate/">
+Повернуть фото
+</a>
+
+<a href="../#how-to">
+Как пользоваться
+</a>
+
+<a href="../#about">
+О сервисе
+</a>
+
+<a href="../#faq">
+FAQ
+</a>
+
+<a href="../#privacy">
+Конфиденциальность
+</a>
+
+</nav>
+
+<div>
+Фото + эффект — бесплатные онлайн-инструменты для работы с фотографиями.
 </div>
 
+</footer>
 
 <script>
 
@@ -1043,11 +1304,8 @@ const imageInfo =
 const status =
     document.getElementById("status");
 
-const year =
-    document.getElementById("year");
-
 const aspectButtons =
-    document.querySelectorAll(".aspect-button");
+    document.querySelectorAll(".aspectButton");
 
 
 /* =====================================================
@@ -1093,12 +1351,6 @@ let startCrop =
     null;
 
 
-/*
-    cropX / cropY / cropW / cropH
-    хранятся в координатах изображения
-    (не CSS-пикселях).
-*/
-
 let cropX =
     0;
 
@@ -1113,15 +1365,7 @@ let cropH =
 
 
 /* =====================================================
-   ГОД
-===================================================== */
-
-year.textContent =
-    new Date().getFullYear();
-
-
-/* =====================================================
-   ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+   STATUS
 ===================================================== */
 
 function setStatus(text){
@@ -1187,7 +1431,7 @@ function getRatio(){
 
 
 /* =====================================================
-   ЗАГРУЗКА ФОТО
+   ЗАГРУЗКА
 ===================================================== */
 
 function loadPhoto(file){
@@ -1239,14 +1483,18 @@ function loadPhoto(file){
             isCroppedResult =
                 false;
 
+
             initializeCrop();
+
 
             placeholder.style.display =
                 "none";
 
+
             canvasStage.classList.add(
                 "visible"
             );
+
 
             imageInfo.innerHTML =
                 "<span>Исходный размер: " +
@@ -1255,9 +1503,11 @@ function loadPhoto(file){
                 image.naturalHeight +
                 " px</span>";
 
+
             setStatus(
                 "Фото загружено. Выберите область для обрезки."
             );
+
 
             render();
 
@@ -1272,9 +1522,11 @@ function loadPhoto(file){
             image =
                 null;
 
+
             setStatus(
                 "Не удалось загрузить фотографию."
             );
+
 
             updateButtons();
 
@@ -1288,7 +1540,7 @@ function loadPhoto(file){
 
 
 /* =====================================================
-   ИНИЦИАЛИЗАЦИЯ ОБЛАСТИ
+   ИНИЦИАЛИЗАЦИЯ
 ===================================================== */
 
 function initializeCrop(){
@@ -1308,11 +1560,6 @@ function initializeCrop(){
     if(
         selectedRatio === null
     ){
-
-        /*
-            Свободная область:
-            начинаем примерно с 85% изображения.
-        */
 
         cropW =
             w * 0.85;
@@ -1355,6 +1602,7 @@ function initializeCrop(){
             w
         );
 
+
     cropH =
         Math.min(
             cropH,
@@ -1364,6 +1612,7 @@ function initializeCrop(){
 
     cropX =
         (w - cropW) / 2;
+
 
     cropY =
         (h - cropH) / 2;
@@ -1375,7 +1624,7 @@ function initializeCrop(){
 
 
 /* =====================================================
-   ПРОВЕРКА ОБЛАСТИ
+   ГРАНИЦЫ
 ===================================================== */
 
 function ensureCropInsideImage(){
@@ -1399,6 +1648,7 @@ function ensureCropInsideImage(){
             w
         );
 
+
     cropH =
         clamp(
             cropH,
@@ -1417,6 +1667,7 @@ function ensureCropInsideImage(){
             )
         );
 
+
     cropY =
         clamp(
             cropY,
@@ -1431,7 +1682,7 @@ function ensureCropInsideImage(){
 
 
 /* =====================================================
-   CANVAS
+   РАЗМЕР ОТОБРАЖЕНИЯ
 ===================================================== */
 
 function getDisplaySize(){
@@ -1452,6 +1703,7 @@ function getDisplaySize(){
             50,
             workspace.clientWidth - 20
         );
+
 
     const availableHeight =
         Math.max(
@@ -1498,6 +1750,10 @@ function getDisplaySize(){
 }
 
 
+/* =====================================================
+   ОТРИСОВКА
+===================================================== */
+
 function render(){
 
     if(!image){
@@ -1517,6 +1773,7 @@ function render(){
     imageCanvas.width =
         size.width;
 
+
     imageCanvas.height =
         size.height;
 
@@ -1524,12 +1781,14 @@ function render(){
     imageCanvas.style.width =
         size.width + "px";
 
+
     imageCanvas.style.height =
         size.height + "px";
 
 
     canvasStage.style.width =
         size.width + "px";
+
 
     canvasStage.style.height =
         size.height + "px";
@@ -1558,7 +1817,7 @@ function render(){
 
 
 /* =====================================================
-   CROP BOX POSITION
+   ОБЛАСТЬ ОБРЕЗКИ
 ===================================================== */
 
 function updateCropBox(){
@@ -1587,11 +1846,14 @@ function updateCropBox(){
     cropBox.style.left =
         (cropX * scaleX) + "px";
 
+
     cropBox.style.top =
         (cropY * scaleY) + "px";
 
+
     cropBox.style.width =
         (cropW * scaleX) + "px";
+
 
     cropBox.style.height =
         (cropH * scaleY) + "px";
@@ -1600,12 +1862,10 @@ function updateCropBox(){
 
 
 /* =====================================================
-   POINTER -> IMAGE COORDINATES
+   POINTER
 ===================================================== */
 
-function pointerToImage(
-    event
-){
+function pointerToImage(event){
 
     const rect =
         imageCanvas.getBoundingClientRect();
@@ -1615,6 +1875,7 @@ function pointerToImage(
         event.clientX -
         rect.left;
 
+
     const y =
         event.clientY -
         rect.top;
@@ -1623,6 +1884,7 @@ function pointerToImage(
     const scaleX =
         image.naturalWidth /
         rect.width;
+
 
     const scaleY =
         image.naturalHeight /
@@ -1677,6 +1939,7 @@ function setAspectRatio(
 
         render();
 
+
         setStatus(
             ratio === null
                 ? "Свободная область обрезки."
@@ -1725,7 +1988,7 @@ aspectButtons.forEach(
 
 
 /* =====================================================
-   НАЧАЛО ПЕРЕМЕЩЕНИЯ
+   ПЕРЕМЕЩЕНИЕ
 ===================================================== */
 
 cropBox.addEventListener(
@@ -1740,6 +2003,7 @@ cropBox.addEventListener(
         ){
 
             return;
+
         }
 
 
@@ -1749,8 +2013,10 @@ cropBox.addEventListener(
         dragging =
             true;
 
+
         resizing =
             false;
+
 
         activeHandle =
             null;
@@ -1788,7 +2054,7 @@ cropBox.addEventListener(
 
 
 /* =====================================================
-   НАЧАЛО ИЗМЕНЕНИЯ РАЗМЕРА
+   RESIZE
 ===================================================== */
 
 document.querySelectorAll(
@@ -1812,6 +2078,7 @@ document.querySelectorAll(
 
                 resizing =
                     true;
+
 
                 dragging =
                     false;
@@ -1869,6 +2136,7 @@ cropBox.addEventListener(
         ){
 
             return;
+
         }
 
 
@@ -1885,6 +2153,7 @@ cropBox.addEventListener(
             current.x -
             startPointer.x;
 
+
         const dy =
             current.y -
             startPointer.y;
@@ -1896,6 +2165,7 @@ cropBox.addEventListener(
                 startCrop.x +
                 dx;
 
+
             cropY =
                 startCrop.y +
                 dy;
@@ -1903,7 +2173,9 @@ cropBox.addEventListener(
 
             ensureCropInsideImage();
 
+
             updateCropBox();
+
 
             return;
 
@@ -1917,6 +2189,7 @@ cropBox.addEventListener(
                 dy
             );
 
+
             updateCropBox();
 
         }
@@ -1926,7 +2199,7 @@ cropBox.addEventListener(
 
 
 /* =====================================================
-   ЗАВЕРШЕНИЕ POINTER
+   STOP POINTER
 ===================================================== */
 
 function stopPointerAction(){
@@ -1934,8 +2207,10 @@ function stopPointerAction(){
     dragging =
         false;
 
+
     resizing =
         false;
+
 
     activeHandle =
         null;
@@ -1948,6 +2223,7 @@ cropBox.addEventListener(
     stopPointerAction
 );
 
+
 cropBox.addEventListener(
     "pointercancel",
     stopPointerAction
@@ -1955,7 +2231,7 @@ cropBox.addEventListener(
 
 
 /* =====================================================
-   ИЗМЕНЕНИЕ РАЗМЕРА ОБЛАСТИ
+   RESIZE CROP
 ===================================================== */
 
 function resizeCrop(
@@ -1971,6 +2247,7 @@ function resizeCrop(
     const imageW =
         image.naturalWidth;
 
+
     const imageH =
         image.naturalHeight;
 
@@ -1982,19 +2259,18 @@ function resizeCrop(
     let x =
         startCrop.x;
 
+
     let y =
         startCrop.y;
+
 
     let w =
         startCrop.w;
 
+
     let h =
         startCrop.h;
 
-
-    /*
-        Свободная область
-    */
 
     if(ratio === null){
 
@@ -2120,6 +2396,7 @@ function resizeCrop(
         ){
 
             w += x;
+
             x = 0;
 
         }
@@ -2130,6 +2407,7 @@ function resizeCrop(
         ){
 
             h += y;
+
             y = 0;
 
         }
@@ -2156,13 +2434,10 @@ function resizeCrop(
 
     }
 
-    /*
-        Фиксированная пропорция
-    */
-
     else{
 
         let anchorX;
+
         let anchorY;
 
 
@@ -2176,14 +2451,17 @@ function resizeCrop(
             anchorY =
                 startCrop.y;
 
+
             const requestedW =
                 Math.max(
                     MIN_CROP_SIZE,
                     startCrop.w + dx
                 );
 
+
             const requestedH =
                 requestedW / ratio;
+
 
             w =
                 requestedW;
@@ -2210,14 +2488,17 @@ function resizeCrop(
             anchorY =
                 startCrop.y;
 
+
             const requestedW =
                 Math.max(
                     MIN_CROP_SIZE,
                     startCrop.w - dx
                 );
 
+
             const requestedH =
                 requestedW / ratio;
+
 
             w =
                 requestedW;
@@ -2225,8 +2506,10 @@ function resizeCrop(
             h =
                 requestedH;
 
+
             x =
-                anchorX - w;
+                anchorX -
+                w;
 
             y =
                 anchorY;
@@ -2244,14 +2527,17 @@ function resizeCrop(
                 startCrop.y +
                 startCrop.h;
 
+
             const requestedW =
                 Math.max(
                     MIN_CROP_SIZE,
                     startCrop.w + dx
                 );
 
+
             const requestedH =
                 requestedW / ratio;
+
 
             w =
                 requestedW;
@@ -2259,11 +2545,13 @@ function resizeCrop(
             h =
                 requestedH;
 
+
             x =
                 anchorX;
 
             y =
-                anchorY - h;
+                anchorY -
+                h;
 
         }
 
@@ -2279,14 +2567,17 @@ function resizeCrop(
                 startCrop.y +
                 startCrop.h;
 
+
             const requestedW =
                 Math.max(
                     MIN_CROP_SIZE,
                     startCrop.w - dx
                 );
 
+
             const requestedH =
                 requestedW / ratio;
+
 
             w =
                 requestedW;
@@ -2294,30 +2585,32 @@ function resizeCrop(
             h =
                 requestedH;
 
+
             x =
-                anchorX - w;
+                anchorX -
+                w;
 
             y =
-                anchorY - h;
+                anchorY -
+                h;
 
         }
 
-
-        /*
-            Подгоняем область под границы изображения.
-        */
 
         if(
             x < 0
         ){
 
-            x = 0;
+            x =
+                0;
+
 
             w =
                 Math.min(
                     w,
                     imageW
                 );
+
 
             h =
                 w / ratio;
@@ -2329,13 +2622,16 @@ function resizeCrop(
             y < 0
         ){
 
-            y = 0;
+            y =
+                0;
+
 
             h =
                 Math.min(
                     h,
                     imageH
                 );
+
 
             w =
                 h * ratio;
@@ -2348,7 +2644,9 @@ function resizeCrop(
         ){
 
             w =
-                imageW - x;
+                imageW -
+                x;
+
 
             h =
                 w / ratio;
@@ -2361,17 +2659,15 @@ function resizeCrop(
         ){
 
             h =
-                imageH - y;
+                imageH -
+                y;
+
 
             w =
                 h * ratio;
 
         }
 
-
-        /*
-            Финальная защита.
-        */
 
         if(
             w < MIN_CROP_SIZE ||
@@ -2388,11 +2684,14 @@ function resizeCrop(
     cropX =
         x;
 
+
     cropY =
         y;
 
+
     cropW =
         w;
+
 
     cropH =
         h;
@@ -2404,7 +2703,7 @@ function resizeCrop(
 
 
 /* =====================================================
-   СБРОС ОБЛАСТИ
+   RESET
 ===================================================== */
 
 resetButton.addEventListener(
@@ -2420,6 +2719,7 @@ resetButton.addEventListener(
 
         render();
 
+
         setStatus(
             "Область обрезки сброшена."
         );
@@ -2429,7 +2729,7 @@ resetButton.addEventListener(
 
 
 /* =====================================================
-   ОБРЕЗКА
+   CROP
 ===================================================== */
 
 cropButton.addEventListener(
@@ -2443,6 +2743,7 @@ cropButton.addEventListener(
         ){
 
             return;
+
         }
 
 
@@ -2454,82 +2755,12 @@ cropButton.addEventListener(
                     Math.round(cropW)
                 );
 
+
             const outputH =
                 Math.max(
                     1,
                     Math.round(cropH)
                 );
-
-
-            if(
-                outputW * outputH >
-                MAX_PIXELS
-            ){
-
-                const scale =
-                    Math.sqrt(
-                        MAX_PIXELS /
-                        (outputW * outputH)
-                    );
-
-
-                const safeW =
-                    Math.max(
-                        1,
-                        Math.floor(
-                            outputW * scale
-                        )
-                    );
-
-                const safeH =
-                    Math.max(
-                        1,
-                        Math.floor(
-                            outputH * scale
-                        )
-                    );
-
-
-                const resultCanvas =
-                    document.createElement(
-                        "canvas"
-                    );
-
-
-                resultCanvas.width =
-                    safeW;
-
-                resultCanvas.height =
-                    safeH;
-
-
-                const resultCtx =
-                    resultCanvas.getContext(
-                        "2d"
-                    );
-
-
-                resultCtx.drawImage(
-                    image,
-                    cropX,
-                    cropY,
-                    cropW,
-                    cropH,
-                    0,
-                    0,
-                    safeW,
-                    safeH
-                );
-
-
-                replaceImageFromCanvas(
-                    resultCanvas
-                );
-
-
-                return;
-
-            }
 
 
             const resultCanvas =
@@ -2538,11 +2769,56 @@ cropButton.addEventListener(
                 );
 
 
-            resultCanvas.width =
+            let safeW =
                 outputW;
 
-            resultCanvas.height =
+
+            let safeH =
                 outputH;
+
+
+            if(
+                safeW *
+                safeH >
+                MAX_PIXELS
+            ){
+
+                const scale =
+                    Math.sqrt(
+                        MAX_PIXELS /
+                        (
+                            safeW *
+                            safeH
+                        )
+                    );
+
+
+                safeW =
+                    Math.max(
+                        1,
+                        Math.floor(
+                            safeW * scale
+                        )
+                    );
+
+
+                safeH =
+                    Math.max(
+                        1,
+                        Math.floor(
+                            safeH * scale
+                        )
+                    );
+
+            }
+
+
+            resultCanvas.width =
+                safeW;
+
+
+            resultCanvas.height =
+                safeH;
 
 
             const resultCtx =
@@ -2559,8 +2835,8 @@ cropButton.addEventListener(
                 cropH,
                 0,
                 0,
-                outputW,
-                outputH
+                safeW,
+                safeH
             );
 
 
@@ -2574,6 +2850,7 @@ cropButton.addEventListener(
                 error
             );
 
+
             setStatus(
                 "Не удалось обрезать изображение."
             );
@@ -2585,7 +2862,7 @@ cropButton.addEventListener(
 
 
 /* =====================================================
-   ПРЕОБРАЗОВАНИЕ CANVAS В IMAGE
+   CANVAS -> IMAGE
 ===================================================== */
 
 function replaceImageFromCanvas(
@@ -2623,6 +2900,7 @@ function replaceImageFromCanvas(
                     blob
                 );
 
+
             imageObjectUrl =
                 url;
 
@@ -2637,6 +2915,7 @@ function replaceImageFromCanvas(
                     image =
                         img;
 
+
                     isCroppedResult =
                         true;
 
@@ -2644,11 +2923,14 @@ function replaceImageFromCanvas(
                     cropX =
                         0;
 
+
                     cropY =
                         0;
 
+
                     cropW =
                         image.naturalWidth;
+
 
                     cropH =
                         image.naturalHeight;
@@ -2695,7 +2977,7 @@ function replaceImageFromCanvas(
 
 
 /* =====================================================
-   СКАЧИВАНИЕ
+   DOWNLOAD
 ===================================================== */
 
 downloadButton.addEventListener(
@@ -2727,6 +3009,7 @@ downloadButton.addEventListener(
                     Math.round(cropW)
                 );
 
+
             const exportH =
                 Math.max(
                     1,
@@ -2736,6 +3019,7 @@ downloadButton.addEventListener(
 
             exportCanvas.width =
                 exportW;
+
 
             exportCanvas.height =
                 exportH;
@@ -2794,6 +3078,7 @@ downloadButton.addEventListener(
                     link.href =
                         url;
 
+
                     link.download =
                         "cropped-photo.png";
 
@@ -2822,7 +3107,7 @@ downloadButton.addEventListener(
 
 
                     setStatus(
-                        "PNG подготовлен для сохранения."
+                        "PNG готов к сохранению."
                     );
 
                 },
@@ -2835,6 +3120,7 @@ downloadButton.addEventListener(
                 error
             );
 
+
             setStatus(
                 "Не удалось сохранить изображение."
             );
@@ -2846,7 +3132,7 @@ downloadButton.addEventListener(
 
 
 /* =====================================================
-   НОВОЕ ФОТО
+   NEW PHOTO
 ===================================================== */
 
 newPhotoButton.addEventListener(
@@ -2863,7 +3149,7 @@ newPhotoButton.addEventListener(
 
 
 /* =====================================================
-   ЗАГРУЗКА
+   INPUT
 ===================================================== */
 
 photoInput.addEventListener(
@@ -2889,7 +3175,7 @@ photoInput.addEventListener(
 
 
 /* =====================================================
-   RESIZE ОКНА
+   RESIZE
 ===================================================== */
 
 window.addEventListener(
@@ -2907,7 +3193,7 @@ window.addEventListener(
 
 
 /* =====================================================
-   НАЧАЛЬНОЕ СОСТОЯНИЕ
+   START
 ===================================================== */
 
 updateButtons();

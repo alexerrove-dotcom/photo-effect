@@ -1,0 +1,2126 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+>
+
+<title>Фильтры для фото онлайн — бесплатно</title>
+
+<meta
+    name="description"
+    content="Бесплатные фильтры для фотографий онлайн. Сделайте фото в стиле мультфильма, комикса, игры, пиксель-арта или ретро."
+>
+
+<meta
+    name="robots"
+    content="index, follow"
+>
+
+<meta
+    name="theme-color"
+    content="#111111"
+>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html{
+    margin:0;
+    padding:0;
+    background:#111;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    background:#111;
+    color:#fff;
+    overflow-x:hidden;
+}
+
+button,
+label{
+    font-family:inherit;
+}
+
+button,
+.file-label{
+    border:0;
+    border-radius:10px;
+    min-height:46px;
+    padding:12px 17px;
+    background:#168cff;
+    color:#fff;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    touch-action:manipulation;
+    user-select:none;
+    -webkit-user-select:none;
+    transition:
+        background .15s,
+        transform .1s,
+        opacity .15s;
+}
+
+button:hover,
+.file-label:hover{
+    background:#0879df;
+}
+
+button:active,
+.file-label:active{
+    transform:scale(.98);
+}
+
+button:disabled{
+    opacity:.45;
+    cursor:default;
+}
+
+button.secondary{
+    background:#303030;
+}
+
+button.secondary:hover{
+    background:#3d3d3d;
+}
+
+input[type=file]{
+    display:none;
+}
+
+.app{
+    width:min(1100px,96vw);
+    min-height:100vh;
+    margin:0 auto;
+    padding:18px;
+}
+
+.header{
+    margin-bottom:16px;
+}
+
+h1{
+    margin:0 0 14px;
+    text-align:center;
+    font-size:clamp(25px,4vw,35px);
+    line-height:1.2;
+}
+
+.nav{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:7px;
+}
+
+.nav a{
+    display:inline-block;
+    padding:8px 12px;
+    border-radius:8px;
+    background:#1d1d1d;
+    color:#bbb;
+    font-size:13px;
+    text-decoration:none;
+}
+
+.nav a:hover{
+    background:#292929;
+    color:#fff;
+}
+
+.nav a.active{
+    background:#fff;
+    color:#111;
+}
+
+.nav a.active:hover{
+    background:#e7e7e7;
+    color:#111;
+}
+
+.tool{
+    width:100%;
+}
+
+.top-controls{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.filter-controls{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.filter-button{
+    min-height:42px;
+    padding:9px 14px;
+    background:#252525;
+    color:#ccc;
+    font-size:14px;
+}
+
+.filter-button:hover{
+    background:#333;
+}
+
+.filter-button.active{
+    background:#168cff;
+    color:#fff;
+}
+
+.filter-button.active:hover{
+    background:#0879df;
+}
+
+.workspace{
+    position:relative;
+    width:100%;
+    height:min(65vh,680px);
+    min-height:320px;
+    border-radius:13px;
+    background:#202020;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px;
+    box-shadow:
+        inset 0 0 0 1px #2c2c2c;
+}
+
+#imageCanvas{
+    display:none;
+    max-width:100%;
+    max-height:100%;
+    border-radius:4px;
+    touch-action:none;
+}
+
+#imageCanvas.visible{
+    display:block;
+}
+
+.placeholder{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:25px;
+    color:#777;
+    font-size:15px;
+    line-height:1.6;
+}
+
+.info-line{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+    min-height:28px;
+    margin-top:10px;
+    color:#aaa;
+    font-size:13px;
+    text-align:center;
+}
+
+.status{
+    min-height:22px;
+    margin-top:6px;
+    text-align:center;
+    color:#7fc8ff;
+    font-size:14px;
+}
+
+.actions{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:9px;
+    margin-top:12px;
+}
+
+.ad-container{
+    width:100%;
+    min-height:100px;
+    margin:28px 0 10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.info{
+    margin-top:30px;
+    padding:0 5px 25px;
+}
+
+.info section{
+    margin-bottom:34px;
+    scroll-margin-top:20px;
+}
+
+.info h2{
+    margin:0 0 13px;
+    font-size:24px;
+    line-height:1.3;
+}
+
+.info h3{
+    margin:23px 0 9px;
+    font-size:18px;
+}
+
+.info p,
+.info li{
+    color:#ccc;
+    font-size:15px;
+    line-height:1.7;
+}
+
+.info p{
+    margin:0 0 13px;
+}
+
+.info ol,
+.info ul{
+    padding-left:24px;
+}
+
+.info li{
+    margin-bottom:6px;
+}
+
+.faq-item{
+    margin-bottom:9px;
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #292929;
+    background:#191919;
+}
+
+.faq-item h3{
+    margin:0 0 7px;
+    font-size:16px;
+}
+
+.faq-item p{
+    margin:0;
+    font-size:14px;
+    color:#bbb;
+}
+
+.footer{
+    padding:20px 5px 10px;
+    border-top:1px solid #292929;
+    color:#777;
+    font-size:13px;
+    line-height:1.6;
+    text-align:center;
+}
+
+@media(max-width:600px){
+
+    .app{
+        width:100%;
+        padding:10px;
+    }
+
+    h1{
+        margin-bottom:10px;
+    }
+
+    .nav{
+        gap:5px;
+    }
+
+    .nav a{
+        padding:7px 9px;
+        font-size:12px;
+    }
+
+    button,
+    .file-label{
+        min-height:43px;
+        padding:10px 13px;
+        font-size:14px;
+    }
+
+    .filter-controls{
+        gap:5px;
+    }
+
+    .filter-button{
+        min-height:38px;
+        padding:8px 11px;
+        font-size:13px;
+    }
+
+    .workspace{
+        height:56vh;
+        min-height:240px;
+        padding:7px;
+    }
+
+    .ad-container{
+        min-height:80px;
+        margin:20px 0 8px;
+    }
+
+    .info{
+        margin-top:22px;
+    }
+
+    .info h2{
+        font-size:21px;
+    }
+
+    .info p,
+    .info li{
+        font-size:14px;
+    }
+
+}
+
+@media(prefers-reduced-motion:reduce){
+
+    html{
+        scroll-behavior:auto;
+    }
+
+    button,
+    .file-label{
+        transition:none;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+
+    <h1>
+        Фильтры для фото онлайн
+    </h1>
+
+    <nav
+        class="nav"
+        aria-label="Навигация"
+    >
+
+        <a href="../">
+            Фото + эффект
+        </a>
+
+        <a href="../crop/">
+            Обрезка
+        </a>
+
+        <a href="../resize/">
+            Размер
+        </a>
+
+        <a href="../rotate/">
+            Поворот
+        </a>
+
+        <a href="../remove-background/">
+            Удалить фон
+        </a>
+
+        <a
+            href="#tool"
+            class="active"
+            aria-current="page"
+        >
+            Фильтры
+        </a>
+
+        <a href="#how-to">
+            Как пользоваться
+        </a>
+
+        <a href="#faq">
+            FAQ
+        </a>
+
+    </nav>
+
+</header>
+
+
+<section
+    id="tool"
+    class="tool"
+>
+
+    <div class="top-controls">
+
+        <label class="file-label">
+
+            Загрузить фото
+
+            <input
+                id="photoInput"
+                type="file"
+                accept="image/*"
+            >
+
+        </label>
+
+        <button
+            id="downloadButton"
+            type="button"
+            disabled
+        >
+            Скачать PNG
+        </button>
+
+        <button
+            id="newPhotoButton"
+            class="secondary"
+            type="button"
+            disabled
+        >
+            Новое фото
+        </button>
+
+    </div>
+
+
+    <div class="filter-controls">
+
+        <button
+            class="filter-button active"
+            type="button"
+            data-filter="normal"
+        >
+            Оригинал
+        </button>
+
+        <button
+            class="filter-button"
+            type="button"
+            data-filter="cartoon"
+        >
+            Мультфильм
+        </button>
+
+        <button
+            class="filter-button"
+            type="button"
+            data-filter="comic"
+        >
+            Комикс
+        </button>
+
+        <button
+            class="filter-button"
+            type="button"
+            data-filter="toon"
+        >
+            Toon
+        </button>
+
+        <button
+            class="filter-button"
+            type="button"
+            data-filter="game"
+        >
+            Game
+        </button>
+
+        <button
+            class="filter-button"
+            type="button"
+            data-filter="pixel"
+        >
+            Pixel
+        </button>
+
+        <button
+            class="filter-button"
+            type="button"
+            data-filter="retro"
+        >
+            Retro
+        </button>
+
+    </div>
+
+
+    <div
+        id="workspace"
+        class="workspace"
+    >
+
+        <div
+            id="placeholder"
+            class="placeholder"
+        >
+            Загрузите фотографию,<br>
+            затем выберите нужный фильтр.
+        </div>
+
+        <canvas
+            id="imageCanvas"
+        ></canvas>
+
+    </div>
+
+
+    <div
+        id="imageInfo"
+        class="info-line"
+    >
+        <span>
+            Фото не загружено
+        </span>
+    </div>
+
+
+    <div
+        id="status"
+        class="status"
+        aria-live="polite"
+    ></div>
+
+
+    <div class="actions">
+
+        <button
+            id="resetButton"
+            class="secondary"
+            type="button"
+            disabled
+        >
+            Сбросить фильтр
+        </button>
+
+    </div>
+
+</section>
+
+
+<div class="ad-container">
+</div>
+
+
+<main class="info">
+
+<section id="how-to">
+
+    <h2>
+        Как наложить фильтр на фото
+    </h2>
+
+    <ol>
+
+        <li>
+            Нажмите «Загрузить фото» и выберите изображение.
+        </li>
+
+        <li>
+            Выберите нужный стиль фильтра.
+        </li>
+
+        <li>
+            Посмотрите результат прямо в рабочей области.
+        </li>
+
+        <li>
+            Нажмите «Скачать PNG», чтобы сохранить изображение.
+        </li>
+
+    </ol>
+
+    <h3>
+        Фильтры в стиле мультфильма
+    </h3>
+
+    <p>
+        Фильтры «Мультфильм», «Комикс» и «Toon» изменяют
+        контраст, насыщенность и детализацию изображения,
+        создавая стилизованный мультяшный вид.
+    </p>
+
+</section>
+
+
+<section>
+
+    <h2>
+        Игровые и ретро-эффекты
+    </h2>
+
+    <p>
+        Фильтр «Game» делает изображение более насыщенным
+        и контрастным, создавая визуальный стиль,
+        подходящий для игровых изображений.
+    </p>
+
+    <p>
+        «Pixel» имитирует пиксельную графику,
+        а «Retro» добавляет характерную ретро-тональность.
+    </p>
+
+</section>
+
+
+<section id="faq">
+
+    <h2>
+        Частые вопросы
+    </h2>
+
+
+    <div class="faq-item">
+
+        <h3>
+            Загружается ли фотография на сервер?
+        </h3>
+
+        <p>
+            Нет. Фильтры применяются непосредственно
+            в браузере с помощью Canvas.
+        </p>
+
+    </div>
+
+
+    <div class="faq-item">
+
+        <h3>
+            Можно ли скачать результат?
+        </h3>
+
+        <p>
+            Да. Результат можно сохранить в формате PNG.
+        </p>
+
+    </div>
+
+
+    <div class="faq-item">
+
+        <h3>
+            Можно ли использовать фильтры на телефоне?
+        </h3>
+
+        <p>
+            Да. Страница адаптирована для компьютеров
+            и мобильных устройств.
+        </p>
+
+    </div>
+
+
+    <div class="faq-item">
+
+        <h3>
+            Можно ли сначала выбрать другой фильтр?
+        </h3>
+
+        <p>
+            Да. Фильтры можно переключать между собой
+            в любое время.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section>
+
+    <h2>
+        О сервисе
+    </h2>
+
+    <p>
+        «Фильтры для фото онлайн» — отдельный инструмент
+        сервиса «Фото + эффект» для быстрого преобразования
+        фотографий в различные визуальные стили.
+    </p>
+
+    <p>
+        Обработка выполняется непосредственно на устройстве
+        пользователя без отправки исходной фотографии
+        на сервер.
+    </p>
+
+</section>
+
+</main>
+
+
+<footer class="footer">
+
+    <div>
+        Фильтры для фото онлайн — бесплатный инструмент
+        для обработки изображений.
+    </div>
+
+    <div>
+        © <span id="year"></span> Фото + эффект
+    </div>
+
+</footer>
+
+</div>
+
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   ЭЛЕМЕНТЫ
+===================================================== */
+
+const photoInput =
+    document.getElementById("photoInput");
+
+const imageCanvas =
+    document.getElementById("imageCanvas");
+
+const ctx =
+    imageCanvas.getContext("2d");
+
+const placeholder =
+    document.getElementById("placeholder");
+
+const downloadButton =
+    document.getElementById("downloadButton");
+
+const newPhotoButton =
+    document.getElementById("newPhotoButton");
+
+const resetButton =
+    document.getElementById("resetButton");
+
+const imageInfo =
+    document.getElementById("imageInfo");
+
+const status =
+    document.getElementById("status");
+
+const year =
+    document.getElementById("year");
+
+const filterButtons =
+    document.querySelectorAll(".filter-button");
+
+
+/* =====================================================
+   СОСТОЯНИЕ
+===================================================== */
+
+let originalImage =
+    null;
+
+let imageObjectUrl =
+    null;
+
+let currentFilter =
+    "normal";
+
+
+/* =====================================================
+   ГОД
+===================================================== */
+
+year.textContent =
+    new Date().getFullYear();
+
+
+/* =====================================================
+   СТАТУС
+===================================================== */
+
+function setStatus(text){
+
+    status.textContent =
+        text;
+
+}
+
+
+/* =====================================================
+   КНОПКИ
+===================================================== */
+
+function updateButtons(){
+
+    const ready =
+        !!originalImage;
+
+    downloadButton.disabled =
+        !ready;
+
+    newPhotoButton.disabled =
+        !ready;
+
+    resetButton.disabled =
+        !ready;
+
+}
+
+
+/* =====================================================
+   ЗАГРУЗКА
+===================================================== */
+
+function loadPhoto(file){
+
+    if(
+        !file ||
+        !file.type ||
+        !file.type.startsWith("image/")
+    ){
+
+        setStatus(
+            "Пожалуйста, выберите изображение."
+        );
+
+        return;
+    }
+
+
+    if(imageObjectUrl){
+
+        URL.revokeObjectURL(
+            imageObjectUrl
+        );
+
+        imageObjectUrl =
+            null;
+
+    }
+
+
+    const url =
+        URL.createObjectURL(file);
+
+    imageObjectUrl =
+        url;
+
+
+    const img =
+        new Image();
+
+
+    img.onload =
+        function(){
+
+            originalImage =
+                img;
+
+            currentFilter =
+                "normal";
+
+
+            filterButtons.forEach(
+                function(button){
+
+                    button.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+
+            const normalButton =
+                document.querySelector(
+                    '[data-filter="normal"]'
+                );
+
+
+            if(normalButton){
+
+                normalButton.classList.add(
+                    "active"
+                );
+
+            }
+
+
+            placeholder.style.display =
+                "none";
+
+            imageCanvas.classList.add(
+                "visible"
+            );
+
+
+            imageInfo.innerHTML =
+                "<span>Размер: " +
+                img.naturalWidth +
+                " × " +
+                img.naturalHeight +
+                " px</span>";
+
+
+            render();
+
+
+            setStatus(
+                "Фото загружено. Выберите фильтр."
+            );
+
+
+            updateButtons();
+
+        };
+
+
+    img.onerror =
+        function(){
+
+            originalImage =
+                null;
+
+            setStatus(
+                "Не удалось загрузить фотографию."
+            );
+
+            updateButtons();
+
+        };
+
+
+    img.src =
+        url;
+
+}
+
+
+/* =====================================================
+   РАЗМЕР CANVAS
+===================================================== */
+
+function getDisplaySize(){
+
+    if(!originalImage){
+        return null;
+    }
+
+
+    const workspace =
+        document.getElementById(
+            "workspace"
+        );
+
+
+    const availableWidth =
+        Math.max(
+            50,
+            workspace.clientWidth - 20
+        );
+
+
+    const availableHeight =
+        Math.max(
+            50,
+            workspace.clientHeight - 20
+        );
+
+
+    const imageW =
+        originalImage.naturalWidth;
+
+    const imageH =
+        originalImage.naturalHeight;
+
+
+    const scale =
+        Math.min(
+            availableWidth / imageW,
+            availableHeight / imageH,
+            1
+        );
+
+
+    return {
+
+        width:
+            Math.max(
+                1,
+                Math.round(
+                    imageW * scale
+                )
+            ),
+
+        height:
+            Math.max(
+                1,
+                Math.round(
+                    imageH * scale
+                )
+            )
+
+    };
+
+}
+
+
+/* =====================================================
+   ВСПОМОГАТЕЛЬНЫЕ ЦВЕТА
+===================================================== */
+
+function clamp(
+    value,
+    min,
+    max
+){
+
+    return Math.min(
+        max,
+        Math.max(
+            min,
+            value
+        )
+    );
+
+}
+
+
+function posterize(
+    value,
+    levels
+){
+
+    const step =
+        255 / (levels - 1);
+
+    return Math.round(
+        Math.round(value / step) * step
+    );
+
+}
+
+
+/* =====================================================
+   РЕНДЕР
+===================================================== */
+
+function render(){
+
+    if(!originalImage){
+        return;
+    }
+
+
+    const size =
+        getDisplaySize();
+
+
+    if(!size){
+        return;
+    }
+
+
+    imageCanvas.width =
+        size.width;
+
+    imageCanvas.height =
+        size.height;
+
+
+    imageCanvas.style.width =
+        size.width + "px";
+
+    imageCanvas.style.height =
+        size.height + "px";
+
+
+    ctx.clearRect(
+        0,
+        0,
+        size.width,
+        size.height
+    );
+
+
+    ctx.drawImage(
+        originalImage,
+        0,
+        0,
+        size.width,
+        size.height
+    );
+
+
+    if(currentFilter === "normal"){
+
+        return;
+
+    }
+
+
+    applyFilter();
+
+}
+
+
+/* =====================================================
+   ПРИМЕНЕНИЕ ФИЛЬТРА
+===================================================== */
+
+function applyFilter(){
+
+    const width =
+        imageCanvas.width;
+
+    const height =
+        imageCanvas.height;
+
+
+    if(
+        !width ||
+        !height
+    ){
+
+        return;
+
+    }
+
+
+    let imageData;
+
+    try{
+
+        imageData =
+            ctx.getImageData(
+                0,
+                0,
+                width,
+                height
+            );
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+        setStatus(
+            "Не удалось применить фильтр."
+        );
+
+        return;
+
+    }
+
+
+    const data =
+        imageData.data;
+
+
+    /*
+        =================================================
+        MULTIPLE FILTER MODES
+        =================================================
+    */
+
+
+    if(
+        currentFilter === "toon" ||
+        currentFilter === "cartoon" ||
+        currentFilter === "comic" ||
+        currentFilter === "game" ||
+        currentFilter === "retro"
+    ){
+
+        applyColorFilter(
+            data,
+            currentFilter
+        );
+
+    }
+
+
+    if(
+        currentFilter === "pixel"
+    ){
+
+        applyPixelEffect(
+            data,
+            width,
+            height
+        );
+
+    }
+
+
+    ctx.putImageData(
+        imageData,
+        0,
+        0
+    );
+
+
+    /*
+        Контуры для мультяшных режимов
+    */
+
+    if(
+        currentFilter === "cartoon" ||
+        currentFilter === "comic" ||
+        currentFilter === "toon"
+    ){
+
+        applyEdgeOverlay();
+
+    }
+
+
+}
+
+
+/* =====================================================
+   ЦВЕТОВЫЕ ФИЛЬТРЫ
+===================================================== */
+
+function applyColorFilter(
+    data,
+    mode
+){
+
+    for(
+        let i = 0;
+        i < data.length;
+        i += 4
+    ){
+
+        let r =
+            data[i];
+
+        let g =
+            data[i + 1];
+
+        let b =
+            data[i + 2];
+
+
+        if(mode === "cartoon"){
+
+            r =
+                posterize(
+                    r,
+                    7
+                );
+
+            g =
+                posterize(
+                    g,
+                    7
+                );
+
+            b =
+                posterize(
+                    b,
+                    7
+                );
+
+
+            const avg =
+                (r + g + b) / 3;
+
+
+            r =
+                clamp(
+                    r * 1.08 + (avg - r) * 0.08,
+                    0,
+                    255
+                );
+
+            g =
+                clamp(
+                    g * 1.08 + (avg - g) * 0.08,
+                    0,
+                    255
+                );
+
+            b =
+                clamp(
+                    b * 1.08 + (avg - b) * 0.08,
+                    0,
+                    255
+                );
+
+        }
+
+
+        else if(mode === "comic"){
+
+            r =
+                posterize(
+                    r,
+                    5
+                );
+
+            g =
+                posterize(
+                    g,
+                    5
+                );
+
+            b =
+                posterize(
+                    b,
+                    5
+                );
+
+
+            r =
+                clamp(
+                    (r - 128) * 1.35 + 128 + 10,
+                    0,
+                    255
+                );
+
+            g =
+                clamp(
+                    (g - 128) * 1.35 + 128 + 5,
+                    0,
+                    255
+                );
+
+            b =
+                clamp(
+                    (b - 128) * 1.35 + 128,
+                    0,
+                    255
+                );
+
+        }
+
+
+        else if(mode === "toon"){
+
+            r =
+                posterize(
+                    r,
+                    9
+                );
+
+            g =
+                posterize(
+                    g,
+                    9
+                );
+
+            b =
+                posterize(
+                    b,
+                    9
+                );
+
+
+            r =
+                clamp(
+                    r * 1.12,
+                    0,
+                    255
+                );
+
+            g =
+                clamp(
+                    g * 1.10,
+                    0,
+                    255
+                );
+
+            b =
+                clamp(
+                    b * 1.08,
+                    0,
+                    255
+                );
+
+        }
+
+
+        else if(mode === "game"){
+
+            r =
+                clamp(
+                    (r - 128) * 1.28 + 128 + 8,
+                    0,
+                    255
+                );
+
+            g =
+                clamp(
+                    (g - 128) * 1.25 + 128 + 7,
+                    0,
+                    255
+                );
+
+            b =
+                clamp(
+                    (b - 128) * 1.22 + 128 + 5,
+                    0,
+                    255
+                );
+
+
+            r =
+                posterize(
+                    r,
+                    12
+                );
+
+            g =
+                posterize(
+                    g,
+                    12
+                );
+
+            b =
+                posterize(
+                    b,
+                    12
+                );
+
+        }
+
+
+        else if(mode === "retro"){
+
+            const tr =
+                0.393 * r +
+                0.769 * g +
+                0.189 * b;
+
+            const tg =
+                0.349 * r +
+                0.686 * g +
+                0.168 * b;
+
+            const tb =
+                0.272 * r +
+                0.534 * g +
+                0.131 * b;
+
+
+            r =
+                clamp(
+                    tr * 0.92,
+                    0,
+                    255
+                );
+
+            g =
+                clamp(
+                    tg * 0.88,
+                    0,
+                    255
+                );
+
+            b =
+                clamp(
+                    tb * 0.78,
+                    0,
+                    255
+                );
+
+        }
+
+
+        data[i] =
+            r;
+
+        data[i + 1] =
+            g;
+
+        data[i + 2] =
+            b;
+
+    }
+
+}
+
+
+/* =====================================================
+   PIXEL FILTER
+===================================================== */
+
+function applyPixelEffect(
+    data,
+    width,
+    height
+){
+
+    const source =
+        new Uint8ClampedArray(
+            data
+        );
+
+
+    const block =
+        Math.max(
+            4,
+            Math.round(
+                Math.min(
+                    width,
+                    height
+                ) / 70
+            )
+        );
+
+
+    for(
+        let y = 0;
+        y < height;
+        y += block
+    ){
+
+        for(
+            let x = 0;
+            x < width;
+            x += block
+        ){
+
+            const sampleX =
+                Math.min(
+                    width - 1,
+                    x + Math.floor(block / 2)
+                );
+
+            const sampleY =
+                Math.min(
+                    height - 1,
+                    y + Math.floor(block / 2)
+                );
+
+
+            const sampleIndex =
+                (
+                    sampleY * width +
+                    sampleX
+                ) * 4;
+
+
+            const r =
+                posterize(
+                    source[sampleIndex],
+                    6
+                );
+
+            const g =
+                posterize(
+                    source[sampleIndex + 1],
+                    6
+                );
+
+            const b =
+                posterize(
+                    source[sampleIndex + 2],
+                    6
+                );
+
+
+            for(
+                let py = y;
+                py < Math.min(
+                    y + block,
+                    height
+                );
+                py++
+            ){
+
+                for(
+                    let px = x;
+                    px < Math.min(
+                        x + block,
+                        width
+                    );
+                    px++
+                ){
+
+                    const index =
+                        (
+                            py * width +
+                            px
+                        ) * 4;
+
+
+                    data[index] =
+                        r;
+
+                    data[index + 1] =
+                        g;
+
+                    data[index + 2] =
+                        b;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   КОНТУРЫ
+===================================================== */
+
+function applyEdgeOverlay(){
+
+    const width =
+        imageCanvas.width;
+
+    const height =
+        imageCanvas.height;
+
+
+    if(
+        width < 3 ||
+        height < 3
+    ){
+
+        return;
+
+    }
+
+
+    let source;
+
+    try{
+
+        source =
+            ctx.getImageData(
+                0,
+                0,
+                width,
+                height
+            );
+
+    }catch(error){
+
+        return;
+
+    }
+
+
+    const src =
+        source.data;
+
+
+    const output =
+        ctx.getImageData(
+            0,
+            0,
+            width,
+            height
+        );
+
+
+    const out =
+        output.data;
+
+
+    for(
+        let y = 1;
+        y < height - 1;
+        y++
+    ){
+
+        for(
+            let x = 1;
+            x < width - 1;
+            x++
+        ){
+
+            const i =
+                (
+                    y * width +
+                    x
+                ) * 4;
+
+
+            const right =
+                i + 4;
+
+            const bottom =
+                i +
+                width * 4;
+
+
+            const diff =
+                Math.abs(
+                    src[i] -
+                    src[right]
+                ) +
+                Math.abs(
+                    src[i + 1] -
+                    src[right + 1]
+                ) +
+                Math.abs(
+                    src[i + 2] -
+                    src[right + 2]
+                ) +
+                Math.abs(
+                    src[i] -
+                    src[bottom]
+                ) +
+                Math.abs(
+                    src[i + 1] -
+                    src[bottom + 1]
+                ) +
+                Math.abs(
+                    src[i + 2] -
+                    src[bottom + 2]
+                );
+
+
+            if(
+                diff > 90
+            ){
+
+                const strength =
+                    currentFilter === "comic"
+                        ? 0.75
+                        : currentFilter === "cartoon"
+                            ? 0.55
+                            : 0.35;
+
+
+                out[i] =
+                    src[i] *
+                    (1 - strength);
+
+                out[i + 1] =
+                    src[i + 1] *
+                    (1 - strength);
+
+                out[i + 2] =
+                    src[i + 2] *
+                    (1 - strength);
+
+            }
+
+        }
+
+    }
+
+
+    ctx.putImageData(
+        output,
+        0,
+        0
+    );
+
+}
+
+
+/* =====================================================
+   ФИЛЬТРЫ
+===================================================== */
+
+filterButtons.forEach(
+    function(button){
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                if(!originalImage){
+                    return;
+                }
+
+
+                filterButtons.forEach(
+                    function(item){
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                this.classList.add(
+                    "active"
+                );
+
+
+                currentFilter =
+                    this.dataset.filter;
+
+
+                render();
+
+
+                const names = {
+
+                    normal:
+                        "Оригинал",
+
+                    cartoon:
+                        "Мультяшный фильтр",
+
+                    comic:
+                        "Комикс",
+
+                    toon:
+                        "Toon",
+
+                    game:
+                        "Игровой стиль",
+
+                    pixel:
+                        "Пиксельный стиль",
+
+                    retro:
+                        "Ретро"
+
+                };
+
+
+                setStatus(
+                    "Применён фильтр: " +
+                    (
+                        names[currentFilter] ||
+                        currentFilter
+                    ) +
+                    "."
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   СБРОС
+===================================================== */
+
+resetButton.addEventListener(
+    "click",
+    function(){
+
+        if(!originalImage){
+            return;
+        }
+
+
+        currentFilter =
+            "normal";
+
+
+        filterButtons.forEach(
+            function(button){
+
+                button.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+        const normalButton =
+            document.querySelector(
+                '[data-filter="normal"]'
+            );
+
+
+        if(normalButton){
+
+            normalButton.classList.add(
+                "active"
+            );
+
+        }
+
+
+        render();
+
+
+        setStatus(
+            "Фильтр сброшен."
+        );
+
+    }
+);
+
+
+/* =====================================================
+   СКАЧИВАНИЕ
+===================================================== */
+
+downloadButton.addEventListener(
+    "click",
+    function(){
+
+        if(!originalImage){
+            return;
+        }
+
+
+        try{
+
+            const link =
+                document.createElement(
+                    "a"
+                );
+
+
+            link.download =
+                "photo-filter.png";
+
+
+            link.href =
+                imageCanvas.toDataURL(
+                    "image/png"
+                );
+
+
+            document.body.appendChild(
+                link
+            );
+
+
+            link.click();
+
+
+            link.remove();
+
+
+            setStatus(
+                "PNG подготовлен для сохранения."
+            );
+
+        }catch(error){
+
+            console.error(
+                error
+            );
+
+            setStatus(
+                "Не удалось сохранить изображение."
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   НОВОЕ ФОТО
+===================================================== */
+
+newPhotoButton.addEventListener(
+    "click",
+    function(){
+
+        photoInput.value =
+            "";
+
+        photoInput.click();
+
+    }
+);
+
+
+/* =====================================================
+   ЗАГРУЗКА
+===================================================== */
+
+photoInput.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            this.files &&
+            this.files[0];
+
+
+        if(!file){
+            return;
+        }
+
+
+        loadPhoto(
+            file
+        );
+
+    }
+);
+
+
+/* =====================================================
+   RESIZE
+===================================================== */
+
+window.addEventListener(
+    "resize",
+    function(){
+
+        if(originalImage){
+
+            render();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   НАЧАЛЬНОЕ СОСТОЯНИЕ
+===================================================== */
+
+updateButtons();
+
+</script>
+
+</body>
+
+</html>

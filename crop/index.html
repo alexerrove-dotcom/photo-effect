@@ -1,6 +1,4 @@
-```html
 <!DOCTYPE html>
-
 <html lang="ru">
 
 <head>
@@ -8,30 +6,26 @@
 <meta charset="UTF-8">
 
 <meta
-name="viewport"
-content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+    name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
 >
 
-<title>Обрезка фото онлайн — бесплатно | Фото + эффект</title>
+<title>Обрезка фото онлайн — бесплатно</title>
 
 <meta
-name="description"
-content="Бесплатный онлайн-инструмент для обрезки фотографий. Выберите область, настройте пропорции и скачайте готовое изображение PNG."
+    name="description"
+    content="Бесплатный онлайн-инструмент для обрезки фотографий. Выберите область, настройте пропорции и скачайте готовое изображение PNG."
 >
 
 <meta
-name="robots"
-content="index, follow"
+    name="robots"
+    content="index, follow"
 >
 
-<script>
-window.yaContextCb = window.yaContextCb || [];
-</script>
-
-<script
-src="https://yandex.ru/ads/system/context.js"
-async>
-</script>
+<meta
+    name="theme-color"
+    content="#111111"
+>
 
 <style>
 
@@ -41,226 +35,190 @@ async>
 }
 
 html{
+    margin:0;
+    padding:0;
+    background:#111;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
     scroll-behavior:smooth;
 }
 
 body{
     margin:0;
     min-height:100vh;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#0b0d12;
-    color:#f2f4f8;
-    line-height:1.6;
+    background:#111;
+    color:#fff;
     overflow-x:hidden;
 }
 
-a{
-    color:inherit;
+button,
+label,
+select{
+    font-family:inherit;
 }
 
-header{
-    position:sticky;
-    top:0;
-    z-index:100;
-    background:rgba(11,13,18,.94);
-    border-bottom:1px solid #252a35;
-    backdrop-filter:blur(12px);
-}
-
-.nav{
-    max-width:1180px;
-    margin:auto;
-    padding:14px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-}
-
-.logo{
-    text-decoration:none;
-    font-size:20px;
-    font-weight:800;
-    white-space:nowrap;
-}
-
-.navLinks{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:flex-end;
-    gap:15px;
-    font-size:14px;
-}
-
-.navLinks a{
-    color:#b8beca;
-    text-decoration:none;
-}
-
-.navLinks a:hover{
-    color:#fff;
-}
-
-main{
-    max-width:1180px;
-    margin:auto;
-    padding:35px 20px 70px;
-}
-
-.hero{
-    text-align:center;
-    padding:15px 0 30px;
-}
-
-.hero h1{
-    margin:0 0 12px;
-    font-size:clamp(30px,5vw,54px);
-    line-height:1.1;
-}
-
-.hero p{
-    max-width:760px;
-    margin:0 auto;
-    color:#aeb5c2;
-    font-size:17px;
-}
-
-.card{
-    background:#12161e;
-    border:1px solid #272d38;
-    border-radius:18px;
-    padding:22px;
-    margin-top:20px;
-}
-
-.toolbar{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    margin-bottom:20px;
-}
-
-.button,
-.fileLabel{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-height:46px;
-    padding:10px 17px;
-    border:1px solid #343b48;
+button,
+.file-label{
+    border:0;
     border-radius:10px;
-    background:#1b202a;
+    min-height:46px;
+    padding:12px 17px;
+    background:#168cff;
     color:#fff;
+    font-size:15px;
     font-weight:700;
     cursor:pointer;
-    text-decoration:none;
-    font-size:14px;
-    transition:.15s;
+    touch-action:manipulation;
+    user-select:none;
+    -webkit-user-select:none;
+    transition:
+        background .15s,
+        transform .1s,
+        opacity .15s;
 }
 
-.button:hover,
-.fileLabel:hover{
-    background:#252b36;
+button:hover,
+.file-label:hover{
+    background:#0879df;
 }
 
-.button.primary,
-.fileLabel.primary{
-    background:#fff;
-    color:#101217;
-    border-color:#fff;
+button:active,
+.file-label:active{
+    transform:scale(.98);
 }
 
-.button.primary:hover,
-.fileLabel.primary:hover{
-    background:#e7e9ed;
-}
-
-/* Активный текущий инструмент */
-.fileLabel.active{
-    background:#fff;
-    color:#101217;
-    border-color:#fff;
-}
-
-.fileLabel.active:hover{
-    background:#e7e9ed;
-}
-
-.button:disabled{
+button:disabled{
     opacity:.45;
     cursor:default;
 }
 
-.button.secondary{
-    background:#1b202a;
+button.secondary{
+    background:#303030;
 }
 
-input[type="file"]{
+button.secondary:hover{
+    background:#3d3d3d;
+}
+
+input[type=file]{
     display:none;
 }
 
-.aspectControls{
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    margin-bottom:20px;
+.app{
+    width:min(1100px,96vw);
+    min-height:100vh;
+    margin:0 auto;
+    padding:18px;
 }
 
-.aspectTitle{
-    color:#aeb5c2;
+.header{
+    margin-bottom:16px;
+}
+
+h1{
+    margin:0 0 14px;
+    text-align:center;
+    font-size:clamp(25px,4vw,35px);
+    line-height:1.2;
+}
+
+.nav{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:7px;
+}
+
+.nav a{
+    display:inline-block;
+    padding:8px 12px;
+    border-radius:8px;
+    background:#1d1d1d;
+    color:#bbb;
+    font-size:13px;
+    text-decoration:none;
+}
+
+.nav a:hover{
+    background:#292929;
+    color:#fff;
+}
+
+/* АКТИВНАЯ СТРАНИЦА */
+
+.nav a.active{
+    background:#fff;
+    color:#111;
+}
+
+.nav a.active:hover{
+    background:#e7e7e7;
+    color:#111;
+}
+
+.tool{
+    width:100%;
+}
+
+.top-controls{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:12px;
+}
+
+.aspect-controls{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-bottom:12px;
+}
+
+.aspect-title{
+    color:#aaa;
     font-size:14px;
-    font-weight:700;
     margin-right:2px;
 }
 
-.aspectButton{
-    min-height:42px;
-    padding:9px 14px;
-    border:1px solid #343b48;
-    border-radius:10px;
-    background:#1b202a;
-    color:#c7cdd6;
-    font-weight:700;
-    cursor:pointer;
+.aspect-button{
+    min-height:40px;
+    padding:9px 13px;
+    background:#252525;
+    color:#ccc;
     font-size:14px;
 }
 
-.aspectButton:hover{
-    background:#252b36;
+.aspect-button:hover{
+    background:#333;
 }
 
-.aspectButton.active{
-    background:#fff;
-    color:#101217;
-    border-color:#fff;
+.aspect-button.active{
+    background:#168cff;
+    color:#fff;
 }
 
 .workspace{
     position:relative;
     width:100%;
-    min-height:420px;
-    border:1px dashed #394150;
-    border-radius:14px;
+    height:min(65vh,680px);
+    min-height:320px;
+    border-radius:13px;
+    background:#202020;
     overflow:hidden;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:
-        linear-gradient(45deg,#151a22 25%,transparent 25%),
-        linear-gradient(-45deg,#151a22 25%,transparent 25%),
-        linear-gradient(45deg,transparent 75%,#151a22 75%),
-        linear-gradient(-45deg,transparent 75%,#151a22 75%);
-    background-size:24px 24px;
-    background-position:
-        0 0,
-        0 12px,
-        12px -12px,
-        -12px 0;
+    padding:10px;
+    box-shadow:
+        inset 0 0 0 1px #2c2c2c;
 }
 
-.canvasStage{
+.canvas-stage{
     position:relative;
     max-width:100%;
     max-height:100%;
@@ -268,7 +226,7 @@ input[type="file"]{
     touch-action:none;
 }
 
-.canvasStage.visible{
+.canvas-stage.visible{
     display:block;
 }
 
@@ -280,7 +238,7 @@ input[type="file"]{
     touch-action:none;
 }
 
-.cropBox{
+.crop-box{
     position:absolute;
     border:2px solid #fff;
     box-shadow:
@@ -289,22 +247,24 @@ input[type="file"]{
     touch-action:none;
 }
 
-.cropBox::before,
-.cropBox::after{
+.crop-box::before,
+.crop-box::after{
     content:"";
     position:absolute;
     pointer-events:none;
 }
 
-.cropBox::before{
+.crop-box::before{
     left:33.333%;
     top:0;
     bottom:0;
     width:1px;
     background:rgba(255,255,255,.35);
+    box-shadow:
+        calc(100% + var(--third, 0px)) 0 0 rgba(255,255,255,0);
 }
 
-.cropBox::after{
+.crop-box::after{
     top:33.333%;
     left:0;
     right:0;
@@ -356,7 +316,7 @@ input[type="file"]{
     width:18px;
     height:18px;
     border:2px solid #fff;
-    background:#fff;
+    background:#168cff;
     border-radius:4px;
     z-index:5;
     touch-action:none;
@@ -394,230 +354,165 @@ input[type="file"]{
     justify-content:center;
     text-align:center;
     padding:25px;
-    color:#818a99;
+    color:#777;
     font-size:15px;
     line-height:1.6;
 }
 
-.infoLine{
+.info-line{
     display:flex;
     justify-content:center;
     align-items:center;
     flex-wrap:wrap;
     gap:15px;
     min-height:28px;
-    margin-top:12px;
-    color:#aeb6c4;
+    margin-top:10px;
+    color:#aaa;
     font-size:13px;
     text-align:center;
 }
 
 .status{
-    min-height:25px;
-    margin-top:8px;
+    min-height:22px;
+    margin-top:6px;
     text-align:center;
-    color:#aeb6c4;
+    color:#7fc8ff;
     font-size:14px;
 }
 
 .actions{
     display:flex;
-    flex-wrap:wrap;
     justify-content:center;
-    gap:10px;
-    margin-top:18px;
+    flex-wrap:wrap;
+    gap:9px;
+    margin-top:12px;
 }
 
-.adBox{
-    margin:25px auto;
-    min-height:90px;
+.ad-container{
+    width:100%;
+    min-height:100px;
+    margin:28px 0 10px;
     display:flex;
+    justify-content:center;
     align-items:center;
-    justify-content:center;
+    overflow:hidden;
 }
 
-.textSection{
-    margin-top:50px;
+.info{
+    margin-top:30px;
+    padding:0 5px 25px;
 }
 
-.textSection h2{
-    margin:0 0 14px;
-    font-size:29px;
-    line-height:1.25;
+.info section{
+    margin-bottom:34px;
+    scroll-margin-top:20px;
 }
 
-.textSection h3{
-    margin-top:25px;
-    margin-bottom:8px;
-    font-size:19px;
+.info h2{
+    margin:0 0 13px;
+    font-size:24px;
+    line-height:1.3;
 }
 
-.textSection p,
-.textSection li{
-    color:#b7bec9;
+.info h3{
+    margin:23px 0 9px;
+    font-size:18px;
 }
 
-.textSection ul,
-.textSection ol{
-    padding-left:23px;
+.info p,
+.info li{
+    color:#ccc;
+    font-size:15px;
+    line-height:1.7;
 }
 
-.textSection li{
-    margin-bottom:5px;
+.info p{
+    margin:0 0 13px;
 }
 
-.toolsGrid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:14px;
-    margin-top:20px;
+.info ol,
+.info ul{
+    padding-left:24px;
 }
 
-.toolCard{
-    display:block;
-    padding:20px;
-    border:1px solid #292f39;
-    border-radius:14px;
-    background:#12161e;
-    text-decoration:none;
-    transition:.15s;
+.info li{
+    margin-bottom:6px;
 }
 
-.toolCard:hover{
-    background:#181d26;
-    border-color:#414958;
+.faq-item{
+    margin-bottom:9px;
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #292929;
+    background:#191919;
 }
 
-.toolCard h3{
+.faq-item h3{
     margin:0 0 7px;
-    color:#fff;
+    font-size:16px;
 }
 
-.toolCard p{
+.faq-item p{
     margin:0;
-    color:#969fad;
     font-size:14px;
+    color:#bbb;
 }
 
-.faqItem{
-    border-top:1px solid #292f39;
-    padding:17px 0;
-}
-
-.faqItem:first-child{
-    border-top:0;
-}
-
-.faqItem h3{
-    margin:0 0 7px;
-    font-size:17px;
-}
-
-.faqItem p{
-    margin:0;
-}
-
-footer{
-    border-top:1px solid #252a35;
-    padding:28px 20px;
+.footer{
+    padding:20px 5px 10px;
+    border-top:1px solid #292929;
+    color:#777;
+    font-size:13px;
+    line-height:1.6;
     text-align:center;
-    color:#858e9d;
-    font-size:14px;
 }
 
-.footerNav{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:10px 18px;
-    margin-bottom:12px;
-}
+@media(max-width:600px){
 
-.footerNav a{
-    color:#aeb5c2;
-    text-decoration:none;
-}
-
-.footerNav a:hover{
-    color:#fff;
-}
-
-@media(max-width:900px){
-
-    .toolsGrid{
-        grid-template-columns:repeat(2,1fr);
+    .app{
+        width:100%;
+        padding:10px;
     }
 
-}
-
-@media(max-width:800px){
+    h1{
+        margin-bottom:10px;
+    }
 
     .nav{
-        align-items:flex-start;
-        flex-direction:column;
+        gap:5px;
     }
 
-    .navLinks{
-        justify-content:flex-start;
-        gap:10px 14px;
+    .nav a{
+        padding:7px 9px;
+        font-size:12px;
     }
 
-    main{
-        padding:25px 13px 55px;
+    button,
+    .file-label{
+        min-height:43px;
+        padding:10px 13px;
+        font-size:14px;
     }
 
-    .card{
-        padding:15px;
-        border-radius:14px;
+    .aspect-controls{
+        gap:5px;
+    }
+
+    .aspect-title{
+        width:100%;
+        margin-bottom:1px;
+    }
+
+    .aspect-button{
+        min-height:38px;
+        padding:8px 11px;
+        font-size:13px;
     }
 
     .workspace{
-        min-height:300px;
-    }
-
-    #imageCanvas{
-        max-height:60vh;
-    }
-
-    .toolbar{
-        flex-direction:column;
-    }
-
-    .button,
-    .fileLabel{
-        width:100%;
-    }
-
-    .aspectControls{
-        justify-content:stretch;
-    }
-
-    .aspectTitle{
-        width:100%;
-        text-align:center;
-        margin-bottom:2px;
-    }
-
-    .aspectButton{
-        flex:1;
-        min-width:0;
-    }
-
-    .actions{
-        flex-direction:column;
-    }
-
-    .actions .button{
-        width:100%;
-    }
-
-    .toolsGrid{
-        grid-template-columns:1fr;
-    }
-
-    .footerNav{
-        flex-direction:column;
-        gap:8px;
+        height:56vh;
+        min-height:240px;
+        padding:7px;
     }
 
     .handle{
@@ -645,6 +540,36 @@ footer{
         bottom:-10px;
     }
 
+    .ad-container{
+        min-height:80px;
+        margin:20px 0 8px;
+    }
+
+    .info{
+        margin-top:22px;
+    }
+
+    .info h2{
+        font-size:21px;
+    }
+
+    .info p,
+    .info li{
+        font-size:14px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+
+    html{
+        scroll-behavior:auto;
+    }
+
+    button,
+    .file-label{
+        transition:none;
+    }
+
 }
 
 </style>
@@ -653,648 +578,440 @@ footer{
 
 <body>
 
-<header>
+<div class="app">
 
-<div class="nav">
+<header class="header">
 
-<a
-    href="../"
-    class="logo"
->
-Фото + эффект
-</a>
+    <h1>
+        Обрезка фото онлайн
+    </h1>
 
-<nav class="navLinks">
+    <nav
+        class="nav"
+        aria-label="Навигация"
+    >
 
-<a href="../">
-Инструмент
-</a>
+        <a href="../">
+            Фото + эффект
+        </a>
 
-<a
-    href="./"
-    class="active"
->
-Обрезка фото
-</a>
+        <a
+            href="#tool"
+            class="active"
+            aria-current="page"
+        >
+            Обрезка
+        </a>
 
-<a href="../resize/">
-Изменить размер
-</a>
+        <a href="#how-to">
+            Как пользоваться
+        </a>
 
-<a href="../rotate/">
-Повернуть фото
-</a>
+        <a href="#faq">
+            Частые вопросы
+        </a>
 
-<a href="../remove-background/">
-Удалить фон
-</a>
-
-<a href="../#how-to">
-Как пользоваться
-</a>
-
-<a href="../#about">
-О сервисе
-</a>
-
-<a href="../#faq">
-FAQ
-</a>
-
-<a href="../#privacy">
-Конфиденциальность
-</a>
-
-</nav>
-
-</div>
+    </nav>
 
 </header>
 
-<main>
-
-<section class="hero">
-
-<h1>
-Обрезка фото онлайн
-</h1>
-
-<p>
-Бесплатный онлайн-инструмент для обрезки фотографии.
-Выберите нужную область, настройте пропорции и
-скачайте готовое изображение в формате PNG.
-</p>
-
-</section>
 
 <section
     id="tool"
-    class="card"
+    class="tool"
 >
 
-<div class="toolbar">
-
-<a
-href="../"
-class="fileLabel"
->
-
-Загрузить фото
-</a>
-
-<a
-href="./"
-class="fileLabel active"
->
-
-Обрезать фото
-</a>
-
-<a
-href="../resize/"
-class="fileLabel"
->
-
-Изменить размер
-</a>
-
-<a
-href="../rotate/"
-class="fileLabel"
->
-
-Повернуть фото
-</a>
-
-<a
-href="../remove-background/"
-class="fileLabel"
->
-
-Удалить фон
-</a>
-
-</div>
-
-<div class="toolbar">
-
-<label
-for="photoInput"
-class="fileLabel primary"
->
-
-Загрузить фото в редактор
-
-<input
-id="photoInput"
-type="file"
-accept="image/*"
->
-
-</label>
-
-<button
-id="applyCropButton"
-class="button primary"
-type="button"
-disabled
->
-
-Обрезать
-
-</button>
-
-<button
-id="downloadButton"
-class="button"
-type="button"
-disabled
->
-
-Скачать PNG
-
-</button>
-
-<button
-id="newButton"
-class="button"
-type="button"
->
-
-Новое фото
-
-</button>
-
-<button
-id="resetButton"
-class="button"
-type="button"
-disabled
->
-
-Сбросить
-
-</button>
-
-</div>
-
-<div class="aspectControls">
-
-<span class="aspectTitle">
-Пропорции:
-</span>
-
-<button
-class="aspectButton active"
-data-ratio="free"
-type="button"
->
-Свободно
-</button>
-
-<button
-class="aspectButton"
-data-ratio="1"
-type="button"
->
-1:1
-</button>
-
-<button
-class="aspectButton"
-data-ratio="4/3"
-type="button"
->
-4:3
-</button>
-
-<button
-class="aspectButton"
-data-ratio="16/9"
-type="button"
->
-16:9
-</button>
-
-<button
-class="aspectButton"
-data-ratio="9/16"
-type="button"
->
-9:16
-</button>
-
-</div>
-
-<div class="workspace">
-
-<div
-id="canvasStage"
-class="canvasStage"
->
-
-<canvas
-id="imageCanvas"
-></canvas>
-
-<div
-id="cropBox"
-class="cropBox"
->
-
-<div
-class="grid-v1"
-></div>
-
-<div
-class="grid-v2"
-></div>
-
-<div
-class="grid-h1"
-></div>
-
-<div
-class="grid-h2"
-></div>
-
-<div
-class="handle nw"
-data-handle="nw"
-></div>
-
-<div
-class="handle ne"
-data-handle="ne"
-></div>
-
-<div
-class="handle sw"
-data-handle="sw"
-></div>
-
-<div
-class="handle se"
-data-handle="se"
-></div>
-
-</div>
-
-</div>
-
-<div
-id="placeholder"
-class="placeholder"
->
-
-Загрузите фотографию, чтобы начать обрезку.
-
-</div>
-
-</div>
-
-<div class="infoLine">
-
-<span id="imageSize">
-Размер: —
-</span>
-
-<span id="cropSize">
-Область: —
-</span>
-
-</div>
-
-<div
-id="status"
-class="status"
->
-Загрузите изображение.
-</div>
-
-<div class="actions">
-
-<button
-id="applyCropButtonBottom"
-class="button primary"
-type="button"
-disabled
->
-Обрезать фото
-</button>
-
-<button
-id="downloadButtonBottom"
-class="button"
-type="button"
-disabled
->
-Скачать PNG
-</button>
-
-<button
-id="newButtonBottom"
-class="button"
-type="button"
->
-Новое фото
-</button>
-
-<button
-id="resetButtonBottom"
-class="button"
-type="button"
-disabled
->
-Сбросить
-</button>
-
-</div>
+    <div class="top-controls">
+
+        <label class="file-label">
+
+            Загрузить фото
+
+            <input
+                id="photoInput"
+                type="file"
+                accept="image/*"
+            >
+
+        </label>
+
+        <button
+            id="cropButton"
+            type="button"
+            disabled
+        >
+            Обрезать
+        </button>
+
+        <button
+            id="downloadButton"
+            type="button"
+            disabled
+        >
+            Скачать PNG
+        </button>
+
+        <button
+            id="newPhotoButton"
+            class="secondary"
+            type="button"
+            disabled
+        >
+            Новое фото
+        </button>
+
+    </div>
+
+
+    <div class="aspect-controls">
+
+        <span class="aspect-title">
+            Пропорции:
+        </span>
+
+        <button
+            class="aspect-button active"
+            type="button"
+            data-ratio="free"
+        >
+            Свободная
+        </button>
+
+        <button
+            class="aspect-button"
+            type="button"
+            data-ratio="1"
+        >
+            1:1
+        </button>
+
+        <button
+            class="aspect-button"
+            type="button"
+            data-ratio="1.3333333333"
+        >
+            4:3
+        </button>
+
+        <button
+            class="aspect-button"
+            type="button"
+            data-ratio="1.7777777778"
+        >
+            16:9
+        </button>
+
+        <button
+            class="aspect-button"
+            type="button"
+            data-ratio="0.5625"
+        >
+            9:16
+        </button>
+
+    </div>
+
+
+    <div
+        id="workspace"
+        class="workspace"
+    >
+
+        <div
+            id="placeholder"
+            class="placeholder"
+        >
+            Загрузите фотографию,<br>
+            затем выделите область для обрезки.
+        </div>
+
+        <div
+            id="canvasStage"
+            class="canvas-stage"
+        >
+
+            <canvas
+                id="imageCanvas"
+            ></canvas>
+
+            <div
+                id="cropBox"
+                class="crop-box"
+            >
+
+                <div class="grid-v1"></div>
+                <div class="grid-v2"></div>
+                <div class="grid-h1"></div>
+                <div class="grid-h2"></div>
+
+                <div
+                    class="handle nw"
+                    data-handle="nw"
+                ></div>
+
+                <div
+                    class="handle ne"
+                    data-handle="ne"
+                ></div>
+
+                <div
+                    class="handle sw"
+                    data-handle="sw"
+                ></div>
+
+                <div
+                    class="handle se"
+                    data-handle="se"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="imageInfo"
+        class="info-line"
+    >
+        <span>
+            Фото не загружено
+        </span>
+    </div>
+
+
+    <div
+        id="status"
+        class="status"
+        aria-live="polite"
+    ></div>
+
+
+    <div class="actions">
+
+        <button
+            id="resetButton"
+            class="secondary"
+            type="button"
+            disabled
+        >
+            Сбросить область
+        </button>
+
+    </div>
 
 </section>
 
-<div class="adBox">
 
-<div id="yandex_rtb_R-A-20003018-1"></div>
+<div class="ad-container">
 
-<script>
-window.yaContextCb.push(() => {
-    Ya.Context.AdvManager.render({
-        "blockId": "R-A-20003018-1",
-        "renderTo": "yandex_rtb_R-A-20003018-1"
-    })
-})
-</script>
+    <!--
+        Рекламный блок намеренно пока не добавляем.
+        После проверки инструмента его можно подключить
+        тем же блоком РСЯ, который используется на главной.
+    -->
 
 </div>
 
-<section class="textSection">
 
-<h2>
-Как обрезать фотографию
-</h2>
+<main class="info">
 
-<p>
-Загрузите фотографию с компьютера или телефона.
-После загрузки появится область обрезки,
-которую можно перемещать и изменять по размеру.
-</p>
+<section id="how-to">
 
-<ol>
+    <h2>
+        Как обрезать фотографию онлайн
+    </h2>
 
-<li>
-Выберите нужное соотношение сторон или оставьте свободное выделение.
-</li>
+    <ol>
 
-<li>
-Перемещайте область обрезки по фотографии.
-</li>
+        <li>
+            Нажмите «Загрузить фото» и выберите изображение
+            на компьютере или телефоне.
+        </li>
 
-<li>
-Используйте угловые маркеры для изменения её размера.
-</li>
+        <li>
+            Выберите нужное соотношение сторон или оставьте
+            режим «Свободная».
+        </li>
 
-<li>
-Нажмите «Обрезать фото».
-</li>
+        <li>
+            Переместите область обрезки в нужное место.
+        </li>
 
-<li>
-Скачайте готовое изображение в формате PNG.
-</li>
+        <li>
+            Потяните за один из углов области, чтобы изменить
+            её размер.
+        </li>
 
-</ol>
+        <li>
+            Нажмите «Обрезать».
+        </li>
+
+        <li>
+            Нажмите «Скачать PNG», чтобы сохранить результат.
+        </li>
+
+    </ol>
+
+    <h3>
+        Обрезка на телефоне
+    </h3>
+
+    <p>
+        На сенсорном экране область можно перемещать пальцем.
+        Размер области изменяется перетаскиванием одного из
+        четырёх углов.
+    </p>
 
 </section>
 
-<section class="textSection">
 
-<h2>
-Другие инструменты
-</h2>
+<section>
 
-<p>
-После обрезки фотографии можно использовать другие инструменты
-сервиса для дальнейшей обработки изображения.
-</p>
+    <h2>
+        Пропорции изображения
+    </h2>
 
-<div class="toolsGrid">
+    <p>
+        В режиме «Свободная» область обрезки может иметь
+        произвольные пропорции.
+    </p>
 
-<a
-href="../"
-class="toolCard"
->
-
-<h3>
-Фото + эффект
-</h3>
-
-<p>
-Наложите эффект поверх фотографии и настройте его прозрачность.
-</p>
-
-</a>
-
-<a
-href="../resize/"
-class="toolCard"
->
-
-<h3>
-Изменить размер
-</h3>
-
-<p>
-Измените ширину и высоту фотографии с сохранением пропорций.
-</p>
-
-</a>
-
-<a
-href="../rotate/"
-class="toolCard"
->
-
-<h3>
-Повернуть фото
-</h3>
-
-<p>
-Поверните или отразите изображение.
-</p>
-
-</a>
-
-<a
-href="../remove-background/"
-class="toolCard"
->
-
-<h3>
-Удалить фон
-</h3>
-
-<p>
-Автоматически удалите фон фотографии и сохраните PNG.
-</p>
-
-</a>
-
-</div>
+    <p>
+        Режим 1:1 подходит для квадратных изображений.
+        4:3 и 16:9 используются для распространённых
+        горизонтальных форматов, а 9:16 — для вертикальных.
+    </p>
 
 </section>
 
-<section class="textSection">
 
-<h2 id="faq">
-Частые вопросы
-</h2>
+<section id="faq">
 
-<div class="faqItem">
+    <h2>
+        Частые вопросы
+    </h2>
 
-<h3>
-Можно ли выбрать квадратную область?
-</h3>
 
-<p>
-Да. Выберите соотношение сторон 1:1.
-</p>
+    <div class="faq-item">
 
-</div>
+        <h3>
+            Загружается ли фотография на сервер?
+        </h3>
 
-<div class="faqItem">
+        <p>
+            Данная страница обрабатывает выбранное изображение
+            непосредственно в браузере с помощью Canvas.
+        </p>
 
-<h3>
-Можно ли обрезать фото без фиксированных пропорций?
-</h3>
+    </div>
 
-<p>
-Да. Используйте режим «Свободно».
-</p>
 
-</div>
+    <div class="faq-item">
 
-<div class="faqItem">
+        <h3>
+            Какой формат у результата?
+        </h3>
 
-<h3>
-Можно ли изменить размер фотографии после обрезки?
-</h3>
+        <p>
+            Результат сохраняется в формате PNG.
+        </p>
 
-<p>
-Да. После сохранения результата откройте инструмент
-«Изменить размер».
-</p>
+    </div>
 
-</div>
 
-<div class="faqItem">
+    <div class="faq-item">
 
-<h3>
-Можно ли повернуть фотографию?
-</h3>
+        <h3>
+            Можно ли обрезать фотографию на телефоне?
+        </h3>
 
-<p>
-Да. Для этого используется инструмент «Повернуть фото».
-</p>
+        <p>
+            Да. Интерфейс поддерживает сенсорное управление.
+        </p>
 
-</div>
+    </div>
 
-<div class="faqItem">
 
-<h3>
-Можно ли удалить фон?
-</h3>
+    <div class="faq-item">
 
-<p>
-Да. Для этого используйте инструмент «Удалить фон».
-</p>
+        <h3>
+            Можно ли изменить пропорции?
+        </h3>
 
-</div>
+        <p>
+            Да. Доступны свободная область, 1:1, 4:3,
+            16:9 и 9:16.
+        </p>
 
-</section>
+    </div>
 
-<section class="textSection">
 
-<h2 id="about">
-О сервисе
-</h2>
+    <div class="faq-item">
 
-<p>
-«Фото + эффект» — набор бесплатных онлайн-инструментов
-для базовой обработки фотографий прямо в браузере.
-</p>
+        <h3>
+            Что произойдёт с исходным файлом?
+        </h3>
 
-<p>
-Вы можете обрезать, изменить размер, повернуть фотографию,
-добавить эффект или удалить фон.
-</p>
+        <p>
+            Исходный файл на устройстве пользователя
+            не изменяется. Обрезанная версия создаётся
+            отдельно.
+        </p>
+
+    </div>
 
 </section>
 
-<section class="textSection">
 
-<h2 id="privacy">
-Конфиденциальность
-</h2>
+<section>
 
-<p>
-Обработка изображения выполняется непосредственно в браузере
-пользователя. Выбранная фотография не используется для постоянного
-хранения сервисом.
-</p>
+    <h2>
+        О сервисе
+    </h2>
+
+    <p>
+        «Обрезка фото онлайн» — простой браузерный инструмент
+        для выбора нужной области фотографии и сохранения
+        получившегося изображения.
+    </p>
+
+    <p>
+        Инструмент является частью сервиса «Фото + эффект»
+        и предназначен для быстрой подготовки изображений
+        без установки отдельной программы.
+    </p>
 
 </section>
 
 </main>
 
-<footer>
 
-<nav class="footerNav">
+<footer class="footer">
 
-<a href="../">
-Инструмент
-</a>
+    <div>
+        Обрезка фото онлайн — бесплатный инструмент
+        для подготовки изображений.
+    </div>
 
-<a href="./">
-Обрезка фото
-</a>
-
-<a href="../resize/">
-Изменить размер
-</a>
-
-<a href="../rotate/">
-Повернуть фото
-</a>
-
-<a href="../remove-background/">
-Удалить фон
-</a>
-
-<a href="../#how-to">
-Как пользоваться
-</a>
-
-<a href="../#about">
-О сервисе
-</a>
-
-<a href="../#faq">
-FAQ
-</a>
-
-<a href="../#privacy">
-Конфиденциальность
-</a>
-
-</nav>
-
-<div>
-Фото + эффект — бесплатные онлайн-инструменты для работы с фотографиями.
-</div>
+    <div>
+        © <span id="year"></span> Фото + эффект
+    </div>
 
 </footer>
 
+</div>
+
+
 <script>
+
+"use strict";
+
+
+/* =====================================================
+   ЭЛЕМЕНТЫ
+===================================================== */
 
 const photoInput =
     document.getElementById("photoInput");
@@ -1314,119 +1031,104 @@ const cropBox =
 const placeholder =
     document.getElementById("placeholder");
 
-const imageSize =
-    document.getElementById("imageSize");
-
-const cropSize =
-    document.getElementById("cropSize");
-
-const status =
-    document.getElementById("status");
-
-const applyCropButton =
-    document.getElementById("applyCropButton");
+const cropButton =
+    document.getElementById("cropButton");
 
 const downloadButton =
     document.getElementById("downloadButton");
 
-const newButton =
-    document.getElementById("newButton");
+const newPhotoButton =
+    document.getElementById("newPhotoButton");
 
 const resetButton =
     document.getElementById("resetButton");
 
-const applyCropButtonBottom =
-    document.getElementById("applyCropButtonBottom");
+const imageInfo =
+    document.getElementById("imageInfo");
 
-const downloadButtonBottom =
-    document.getElementById("downloadButtonBottom");
+const status =
+    document.getElementById("status");
 
-const newButtonBottom =
-    document.getElementById("newButtonBottom");
-
-const resetButtonBottom =
-    document.getElementById("resetButtonBottom");
+const year =
+    document.getElementById("year");
 
 const aspectButtons =
-    document.querySelectorAll(".aspectButton");
+    document.querySelectorAll(".aspect-button");
 
-let image =
-    new Image();
 
-let imageLoaded =
-    false;
+/* =====================================================
+   НАСТРОЙКИ
+===================================================== */
 
-let imageUrl =
-    null;
-
-let naturalWidth =
-    0;
-
-let naturalHeight =
-    0;
-
-let scale =
-    1;
-
-let displayWidth =
-    0;
-
-let displayHeight =
-    0;
-
-let crop = {
-    x:0,
-    y:0,
-    width:0,
-    height:0
-};
-
-let aspectRatio =
-    null;
-
-let dragging =
-    false;
-
-let dragMode =
-    null;
-
-let dragHandle =
-    null;
-
-let startPointer = {
-    x:0,
-    y:0
-};
-
-let startCrop = {
-    x:0,
-    y:0,
-    width:0,
-    height:0
-};
+const MAX_PIXELS =
+    20000000;
 
 const MIN_CROP_SIZE =
     30;
 
 
 /* =====================================================
-   HELPERS
+   СОСТОЯНИЕ
 ===================================================== */
 
-function clamp(
-    value,
-    min,
-    max
-){
-    return Math.max(
-        min,
-        Math.min(
-            max,
-            value
-        )
-    );
-}
+let image =
+    null;
 
+let imageObjectUrl =
+    null;
+
+let selectedRatio =
+    null;
+
+let isCroppedResult =
+    false;
+
+let dragging =
+    false;
+
+let resizing =
+    false;
+
+let activeHandle =
+    null;
+
+let startPointer =
+    null;
+
+let startCrop =
+    null;
+
+
+/*
+    cropX / cropY / cropW / cropH
+    хранятся в координатах изображения
+    (не CSS-пикселях).
+*/
+
+let cropX =
+    0;
+
+let cropY =
+    0;
+
+let cropW =
+    0;
+
+let cropH =
+    0;
+
+
+/* =====================================================
+   ГОД
+===================================================== */
+
+year.textContent =
+    new Date().getFullYear();
+
+
+/* =====================================================
+   ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+===================================================== */
 
 function setStatus(text){
 
@@ -1436,199 +1138,425 @@ function setStatus(text){
 }
 
 
-/* =====================================================
-   INITIAL UI
-===================================================== */
-
 function updateButtons(){
 
-    const enabled =
-        imageLoaded;
+    const ready =
+        !!image &&
+        cropW > 0 &&
+        cropH > 0;
 
-    applyCropButton.disabled =
-        !enabled;
+    cropButton.disabled =
+        !ready;
 
     downloadButton.disabled =
-        !enabled;
+        !ready;
+
+    newPhotoButton.disabled =
+        !image;
 
     resetButton.disabled =
-        !enabled;
+        !image;
 
-    applyCropButtonBottom.disabled =
-        !enabled;
-
-    downloadButtonBottom.disabled =
-        !enabled;
-
-    resetButtonBottom.disabled =
-        !enabled;
 }
 
 
-/* =====================================================
-   DISPLAY GEOMETRY
-===================================================== */
+function clamp(
+    value,
+    min,
+    max
+){
 
-function calculateDisplaySize(){
-
-    const workspace =
-        canvasStage.parentElement;
-
-    const maxWidth =
-        workspace.clientWidth -
-        40;
-
-    const maxHeight =
-        workspace.clientHeight -
-        40;
-
-    const widthRatio =
-        maxWidth /
-        naturalWidth;
-
-    const heightRatio =
-        maxHeight /
-        naturalHeight;
-
-    scale =
-        Math.min(
-            1,
-            widthRatio,
-            heightRatio
-        );
-
-    displayWidth =
+    return Math.min(
+        max,
         Math.max(
-            1,
-            Math.round(
-                naturalWidth *
-                scale
-            )
-        );
+            min,
+            value
+        )
+    );
 
-    displayHeight =
-        Math.max(
-            1,
-            Math.round(
-                naturalHeight *
-                scale
-            )
-        );
+}
 
-    imageCanvas.width =
-        displayWidth;
 
-    imageCanvas.height =
-        displayHeight;
+function getRatio(){
 
-    imageCanvas.style.width =
-        displayWidth + "px";
+    if(
+        selectedRatio === null
+    ){
 
-    imageCanvas.style.height =
-        displayHeight + "px";
+        return null;
+
+    }
+
+    return selectedRatio;
 
 }
 
 
 /* =====================================================
-   DRAW IMAGE
+   ЗАГРУЗКА ФОТО
 ===================================================== */
 
-function drawImage(){
+function loadPhoto(file){
 
-    if(!imageLoaded){
+    if(
+        !file ||
+        !file.type ||
+        !file.type.startsWith("image/")
+    ){
+
+        setStatus(
+            "Пожалуйста, выберите изображение."
+        );
+
+        return;
+
+    }
+
+
+    if(imageObjectUrl){
+
+        URL.revokeObjectURL(
+            imageObjectUrl
+        );
+
+        imageObjectUrl =
+            null;
+
+    }
+
+
+    const url =
+        URL.createObjectURL(file);
+
+    imageObjectUrl =
+        url;
+
+
+    const img =
+        new Image();
+
+
+    img.onload =
+        function(){
+
+            image =
+                img;
+
+            isCroppedResult =
+                false;
+
+            initializeCrop();
+
+            placeholder.style.display =
+                "none";
+
+            canvasStage.classList.add(
+                "visible"
+            );
+
+            imageInfo.innerHTML =
+                "<span>Исходный размер: " +
+                image.naturalWidth +
+                " × " +
+                image.naturalHeight +
+                " px</span>";
+
+            setStatus(
+                "Фото загружено. Выберите область для обрезки."
+            );
+
+            render();
+
+            updateButtons();
+
+        };
+
+
+    img.onerror =
+        function(){
+
+            image =
+                null;
+
+            setStatus(
+                "Не удалось загрузить фотографию."
+            );
+
+            updateButtons();
+
+        };
+
+
+    img.src =
+        url;
+
+}
+
+
+/* =====================================================
+   ИНИЦИАЛИЗАЦИЯ ОБЛАСТИ
+===================================================== */
+
+function initializeCrop(){
+
+    if(!image){
         return;
     }
+
+
+    const w =
+        image.naturalWidth;
+
+    const h =
+        image.naturalHeight;
+
+
+    if(
+        selectedRatio === null
+    ){
+
+        /*
+            Свободная область:
+            начинаем примерно с 85% изображения.
+        */
+
+        cropW =
+            w * 0.85;
+
+        cropH =
+            h * 0.85;
+
+    }else{
+
+        const ratio =
+            selectedRatio;
+
+
+        if(
+            w / h >= ratio
+        ){
+
+            cropH =
+                h * 0.85;
+
+            cropW =
+                cropH * ratio;
+
+        }else{
+
+            cropW =
+                w * 0.85;
+
+            cropH =
+                cropW / ratio;
+
+        }
+
+    }
+
+
+    cropW =
+        Math.min(
+            cropW,
+            w
+        );
+
+    cropH =
+        Math.min(
+            cropH,
+            h
+        );
+
+
+    cropX =
+        (w - cropW) / 2;
+
+    cropY =
+        (h - cropH) / 2;
+
+
+    ensureCropInsideImage();
+
+}
+
+
+/* =====================================================
+   ПРОВЕРКА ОБЛАСТИ
+===================================================== */
+
+function ensureCropInsideImage(){
+
+    if(!image){
+        return;
+    }
+
+
+    const w =
+        image.naturalWidth;
+
+    const h =
+        image.naturalHeight;
+
+
+    cropW =
+        clamp(
+            cropW,
+            MIN_CROP_SIZE,
+            w
+        );
+
+    cropH =
+        clamp(
+            cropH,
+            MIN_CROP_SIZE,
+            h
+        );
+
+
+    cropX =
+        clamp(
+            cropX,
+            0,
+            Math.max(
+                0,
+                w - cropW
+            )
+        );
+
+    cropY =
+        clamp(
+            cropY,
+            0,
+            Math.max(
+                0,
+                h - cropH
+            )
+        );
+
+}
+
+
+/* =====================================================
+   CANVAS
+===================================================== */
+
+function getDisplaySize(){
+
+    if(!image){
+        return null;
+    }
+
+
+    const workspace =
+        document.getElementById(
+            "workspace"
+        );
+
+
+    const availableWidth =
+        Math.max(
+            50,
+            workspace.clientWidth - 20
+        );
+
+    const availableHeight =
+        Math.max(
+            50,
+            workspace.clientHeight - 20
+        );
+
+
+    const imageW =
+        image.naturalWidth;
+
+    const imageH =
+        image.naturalHeight;
+
+
+    const scale =
+        Math.min(
+            availableWidth / imageW,
+            availableHeight / imageH,
+            1
+        );
+
+
+    return {
+
+        width:
+            Math.max(
+                1,
+                Math.round(
+                    imageW * scale
+                )
+            ),
+
+        height:
+            Math.max(
+                1,
+                Math.round(
+                    imageH * scale
+                )
+            )
+
+    };
+
+}
+
+
+function render(){
+
+    if(!image){
+        return;
+    }
+
+
+    const size =
+        getDisplaySize();
+
+
+    if(!size){
+        return;
+    }
+
+
+    imageCanvas.width =
+        size.width;
+
+    imageCanvas.height =
+        size.height;
+
+
+    imageCanvas.style.width =
+        size.width + "px";
+
+    imageCanvas.style.height =
+        size.height + "px";
+
+
+    canvasStage.style.width =
+        size.width + "px";
+
+    canvasStage.style.height =
+        size.height + "px";
+
 
     ctx.clearRect(
         0,
         0,
-        displayWidth,
-        displayHeight
+        size.width,
+        size.height
     );
+
 
     ctx.drawImage(
         image,
         0,
         0,
-        displayWidth,
-        displayHeight
+        size.width,
+        size.height
     );
 
-}
-
-
-/* =====================================================
-   INITIAL CROP
-===================================================== */
-
-function setInitialCrop(){
-
-    let width =
-        displayWidth;
-
-    let height =
-        displayHeight;
-
-    if(aspectRatio){
-
-        if(
-            width /
-            height >
-            aspectRatio
-        ){
-
-            width =
-                height *
-                aspectRatio;
-
-        }
-        else{
-
-            height =
-                width /
-                aspectRatio;
-
-        }
-
-    }
-    else{
-
-        width =
-            displayWidth *
-            .8;
-
-        height =
-            displayHeight *
-            .8;
-
-    }
-
-    crop.width =
-        Math.max(
-            MIN_CROP_SIZE,
-            width
-        );
-
-    crop.height =
-        Math.max(
-            MIN_CROP_SIZE,
-            height
-        );
-
-    crop.x =
-        (
-            displayWidth -
-            crop.width
-        ) /
-        2;
-
-    crop.y =
-        (
-            displayHeight -
-            crop.height
-        ) /
-        2;
 
     updateCropBox();
 
@@ -1636,225 +1564,162 @@ function setInitialCrop(){
 
 
 /* =====================================================
-   UPDATE CROP BOX
+   CROP BOX POSITION
 ===================================================== */
 
 function updateCropBox(){
 
-    crop.x =
-        clamp(
-            crop.x,
-            0,
-            displayWidth -
-            crop.width
-        );
+    if(!image){
+        return;
+    }
 
-    crop.y =
-        clamp(
-            crop.y,
-            0,
-            displayHeight -
-            crop.height
-        );
 
-    crop.width =
-        clamp(
-            crop.width,
-            MIN_CROP_SIZE,
-            displayWidth
-        );
+    const displayWidth =
+        imageCanvas.clientWidth;
 
-    crop.height =
-        clamp(
-            crop.height,
-            MIN_CROP_SIZE,
-            displayHeight
-        );
+    const displayHeight =
+        imageCanvas.clientHeight;
+
+
+    const scaleX =
+        displayWidth /
+        image.naturalWidth;
+
+    const scaleY =
+        displayHeight /
+        image.naturalHeight;
+
 
     cropBox.style.left =
-        crop.x + "px";
+        (cropX * scaleX) + "px";
 
     cropBox.style.top =
-        crop.y + "px";
+        (cropY * scaleY) + "px";
 
     cropBox.style.width =
-        crop.width + "px";
+        (cropW * scaleX) + "px";
 
     cropBox.style.height =
-        crop.height + "px";
-
-    cropSize.textContent =
-        "Область: " +
-        Math.round(crop.width / scale) +
-        " × " +
-        Math.round(crop.height / scale) +
-        " px";
+        (cropH * scaleY) + "px";
 
 }
 
 
 /* =====================================================
-   LOAD IMAGE
+   POINTER -> IMAGE COORDINATES
 ===================================================== */
 
-photoInput.addEventListener(
-    "change",
-    function(){
+function pointerToImage(
+    event
+){
 
-        const file =
-            photoInput.files &&
-            photoInput.files[0];
+    const rect =
+        imageCanvas.getBoundingClientRect();
 
-        if(!file){
-            return;
-        }
 
-        if(
-            !file.type ||
-            !file.type.startsWith("image/")
-        ){
+    const x =
+        event.clientX -
+        rect.left;
 
-            setStatus(
-                "Пожалуйста, выберите файл изображения."
-            );
+    const y =
+        event.clientY -
+        rect.top;
 
-            return;
 
-        }
+    const scaleX =
+        image.naturalWidth /
+        rect.width;
 
-        if(imageUrl){
+    const scaleY =
+        image.naturalHeight /
+        rect.height;
 
-            URL.revokeObjectURL(
-                imageUrl
-            );
 
-        }
+    return {
 
-        imageUrl =
-            URL.createObjectURL(
-                file
-            );
+        x:
+            x * scaleX,
 
-        image =
-            new Image();
+        y:
+            y * scaleY
 
-        image.onload =
-            function(){
+    };
 
-                naturalWidth =
-                    image.naturalWidth;
-
-                naturalHeight =
-                    image.naturalHeight;
-
-                imageLoaded =
-                    true;
-
-                calculateDisplaySize();
-
-                canvasStage.classList.add(
-                    "visible"
-                );
-
-                placeholder.style.display =
-                    "none";
-
-                drawImage();
-
-                setInitialCrop();
-
-                imageSize.textContent =
-                    "Размер: " +
-                    naturalWidth +
-                    " × " +
-                    naturalHeight +
-                    " px";
-
-                setStatus(
-                    "Фото загружено. Выберите область для обрезки."
-                );
-
-                updateButtons();
-
-            };
-
-        image.onerror =
-            function(){
-
-                imageLoaded =
-                    false;
-
-                setStatus(
-                    "Не удалось открыть изображение."
-                );
-
-                updateButtons();
-
-            };
-
-        image.src =
-            imageUrl;
-
-    }
-);
+}
 
 
 /* =====================================================
-   ASPECT RATIO
+   ПРОПОРЦИИ
 ===================================================== */
 
+function setAspectRatio(
+    ratio,
+    button
+){
+
+    selectedRatio =
+        ratio;
+
+
+    aspectButtons.forEach(
+        function(item){
+
+            item.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    if(image){
+
+        initializeCrop();
+
+        render();
+
+        setStatus(
+            ratio === null
+                ? "Свободная область обрезки."
+                : "Пропорции изменены."
+        );
+
+    }
+
+}
+
+
 aspectButtons.forEach(
-    button => {
+    function(button){
 
         button.addEventListener(
             "click",
             function(){
 
-                aspectButtons.forEach(
-                    item => {
-                        item.classList.remove(
-                            "active"
-                        );
-                    }
-                );
-
-                button.classList.add(
-                    "active"
-                );
-
                 const value =
-                    button.dataset.ratio;
+                    this.dataset.ratio;
 
-                if(value === "free"){
-
-                    aspectRatio =
-                        null;
-
-                }
-                else if(
-                    value.includes("/")
-                ){
-
-                    const parts =
-                        value.split("/");
-
-                    aspectRatio =
-                        Number(parts[0]) /
-                        Number(parts[1]);
-
-                }
-                else{
-
-                    aspectRatio =
-                        Number(value);
-
-                }
 
                 if(
-                    imageLoaded
+                    value === "free"
                 ){
 
-                    setInitialCrop();
+                    setAspectRatio(
+                        null,
+                        this
+                    );
+
+                }else{
+
+                    setAspectRatio(
+                        Number(value),
+                        this
+                    );
 
                 }
 
@@ -1866,31 +1731,7 @@ aspectButtons.forEach(
 
 
 /* =====================================================
-   POINTER POSITION
-===================================================== */
-
-function getPointerPosition(
-    event
-){
-
-    const rect =
-        imageCanvas.getBoundingClientRect();
-
-    return {
-        x:
-            event.clientX -
-            rect.left,
-
-        y:
-            event.clientY -
-            rect.top
-    };
-
-}
-
-
-/* =====================================================
-   START DRAG
+   НАЧАЛО ПЕРЕМЕЩЕНИЯ
 ===================================================== */
 
 cropBox.addEventListener(
@@ -1898,722 +1739,959 @@ cropBox.addEventListener(
     function(event){
 
         if(
+            !image ||
             event.target.classList.contains(
                 "handle"
             )
         ){
 
-            dragging =
-                true;
-
-            dragMode =
-                "resize";
-
-            dragHandle =
-                event.target.dataset.handle;
-
-        }
-        else{
-
-            dragging =
-                true;
-
-            dragMode =
-                "move";
-
-            dragHandle =
-                null;
-
+            return;
         }
 
-        startPointer =
-            getPointerPosition(
-                event
-            );
 
-        startCrop =
-            {
-                x:crop.x,
-                y:crop.y,
-                width:crop.width,
-                height:crop.height
-            };
+        event.preventDefault();
 
-        cropBox.setPointerCapture?.(
+
+        dragging =
+            true;
+
+        resizing =
+            false;
+
+        activeHandle =
+            null;
+
+
+        cropBox.setPointerCapture(
             event.pointerId
         );
 
-        event.preventDefault();
+
+        startPointer =
+            pointerToImage(
+                event
+            );
+
+
+        startCrop = {
+
+            x:
+                cropX,
+
+            y:
+                cropY,
+
+            w:
+                cropW,
+
+            h:
+                cropH
+
+        };
 
     }
 );
 
 
 /* =====================================================
-   DRAGGING
+   НАЧАЛО ИЗМЕНЕНИЯ РАЗМЕРА
+===================================================== */
+
+document.querySelectorAll(
+    ".handle"
+).forEach(
+    function(handle){
+
+        handle.addEventListener(
+            "pointerdown",
+            function(event){
+
+                if(!image){
+                    return;
+                }
+
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                resizing =
+                    true;
+
+                dragging =
+                    false;
+
+
+                activeHandle =
+                    this.dataset.handle;
+
+
+                cropBox.setPointerCapture(
+                    event.pointerId
+                );
+
+
+                startPointer =
+                    pointerToImage(
+                        event
+                    );
+
+
+                startCrop = {
+
+                    x:
+                        cropX,
+
+                    y:
+                        cropY,
+
+                    w:
+                        cropW,
+
+                    h:
+                        cropH
+
+                };
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   POINTER MOVE
 ===================================================== */
 
 cropBox.addEventListener(
     "pointermove",
     function(event){
 
-        if(!dragging){
+        if(
+            !image ||
+            (!dragging && !resizing)
+        ){
+
             return;
         }
 
-        const pointer =
-            getPointerPosition(
+
+        event.preventDefault();
+
+
+        const current =
+            pointerToImage(
                 event
             );
 
+
         const dx =
-            pointer.x -
+            current.x -
             startPointer.x;
 
         const dy =
-            pointer.y -
+            current.y -
             startPointer.y;
 
-        if(
-            dragMode ===
-            "move"
-        ){
 
-            crop.x =
-                clamp(
-                    startCrop.x + dx,
-                    0,
-                    displayWidth -
-                    crop.width
-                );
+        if(dragging){
 
-            crop.y =
-                clamp(
-                    startCrop.y + dy,
-                    0,
-                    displayHeight -
-                    crop.height
-                );
+            cropX =
+                startCrop.x +
+                dx;
+
+            cropY =
+                startCrop.y +
+                dy;
+
+
+            ensureCropInsideImage();
 
             updateCropBox();
 
-            event.preventDefault();
-
             return;
-        }
-
-
-        let left =
-            startCrop.x;
-
-        let top =
-            startCrop.y;
-
-        let right =
-            startCrop.x +
-            startCrop.width;
-
-        let bottom =
-            startCrop.y +
-            startCrop.height;
-
-
-        if(
-            dragHandle ===
-            "nw"
-        ){
-
-            left += dx;
-            top += dy;
-
-        }
-
-        else if(
-            dragHandle ===
-            "ne"
-        ){
-
-            right += dx;
-            top += dy;
-
-        }
-
-        else if(
-            dragHandle ===
-            "sw"
-        ){
-
-            left += dx;
-            bottom += dy;
-
-        }
-
-        else if(
-            dragHandle ===
-            "se"
-        ){
-
-            right += dx;
-            bottom += dy;
 
         }
 
 
-        if(aspectRatio){
+        if(resizing){
 
-            if(
-                dragHandle === "nw" ||
-                dragHandle === "sw"
-            ){
-
-                const width =
-                    right -
-                    left;
-
-                const newHeight =
-                    width /
-                    aspectRatio;
-
-                if(
-                    dragHandle ===
-                    "nw"
-                ){
-
-                    top =
-                        bottom -
-                        newHeight;
-
-                }
-                else{
-
-                    bottom =
-                        top +
-                        newHeight;
-
-                }
-
-            }
-            else{
-
-                const width =
-                    right -
-                    left;
-
-                const newHeight =
-                    width /
-                    aspectRatio;
-
-                if(
-                    dragHandle ===
-                    "ne"
-                ){
-
-                    top =
-                        bottom -
-                        newHeight;
-
-                }
-                else{
-
-                    bottom =
-                        top +
-                        newHeight;
-
-                }
-
-            }
-
-        }
-
-
-        left =
-            Math.max(
-                0,
-                left
+            resizeCrop(
+                dx,
+                dy
             );
 
-        top =
-            Math.max(
-                0,
-                top
-            );
-
-        right =
-            Math.min(
-                displayWidth,
-                right
-            );
-
-        bottom =
-            Math.min(
-                displayHeight,
-                bottom
-            );
-
-
-        if(
-            right -
-            left <
-            MIN_CROP_SIZE
-        ){
-
-            if(
-                dragHandle ===
-                "nw" ||
-                dragHandle ===
-                "sw"
-            ){
-
-                left =
-                    right -
-                    MIN_CROP_SIZE;
-
-            }
-            else{
-
-                right =
-                    left +
-                    MIN_CROP_SIZE;
-
-            }
+            updateCropBox();
 
         }
-
-
-        if(
-            bottom -
-            top <
-            MIN_CROP_SIZE
-        ){
-
-            if(
-                dragHandle ===
-                "nw" ||
-                dragHandle ===
-                "ne"
-            ){
-
-                top =
-                    bottom -
-                    MIN_CROP_SIZE;
-
-            }
-            else{
-
-                bottom =
-                    top +
-                    MIN_CROP_SIZE;
-
-            }
-
-        }
-
-
-        if(
-            aspectRatio
-        ){
-
-            const currentWidth =
-                right -
-                left;
-
-            const currentHeight =
-                bottom -
-                top;
-
-            const targetHeight =
-                currentWidth /
-                aspectRatio;
-
-            if(
-                targetHeight <=
-                displayHeight -
-                top
-            ){
-
-                if(
-                    dragHandle === "nw" ||
-                    dragHandle === "ne"
-                ){
-
-                    top =
-                        bottom -
-                        targetHeight;
-
-                }
-                else{
-
-                    bottom =
-                        top +
-                        targetHeight;
-
-                }
-
-            }
-            else{
-
-                const targetWidth =
-                    currentHeight *
-                    aspectRatio;
-
-                if(
-                    dragHandle === "nw" ||
-                    dragHandle === "sw"
-                ){
-
-                    left =
-                        right -
-                        targetWidth;
-
-                }
-                else{
-
-                    right =
-                        left +
-                        targetWidth;
-
-                }
-
-            }
-
-        }
-
-
-        crop.x =
-            clamp(
-                left,
-                0,
-                displayWidth -
-                MIN_CROP_SIZE
-            );
-
-        crop.y =
-            clamp(
-                top,
-                0,
-                displayHeight -
-                MIN_CROP_SIZE
-            );
-
-        crop.width =
-            Math.max(
-                MIN_CROP_SIZE,
-                right -
-                left
-            );
-
-        crop.height =
-            Math.max(
-                MIN_CROP_SIZE,
-                bottom -
-                top
-            );
-
-
-        if(
-            crop.x +
-            crop.width >
-            displayWidth
-        ){
-
-            crop.width =
-                displayWidth -
-                crop.x;
-
-        }
-
-        if(
-            crop.y +
-            crop.height >
-            displayHeight
-        ){
-
-            crop.height =
-                displayHeight -
-                crop.y;
-
-        }
-
-
-        updateCropBox();
-
-        event.preventDefault();
 
     }
 );
 
 
 /* =====================================================
-   STOP DRAG
+   ЗАВЕРШЕНИЕ POINTER
 ===================================================== */
 
-function stopDragging(
-    event
-){
+function stopPointerAction(){
 
     dragging =
         false;
 
-    try{
+    resizing =
+        false;
 
-        cropBox.releasePointerCapture?.(
-            event.pointerId
-        );
-
-    }
-    catch(error){}
+    activeHandle =
+        null;
 
 }
 
+
 cropBox.addEventListener(
     "pointerup",
-    stopDragging
+    stopPointerAction
 );
 
 cropBox.addEventListener(
     "pointercancel",
-    stopDragging
+    stopPointerAction
 );
 
 
 /* =====================================================
-   APPLY CROP
+   ИЗМЕНЕНИЕ РАЗМЕРА ОБЛАСТИ
 ===================================================== */
 
-function applyCrop(){
+function resizeCrop(
+    dx,
+    dy
+){
 
-    if(!imageLoaded){
+    if(!image){
         return;
     }
 
-    const sourceX =
-        Math.round(
-            crop.x /
-            scale
-        );
 
-    const sourceY =
-        Math.round(
-            crop.y /
-            scale
-        );
+    const imageW =
+        image.naturalWidth;
 
-    const sourceWidth =
-        Math.round(
-            crop.width /
-            scale
-        );
+    const imageH =
+        image.naturalHeight;
 
-    const sourceHeight =
-        Math.round(
-            crop.height /
-            scale
-        );
 
-    if(
-        sourceWidth <= 0 ||
-        sourceHeight <= 0
-    ){
+    const ratio =
+        getRatio();
 
-        setStatus(
-            "Не удалось создать область обрезки."
-        );
 
-        return;
+    let x =
+        startCrop.x;
+
+    let y =
+        startCrop.y;
+
+    let w =
+        startCrop.w;
+
+    let h =
+        startCrop.h;
+
+
+    /*
+        Свободная область
+    */
+
+    if(ratio === null){
+
+        if(
+            activeHandle === "se"
+        ){
+
+            w =
+                startCrop.w +
+                dx;
+
+            h =
+                startCrop.h +
+                dy;
+
+        }
+
+        else if(
+            activeHandle === "sw"
+        ){
+
+            x =
+                startCrop.x +
+                dx;
+
+            w =
+                startCrop.w -
+                dx;
+
+            h =
+                startCrop.h +
+                dy;
+
+        }
+
+        else if(
+            activeHandle === "ne"
+        ){
+
+            y =
+                startCrop.y +
+                dy;
+
+            w =
+                startCrop.w +
+                dx;
+
+            h =
+                startCrop.h -
+                dy;
+
+        }
+
+        else if(
+            activeHandle === "nw"
+        ){
+
+            x =
+                startCrop.x +
+                dx;
+
+            y =
+                startCrop.y +
+                dy;
+
+            w =
+                startCrop.w -
+                dx;
+
+            h =
+                startCrop.h -
+                dy;
+
+        }
+
+
+        if(
+            w < MIN_CROP_SIZE
+        ){
+
+            if(
+                activeHandle === "nw" ||
+                activeHandle === "sw"
+            ){
+
+                x =
+                    startCrop.x +
+                    startCrop.w -
+                    MIN_CROP_SIZE;
+
+            }
+
+            w =
+                MIN_CROP_SIZE;
+
+        }
+
+
+        if(
+            h < MIN_CROP_SIZE
+        ){
+
+            if(
+                activeHandle === "nw" ||
+                activeHandle === "ne"
+            ){
+
+                y =
+                    startCrop.y +
+                    startCrop.h -
+                    MIN_CROP_SIZE;
+
+            }
+
+            h =
+                MIN_CROP_SIZE;
+
+        }
+
+
+        if(
+            x < 0
+        ){
+
+            w += x;
+            x = 0;
+
+        }
+
+
+        if(
+            y < 0
+        ){
+
+            h += y;
+            y = 0;
+
+        }
+
+
+        if(
+            x + w > imageW
+        ){
+
+            w =
+                imageW - x;
+
+        }
+
+
+        if(
+            y + h > imageH
+        ){
+
+            h =
+                imageH - y;
+
+        }
 
     }
 
-    const resultCanvas =
-        document.createElement(
-            "canvas"
-        );
+    /*
+        Фиксированная пропорция
+    */
 
-    resultCanvas.width =
-        sourceWidth;
+    else{
 
-    resultCanvas.height =
-        sourceHeight;
-
-    const resultContext =
-        resultCanvas.getContext(
-            "2d"
-        );
-
-    resultContext.drawImage(
-        image,
-        sourceX,
-        sourceY,
-        sourceWidth,
-        sourceHeight,
-        0,
-        0,
-        sourceWidth,
-        sourceHeight
-    );
+        let anchorX;
+        let anchorY;
 
 
-    imageCanvas.width =
-        sourceWidth;
+        if(
+            activeHandle === "se"
+        ){
 
-    imageCanvas.height =
-        sourceHeight;
+            anchorX =
+                startCrop.x;
 
-    imageCanvas.style.width =
-        Math.min(
-            sourceWidth,
-            displayWidth
-        ) + "px";
+            anchorY =
+                startCrop.y;
 
-    imageCanvas.style.height =
-        Math.min(
-            sourceHeight,
-            displayHeight
-        ) + "px";
+            const requestedW =
+                Math.max(
+                    MIN_CROP_SIZE,
+                    startCrop.w + dx
+                );
 
-    ctx.clearRect(
-        0,
-        0,
-        sourceWidth,
-        sourceHeight
-    );
+            const requestedH =
+                requestedW / ratio;
 
-    ctx.drawImage(
-        resultCanvas,
-        0,
-        0
-    );
+            w =
+                requestedW;
+
+            h =
+                requestedH;
+
+            x =
+                anchorX;
+
+            y =
+                anchorY;
+
+        }
+
+        else if(
+            activeHandle === "sw"
+        ){
+
+            anchorX =
+                startCrop.x +
+                startCrop.w;
+
+            anchorY =
+                startCrop.y;
+
+            const requestedW =
+                Math.max(
+                    MIN_CROP_SIZE,
+                    startCrop.w - dx
+                );
+
+            const requestedH =
+                requestedW / ratio;
+
+            w =
+                requestedW;
+
+            h =
+                requestedH;
+
+            x =
+                anchorX - w;
+
+            y =
+                anchorY;
+
+        }
+
+        else if(
+            activeHandle === "ne"
+        ){
+
+            anchorX =
+                startCrop.x;
+
+            anchorY =
+                startCrop.y +
+                startCrop.h;
+
+            const requestedW =
+                Math.max(
+                    MIN_CROP_SIZE,
+                    startCrop.w + dx
+                );
+
+            const requestedH =
+                requestedW / ratio;
+
+            w =
+                requestedW;
+
+            h =
+                requestedH;
+
+            x =
+                anchorX;
+
+            y =
+                anchorY - h;
+
+        }
+
+        else if(
+            activeHandle === "nw"
+        ){
+
+            anchorX =
+                startCrop.x +
+                startCrop.w;
+
+            anchorY =
+                startCrop.y +
+                startCrop.h;
+
+            const requestedW =
+                Math.max(
+                    MIN_CROP_SIZE,
+                    startCrop.w - dx
+                );
+
+            const requestedH =
+                requestedW / ratio;
+
+            w =
+                requestedW;
+
+            h =
+                requestedH;
+
+            x =
+                anchorX - w;
+
+            y =
+                anchorY - h;
+
+        }
 
 
-    naturalWidth =
-        sourceWidth;
+        /*
+            Подгоняем область под границы изображения.
+        */
 
-    naturalHeight =
-        sourceHeight;
+        if(
+            x < 0
+        ){
 
-    displayWidth =
-        Math.min(
-            sourceWidth,
-            displayWidth
-        );
+            x = 0;
 
-    displayHeight =
-        Math.min(
-            sourceHeight,
-            displayHeight
-        );
+            w =
+                Math.min(
+                    w,
+                    imageW
+                );
 
-    scale =
-        displayWidth /
-        sourceWidth;
+            h =
+                w / ratio;
+
+        }
 
 
-    image =
-        new Image();
+        if(
+            y < 0
+        ){
 
-    image.onload =
-        function(){
+            y = 0;
 
-            setInitialCrop();
+            h =
+                Math.min(
+                    h,
+                    imageH
+                );
 
-            setStatus(
-                "Фото обрезано."
-            );
+            w =
+                h * ratio;
 
-        };
+        }
 
-    image.src =
-        resultCanvas.toDataURL(
-            "image/png"
-        );
 
-    imageSize.textContent =
-        "Размер: " +
-        sourceWidth +
-        " × " +
-        sourceHeight +
-        " px";
+        if(
+            x + w > imageW
+        ){
 
-    updateButtons();
+            w =
+                imageW - x;
+
+            h =
+                w / ratio;
+
+        }
+
+
+        if(
+            y + h > imageH
+        ){
+
+            h =
+                imageH - y;
+
+            w =
+                h * ratio;
+
+        }
+
+
+        /*
+            Финальная защита.
+        */
+
+        if(
+            w < MIN_CROP_SIZE ||
+            h < MIN_CROP_SIZE
+        ){
+
+            return;
+
+        }
+
+    }
+
+
+    cropX =
+        x;
+
+    cropY =
+        y;
+
+    cropW =
+        w;
+
+    cropH =
+        h;
+
+
+    ensureCropInsideImage();
 
 }
 
 
 /* =====================================================
-   APPLY BUTTONS
+   СБРОС ОБЛАСТИ
 ===================================================== */
 
-applyCropButton.addEventListener(
+resetButton.addEventListener(
     "click",
-    applyCrop
-);
+    function(){
 
-applyCropButtonBottom.addEventListener(
-    "click",
-    applyCrop
+        if(!image){
+            return;
+        }
+
+
+        initializeCrop();
+
+        render();
+
+        setStatus(
+            "Область обрезки сброшена."
+        );
+
+    }
 );
 
 
 /* =====================================================
-   DOWNLOAD
+   ОБРЕЗКА
 ===================================================== */
 
-function downloadImage(){
+cropButton.addEventListener(
+    "click",
+    function(){
 
-    if(!imageLoaded){
-        return;
+        if(
+            !image ||
+            cropW <= 0 ||
+            cropH <= 0
+        ){
+
+            return;
+        }
+
+
+        try{
+
+            const outputW =
+                Math.max(
+                    1,
+                    Math.round(cropW)
+                );
+
+            const outputH =
+                Math.max(
+                    1,
+                    Math.round(cropH)
+                );
+
+
+            if(
+                outputW * outputH >
+                MAX_PIXELS
+            ){
+
+                const scale =
+                    Math.sqrt(
+                        MAX_PIXELS /
+                        (outputW * outputH)
+                    );
+
+
+                const safeW =
+                    Math.max(
+                        1,
+                        Math.floor(
+                            outputW * scale
+                        )
+                    );
+
+                const safeH =
+                    Math.max(
+                        1,
+                        Math.floor(
+                            outputH * scale
+                        )
+                    );
+
+
+                const resultCanvas =
+                    document.createElement(
+                        "canvas"
+                    );
+
+
+                resultCanvas.width =
+                    safeW;
+
+                resultCanvas.height =
+                    safeH;
+
+
+                const resultCtx =
+                    resultCanvas.getContext(
+                        "2d"
+                    );
+
+
+                resultCtx.drawImage(
+                    image,
+                    cropX,
+                    cropY,
+                    cropW,
+                    cropH,
+                    0,
+                    0,
+                    safeW,
+                    safeH
+                );
+
+
+                replaceImageFromCanvas(
+                    resultCanvas
+                );
+
+
+                return;
+
+            }
+
+
+            const resultCanvas =
+                document.createElement(
+                    "canvas"
+                );
+
+
+            resultCanvas.width =
+                outputW;
+
+            resultCanvas.height =
+                outputH;
+
+
+            const resultCtx =
+                resultCanvas.getContext(
+                    "2d"
+                );
+
+
+            resultCtx.drawImage(
+                image,
+                cropX,
+                cropY,
+                cropW,
+                cropH,
+                0,
+                0,
+                outputW,
+                outputH
+            );
+
+
+            replaceImageFromCanvas(
+                resultCanvas
+            );
+
+        }catch(error){
+
+            console.error(
+                error
+            );
+
+            setStatus(
+                "Не удалось обрезать изображение."
+            );
+
+        }
+
     }
+);
 
-    imageCanvas.toBlob(
+
+/* =====================================================
+   ПРЕОБРАЗОВАНИЕ CANVAS В IMAGE
+===================================================== */
+
+function replaceImageFromCanvas(
+    sourceCanvas
+){
+
+    sourceCanvas.toBlob(
         function(blob){
 
             if(!blob){
 
                 setStatus(
-                    "Не удалось подготовить PNG."
+                    "Не удалось подготовить результат."
                 );
 
                 return;
 
             }
 
+
+            if(imageObjectUrl){
+
+                URL.revokeObjectURL(
+                    imageObjectUrl
+                );
+
+                imageObjectUrl =
+                    null;
+
+            }
+
+
             const url =
                 URL.createObjectURL(
                     blob
                 );
 
-            const link =
-                document.createElement(
-                    "a"
-                );
-
-            link.href =
+            imageObjectUrl =
                 url;
 
-            link.download =
-                "cropped-photo.png";
 
-            document.body.appendChild(
-                link
-            );
+            const img =
+                new Image();
 
-            link.click();
 
-            link.remove();
-
-            setTimeout(
+            img.onload =
                 function(){
 
-                    URL.revokeObjectURL(
-                        url
+                    image =
+                        img;
+
+                    isCroppedResult =
+                        true;
+
+
+                    cropX =
+                        0;
+
+                    cropY =
+                        0;
+
+                    cropW =
+                        image.naturalWidth;
+
+                    cropH =
+                        image.naturalHeight;
+
+
+                    imageInfo.innerHTML =
+                        "<span>Размер результата: " +
+                        image.naturalWidth +
+                        " × " +
+                        image.naturalHeight +
+                        " px</span>";
+
+
+                    setStatus(
+                        "Фото обрезано."
                     );
 
-                },
-                1000
-            );
 
-            setStatus(
-                "PNG готов к сохранению."
-            );
+                    render();
+
+                    updateButtons();
+
+                };
+
+
+            img.onerror =
+                function(){
+
+                    setStatus(
+                        "Не удалось открыть результат обрезки."
+                    );
+
+                };
+
+
+            img.src =
+                url;
 
         },
         "image/png"
@@ -2621,131 +2699,151 @@ function downloadImage(){
 
 }
 
+
+/* =====================================================
+   СКАЧИВАНИЕ
+===================================================== */
+
 downloadButton.addEventListener(
     "click",
-    downloadImage
-);
-
-downloadButtonBottom.addEventListener(
-    "click",
-    downloadImage
-);
-
-
-/* =====================================================
-   RESET
-===================================================== */
-
-function resetCrop(){
-
-    if(!imageLoaded){
-        return;
-    }
-
-    calculateDisplaySize();
-
-    drawImage();
-
-    setInitialCrop();
-
-    setStatus(
-        "Обрезка сброшена."
-    );
-
-}
-
-resetButton.addEventListener(
-    "click",
-    resetCrop
-);
-
-resetButtonBottom.addEventListener(
-    "click",
-    resetCrop
-);
-
-
-/* =====================================================
-   NEW PHOTO
-===================================================== */
-
-function newPhoto(){
-
-    if(imageUrl){
-
-        URL.revokeObjectURL(
-            imageUrl
-        );
-
-    }
-
-    imageUrl =
-        null;
-
-    imageLoaded =
-        false;
-
-    image =
-        new Image();
-
-    photoInput.value =
-        "";
-
-    imageCanvas.width =
-        1;
-
-    imageCanvas.height =
-        1;
-
-    canvasStage.classList.remove(
-        "visible"
-    );
-
-    placeholder.style.display =
-        "flex";
-
-    imageSize.textContent =
-        "Размер: —";
-
-    cropSize.textContent =
-        "Область: —";
-
-    setStatus(
-        "Загрузите новую фотографию."
-    );
-
-    updateButtons();
-
-}
-
-newButton.addEventListener(
-    "click",
-    newPhoto
-);
-
-newButtonBottom.addEventListener(
-    "click",
-    newPhoto
-);
-
-
-/* =====================================================
-   RESIZE
-===================================================== */
-
-window.addEventListener(
-    "resize",
     function(){
 
         if(
-            imageLoaded
+            !image ||
+            cropW <= 0 ||
+            cropH <= 0
         ){
 
-            calculateDisplaySize();
+            return;
 
-            drawImage();
+        }
 
-            setInitialCrop();
+
+        try{
+
+            const exportCanvas =
+                document.createElement(
+                    "canvas"
+                );
+
+
+            const exportW =
+                Math.max(
+                    1,
+                    Math.round(cropW)
+                );
+
+            const exportH =
+                Math.max(
+                    1,
+                    Math.round(cropH)
+                );
+
+
+            exportCanvas.width =
+                exportW;
+
+            exportCanvas.height =
+                exportH;
+
+
+            const exportCtx =
+                exportCanvas.getContext(
+                    "2d"
+                );
+
+
+            exportCtx.drawImage(
+                image,
+                cropX,
+                cropY,
+                cropW,
+                cropH,
+                0,
+                0,
+                exportW,
+                exportH
+            );
+
+
+            setStatus(
+                "Подготовка PNG..."
+            );
+
+
+            exportCanvas.toBlob(
+                function(blob){
+
+                    if(!blob){
+
+                        setStatus(
+                            "Не удалось подготовить PNG."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const url =
+                        URL.createObjectURL(
+                            blob
+                        );
+
+
+                    const link =
+                        document.createElement(
+                            "a"
+                        );
+
+
+                    link.href =
+                        url;
+
+                    link.download =
+                        "cropped-photo.png";
+
+
+                    document.body.appendChild(
+                        link
+                    );
+
+
+                    link.click();
+
+
+                    link.remove();
+
+
+                    setTimeout(
+                        function(){
+
+                            URL.revokeObjectURL(
+                                url
+                            );
+
+                        },
+                        1000
+                    );
+
+
+                    setStatus(
+                        "PNG подготовлен для сохранения."
+                    );
+
+                },
+                "image/png"
+            );
+
+        }catch(error){
+
+            console.error(
+                error
+            );
+
+            setStatus(
+                "Не удалось сохранить изображение."
+            );
 
         }
 
@@ -2754,7 +2852,68 @@ window.addEventListener(
 
 
 /* =====================================================
-   INITIAL
+   НОВОЕ ФОТО
+===================================================== */
+
+newPhotoButton.addEventListener(
+    "click",
+    function(){
+
+        photoInput.value =
+            "";
+
+        photoInput.click();
+
+    }
+);
+
+
+/* =====================================================
+   ЗАГРУЗКА
+===================================================== */
+
+photoInput.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            this.files &&
+            this.files[0];
+
+
+        if(!file){
+            return;
+        }
+
+
+        loadPhoto(
+            file
+        );
+
+    }
+);
+
+
+/* =====================================================
+   RESIZE ОКНА
+===================================================== */
+
+window.addEventListener(
+    "resize",
+    function(){
+
+        if(image){
+
+            render();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   НАЧАЛЬНОЕ СОСТОЯНИЕ
 ===================================================== */
 
 updateButtons();
@@ -2764,4 +2923,3 @@ updateButtons();
 </body>
 
 </html>
-```

@@ -1,25 +1,28 @@
-```html
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
 
 <meta charset="UTF-8">
 
 <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+name="viewport"
+content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+
 >
 
 <title>Повернуть фото онлайн — бесплатно | Фото + эффект</title>
 
 <meta
-    name="description"
-    content="Бесплатный онлайн-инструмент для поворота и отражения фотографий. Поверните фото на 90° или 180°, отразите по горизонтали или вертикали и скачайте результат в PNG."
+name="description"
+content="Бесплатный онлайн-инструмент для поворота и отражения фотографий. Поверните фото на 90° или 180°, отразите по горизонтали или вертикали и скачайте результат в PNG."
+
 >
 
 <meta
-    name="robots"
-    content="index, follow"
+name="robots"
+content="index, follow"
+
 >
 
 <link
@@ -28,60 +31,64 @@
 >
 
 <meta
-    name="theme-color"
-    content="#0b0d12"
->
+name="theme-color"
+content="#0b0d12"
 
-<!-- Open Graph -->
-
-<meta
-    property="og:type"
-    content="website"
 >
 
 <meta
-    property="og:locale"
-    content="ru_RU"
+property="og:type"
+content="website"
+
 >
 
 <meta
-    property="og:site_name"
-    content="Фото + эффект"
+property="og:locale"
+content="ru_RU"
+
 >
 
 <meta
-    property="og:title"
-    content="Повернуть фото онлайн — бесплатно"
+property="og:site_name"
+content="Фото + эффект"
+
 >
 
 <meta
-    property="og:description"
-    content="Поверните фотографию на 90° или 180°, отразите её по горизонтали или вертикали и скачайте готовый результат в PNG."
+property="og:title"
+content="Повернуть фото онлайн — бесплатно"
+
 >
 
 <meta
-    property="og:url"
-    content="https://alexerrove-dotcom.github.io/photo-effect/rotate/"
->
+property="og:description"
+content="Поверните фотографию на 90° или 180°, отразите её по горизонтали или вертикали и скачайте готовый результат в PNG."
 
-<!-- Twitter -->
-
-<meta
-    name="twitter:card"
-    content="summary"
 >
 
 <meta
-    name="twitter:title"
-    content="Повернуть фото онлайн — бесплатно"
+property="og:url"
+content="https://alexerrove-dotcom.github.io/photo-effect/rotate/"
+
 >
 
 <meta
-    name="twitter:description"
-    content="Бесплатный онлайн-инструмент для поворота и отражения фотографий прямо в браузере."
+name="twitter:card"
+content="summary"
+
 >
 
-<!-- Structured data -->
+<meta
+name="twitter:title"
+content="Повернуть фото онлайн — бесплатно"
+
+>
+
+<meta
+name="twitter:description"
+content="Бесплатный онлайн-инструмент для поворота и отражения фотографий прямо в браузере."
+
+>
 
 <script type="application/ld+json">
 {
@@ -281,12 +288,15 @@ input[type="file"]{
     display:flex;
     align-items:center;
     justify-content:center;
+
     background:
         linear-gradient(45deg,#151a22 25%,transparent 25%),
         linear-gradient(-45deg,#151a22 25%,transparent 25%),
         linear-gradient(45deg,transparent 75%,#151a22 75%),
         linear-gradient(-45deg,transparent 75%,#151a22 75%);
+
     background-size:24px 24px;
+
     background-position:
         0 0,
         0 12px,
@@ -504,6 +514,7 @@ footer{
 }
 
 </style>
+
 </head>
 
 <body>
@@ -513,11 +524,12 @@ footer{
 <div class="nav">
 
 <a
-    href="../"
-    class="logo"
+href="../"
+class="logo"
+
 >
-Фото + эффект
-</a>
+
+Фото + эффект </a>
 
 <nav class="navLinks">
 
@@ -587,39 +599,44 @@ FAQ
 <div class="toolbar">
 
 <a
-    href="../"
-    class="fileLabel primary"
+href="../"
+class="fileLabel primary"
+
 >
-Загрузить фото
-</a>
+
+Загрузить фото </a>
 
 <a
-    href="../crop/"
-    class="fileLabel"
+href="../crop/"
+class="fileLabel"
+
 >
-Обрезать фото
-</a>
+
+Обрезать фото </a>
 
 <a
-    href="../resize/"
-    class="fileLabel"
+href="../resize/"
+class="fileLabel"
+
 >
-Изменить размер
-</a>
+
+Изменить размер </a>
 
 <a
-    href="./"
-    class="fileLabel"
+href="./"
+class="fileLabel"
+
 >
-Повернуть фото
-</a>
+
+Повернуть фото </a>
 
 <a
-    href="../remove-background/"
-    class="fileLabel"
+href="../remove-background/"
+class="fileLabel"
+
 >
-Удалить фон
-</a>
+
+Удалить фон </a>
 
 </div>
 
@@ -630,98 +647,110 @@ FAQ
 Загрузить фото в редактор
 
 <input
-    id="fileInput"
-    type="file"
-    accept="image/*"
+id="fileInput"
+type="file"
+accept="image/*"
+
 >
 
 </label>
 
 <button
-    id="leftBtn"
-    class="button"
-    type="button"
+id="leftBtn"
+class="button"
+type="button"
+
 >
-↶ 90° влево
-</button>
+
+↶ 90° влево </button>
 
 <button
-    id="rightBtn"
-    class="button"
-    type="button"
+id="rightBtn"
+class="button"
+type="button"
+
 >
-↷ 90° вправо
-</button>
+
+↷ 90° вправо </button>
 
 <button
-    id="rotate180Btn"
-    class="button"
-    type="button"
+id="rotate180Btn"
+class="button"
+type="button"
+
 >
-↻ 180°
-</button>
+
+↻ 180° </button>
 
 <button
-    id="flipHBtn"
-    class="button"
-    type="button"
+id="flipHBtn"
+class="button"
+type="button"
+
 >
-↔ Отразить
-</button>
+
+↔ Отразить </button>
 
 <button
-    id="flipVBtn"
-    class="button"
-    type="button"
+id="flipVBtn"
+class="button"
+type="button"
+
 >
-↕ Перевернуть
-</button>
+
+↕ Перевернуть </button>
 
 <button
-    id="downloadBtn"
-    class="button download"
-    type="button"
-    disabled
+id="downloadBtn"
+class="button download"
+type="button"
+disabled
+
 >
-Скачать PNG
-</button>
+
+Скачать PNG </button>
 
 <button
-    id="newBtn"
-    class="button"
-    type="button"
+id="newBtn"
+class="button"
+type="button"
+
 >
-Новое фото
-</button>
+
+Новое фото </button>
 
 <button
-    id="resetBtn"
-    class="button danger"
-    type="button"
-    disabled
+id="resetBtn"
+class="button danger"
+type="button"
+disabled
+
 >
-Сбросить
-</button>
+
+Сбросить </button>
 
 </div>
 
 <div class="workspace">
 
 <canvas
-    id="canvas"
-    style="display:none"
-></canvas>
+id="canvas"
+style="display:none"
+
+> </canvas>
 
 <div
     id="empty"
     class="empty"
 >
+
 <strong>
 Загрузите фотографию
 </strong>
 
 Затем используйте кнопки поворота
 или отражения для изменения изображения.
+
 </div>
 
 </div>
@@ -847,9 +876,11 @@ window.yaContextCb.push(() => {
 <div class="toolsGrid">
 
 <a
-    href="../"
-    class="toolCard"
+href="../"
+class="toolCard"
+
 >
+
 <h3>
 Фото + эффект
 </h3>
@@ -861,9 +892,11 @@ window.yaContextCb.push(() => {
 </a>
 
 <a
-    href="../crop/"
-    class="toolCard"
+href="../crop/"
+class="toolCard"
+
 >
+
 <h3>
 Обрезка фото
 </h3>
@@ -875,9 +908,11 @@ window.yaContextCb.push(() => {
 </a>
 
 <a
-    href="../resize/"
-    class="toolCard"
+href="../resize/"
+class="toolCard"
+
 >
+
 <h3>
 Изменить размер
 </h3>
@@ -889,9 +924,11 @@ window.yaContextCb.push(() => {
 </a>
 
 <a
-    href="./"
-    class="toolCard"
+href="./"
+class="toolCard"
+
 >
+
 <h3>
 Повернуть фото
 </h3>
@@ -903,9 +940,11 @@ window.yaContextCb.push(() => {
 </a>
 
 <a
-    href="../remove-background/"
-    class="toolCard"
+href="../remove-background/"
+class="toolCard"
+
 >
+
 <h3>
 Удалить фон
 </h3>
@@ -1604,4 +1643,3 @@ updateButtons();
 
 </body>
 </html>
-```

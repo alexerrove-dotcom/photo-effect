@@ -1,6 +1,5 @@
 ```html
 <!DOCTYPE html>
-
 <html lang="ru">
 
 <head>
@@ -12,17 +11,92 @@
     content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
 >
 
-<title>Изменить размер фото онлайн — бесплатно</title>
+<title>Изменить размер фото онлайн — бесплатно | Фото + эффект</title>
 
 <meta
     name="description"
-    content="Бесплатно изменяйте размер фотографий онлайн. Укажите ширину и высоту, сохраните пропорции и скачайте готовое изображение в PNG."
+    content="Бесплатно изменяйте размер фотографий онлайн. Укажите ширину и высоту, сохраните пропорции и скачайте готовое изображение в PNG прямо из браузера."
 >
 
 <meta
     name="robots"
-    content="index,follow"
+    content="index, follow"
 >
+
+<link
+    rel="canonical"
+    href="https://alexerrove-dotcom.github.io/photo-effect/resize/"
+>
+
+<meta
+    name="theme-color"
+    content="#0b0d12"
+>
+
+<!-- Open Graph -->
+
+<meta
+    property="og:type"
+    content="website"
+>
+
+<meta
+    property="og:locale"
+    content="ru_RU"
+>
+
+<meta
+    property="og:site_name"
+    content="Фото + эффект"
+>
+
+<meta
+    property="og:title"
+    content="Изменить размер фото онлайн — бесплатно"
+>
+
+<meta
+    property="og:description"
+    content="Измените ширину и высоту фотографии онлайн, сохраните пропорции и скачайте результат в PNG."
+>
+
+<meta
+    property="og:url"
+    content="https://alexerrove-dotcom.github.io/photo-effect/resize/"
+>
+
+<!-- Twitter -->
+
+<meta
+    name="twitter:card"
+    content="summary"
+>
+
+<meta
+    name="twitter:title"
+    content="Изменить размер фото онлайн — бесплатно"
+>
+
+<meta
+    name="twitter:description"
+    content="Бесплатный онлайн-инструмент для изменения размера фотографий с сохранением пропорций."
+>
+
+<!-- Structured data -->
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Изменить размер фото онлайн",
+    "url": "https://alexerrove-dotcom.github.io/photo-effect/resize/",
+    "description": "Бесплатный онлайн-инструмент для изменения ширины и высоты фотографий с сохранением пропорций и сохранением результата в PNG.",
+    "applicationCategory": "PhotoApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "isAccessibleForFree": true
+}
+</script>
 
 <script>
 window.yaContextCb = window.yaContextCb || [];
@@ -355,6 +429,10 @@ label{
     height:18px;
 }
 
+.checkboxRow label{
+    margin:0;
+}
+
 .status{
     margin-top:16px;
     min-height:24px;
@@ -536,7 +614,10 @@ footer{
 Обрезка фото
 </a>
 
-<a href="./">
+<a
+    href="./"
+    aria-current="page"
+>
 Изменить размер
 </a>
 
@@ -795,7 +876,6 @@ FAQ
 
 <label
     for="lockRatio"
-    style="margin:0;"
 >
 Сохранять пропорции
 </label>

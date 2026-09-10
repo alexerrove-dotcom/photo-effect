@@ -1,5 +1,5 @@
-```html
 <!DOCTYPE html>
+
 <html lang="ru">
 
 <head>
@@ -7,20 +7,23 @@
 <meta charset="UTF-8">
 
 <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+name="viewport"
+content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+
 >
 
 <title>Изменить размер фото онлайн — бесплатно | Фото + эффект</title>
 
 <meta
-    name="description"
-    content="Бесплатно изменяйте размер фотографий онлайн. Укажите ширину и высоту, сохраните пропорции и скачайте готовое изображение в PNG прямо из браузера."
+name="description"
+content="Бесплатно изменяйте размер фотографий онлайн. Укажите ширину и высоту, сохраните пропорции и скачайте готовое изображение в PNG прямо из браузера."
+
 >
 
 <meta
-    name="robots"
-    content="index, follow"
+name="robots"
+content="index, follow"
+
 >
 
 <link
@@ -29,60 +32,64 @@
 >
 
 <meta
-    name="theme-color"
-    content="#0b0d12"
->
+name="theme-color"
+content="#0b0d12"
 
-<!-- Open Graph -->
-
-<meta
-    property="og:type"
-    content="website"
 >
 
 <meta
-    property="og:locale"
-    content="ru_RU"
+property="og:type"
+content="website"
+
 >
 
 <meta
-    property="og:site_name"
-    content="Фото + эффект"
+property="og:locale"
+content="ru_RU"
+
 >
 
 <meta
-    property="og:title"
-    content="Изменить размер фото онлайн — бесплатно"
+property="og:site_name"
+content="Фото + эффект"
+
 >
 
 <meta
-    property="og:description"
-    content="Измените ширину и высоту фотографии онлайн, сохраните пропорции и скачайте результат в PNG."
+property="og:title"
+content="Изменить размер фото онлайн — бесплатно"
+
 >
 
 <meta
-    property="og:url"
-    content="https://alexerrove-dotcom.github.io/photo-effect/resize/"
->
+property="og:description"
+content="Измените ширину и высоту фотографии онлайн, сохраните пропорции и скачайте результат в PNG."
 
-<!-- Twitter -->
-
-<meta
-    name="twitter:card"
-    content="summary"
 >
 
 <meta
-    name="twitter:title"
-    content="Изменить размер фото онлайн — бесплатно"
+property="og:url"
+content="https://alexerrove-dotcom.github.io/photo-effect/resize/"
+
 >
 
 <meta
-    name="twitter:description"
-    content="Бесплатный онлайн-инструмент для изменения размера фотографий с сохранением пропорций."
+name="twitter:card"
+content="summary"
+
 >
 
-<!-- Structured data -->
+<meta
+name="twitter:title"
+content="Изменить размер фото онлайн — бесплатно"
+
+>
+
+<meta
+name="twitter:description"
+content="Бесплатный онлайн-инструмент для изменения размера фотографий с сохранением пропорций."
+
+>
 
 <script type="application/ld+json">
 {
@@ -143,11 +150,9 @@ header{
     max-width:1180px;
     margin:auto;
     padding:14px 20px;
-
     display:flex;
     align-items:center;
     justify-content:space-between;
-
     gap:20px;
 }
 
@@ -219,22 +224,16 @@ h1{
     display:inline-flex;
     align-items:center;
     justify-content:center;
-
     min-height:46px;
     padding:10px 17px;
-
     border:1px solid #343b48;
     border-radius:10px;
-
     background:#1b202a;
     color:#fff;
-
     font-weight:700;
     cursor:pointer;
-
     text-decoration:none;
     font-size:14px;
-
     transition:.15s;
 }
 
@@ -289,7 +288,6 @@ input[type="file"]{
 
 .workspace{
     min-height:320px;
-
     border:1px dashed #394150;
     border-radius:14px;
 
@@ -310,22 +308,17 @@ input[type="file"]{
     display:flex;
     align-items:center;
     justify-content:center;
-
     overflow:hidden;
     padding:20px;
 }
 
 #preview{
     display:none;
-
     max-width:100%;
     max-height:600px;
-
     width:auto;
     height:auto;
-
     object-fit:contain;
-
     border-radius:6px;
 }
 
@@ -337,10 +330,8 @@ input[type="file"]{
 
 .controls{
     margin-top:22px;
-
     display:grid;
     grid-template-columns:1fr 1fr;
-
     gap:16px;
 }
 
@@ -370,19 +361,13 @@ label{
 
 .numberInput{
     width:100%;
-
     min-height:44px;
-
     border-radius:9px;
     border:1px solid #343b48;
-
     background:#171b23;
     color:#fff;
-
     padding:9px 12px;
-
     font-size:16px;
-
     outline:none;
 }
 
@@ -398,15 +383,11 @@ label{
 
 .preset{
     min-height:40px;
-
     padding:8px 13px;
-
     border-radius:9px;
     border:1px solid #343b48;
-
     background:#171b23;
     color:#fff;
-
     cursor:pointer;
 }
 
@@ -417,10 +398,8 @@ label{
 .checkboxRow{
     display:flex;
     align-items:center;
-
     gap:9px;
     margin-top:15px;
-
     color:#c4cad4;
 }
 
@@ -436,9 +415,7 @@ label{
 .status{
     margin-top:16px;
     min-height:24px;
-
     color:#aeb6c4;
-
     text-align:center;
 }
 
@@ -446,9 +423,7 @@ label{
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
-
     gap:10px;
-
     margin-top:20px;
 }
 
@@ -491,25 +466,17 @@ section.text ol{
 
 footer{
     border-top:1px solid #252a35;
-
     padding:28px 20px;
-
     text-align:center;
-
     color:#858e9d;
-
     font-size:14px;
 }
 
 .footerNav{
     display:flex;
-
     flex-wrap:wrap;
-
     justify-content:center;
-
     gap:10px 18px;
-
     margin-bottom:12px;
 }
 
@@ -598,11 +565,12 @@ footer{
 <div class="nav">
 
 <a
-    class="logo"
-    href="../"
+class="logo"
+href="../"
+
 >
-Фото + эффект
-</a>
+
+Фото + эффект </a>
 
 <nav class="navLinks">
 
@@ -615,11 +583,12 @@ footer{
 </a>
 
 <a
-    href="./"
-    aria-current="page"
+href="./"
+aria-current="page"
+
 >
-Изменить размер
-</a>
+
+Изменить размер </a>
 
 <a href="../rotate/">
 Повернуть фото
@@ -671,45 +640,51 @@ FAQ
 <div class="toolbar">
 
 <label
-    for="fileInput"
-    class="fileLabel primary"
+for="fileInput"
+class="fileLabel primary"
+
 >
-Загрузить фото
-</label>
+
+Загрузить фото </label>
 
 <input
-    id="fileInput"
-    type="file"
-    accept="image/*"
+id="fileInput"
+type="file"
+accept="image/*"
+
 >
 
 <a
-    href="../"
-    class="button"
+href="../"
+class="button"
+
 >
-Фото + эффект
-</a>
+
+Фото + эффект </a>
 
 <a
-    href="../crop/"
-    class="button"
+href="../crop/"
+class="button"
+
 >
-Обрезать фото
-</a>
+
+Обрезать фото </a>
 
 <a
-    href="../rotate/"
-    class="button"
+href="../rotate/"
+class="button"
+
 >
-Повернуть фото
-</a>
+
+Повернуть фото </a>
 
 <a
-    href="../remove-background/"
-    class="button"
+href="../remove-background/"
+class="button"
+
 >
-Удалить фон
-</a>
+
+Удалить фон </a>
 
 </div>
 
@@ -772,8 +747,9 @@ FAQ
 </div>
 
 <img
-    id="preview"
-    alt="Предпросмотр измененного изображения"
+id="preview"
+alt="Предпросмотр измененного изображения"
+
 >
 
 </div>
@@ -789,13 +765,14 @@ FAQ
 <div class="numberRow">
 
 <input
-    id="widthInput"
-    class="numberInput"
-    type="number"
-    min="1"
-    max="10000"
-    step="1"
-    placeholder="Например, 1920"
+id="widthInput"
+class="numberInput"
+type="number"
+min="1"
+max="10000"
+step="1"
+placeholder="Например, 1920"
+
 >
 
 </div>
@@ -811,13 +788,14 @@ FAQ
 <div class="numberRow">
 
 <input
-    id="heightInput"
-    class="numberInput"
-    type="number"
-    min="1"
-    max="10000"
-    step="1"
-    placeholder="Например, 1080"
+id="heightInput"
+class="numberInput"
+type="number"
+min="1"
+max="10000"
+step="1"
+placeholder="Например, 1080"
+
 >
 
 </div>
@@ -833,52 +811,58 @@ FAQ
 <div class="presetRow">
 
 <button
-    class="preset"
-    data-scale="25"
-    type="button"
+class="preset"
+data-scale="25"
+type="button"
+
 >
-25%
-</button>
+
+25% </button>
 
 <button
-    class="preset"
-    data-scale="50"
-    type="button"
+class="preset"
+data-scale="50"
+type="button"
+
 >
-50%
-</button>
+
+50% </button>
 
 <button
-    class="preset"
-    data-scale="75"
-    type="button"
+class="preset"
+data-scale="75"
+type="button"
+
 >
-75%
-</button>
+
+75% </button>
 
 <button
-    class="preset"
-    data-scale="100"
-    type="button"
+class="preset"
+data-scale="100"
+type="button"
+
 >
-100%
-</button>
+
+100% </button>
 
 </div>
 
 <div class="checkboxRow">
 
 <input
-    id="lockRatio"
-    type="checkbox"
-    checked
+id="lockRatio"
+type="checkbox"
+checked
+
 >
 
 <label
-    for="lockRatio"
+for="lockRatio"
+
 >
-Сохранять пропорции
-</label>
+
+Сохранять пропорции </label>
 
 </div>
 
@@ -896,39 +880,43 @@ FAQ
 <div class="actions">
 
 <button
-    id="resizeButton"
-    class="button primary"
-    type="button"
-    disabled
+id="resizeButton"
+class="button primary"
+type="button"
+disabled
+
 >
-Применить размер
-</button>
+
+Применить размер </button>
 
 <button
-    id="downloadButton"
-    class="button"
-    type="button"
-    disabled
+id="downloadButton"
+class="button"
+type="button"
+disabled
+
 >
-Скачать PNG
-</button>
+
+Скачать PNG </button>
 
 <button
-    id="newButton"
-    class="button"
-    type="button"
+id="newButton"
+class="button"
+type="button"
+
 >
-Новое фото
-</button>
+
+Новое фото </button>
 
 <button
-    id="resetButton"
-    class="button"
-    type="button"
-    disabled
+id="resetButton"
+class="button"
+type="button"
+disabled
+
 >
-Сбросить размер
-</button>
+
+Сбросить размер </button>
 
 </div>
 
@@ -1931,4 +1919,3 @@ newButton.addEventListener(
 </body>
 
 </html>
-```

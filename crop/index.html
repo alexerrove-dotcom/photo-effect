@@ -14,7 +14,7 @@
 
 <meta
     name="description"
-    content="Бесплатный онлайн-инструмент для обрезки фотографий. Выберите область, настройте пропорции и скачайте готовое изображение PNG."
+    content="Бесплатная онлайн-обрезка фотографий. Выберите область, задайте пропорции и скачайте готовое фото в PNG прямо из браузера."
 >
 
 <meta
@@ -22,10 +22,80 @@
     content="index, follow"
 >
 
+<link
+    rel="canonical"
+    href="https://alexerrove-dotcom.github.io/photo-effect/crop/"
+>
+
 <meta
     name="theme-color"
     content="#0b0d12"
 >
+
+<!-- Open Graph -->
+
+<meta
+    property="og:type"
+    content="website"
+>
+
+<meta
+    property="og:locale"
+    content="ru_RU"
+>
+
+<meta
+    property="og:site_name"
+    content="Фото + эффект"
+>
+
+<meta
+    property="og:title"
+    content="Обрезка фото онлайн — бесплатно"
+>
+
+<meta
+    property="og:description"
+    content="Обрежьте фотографию онлайн, выберите пропорции и сохраните результат в PNG. Бесплатно и прямо в браузере."
+>
+
+<meta
+    property="og:url"
+    content="https://alexerrove-dotcom.github.io/photo-effect/crop/"
+>
+
+<!-- Twitter -->
+
+<meta
+    name="twitter:card"
+    content="summary"
+>
+
+<meta
+    name="twitter:title"
+    content="Обрезка фото онлайн — бесплатно"
+>
+
+<meta
+    name="twitter:description"
+    content="Бесплатный онлайн-инструмент для обрезки фотографий и сохранения результата в PNG."
+>
+
+<!-- Structured data -->
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Обрезка фото онлайн",
+    "url": "https://alexerrove-dotcom.github.io/photo-effect/crop/",
+    "description": "Бесплатный онлайн-инструмент для обрезки фотографий с выбором пропорций и сохранением результата в PNG.",
+    "applicationCategory": "PhotoApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "isAccessibleForFree": true
+}
+</script>
 
 <style>
 
@@ -2848,6 +2918,7 @@ cropButton.addEventListener(
         ){
 
             return;
+
         }
 
 
@@ -3198,6 +3269,7 @@ downloadButton.addEventListener(
 
                     link.href =
                         url;
+
 
                     link.download =
                         "cropped-photo.png";

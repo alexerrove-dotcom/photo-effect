@@ -81,6 +81,15 @@
     content="Бесплатный онлайн-инструмент для обрезки фотографий и сохранения результата в PNG."
 >
 
+
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="ru" href="https://alexerrove-dotcom.github.io/photo-effect/crop/">
+<link rel="alternate" hreflang="x-default" href="https://alexerrove-dotcom.github.io/photo-effect/crop/">
+<link rel="preconnect" href="https://yandex.ru">
+<meta property="og:image" content="https://alexerrove-dotcom.github.io/photo-effect/Effects.png">
+<meta property="og:image:alt" content="Белый оптический узор сервиса Фото + эффект">
+<meta name="twitter:image" content="https://alexerrove-dotcom.github.io/photo-effect/Effects.png">
+
 <!-- Structured data -->
 
 <script type="application/ld+json">
@@ -96,6 +105,12 @@
     "isAccessibleForFree": true
 }
 </script>
+
+<script>
+window.yaContextCb = window.yaContextCb || [];
+</script>
+
+<script src="https://yandex.ru/ads/system/context.js" async></script>
 
 <style>
 
@@ -918,6 +933,16 @@ footer{
 
 }
 
+
+.adBox{
+    width:min(1180px,calc(100% - 32px));
+    min-height:110px;
+    margin:28px auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
 </style>
 
 </head>
@@ -974,7 +999,7 @@ footer{
             FAQ
         </a>
 
-        <a href="../#privacy">
+        <a href="../privacy/">
             Конфиденциальность
         </a>
 
@@ -1440,6 +1465,18 @@ footer{
 
 
 </div>
+
+<aside class="adBox" aria-label="Реклама" data-nosnippet>
+<div id="yandex_rtb_R-A-20003018-1" data-nosnippet></div>
+<script>
+window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+        "blockId": "R-A-20003018-1",
+        "renderTo": "yandex_rtb_R-A-20003018-1"
+    });
+});
+</script>
+</aside>
 
 </main>
 

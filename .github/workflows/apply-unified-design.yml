@@ -2,8 +2,7 @@ name: Apply unified production design
 
 on:
   push:
-    paths:
-      - '.github/trigger-unified-design.txt'
+    paths: ['.github/trigger-unified-design.txt']
 
 permissions:
   contents: write
@@ -13,121 +12,46 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply unified shell without changing tool scripts
-        shell: bash
+      - name: Apply design without changing existing scripts
         run: |
           python3 - <<'PY'
           from pathlib import Path
           import re
 
-          targets = [
-              Path('index.html'),
-              Path('crop/index.html'),
-              Path('resize/index.html'),
-              Path('rotate/index.html'),
-              Path('remove-background/index.html'),
-              Path('jiggle-effect-guide/index.html'),
-              Path('privacy/index.html'),
-          ]
-
-          def scripts_of(text):
-              return re.findall(r'<script\b[^>]*>.*?</script>', text, flags=re.I|re.S)
-
-          def header(base):
-              return (
-                  '<header><div class="nav">'
-                  f'<a class="logo" href="{base}"><span class="logoMark">✦</span> Jiggle <b>Effect</b></a>'
-                  '<nav class="navLinks">'
-                  f'<a href="{base}">Jiggle Effect</a>'
-                  f'<a href="{base}tools/">Все инструменты</a>'
-                  f'<a href="{base}crop/">Обрезка</a>'
-                  f'<a href="{base}resize/">Размер</a>'
-                  f'<a href="{base}rotate/">Поворот</a>'
-                  f'<a href="{base}remove-background/">Удалить фон</a>'
-                  f'<a href="{base}jiggle-effect-guide/">Инструкция</a>'
-                  f'<a href="{base}privacy/">Конфиденциальность</a>'
-                  '</nav></div></header>'
-              )
-
-          def footer(base):
-              return (
-                  '<footer><nav class="footerNav">'
-                  f'<a href="{base}">Jiggle Effect</a>'
-                  f'<a href="{base}tools/">Все инструменты</a>'
-                  f'<a href="{base}crop/">Обрезка</a>'
-                  f'<a href="{base}resize/">Размер</a>'
-                  f'<a href="{base}rotate/">Поворот</a>'
-                  f'<a href="{base}remove-background/">Удалить фон</a>'
-                  f'<a href="{base}jiggle-effect-guide/">Инструкция</a>'
-                  f'<a href="{base}privacy/">Конфиденциальность</a>'
-                  '</nav><div>Jiggle Effect — бесплатные браузерные инструменты для работы с фотографиями.</div></footer>'
-              )
-
-          required_ids = {
-              'index.html': ['file','choosePhoto','removeBg','format','scale','opacity','x','y','hole','density','cell','rough','soft','save'],
-              'crop/index.html': ['photoInput','imageCanvas','cropBox','cropButton','downloadButton','resetButton'],
-              'resize/index.html': ['fileInput','preview','widthInput','heightInput','lockRatio','resizeButton','downloadButton'],
-              'rotate/index.html': ['fileInput','canvas','leftBtn','rightBtn','rotate180Btn','flipHBtn','flipVBtn','downloadBtn'],
-              'remove-background/index.html': ['fileInput','removeBtn','downloadBtn','originalPreview','compareCanvas','compareLine'],
-          }
-
+          targets=[Path('index.html'),Path('crop/index.html'),Path('resize/index.html'),Path('rotate/index.html'),Path('remove-background/index.html'),Path('jiggle-effect-guide/index.html'),Path('privacy/index.html')]
+          def scripts(t): return re.findall(r'<script\b[^>]*>.*?</script>',t,flags=re.I|re.S)
+          def header(base): return '<header><div class="nav"><a class="logo" href="'+base+'"><span class="logoMark">✦</span> Jiggle <b>Effect</b></a><nav class="navLinks">'+''.join(f'<a href="{base}{p}">{n}</a>' for p,n in [('', 'Jiggle Effect'),('tools/','Все инструменты'),('crop/','Обрезка'),('resize/','Размер'),('rotate/','Поворот'),('remove-background/','Удалить фон'),('jiggle-effect-guide/','Инструкция'),('privacy/','Конфиденциальность')])+'</nav></div></header>'
+          def footer(base): return '<footer><nav class="footerNav">'+''.join(f'<a href="{base}{p}">{n}</a>' for p,n in [('', 'Jiggle Effect'),('tools/','Все инструменты'),('crop/','Обрезка'),('resize/','Размер'),('rotate/','Поворот'),('remove-background/','Удалить фон'),('jiggle-effect-guide/','Инструкция'),('privacy/','Конфиденциальность')])+'</nav><div>Jiggle Effect — бесплатные браузерные инструменты для работы с фотографиями.</div></footer>'
+          required={
+            'index.html':['file','choosePhoto','removeBg','format','scale','opacity','x','y','hole','density','cell','rough','softEdge','save'],
+            'crop/index.html':['photoInput','imageCanvas','cropBox','cropButton','downloadButton','resetButton'],
+            'resize/index.html':['fileInput','preview','widthInput','heightInput','lockRatio','resizeButton','downloadButton'],
+            'rotate/index.html':['fileInput','canvas','leftBtn','rightBtn','rotate180Btn','flipHBtn','flipVBtn','downloadBtn'],
+            'remove-background/index.html':['fileInput','removeBtn','downloadBtn','originalPreview','compareCanvas','compareLine']}
           for path in targets:
-              original = path.read_text(encoding='utf-8')
-              before_scripts = scripts_of(original)
-              text = original
-              base = './' if path.as_posix() == 'index.html' else '../'
-              css_href = './site.css?v=20260917' if path.as_posix() == 'index.html' else '../site.css?v=20260917'
-              if 'site.css?v=20260917' not in text:
-                  text = text.replace('</head>', f'<link rel="stylesheet" href="{css_href}">\n</head>', 1)
-              text, header_count = re.subn(r'<header\b[^>]*>.*?</header>', header(base), text, count=1, flags=re.I|re.S)
-              if header_count != 1:
-                  raise RuntimeError(f'Could not replace header in {path}')
-              text, footer_count = re.subn(r'<footer\b[^>]*>.*?</footer>', footer(base), text, count=1, flags=re.I|re.S)
-              if footer_count != 1:
-                  raise RuntimeError(f'Could not replace footer in {path}')
-              after_scripts = scripts_of(text)
-              if before_scripts != after_scripts:
-                  raise RuntimeError(f'Script blocks changed in {path}; aborting')
-              for element_id in required_ids.get(path.as_posix(), []):
-                  if f'id="{element_id}"' not in text and f"id='{element_id}'" not in text:
-                      raise RuntimeError(f'Missing required #{element_id} in {path}')
-              path.write_text(text, encoding='utf-8')
+            original=path.read_text(encoding='utf-8'); before=scripts(original); text=original
+            base='./' if path.as_posix()=='index.html' else '../'; href='./site.css?v=20260917' if path.as_posix()=='index.html' else '../site.css?v=20260917'
+            if 'site.css?v=20260917' not in text: text=text.replace('</head>',f'<link rel="stylesheet" href="{href}">\n</head>',1)
+            text,n=re.subn(r'<header\b[^>]*>.*?</header>',header(base),text,count=1,flags=re.I|re.S)
+            if n!=1: raise RuntimeError(f'Header not found: {path}')
+            text,n=re.subn(r'<footer\b[^>]*>.*?</footer>',footer(base),text,count=1,flags=re.I|re.S)
+            if n!=1: raise RuntimeError(f'Footer not found: {path}')
+            if scripts(text)!=before: raise RuntimeError(f'Script blocks changed: {path}')
+            for i in required.get(path.as_posix(),[]):
+              if f'id="{i}"' not in text and f"id='{i}'" not in text: raise RuntimeError(f'Missing #{i}: {path}')
+            path.write_text(text,encoding='utf-8')
 
-          tools = Path('tools/index.html')
-          tools.parent.mkdir(parents=True, exist_ok=True)
-          tools.write_text('''<!doctype html>
-          <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-          <title>Все инструменты Jiggle Effect — работа с фото онлайн</title>
-          <meta name="description" content="Все инструменты Jiggle Effect в одном месте: эффект движения фото, обрезка, изменение размера, поворот и удаление фона.">
-          <meta name="robots" content="index, follow"><link rel="canonical" href="https://alexerrove-dotcom.github.io/photo-effect/tools/">
-          <link rel="icon" href="../favicon.svg" type="image/svg+xml"><meta name="theme-color" content="#080b12"><link rel="stylesheet" href="../site.css?v=20260917"></head>
-          <body>
-          <script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=112725905','ym');ym(112725905,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});</script>
-          <noscript><div><img src="https://mc.yandex.ru/watch/112725905" style="position:absolute;left:-9999px" alt=""></div></noscript>
-          <header><div class="nav"><a class="logo" href="../"><span class="logoMark">✦</span> Jiggle <b>Effect</b></a><nav class="navLinks"><a href="../">Jiggle Effect</a><a href="./" aria-current="page">Все инструменты</a><a href="../crop/">Обрезка</a><a href="../resize/">Размер</a><a href="../rotate/">Поворот</a><a href="../remove-background/">Удалить фон</a><a href="../jiggle-effect-guide/">Инструкция</a><a href="../privacy/">Конфиденциальность</a></nav></div></header>
-          <main><section class="hero"><h1>Всё для фото. В одном стиле.</h1><p>Выберите инструмент. Все страницы работают в браузере и теперь используют единый интерфейс Jiggle Effect.</p></section>
-          <section class="card"><div class="toolsGrid"><a class="toolCard" href="../"><h3>✨ Jiggle Effect</h3><p>Полный генератор оптического эффекта с прежними настройками и экспортом PNG.</p></a><a class="toolCard" href="../crop/"><h3>✂ Обрезка фото</h3><p>Выберите нужную область изображения и сохраните результат.</p></a><a class="toolCard" href="../resize/"><h3>↔ Изменить размер</h3><p>Настройте ширину и высоту с сохранением пропорций.</p></a><a class="toolCard" href="../rotate/"><h3>↻ Поворот фото</h3><p>Поворот на 90°/180° и отражение изображения.</p></a><a class="toolCard" href="../remove-background/"><h3>◫ Удаление фона</h3><p>Удалите фон и скачайте PNG с прозрачностью.</p></a><a class="toolCard" href="../jiggle-effect-guide/"><h3>⌁ Инструкция</h3><p>Как настроить Jiggle Effect и добиться оптической иллюзии движения.</p></a></div></section></main>
-          <footer><nav class="footerNav"><a href="../">Jiggle Effect</a><a href="./">Все инструменты</a><a href="../crop/">Обрезка</a><a href="../resize/">Размер</a><a href="../rotate/">Поворот</a><a href="../remove-background/">Удалить фон</a><a href="../jiggle-effect-guide/">Инструкция</a><a href="../privacy/">Конфиденциальность</a></nav><div>Jiggle Effect — бесплатные браузерные инструменты для работы с фотографиями.</div></footer>
-          </body></html>'''.replace('          ', ''), encoding='utf-8')
-
-          sitemap = Path('sitemap.xml')
-          if sitemap.exists():
-              sm = sitemap.read_text(encoding='utf-8')
-              url = 'https://alexerrove-dotcom.github.io/photo-effect/tools/'
-              if url not in sm and '</urlset>' in sm:
-                  sm = sm.replace('</urlset>', f'  <url><loc>{url}</loc></url>\n</urlset>', 1)
-                  sitemap.write_text(sm, encoding='utf-8')
-
-          print('Unified theme applied; all existing script blocks verified unchanged.')
+          Path('tools').mkdir(exist_ok=True)
+          Path('tools/index.html').write_text('''<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Все инструменты Jiggle Effect — работа с фото онлайн</title><meta name="description" content="Jiggle Effect, обрезка, изменение размера, поворот и удаление фона — все фотоинструменты в одном месте."><meta name="robots" content="index, follow"><link rel="canonical" href="https://alexerrove-dotcom.github.io/photo-effect/tools/"><link rel="icon" href="../favicon.svg" type="image/svg+xml"><meta name="theme-color" content="#080b12"><link rel="stylesheet" href="../site.css?v=20260917"></head><body><script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=112725905','ym');ym(112725905,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});</script><noscript><div><img src="https://mc.yandex.ru/watch/112725905" style="position:absolute;left:-9999px" alt=""></div></noscript><header><div class="nav"><a class="logo" href="../"><span class="logoMark">✦</span> Jiggle <b>Effect</b></a><nav class="navLinks"><a href="../">Jiggle Effect</a><a href="./" aria-current="page">Все инструменты</a><a href="../crop/">Обрезка</a><a href="../resize/">Размер</a><a href="../rotate/">Поворот</a><a href="../remove-background/">Удалить фон</a><a href="../jiggle-effect-guide/">Инструкция</a><a href="../privacy/">Конфиденциальность</a></nav></div></header><main><section class="hero"><h1>Всё для фото. В одном стиле.</h1><p>Выберите инструмент. Все страницы работают в браузере и используют единый интерфейс Jiggle Effect.</p></section><section class="card"><div class="toolsGrid"><a class="toolCard" href="../"><h3>✨ Jiggle Effect</h3><p>Полный генератор с прежними настройками и экспортом PNG.</p></a><a class="toolCard" href="../crop/"><h3>✂ Обрезка фото</h3><p>Выберите область и сохраните готовый кадр.</p></a><a class="toolCard" href="../resize/"><h3>↔ Изменить размер</h3><p>Настройте ширину и высоту с сохранением пропорций.</p></a><a class="toolCard" href="../rotate/"><h3>↻ Поворот фото</h3><p>Поворот и отражение изображения.</p></a><a class="toolCard" href="../remove-background/"><h3>◫ Удаление фона</h3><p>Удалите фон и скачайте прозрачный PNG.</p></a><a class="toolCard" href="../jiggle-effect-guide/"><h3>⌁ Инструкция</h3><p>Как настроить эффект и проверить иллюзию движения.</p></a></div></section></main><footer><nav class="footerNav"><a href="../">Jiggle Effect</a><a href="./">Все инструменты</a><a href="../crop/">Обрезка</a><a href="../resize/">Размер</a><a href="../rotate/">Поворот</a><a href="../remove-background/">Удалить фон</a><a href="../jiggle-effect-guide/">Инструкция</a><a href="../privacy/">Конфиденциальность</a></nav><div>Jiggle Effect — бесплатные браузерные инструменты для работы с фотографиями.</div></footer></body></html>''',encoding='utf-8')
+          sm=Path('sitemap.xml')
+          if sm.exists():
+            s=sm.read_text(encoding='utf-8'); u='https://alexerrove-dotcom.github.io/photo-effect/tools/'
+            if u not in s and '</urlset>' in s: sm.write_text(s.replace('</urlset>',f'  <url><loc>{u}</loc></url>\n</urlset>',1),encoding='utf-8')
+          print('OK: existing script blocks unchanged and required controls present')
           PY
       - name: Commit production design
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html crop/index.html resize/index.html rotate/index.html remove-background/index.html jiggle-effect-guide/index.html privacy/index.html tools/index.html sitemap.xml
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Apply unified Jiggle Effect design without changing tool scripts"
-            git push
-          fi
+          git diff --cached --quiet || (git commit -m "Apply unified Jiggle Effect design without changing tool scripts" && git push)

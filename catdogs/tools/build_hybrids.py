@@ -219,7 +219,7 @@ def make_render(team,variant,arm,out_path):
     light((3,-1,3),700,3,(1.0,.47,.28))
     light((0,3,4),850,3,(1.0,.82,.62))
     sc=bpy.context.scene
-    sc.render.engine="BLENDER_EEVEE_NEXT"
+    sc.render.engine="BLENDER_EEVEE"
     sc.render.resolution_x=512; sc.render.resolution_y=720; sc.render.resolution_percentage=100
     sc.render.image_settings.file_format="PNG"; sc.render.filepath=out_path
     sc.render.film_transparent=False

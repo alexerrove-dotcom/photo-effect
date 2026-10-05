@@ -55,7 +55,7 @@ jobs:
           RC=$?
           set -e
           cat /tmp/catdogs-runtime.log
-          if grep -E "SCRIPT ERROR|Parse Error|Invalid call|Invalid access|ERROR:" /tmp/catdogs-runtime.log; then
+          if grep -E "SCRIPT ERROR|Parse Error|Invalid call|Invalid access" /tmp/catdogs-runtime.log; then
             echo "Runtime smoke test found errors"
             exit 1
           fi

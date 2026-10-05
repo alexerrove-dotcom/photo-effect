@@ -65,128 +65,139 @@ def clone_and_tint_materials(team,variant):
                         bs.inputs["Roughness"].default_value=.36
                         bs.inputs["Metallic"].default_value=.22
 
-def extract_animal_head(path, team, target_center, target_dims, soldier_arm):
+def tint_head_materials(head,team,variant):
+    cat_fur=[(.45,.47,.50,1),(.78,.30,.08,1),(.82,.82,.80,1),(.36,.24,.16,1),(.055,.06,.065,1)]
+    dog_fur=[(.42,.23,.11,1),(.42,.46,.50,1),(.68,.48,.30,1),(.12,.09,.075,1),(.055,.055,.05,1)]
+    fur=cat_fur[variant] if team=="cat" else dog_fur[variant]
+    for slot in head.material_slots:
+        m=slot.material
+        if not m: continue
+        nm=m.copy(); slot.material=nm
+        n=(m.name or "").lower()
+        if "eye" in n:
+            continue
+        if "ear" in n:
+            col=(max(.06,fur[0]*.65), max(.045,fur[1]*.55), max(.05,fur[2]*.55),1)
+        else:
+            col=fur
+        nm.diffuse_color=col
+        if nm.use_nodes and nm.node_tree:
+            bs=nm.node_tree.nodes.get("Principled BSDF")
+            if bs:
+                bs.inputs["Base Color"].default_value=col
+                bs.inputs["Roughness"].default_value=.78
+
+def join_into_head(head, objects):
+    bpy.ops.object.select_all(action="DESELECT")
+    head.select_set(True)
+    for o in objects:
+        if o and o.name in bpy.data.objects:
+            o.select_set(True)
+    bpy.context.view_layer.objects.active=head
+    bpy.ops.object.join()
+
+def extract_animal_head(path, team, variant, target_center, target_dims, human_head):
+    # Keep the original human Head object itself because the source GLB already parents it
+    # correctly to the animated Head bone. Replace only its mesh contents.
+    human_head.data=bpy.data.meshes.new(("CatHeadMesh" if team=="cat" else "DogHeadMesh"))
     before=set(bpy.context.scene.objects)
     bpy.ops.import_scene.gltf(filepath=path)
     new=[o for o in bpy.context.scene.objects if o not in before]
     animal_mesh=max((o for o in new if o.type=="MESH" and o.name!="Icosphere"),key=lambda o:len(o.data.vertices))
-    # Apply rest-pose armature deformation to make a clean static head mesh.
-    bpy.context.view_layer.objects.active=animal_mesh
-    animal_mesh.select_set(True)
+
+    # Bake the source animal's current armature deformation, then detach it as clean geometry.
+    bpy.ops.object.select_all(action="DESELECT")
+    animal_mesh.select_set(True); bpy.context.view_layer.objects.active=animal_mesh
     for mod in list(animal_mesh.modifiers):
         if mod.type=="ARMATURE":
             try: bpy.ops.object.modifier_apply(modifier=mod.name)
             except: pass
-    # Keep upper/head geometry. Both source models use Z-up after glTF import.
+
+    # Spatially keep only the animal's head. Both source animals are Z-up after glTF import.
     cutoff=.54 if team=="cat" else .90
     bpy.ops.object.mode_set(mode="EDIT")
     bpy.ops.mesh.select_all(action="DESELECT")
     bpy.ops.object.mode_set(mode="OBJECT")
     for v in animal_mesh.data.vertices:
-        wz=(animal_mesh.matrix_world@v.co).z
-        v.select = wz >= cutoff
+        v.select=(animal_mesh.matrix_world@v.co).z >= cutoff
     bpy.ops.object.mode_set(mode="EDIT")
     bpy.ops.mesh.select_all(action="INVERT")
     bpy.ops.mesh.delete(type="VERT")
     bpy.ops.object.mode_set(mode="OBJECT")
-    head=animal_mesh
-    head.name=("CatHead" if team=="cat" else "DogHead")
-    # Detach while preserving world transform.
-    mw=head.matrix_world.copy()
-    head.parent=None
-    head.matrix_world=mw
-    # Delete the animal rig and helper geometry.
-    for o in list(new):
-        if o is head: continue
-        bpy.data.objects.remove(o,do_unlink=True)
-    # Fit to soldier head dimensions.
-    mn,mx,dim,cen=mesh_bounds(head)
-    desired=Vector((target_dims.x*1.08,target_dims.y*(1.15 if team=="dog" else 1.04),target_dims.z*1.08))
-    factors=Vector((desired.x/max(dim.x,.001),desired.y/max(dim.y,.001),desired.z/max(dim.z,.001)))
-    head.scale.x*=factors.x; head.scale.y*=factors.y; head.scale.z*=factors.z
-    bpy.context.view_layer.update()
-    _,_,_,cen2=mesh_bounds(head)
-    head.location += target_center-cen2
-    bpy.context.view_layer.update()
-    # Slightly push canine muzzle forward (-Y), cat only minimally.
-    if team=="dog": head.location.y-=.06
-    else: head.location.y-=.015
-    bpy.context.view_layer.update()
-    # Parent to soldier's head bone without changing current world placement.
-    mw=head.matrix_world.copy()
-    head.parent=soldier_arm
-    head.parent_type="BONE"
-    head.parent_bone="Head"
-    head.matrix_world=mw
-    return head
 
-def add_uv(name,loc,scale,color,parent=None,bone=None):
+    mw=animal_mesh.matrix_world.copy()
+    animal_mesh.parent=None
+    animal_mesh.matrix_world=mw
+    for o in list(new):
+        if o is animal_mesh: continue
+        bpy.data.objects.remove(o,do_unlink=True)
+
+    # Fit the real animal head into the original animated human head's world-space envelope.
+    mn,mx,dim,cen=mesh_bounds(animal_mesh)
+    desired=Vector((target_dims.x*1.00,target_dims.y*(1.12 if team=="dog" else 1.03),target_dims.z*1.02))
+    animal_mesh.scale.x*=desired.x/max(dim.x,.001)
+    animal_mesh.scale.y*=desired.y/max(dim.y,.001)
+    animal_mesh.scale.z*=desired.z/max(dim.z,.001)
+    bpy.context.view_layer.update()
+    _,_,_,cen2=mesh_bounds(animal_mesh)
+    animal_mesh.location += target_center-cen2
+    animal_mesh.location.y += (-.045 if team=="dog" else -.01)
+    bpy.context.view_layer.update()
+    tint_head_materials(animal_mesh,team,variant)
+
+    # Joining into the *original Head object* preserves its proven bone-parent relationship.
+    join_into_head(human_head,[animal_mesh])
+    human_head.name=("CatHead" if team=="cat" else "DogHead")
+    return human_head
+
+def add_uv(name,loc,scale,color):
     bpy.ops.mesh.primitive_uv_sphere_add(segments=20, ring_count=12, location=loc)
     o=bpy.context.object; o.name=name; o.scale=scale
-    m=bpy.data.materials.new(name+"Mat"); m.diffuse_color=color
-    m.use_nodes=True
+    m=bpy.data.materials.new(name+"Mat"); m.diffuse_color=color; m.use_nodes=True
     bs=m.node_tree.nodes.get("Principled BSDF")
     if bs:
         bs.inputs["Base Color"].default_value=color
-        bs.inputs["Roughness"].default_value=.32
-        bs.inputs["Metallic"].default_value=.30 if color[0]<.2 else .0
+        bs.inputs["Roughness"].default_value=.34
+        bs.inputs["Metallic"].default_value=.26 if color[0]<.2 else .0
     o.data.materials.append(m)
-    if parent:
-        mw=o.matrix_world.copy(); o.parent=parent; o.parent_type="BONE"; o.parent_bone=bone; o.matrix_world=mw
     return o
 
-def add_headset_and_goggles(head,arm,team):
+def add_headset_and_goggles(head,team):
     mn,mx,d,c=mesh_bounds(head)
-    # Face points toward -Y for these source assets.
-    glass=(.02,.07,.10,1)
-    # goggles
+    glass=(.015,.065,.09,1)
+    pieces=[]
     for sx in (-1,1):
-        add_uv("Goggle",Vector((c.x+sx*d.x*.20,mn.y-.015,c.z+d.z*.08)),
-               Vector((d.x*.16,d.y*.055,d.z*.12)),glass,arm,"Head")
-    # headset cups
+        pieces.append(add_uv("Goggle",Vector((c.x+sx*d.x*.20,mn.y-.025,c.z+d.z*.05)),
+               Vector((d.x*.145,d.y*.045,d.z*.10)),glass))
     for sx in (-1,1):
-        add_uv("Headset",Vector((c.x+sx*d.x*.53,c.y,c.z+d.z*.05)),
-               Vector((d.x*.10,d.y*.13,d.z*.18)),(.025,.03,.035,1),arm,"Head")
-    # helmet shell: dark ellipsoid set above skull; deliberately leaves face/muzzle visible.
-    add_uv("Helmet",Vector((c.x,c.y+d.y*.08,c.z+d.z*.34)),
-           Vector((d.x*.54,d.y*.43,d.z*.30)),(.035,.045,.05,1),arm,"Head")
-
-def add_tail(arm,head,team):
-    # Simple curved tactical silhouette, bone-parented at hips.
-    curve=bpy.data.curves.new(team+"Tail","CURVE"); curve.dimensions="3D"; curve.bevel_depth=.055 if team=="cat" else .07; curve.bevel_resolution=3
-    spl=curve.splines.new("BEZIER"); spl.bezier_points.add(3)
-    pts=[Vector((0,.16,.58)),Vector((0,.38,.53)),Vector((.12,.50,.82)),Vector((.20,.46,1.03))]
-    for p,co in zip(spl.bezier_points,pts):
-        p.co=co; p.handle_left_type="AUTO"; p.handle_right_type="AUTO"
-    o=bpy.data.objects.new(team+"Tail",curve); bpy.context.collection.objects.link(o)
-    m=bpy.data.materials.new(team+"TailMat")
-    m.diffuse_color=(.30,.28,.25,1) if team=="cat" else (.34,.21,.12,1)
-    curve.materials.append(m)
-    mw=o.matrix_world.copy(); o.parent=arm; o.parent_type="BONE"; o.parent_bone="Hips"; o.matrix_world=mw
+        pieces.append(add_uv("Headset",Vector((c.x+sx*d.x*.50,c.y+d.y*.04,c.z+d.z*.05)),
+               Vector((d.x*.085,d.y*.12,d.z*.155)),(.022,.028,.032,1)))
+    # Helmet sits only over the upper skull; it deliberately does not cover the muzzle/eyes.
+    pieces.append(add_uv("Helmet",Vector((c.x,c.y+d.y*.16,c.z+d.z*.38)),
+           Vector((d.x*.50,d.y*.39,d.z*.25)),(.028,.038,.043,1)))
+    join_into_head(head,pieces)
 
 def prepare_soldier(team,variant):
     bpy.ops.import_scene.gltf(filepath=SOLDIER)
     arm=next(o for o in bpy.context.scene.objects if o.type=="ARMATURE")
-    # Remove helper.
     for o in list(bpy.context.scene.objects):
         if o.name.startswith("Icosphere"): bpy.data.objects.remove(o,do_unlink=True)
-    # Capture the original head target before removing it.
+
     human_head=next(o for o in bpy.context.scene.objects if o.type=="MESH" and o.name=="Head")
     hmn,hmx,hdim,hcen=mesh_bounds(human_head)
-    bpy.data.objects.remove(human_head,do_unlink=True)
-    # Keep one real weapon per character.
+
+    # Keep one genuine weapon mesh per operator.
     for w in ["AK","SMG","Shotgun","Sniper","Pistol","Revolver","Revolver_Small","GrenadeLauncher","ShortCannon","Sniper_2","RocketLauncher","Shovel","Knife_2","Knife_1"]:
         o=bpy.data.objects.get(w)
         if o and w!=WEAPONS[variant]:
             bpy.data.objects.remove(o,do_unlink=True)
+
     clone_and_tint_materials(team,variant)
-    path=CAT if team=="cat" else DOG
-    head=extract_animal_head(path,team,hcen,hdim,arm)
-    add_headset_and_goggles(head,arm,team)
-    add_tail(arm,head,team)
-    # Name armature and body deterministically.
+    head=extract_animal_head(CAT if team=="cat" else DOG,team,variant,hcen,hdim,human_head)
+    add_headset_and_goggles(head,team)
+
     arm.name="OperatorRig"
-    body=max((o for o in bpy.context.scene.objects if o.type=="MESH" and len(o.data.vertices)>2500 and o.name not in [head.name]), key=lambda x:len(x.data.vertices))
+    body=max((o for o in bpy.context.scene.objects if o.type=="MESH" and len(o.data.vertices)>2500 and o is not head), key=lambda x:len(x.data.vertices))
     body.name="OperatorBody"
     return arm,head
 

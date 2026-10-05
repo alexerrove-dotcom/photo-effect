@@ -734,7 +734,7 @@ func _throw_grenade() -> void:
     tw.tween_property(smoke,"scale",Vector3.ONE*5.5,1.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
     tw.tween_interval(4.5)
     tw.tween_property(smoke,"scale",Vector3.ONE*6.5,1.0)
-    tw.parallel().tween_property(smoke,"modulate:a",0.0,1.0)
+    tw.parallel().tween_property(smoke,"transparency",1.0,1.0)
     tw.tween_callback(smoke.queue_free)
 
 func _plant_or_defuse() -> void:

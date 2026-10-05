@@ -1,0 +1,88 @@
+name: Build Cat vs Dogs APK Native
+
+on:
+  push:
+    branches: [ cat-vs-dogs-cloud-build ]
+    paths:
+      - 'catdogs/**'
+      - '.github/workflows/catdogs-apk-native.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  android-native:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android 35 packages
+        shell: bash
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platform-tools" "build-tools;35.0.0" "platforms;android-35"
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          ls -la "$ANDROID_HOME/build-tools/35.0.0"
+
+      - name: Install Godot 4.5 and templates
+        shell: bash
+        run: |
+          wget -q https://github.com/godotengine/godot/releases/download/4.5-stable/Godot_v4.5-stable_linux.x86_64.zip -O godot.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.5-stable_linux.x86_64
+          sudo mv Godot_v4.5-stable_linux.x86_64 /usr/local/bin/godot
+          wget -q https://github.com/godotengine/godot/releases/download/4.5-stable/Godot_v4.5-stable_export_templates.tpz -O templates.tpz
+          mkdir -p ~/.local/share/godot/export_templates/4.5.stable
+          unzip -q templates.tpz
+          cp -r templates/* ~/.local/share/godot/export_templates/4.5.stable/
+          mkdir -p ~/.config/godot
+          keytool -keyalg RSA -genkeypair -alias androiddebugkey -keypass android -keystore "$HOME/debug.keystore" -storepass android -dname "CN=Android Debug,O=Android,C=US" -validity 9999
+          cat > ~/.config/godot/editor_settings-4.5.tres <<EOF
+          [gd_resource type="EditorSettings" format=3]
+
+          [resource]
+          export/android/java_sdk_path = "$JAVA_HOME"
+          export/android/android_sdk_path = "$ANDROID_HOME"
+          export/android/debug_keystore = "$HOME/debug.keystore"
+          export/android/debug_keystore_user = "androiddebugkey"
+          export/android/debug_keystore_pass = "android"
+          export/android/force_system_user = false
+          export/android/timestamping_authority_url = ""
+          export/android/shutdown_adb_on_exit = true
+          EOF
+          godot --version
+
+      - name: Validate project
+        shell: bash
+        run: |
+          cd catdogs
+          godot --headless --editor --quit --path .
+
+      - name: Build APK
+        shell: bash
+        run: |
+          mkdir -p build
+          cd catdogs
+          godot --headless --verbose --path . --export-debug "Android" ../build/CatVsDogs-WarZone.apk
+          test -s ../build/CatVsDogs-WarZone.apk
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose ../build/CatVsDogs-WarZone.apk
+          ls -lh ../build/CatVsDogs-WarZone.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: CatVsDogs-WarZone-APK-Native
+          path: build/CatVsDogs-WarZone.apk
+          if-no-files-found: error
+          retention-days: 14

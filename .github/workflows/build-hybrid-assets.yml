@@ -18,7 +18,7 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update -qq
-          sudo apt-get install -y -qq blender python3-numpy
+          sudo apt-get install -y -qq blender python3-numpy libegl1 libgl1-mesa-dri xvfb
       - name: Download licensed source models
         shell: bash
         run: |
@@ -31,7 +31,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          ASSET_ROOT=/tmp/catdogs_assets ASSET_OUT="$GITHUB_WORKSPACE/catdogs/generated" blender -b --python catdogs/tools/build_hybrids.py
+          ASSET_ROOT=/tmp/catdogs_assets ASSET_OUT="$GITHUB_WORKSPACE/catdogs/generated" xvfb-run -a blender -b --python catdogs/tools/build_hybrids.py
           ls -lh catdogs/generated
           test "$(find catdogs/generated -name '*.glb' | wc -l)" -eq 10
           test "$(find catdogs/generated -name '*portrait.png' | wc -l)" -eq 10

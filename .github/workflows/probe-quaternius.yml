@@ -1,0 +1,24 @@
+name: Probe Quaternius Asset
+
+on:
+  push:
+    branches: [ cat-vs-dogs-cloud-build ]
+    paths: [ '.github/workflows/probe-quaternius.yml' ]
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Probe asset
+        shell: bash
+        run: |
+          set -euxo pipefail
+          URL='https://quaternius.itch.io/universal-base-characters/download/eyJpZCI6MzgyMjI1OSwiZXhwaXJlcyI6MTc5MTIyMjkwMH0%3D.r%2BDtkam2m1H4TDt%2FiQhglrLX2bw%3D'
+          curl -L --fail --retry 2 -A 'Mozilla/5.0' -D headers.txt -o asset.bin "$URL" || true
+          echo '--- headers ---'
+          cat headers.txt || true
+          echo '--- file ---'
+          file asset.bin || true
+          ls -lh asset.bin || true
+          head -c 100 asset.bin | xxd || true

@@ -46,6 +46,24 @@ jobs:
           cd catdogs
           godot --headless --path . --editor --quit
 
+      - name: Runtime smoke test
+        shell: bash
+        run: |
+          cd catdogs
+          set +e
+          timeout 6s godot --headless --path . > /tmp/catdogs-runtime.log 2>&1
+          RC=$?
+          set -e
+          cat /tmp/catdogs-runtime.log
+          if grep -E "SCRIPT ERROR|Parse Error|Invalid call|Invalid access|ERROR:" /tmp/catdogs-runtime.log; then
+            echo "Runtime smoke test found errors"
+            exit 1
+          fi
+          if [ "$RC" -ne 0 ] && [ "$RC" -ne 124 ]; then
+            echo "Runtime smoke test failed with $RC"
+            exit "$RC"
+          fi
+
       - name: Export Android debug APK
         shell: bash
         run: |

@@ -1,0 +1,45 @@
+name: Inspect Blender Character Assembly
+
+on:
+  push:
+    branches: [ cat-vs-dogs-cloud-build ]
+    paths: [ '.github/workflows/inspect-blender-character.yml' ]
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Install Blender and download CC0 GLBs
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq blender
+          mkdir assets
+          curl -L --fail -o assets/cat.glb https://raw.githubusercontent.com/HookTech/bamboo-game/216dbbfacb447a7ac1e80c17e94425dcb220b12e/cocos/assets/models/animals/cat.glb
+          curl -L --fail -o assets/dog.glb https://raw.githubusercontent.com/HookTech/bamboo-game/216dbbfacb447a7ac1e80c17e94425dcb220b12e/cocos/assets/models/animals/dog.glb
+          curl -L --fail -o assets/soldier.glb https://raw.githubusercontent.com/hoveychen/skin-run/b028803ce8f9adac20b45b85fd9fbb091bcc0808/assets/characters/soldier.glb
+          blender --version
+
+      - name: Inspect in Blender
+        shell: bash
+        run: |
+          cat > /tmp/inspect.py <<'PY'
+          import bpy, os
+          def reset():
+              bpy.ops.wm.read_factory_settings(use_empty=True)
+          def inspect(path):
+              reset()
+              bpy.ops.import_scene.gltf(filepath=path)
+              print("\n====",path,"====")
+              for o in bpy.context.scene.objects:
+                  if o.type=='MESH':
+                      dims=tuple(round(x,3) for x in o.dimensions)
+                      print("MESH",o.name,"verts",len(o.data.vertices),"dims",dims,"loc",tuple(round(x,3) for x in o.location),"parent",o.parent.name if o.parent else None,"groups",[g.name for g in o.vertex_groups][:30],"mats",[m.name if m else None for m in o.data.materials])
+                  elif o.type=='ARMATURE':
+                      print("ARMATURE",o.name,"bones",[(b.name,tuple(round(x,3) for x in b.head_local),tuple(round(x,3) for x in b.tail_local)) for b in o.data.bones])
+              print("ACTIONS",[(a.name,round(a.frame_range[0],1),round(a.frame_range[1],1)) for a in bpy.data.actions])
+          for p in ["assets/cat.glb","assets/dog.glb","assets/soldier.glb"]:
+              inspect(p)
+          PY
+          blender -b --python /tmp/inspect.py

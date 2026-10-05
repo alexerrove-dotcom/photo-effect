@@ -1,0 +1,60 @@
+name: Inspect Character Bounds
+
+on:
+  push:
+    branches: [ cat-vs-dogs-cloud-build ]
+    paths: [ '.github/workflows/inspect-character-bounds.yml' ]
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Install and inspect
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq blender python3-numpy
+          mkdir assets
+          curl -L --fail -o assets/cat.glb https://raw.githubusercontent.com/HookTech/bamboo-game/216dbbfacb447a7ac1e80c17e94425dcb220b12e/cocos/assets/models/animals/cat.glb
+          curl -L --fail -o assets/dog.glb https://raw.githubusercontent.com/HookTech/bamboo-game/216dbbfacb447a7ac1e80c17e94425dcb220b12e/cocos/assets/models/animals/dog.glb
+          curl -L --fail -o assets/soldier.glb https://raw.githubusercontent.com/hoveychen/skin-run/b028803ce8f9adac20b45b85fd9fbb091bcc0808/assets/characters/soldier.glb
+          cat > /tmp/bounds.py <<'PY'
+          import bpy
+          from mathutils import Vector
+          def reset(): bpy.ops.wm.read_factory_settings(use_empty=True)
+          def bounds(objs):
+              pts=[]
+              for o in objs:
+                  if o.type=='MESH':
+                      pts += [o.matrix_world @ v.co for v in o.data.vertices]
+              mn=Vector((min(p.x for p in pts),min(p.y for p in pts),min(p.z for p in pts)))
+              mx=Vector((max(p.x for p in pts),max(p.y for p in pts),max(p.z for p in pts)))
+              return mn,mx,mx-mn
+          def weighted(o,names,threshold=.15):
+              inds={g.index for g in o.vertex_groups if any(k.lower() in g.name.lower() for k in names)}
+              pts=[]
+              for v in o.data.vertices:
+                  w=sum(g.weight for g in v.groups if g.group in inds)
+                  if w>=threshold: pts.append(o.matrix_world@v.co)
+              if not pts:return None
+              mn=Vector((min(p.x for p in pts),min(p.y for p in pts),min(p.z for p in pts)))
+              mx=Vector((max(p.x for p in pts),max(p.y for p in pts),max(p.z for p in pts)))
+              return len(pts),mn,mx,mx-mn
+          for path in ['assets/cat.glb','assets/dog.glb','assets/soldier.glb']:
+              reset(); bpy.ops.import_scene.gltf(filepath=path)
+              meshes=[o for o in bpy.context.scene.objects if o.type=='MESH' and o.name!='Icosphere']
+              print('\n###',path,'ALL_BOUNDS',bounds(meshes))
+              for o in meshes:
+                  if o.vertex_groups:
+                      print(o.name,'HEAD_WEIGHTED',weighted(o,['head'],.12))
+                      print(o.name,'BODY_WEIGHTED',weighted(o,['body','hips','torso','abdomen'],.12))
+              for a in [o for o in bpy.context.scene.objects if o.type=='ARMATURE']:
+                  print('ARM',a.name,'loc',tuple(round(x,3) for x in a.location),'scale',tuple(round(x,3) for x in a.scale),'rot',tuple(round(x,3) for x in a.rotation_euler))
+                  for bn in ['Head','Neck','Body','Hips','Root','Tail']:
+                      b=a.data.bones.get(bn)
+                      if b:
+                          print('BONE',bn,'local',tuple(round(x,4) for x in b.head_local),'world',tuple(round(x,4) for x in (a.matrix_world@b.head_local)))
+          PY
+          blender -b --python /tmp/bounds.py

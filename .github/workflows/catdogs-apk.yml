@@ -20,18 +20,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Godot CI home
+      - name: Setup Godot and Android SDK 35
         shell: bash
         run: |
-          mkdir -p ~/.local/share/godot/export_templates ~/.config
+          mkdir -p ~/.local/share/godot/export_templates ~/.config ~/.android
           if [ -d /root/.local/share/godot/export_templates/4.5.stable ]; then
             cp -r /root/.local/share/godot/export_templates/4.5.stable ~/.local/share/godot/export_templates/
           fi
           if [ -d /root/.config/godot ]; then
             cp -r /root/.config/godot ~/.config/ || true
           fi
+          if [ -f /root/.android/debug.keystore ]; then
+            cp /root/.android/debug.keystore ~/.android/debug.keystore
+          fi
+          yes | sdkmanager --sdk_root="$ANDROID_HOME" --licenses >/dev/null || true
+          sdkmanager --sdk_root="$ANDROID_HOME" "platform-tools" "build-tools;35.0.0" "platforms;android-35"
           godot --version
           java -version
+          echo "SDK=$ANDROID_HOME"
+          ls -la "$ANDROID_HOME/build-tools/35.0.0"
 
       - name: Parse project and scripts
         shell: bash

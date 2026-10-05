@@ -1,0 +1,41 @@
+name: Inspect 3D Assets
+
+on:
+  push:
+    branches: [ cat-vs-dogs-cloud-build ]
+    paths: [ '.github/workflows/inspect-catdogs-assets.yml' ]
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Download and inspect GLB metadata
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir assets && cd assets
+          curl -L --fail -o cat.glb https://raw.githubusercontent.com/HookTech/bamboo-game/216dbbfacb447a7ac1e80c17e94425dcb220b12e/cocos/assets/models/animals/cat.glb
+          curl -L --fail -o dog.glb https://raw.githubusercontent.com/HookTech/bamboo-game/216dbbfacb447a7ac1e80c17e94425dcb220b12e/cocos/assets/models/animals/dog.glb
+          curl -L --fail -o soldier.glb https://raw.githubusercontent.com/hoveychen/skin-run/b028803ce8f9adac20b45b85fd9fbb091bcc0808/assets/characters/soldier.glb
+          python - <<'PY'
+          import json,struct, pathlib
+          def inspect(fn):
+              b=pathlib.Path(fn).read_bytes()
+              assert b[:4]==b'glTF'
+              length=struct.unpack_from('<I',b,8)[0]
+              jlen,jtyp=struct.unpack_from('<II',b,12)
+              j=json.loads(b[20:20+jlen].decode('utf8'))
+              print('\n###',fn,'bytes',len(b))
+              print('scene',j.get('scene'),'scenes',j.get('scenes'))
+              print('nodes:')
+              for i,n in enumerate(j.get('nodes',[])):
+                  print(i, n.get('name'), 'mesh',n.get('mesh'), 'skin',n.get('skin'),'children',n.get('children'))
+              print('meshes:')
+              for i,m in enumerate(j.get('meshes',[])):
+                  print(i,m.get('name'),'prims',len(m.get('primitives',[])))
+              print('skins:',[(i,s.get('name'),len(s.get('joints',[]))) for i,s in enumerate(j.get('skins',[]))])
+              print('anims:',[a.get('name') for a in j.get('animations',[])])
+              print('materials:',[m.get('name') for m in j.get('materials',[])])
+          for f in ['cat.glb','dog.glb','soldier.glb']: inspect(f)
+          PY

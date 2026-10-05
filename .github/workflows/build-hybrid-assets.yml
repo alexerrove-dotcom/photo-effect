@@ -1,0 +1,44 @@
+name: Build Hybrid Operator Assets
+
+on:
+  push:
+    branches: [ cat-vs-dogs-cloud-build ]
+    paths:
+      - 'catdogs/tools/build_hybrids.py'
+      - '.github/workflows/build-hybrid-assets.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Blender
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq blender python3-numpy
+      - name: Download licensed source models
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/catdogs_assets catdogs/generated
+          curl -L --fail -o /tmp/catdogs_assets/cat.glb https://raw.githubusercontent.com/HookTech/bamboo-game/216dbbfacb447a7ac1e80c17e94425dcb220b12e/cocos/assets/models/animals/cat.glb
+          curl -L --fail -o /tmp/catdogs_assets/dog.glb https://raw.githubusercontent.com/HookTech/bamboo-game/216dbbfacb447a7ac1e80c17e94425dcb220b12e/cocos/assets/models/animals/dog.glb
+          curl -L --fail -o /tmp/catdogs_assets/soldier.glb https://raw.githubusercontent.com/hoveychen/skin-run/b028803ce8f9adac20b45b85fd9fbb091bcc0808/assets/characters/soldier.glb
+      - name: Build 10 animated operators and portraits
+        shell: bash
+        run: |
+          set -euo pipefail
+          ASSET_ROOT=/tmp/catdogs_assets ASSET_OUT="$GITHUB_WORKSPACE/catdogs/generated" blender -b --python catdogs/tools/build_hybrids.py
+          ls -lh catdogs/generated
+          test "$(find catdogs/generated -name '*.glb' | wc -l)" -eq 10
+          test "$(find catdogs/generated -name '*portrait.png' | wc -l)" -eq 10
+      - name: Upload generated operator pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: CatDogs-Operators
+          path: catdogs/generated/
+          retention-days: 14
+          if-no-files-found: error

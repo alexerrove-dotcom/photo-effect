@@ -31,3 +31,20 @@ jobs:
               print('materials',[m.get('name') for m in j.get('materials',[])])
           for p in ['/tmp/props.glb','/tmp/guns.glb','/tmp/arms.glb']: load(p)
           PY
+
+      - name: Stage ready FPS assets
+        shell: bash
+        run: |
+          mkdir -p ready-fps-assets
+          cp /tmp/props.glb ready-fps-assets/props.glb
+          cp /tmp/guns.glb ready-fps-assets/guns.glb
+          cp /tmp/arms.glb ready-fps-assets/fpArms.glb
+          ls -lh ready-fps-assets
+
+      - name: Upload ready FPS assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: ReadyFPSAssets
+          path: ready-fps-assets/
+          retention-days: 14
+          if-no-files-found: error

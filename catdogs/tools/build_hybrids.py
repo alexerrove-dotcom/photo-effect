@@ -167,6 +167,15 @@ def add_uv(name,loc,scale,color):
     o.data.materials.append(m)
     return o
 
+def parent_parts_to_head(head,parts):
+    for o in parts:
+        if not o or o.name not in bpy.data.objects:
+            continue
+        world=o.matrix_world.copy()
+        o.parent=head
+        o.matrix_parent_inverse=head.matrix_world.inverted()
+        o.matrix_world=world
+
 def add_animal_face_details(head,team,variant):
     mn,mx,d,c=mesh_bounds(head)
     parts=[]
@@ -197,7 +206,7 @@ def add_animal_face_details(head,team,variant):
                    Vector((d.x*.235,d.y*.180,d.z*.155)),muzzle))
         parts.append(add_uv("DogNose",Vector((c.x,mn.y-d.y*.285,c.z-d.z*.060)),
                    Vector((d.x*.135,d.y*.065,d.z*.085)),(.025,.025,.022,1)))
-    join_into_head(head,parts)
+    parent_parts_to_head(head,parts)
 
 def add_headset_and_goggles(head,team):
     mn,mx,d,c=mesh_bounds(head)
@@ -212,7 +221,7 @@ def add_headset_and_goggles(head,team):
     # Helmet sits only over the upper skull; it deliberately does not cover the muzzle/eyes.
     pieces.append(add_uv("Helmet",Vector((c.x,c.y+d.y*.16,c.z+d.z*.38)),
            Vector((d.x*.50,d.y*.39,d.z*.25)),(.028,.038,.043,1)))
-    join_into_head(head,pieces)
+    parent_parts_to_head(head,pieces)
 
 def prepare_soldier(team,variant):
     bpy.ops.import_scene.gltf(filepath=SOLDIER)

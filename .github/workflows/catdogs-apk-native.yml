@@ -24,6 +24,21 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Download verified Cat vs Dogs operator pack
+        uses: actions/download-artifact@v4
+        with:
+          name: CatDogs-Operators
+          path: catdogs/generated
+          run-id: 37355253404
+          github-token: ${{ github.token }}
+
+      - name: Verify operator pack
+        shell: bash
+        run: |
+          test "$(find catdogs/generated -name '*.glb' | wc -l)" -eq 10
+          test "$(find catdogs/generated -name '*portrait.png' | wc -l)" -eq 10
+          ls -lh catdogs/generated
+
       - name: Configure preinstalled Android SDK 35
         shell: bash
         run: |

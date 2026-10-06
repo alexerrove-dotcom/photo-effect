@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   android-native:
@@ -38,6 +39,22 @@ jobs:
           test "$(find catdogs/generated -name '*.glb' | wc -l)" -eq 10
           test "$(find catdogs/generated -name '*portrait.png' | wc -l)" -eq 10
           ls -lh catdogs/generated
+
+      - name: Download verified FPS city and weapon pack
+        uses: actions/download-artifact@v4
+        with:
+          name: ReadyFPSAssets
+          path: catdogs/assets
+          run-id: 37500751716
+          github-token: ${{ github.token }}
+
+      - name: Verify FPS assets
+        shell: bash
+        run: |
+          test -s catdogs/assets/props.glb
+          test -s catdogs/assets/guns.glb
+          test -s catdogs/assets/fpArms.glb
+          ls -lh catdogs/assets/props.glb catdogs/assets/guns.glb catdogs/assets/fpArms.glb
 
       - name: Configure preinstalled Android SDK 35
         shell: bash

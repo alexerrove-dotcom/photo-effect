@@ -8,6 +8,8 @@ var player_variant := 0
 var player: CharacterBody3D
 var camera: Camera3D
 var weapon_root: Node3D
+var fp_arms: Node3D
+var props_pack: PackedScene
 var muzzle_light: OmniLight3D
 var bots: Array = []
 var match_active := false
@@ -112,6 +114,9 @@ func _build_environment() -> void:
     add_child(sun)
 
 func _build_map() -> void:
+    if ResourceLoader.exists("res://assets/props.glb"):
+        _build_real_city()
+        return
     _add_static_box(Vector3(64,0.35,64), Vector3(0,-0.18,0), Color("b7a27f"))
     var lane := Color("8f8069")
     _add_static_box(Vector3(8,0.08,58), Vector3(0,0.02,0), lane)
@@ -144,6 +149,91 @@ func _build_map() -> void:
 
     for x in [-26.0,-18.0,18.0,26.0]:
         _add_palm(Vector3(x,0,-4 if x < 0 else 4))
+
+func _build_real_city() -> void:
+    _add_static_box(Vector3(64,0.35,64), Vector3(0,-0.18,0), Color("b5aa93"))
+    _add_static_box(Vector3(10,0.06,64), Vector3(0,0.015,0), Color("4e5357"))
+    _add_static_box(Vector3(64,0.06,10), Vector3(0,0.018,0), Color("4e5357"))
+    _add_static_box(Vector3(2.2,0.09,64), Vector3(-6.1,0.04,0), Color("9e927f"))
+    _add_static_box(Vector3(2.2,0.09,64), Vector3(6.1,0.04,0), Color("9e927f"))
+
+    var buildings = [
+        ["shop-a", Vector3(-27,0,-9), Vector3(7.1,10.35,7.52), deg_to_rad(90.0)],
+        ["house-b", Vector3(-26,0,11), Vector3(12.43,7.74,7.76), deg_to_rad(90.0)],
+        ["shop-c", Vector3(27,0,-9), Vector3(7.07,7.15,8.72), deg_to_rad(-90.0)],
+        ["house-d", Vector3(26,0,11), Vector3(11.95,8.42,6.99), deg_to_rad(-90.0)],
+        ["factory-a", Vector3(0,0,-27), Vector3(15.01,10.59,8.95), 0.0],
+        ["shop-e", Vector3(0,0,27), Vector3(13.13,7.15,8.07), PI]
+    ]
+    for e in buildings:
+        _place_prop(String(e[0]), e[1], float(e[3]))
+        _add_collision_only(e[2], e[1] + Vector3(0,float(e[2].y)*0.5,0), float(e[3]))
+
+    var covers = [
+        ["dumpster",Vector3(-10,0,-6),Vector3(2.2,1.68,2.97),0.0],
+        ["dumpster",Vector3(10,0,6),Vector3(2.2,1.68,2.97),PI],
+        ["barrier",Vector3(-3,0,-13),Vector3(1.09,1.05,1.8),deg_to_rad(90.0)],
+        ["barrier",Vector3(4,0,14),Vector3(1.09,1.05,1.8),deg_to_rad(90.0)],
+        ["fence",Vector3(-16,0,2),Vector3(8.67,1.84,2.98),0.0],
+        ["fence",Vector3(16,0,-2),Vector3(8.67,1.84,2.98),PI]
+    ]
+    for e in covers:
+        _place_prop(String(e[0]), e[1], float(e[3]))
+        _add_collision_only(e[2], e[1] + Vector3(0,float(e[2].y)*0.5,0), float(e[3]))
+
+    for p in [Vector3(-4,0.7,-4),Vector3(4,0.7,-4),Vector3(-3,0.7,10),Vector3(4,0.7,10)]:
+        _add_crate(p)
+    for p in [Vector3(-18,0,-15),Vector3(-18,0,18),Vector3(18,0,-16),Vector3(18,0,18)]:
+        _place_prop("tree-street",p)
+    for p in [Vector3(-7,0,-18),Vector3(7,0,-18),Vector3(-7,0,18),Vector3(7,0,18)]:
+        _place_prop("lamp",p)
+    _place_prop("traffic-light",Vector3(-7,0,-7),deg_to_rad(45.0))
+    _place_prop("traffic-light",Vector3(7,0,7),deg_to_rad(-135.0))
+    _place_prop("planter",Vector3(-8,0,6))
+    _place_prop("planter",Vector3(8,0,-6),PI)
+
+    _add_site(Vector3(-14,0.05,-14), "A")
+    _add_site(Vector3(14,0.05,14), "B")
+
+func _place_prop(name:String, pos:Vector3, rot_y:float=0.0, uniform_scale:float=1.0) -> Node3D:
+    if props_pack == null:
+        props_pack = load("res://assets/props.glb") as PackedScene
+    if props_pack == null:
+        return null
+    var library := props_pack.instantiate()
+    var src := library.get_node_or_null(NodePath(name))
+    if src == null:
+        library.free()
+        return null
+    var copy := src.duplicate()
+    library.free()
+    if not (copy is Node3D):
+        copy.free()
+        return null
+    copy.position = pos
+    copy.rotation.y = rot_y
+    copy.scale = Vector3.ONE * uniform_scale
+    add_child(copy)
+    _enable_visual_shadows(copy)
+    return copy
+
+func _enable_visual_shadows(n:Node) -> void:
+    if n is GeometryInstance3D:
+        n.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+    for ch in n.get_children():
+        _enable_visual_shadows(ch)
+
+func _add_collision_only(size:Vector3, pos:Vector3, rot_y:float=0.0) -> void:
+    var body := StaticBody3D.new()
+    body.position = pos
+    body.rotation.y = rot_y
+    body.collision_layer = 1
+    var cs := CollisionShape3D.new()
+    var shape := BoxShape3D.new()
+    shape.size = size
+    cs.shape = shape
+    body.add_child(cs)
+    add_child(body)
 
 func _add_static_box(size:Vector3, pos:Vector3, color:Color, metallic:float=0.0) -> StaticBody3D:
     var body := StaticBody3D.new()
@@ -276,44 +366,90 @@ func _build_player() -> void:
 
 func _build_weapon() -> void:
     weapon_root = Node3D.new()
-    weapon_root.position = Vector3(0.42,-0.42,-0.92)
+    weapon_root.position = Vector3(0.13,-0.11,-0.24)
     camera.add_child(weapon_root)
-    var receiver := MeshInstance3D.new()
-    var bm := BoxMesh.new()
-    bm.size = Vector3(0.20,0.19,0.76)
-    receiver.mesh = bm
-    receiver.material_override = make_mat(Color("15191c"),0.76,0.28)
-    weapon_root.add_child(receiver)
-    var stock := MeshInstance3D.new()
-    var sm := BoxMesh.new()
-    sm.size = Vector3(0.19,0.22,0.42)
-    stock.mesh = sm
-    stock.position = Vector3(0.0,-0.02,0.48)
-    stock.material_override = make_mat(Color("292c2e"),0.55,0.38)
-    weapon_root.add_child(stock)
-    var barrel := MeshInstance3D.new()
-    var cm := CylinderMesh.new()
-    cm.top_radius = 0.045
-    cm.bottom_radius = 0.055
-    cm.height = 0.85
-    barrel.mesh = cm
-    barrel.rotation_degrees.x = 90
-    barrel.position = Vector3(0.0,0.02,-0.74)
-    barrel.material_override = make_mat(Color("101316"),0.82,0.2)
-    weapon_root.add_child(barrel)
-    var sight := MeshInstance3D.new()
-    var sight_mesh := BoxMesh.new()
-    sight_mesh.size = Vector3(0.12,0.16,0.21)
-    sight.mesh = sight_mesh
-    sight.position = Vector3(0,0.17,-0.12)
-    sight.material_override = make_mat(Color("202529"),0.7,0.24)
-    weapon_root.add_child(sight)
+
+    var real_weapon := false
+    if ResourceLoader.exists("res://assets/guns.glb"):
+        var guns_pack := load("res://assets/guns.glb") as PackedScene
+        if guns_pack != null:
+            var lib := guns_pack.instantiate()
+            var src := lib.get_node_or_null(NodePath("rifle"))
+            if src != null:
+                var rifle := src.duplicate()
+                if rifle is Node3D:
+                    rifle.scale = Vector3.ONE * 0.85
+                    weapon_root.add_child(rifle)
+                    _disable_fp_shadows(rifle)
+                    real_weapon = true
+            lib.free()
+
+    if not real_weapon:
+        var receiver := MeshInstance3D.new()
+        var bm := BoxMesh.new()
+        bm.size = Vector3(0.20,0.19,0.76)
+        receiver.mesh = bm
+        receiver.material_override = make_mat(Color("15191c"),0.76,0.28)
+        weapon_root.add_child(receiver)
+        var stock := MeshInstance3D.new()
+        var sm := BoxMesh.new()
+        sm.size = Vector3(0.19,0.22,0.42)
+        stock.mesh = sm
+        stock.position = Vector3(0.0,-0.02,0.48)
+        stock.material_override = make_mat(Color("292c2e"),0.55,0.38)
+        weapon_root.add_child(stock)
+        var barrel := MeshInstance3D.new()
+        var cm := CylinderMesh.new()
+        cm.top_radius = 0.045
+        cm.bottom_radius = 0.055
+        cm.height = 0.85
+        barrel.mesh = cm
+        barrel.rotation_degrees.x = 90
+        barrel.position = Vector3(0.0,0.02,-0.74)
+        barrel.material_override = make_mat(Color("101316"),0.82,0.2)
+        weapon_root.add_child(barrel)
+
+    if ResourceLoader.exists("res://assets/fpArms.glb"):
+        var arms_pack := load("res://assets/fpArms.glb") as PackedScene
+        if arms_pack != null:
+            fp_arms = arms_pack.instantiate()
+            fp_arms.scale = Vector3.ONE * 0.05
+            camera.add_child(fp_arms)
+            _disable_fp_shadows(fp_arms)
+
     muzzle_light = OmniLight3D.new()
     muzzle_light.light_color = Color("ffb34a")
     muzzle_light.light_energy = 0.0
     muzzle_light.omni_range = 4.0
-    muzzle_light.position = Vector3(0,0,-1.18)
+    muzzle_light.position = Vector3(0,0.017,-0.468)
     weapon_root.add_child(muzzle_light)
+
+func _disable_fp_shadows(n:Node) -> void:
+    if n is GeometryInstance3D:
+        n.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+    for ch in n.get_children():
+        _disable_fp_shadows(ch)
+
+func _spawn_muzzle_flash() -> void:
+    var flash := MeshInstance3D.new()
+    var q := QuadMesh.new()
+    q.size = Vector2(0.18,0.18)
+    flash.mesh = q
+    flash.position = Vector3(0,0.017,-0.47)
+    var m := StandardMaterial3D.new()
+    m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+    m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+    m.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+    m.albedo_color = Color(1.0,0.55,0.12,0.95)
+    m.emission_enabled = true
+    m.emission = Color(1.0,0.34,0.05)
+    m.emission_energy_multiplier = 5.0
+    flash.material_override = m
+    weapon_root.add_child(flash)
+    var tw := create_tween()
+    tw.tween_property(flash,"scale",Vector3.ONE*1.8,0.035)
+    tw.parallel().tween_property(flash,"modulate:a",0.0,0.06)
+    tw.tween_callback(flash.queue_free)
 
 func _build_hud() -> void:
     hud = CanvasLayer.new()
@@ -405,17 +541,38 @@ func _build_menu() -> void:
     start.pressed.connect(start_match)
     bg.add_child(start)
     _label(bg,"5 × 5 • C4 • БОТЫ • ГРАНАТЫ • МОБИЛЬНОЕ УПРАВЛЕНИЕ",Vector2(490,900),Vector2(940,55),24,Color("b9d1df"),HORIZONTAL_ALIGNMENT_CENTER)
-    _label(bg,"Облачная Android-сборка • собственная карта и персонажи",Vector2(540,958),Vector2(840,45),20,Color("6d899b"),HORIZONTAL_ALIGNMENT_CENTER)
+    _label(bg,"Реальные 3D-операторы • городская карта • мобильный FPS",Vector2(540,958),Vector2(840,45),20,Color("6d899b"),HORIZONTAL_ALIGNMENT_CENTER)
 
 func _menu_card(parent:Control, pos:Vector2, sz:Vector2, text:String, color:Color, variant:int, team:int) -> Button:
     var b := Button.new()
-    b.text = text + "\n\n" + ("▲  ◉  ▲" if team == 0 else "◆  ◉  ◆")
+    b.text = ""
     b.position = pos
     b.size = sz
-    b.add_theme_font_size_override("font_size",20)
-    b.add_theme_stylebox_override("normal", _style(color.darkened(0.62), color, 3, 10))
-    b.add_theme_stylebox_override("hover", _style(color.darkened(0.40), color.lightened(0.2), 4, 10))
+    b.clip_contents = true
+    b.add_theme_stylebox_override("normal", _style(color.darkened(0.70), color, 3, 10))
+    b.add_theme_stylebox_override("hover", _style(color.darkened(0.45), color.lightened(0.2), 4, 10))
     b.add_theme_stylebox_override("pressed", _style(color.darkened(0.25), Color.WHITE, 4, 10))
+    var prefix := "cat" if team == 0 else "dog"
+    var portrait_path := "res://generated/%s_%d_portrait.png" % [prefix,variant]
+    if ResourceLoader.exists(portrait_path):
+        var tr := TextureRect.new()
+        tr.texture = load(portrait_path)
+        tr.position = Vector2(4,4)
+        tr.size = Vector2(sz.x-8,sz.y-38)
+        tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+        tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+        tr.mouse_filter = Control.MOUSE_FILTER_IGNORE
+        b.add_child(tr)
+    var caption := Label.new()
+    caption.text = text
+    caption.position = Vector2(4,sz.y-36)
+    caption.size = Vector2(sz.x-8,32)
+    caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+    caption.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+    caption.add_theme_font_size_override("font_size",17)
+    caption.add_theme_color_override("font_color",Color.WHITE)
+    caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    b.add_child(caption)
     b.pressed.connect(func(): _choose_character(team,variant))
     parent.add_child(b)
     return b
@@ -615,8 +772,9 @@ func _move_player(delta:float) -> void:
     player.move_and_slide()
     var target_y := 1.18 if crouched else 1.62
     camera.position.y = lerpf(camera.position.y,target_y,delta*9.0)
-    weapon_root.position.y = lerpf(weapon_root.position.y,-0.32 if aiming else -0.42,delta*10.0)
-    weapon_root.position.x = lerpf(weapon_root.position.x,0.10 if aiming else 0.42,delta*10.0)
+    weapon_root.position.x = lerpf(weapon_root.position.x,0.0 if aiming else 0.13,delta*10.0)
+    weapon_root.position.y = lerpf(weapon_root.position.y,-0.072 if aiming else -0.11,delta*10.0)
+    weapon_root.position.z = lerpf(weapon_root.position.z,-0.30 if aiming else -0.24,delta*10.0)
 
 func _unhandled_input(event:InputEvent) -> void:
     if not match_active or not player_alive:
@@ -668,11 +826,12 @@ func _shoot() -> void:
     ammo -= 1
     fire_cd = fire_delay
     muzzle_light.light_energy = 6.0
+    _spawn_muzzle_flash()
     var tw := create_tween()
     tw.tween_property(muzzle_light,"light_energy",0.0,0.055)
     weapon_root.position.z += 0.045
     var recoil := create_tween()
-    recoil.tween_property(weapon_root,"position:z",-0.92,0.08)
+    recoil.tween_property(weapon_root,"position:z",-0.30 if aiming else -0.24,0.08)
     pitch = clampf(pitch + rng.randf_range(0.002,0.008),deg_to_rad(-72),deg_to_rad(72))
     camera.rotation.x = pitch
 

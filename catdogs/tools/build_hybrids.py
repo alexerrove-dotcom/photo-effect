@@ -167,6 +167,38 @@ def add_uv(name,loc,scale,color):
     o.data.materials.append(m)
     return o
 
+def add_animal_face_details(head,team,variant):
+    mn,mx,d,c=mesh_bounds(head)
+    parts=[]
+    # Front of the operator faces -Y in the soldier rig/render.
+    eye_z=c.z+d.z*.105
+    eye_y=mn.y-d.y*.045
+    eye_dx=d.x*.185
+    iris_cols=[(.15,.70,.95,1),(.42,.82,.34,1),(.96,.68,.18,1),(.42,.65,.92,1),(.72,.82,.92,1)]
+    iris=iris_cols[variant % len(iris_cols)]
+    for sx in (-1,1):
+        parts.append(add_uv("EyeWhite",Vector((c.x+sx*eye_dx,eye_y,eye_z)),
+                   Vector((d.x*.105,d.y*.055,d.z*.105)),(.92,.94,.90,1)))
+        parts.append(add_uv("Iris",Vector((c.x+sx*eye_dx,eye_y-d.y*.050,eye_z)),
+                   Vector((d.x*.055,d.y*.028,d.z*.060)),iris))
+        parts.append(add_uv("Pupil",Vector((c.x+sx*eye_dx,eye_y-d.y*.078,eye_z)),
+                   Vector((d.x*.024,d.y*.016,d.z*.050)),(.012,.014,.012,1)))
+    if team=="cat":
+        cheek=(.70,.68,.62,1) if variant!=4 else (.20,.21,.22,1)
+        for sx in (-1,1):
+            parts.append(add_uv("CatMuzzle",Vector((c.x+sx*d.x*.105,mn.y-d.y*.035,c.z-d.z*.115)),
+                       Vector((d.x*.15,d.y*.095,d.z*.115)),cheek))
+        parts.append(add_uv("CatNose",Vector((c.x,mn.y-d.y*.145,c.z-d.z*.055)),
+                   Vector((d.x*.070,d.y*.050,d.z*.055)),(.055,.035,.035,1)))
+    else:
+        # A pronounced dog snout makes the silhouette clearly canine from FPS distance.
+        muzzle=(.42,.31,.22,1) if variant in (0,2,3) else (.58,.58,.55,1)
+        parts.append(add_uv("DogMuzzle",Vector((c.x,mn.y-d.y*.105,c.z-d.z*.105)),
+                   Vector((d.x*.235,d.y*.180,d.z*.155)),muzzle))
+        parts.append(add_uv("DogNose",Vector((c.x,mn.y-d.y*.285,c.z-d.z*.060)),
+                   Vector((d.x*.135,d.y*.065,d.z*.085)),(.025,.025,.022,1)))
+    join_into_head(head,parts)
+
 def add_headset_and_goggles(head,team):
     mn,mx,d,c=mesh_bounds(head)
     glass=(.015,.065,.09,1)
@@ -199,6 +231,7 @@ def prepare_soldier(team,variant):
 
     clone_and_tint_materials(team,variant)
     head=extract_animal_head(CAT if team=="cat" else DOG,team,variant,hcen,hdim,human_head)
+    add_animal_face_details(head,team,variant)
     add_headset_and_goggles(head,team)
 
     arm.name="OperatorRig"

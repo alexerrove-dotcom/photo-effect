@@ -1,0 +1,23 @@
+name: Inspect CatDogs Assets
+on:
+  workflow_dispatch:
+  push:
+    branches: [ cat-vs-dogs-cloud-build ]
+    paths:
+      - 'catdogs/assets/**'
+      - 'catdogs/inspect_assets.gd'
+      - '.github/workflows/catdogs-inspect.yml'
+
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    container:
+      image: barichello/godot-ci:4.5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Import and inspect
+        shell: bash
+        run: |
+          cd catdogs
+          godot --headless --editor --quit --path .
+          godot --headless --path . -s inspect_assets.gd

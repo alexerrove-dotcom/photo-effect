@@ -3,9 +3,9 @@ extends SceneTree
 func _initialize():
     var paths = [
         "res://assets/character.glb",
-        "res://assets/buildings.glb",
-        "res://assets/props.glb",
-        "res://assets/vehicles.glb"
+        "res://assets/fps_props.glb",
+        "res://assets/guns.glb",
+        "res://assets/fpArms.glb"
     ]
     for p in paths:
         print("=== ASSET ", p, " ===")
@@ -26,11 +26,6 @@ func _walk(n:Node, depth:int):
         extra = " AABB=" + str(a)
     if n is Skeleton3D:
         extra += " BONES=" + str(n.get_bone_count())
-        if n.get_bone_count() > 0:
-            var names=[]
-            for i in range(min(n.get_bone_count(), 20)):
-                names.append(n.get_bone_name(i))
-            extra += " " + str(names)
     print(pad, n.name, " [", n.get_class(), "]", extra)
     for c in n.get_children():
         _walk(c, depth+1)

@@ -128,6 +128,11 @@ def extract_animal_head(path, team, variant, target_center, target_dims, human_h
     mw=animal_mesh.matrix_world.copy()
     animal_mesh.parent=None
     animal_mesh.matrix_world=mw
+
+    # Animal source meshes face the opposite Y direction from the soldier rig.
+    # Turn them around the Blender Z-up axis so eyes/muzzle face the weapon/camera side.
+    animal_mesh.rotation_euler.z += math.pi
+    bpy.context.view_layer.update()
     for o in list(new):
         if o is animal_mesh: continue
         bpy.data.objects.remove(o,do_unlink=True)

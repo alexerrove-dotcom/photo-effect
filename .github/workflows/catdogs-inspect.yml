@@ -18,6 +18,7 @@ jobs:
       - name: Import and inspect
         shell: bash
         run: |
+          curl -L --fail -o catdogs/assets/fps_props.glb https://raw.githubusercontent.com/TheJenos/shootup-area-fps/e4880646bac980b6c62aa928907debaf7a3e60c8/public/models/props.glb
           cd catdogs
           godot --headless --editor --quit --path .
           godot --headless --path . -s inspect_assets.gd

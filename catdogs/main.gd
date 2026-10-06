@@ -524,11 +524,13 @@ func _build_menu() -> void:
     _label(bg,"КОТЫ",Vector2(90,310),Vector2(740,70),44,Color("53b9ff"),HORIZONTAL_ALIGNMENT_CENTER)
     _label(bg,"СОБАКИ",Vector2(1090,310),Vector2(740,70),44,Color("ff6960"),HORIZONTAL_ALIGNMENT_CENTER)
 
+    var cat_names := ["ШТОРМ","ТЕНЬ","СНЕЖОК","РЫСЬ","ПРИЗРАК"]
+    var dog_names := ["БРУТ","ВОЛК","ТАЙСОН","РЕКС","ТЕНЬ"]
     for i in range(5):
-        var cb := _menu_card(bg, Vector2(80+i*155,420), Vector2(138,230), "КОТ %d" % (i+1), Color("2385d5"), i, 0)
-        var db := _menu_card(bg, Vector2(1080+i*155,420), Vector2(138,230), "ПЁС %d" % (i+1), Color("c7443d"), i, 1)
-        cb.tooltip_text = "Штурм / разведка / поддержка"
-        db.tooltip_text = "Штурм / защита / контроль"
+        var cb := _menu_card(bg, Vector2(80+i*155,420), Vector2(138,230), cat_names[i], Color("2385d5"), i, 0)
+        var db := _menu_card(bg, Vector2(1080+i*155,420), Vector2(138,230), dog_names[i], Color("c7443d"), i, 1)
+        cb.tooltip_text = "Коты • оперативник"
+        db.tooltip_text = "Собаки • оперативник"
 
     var start := Button.new()
     start.text = "ИГРАТЬ"

@@ -2,7 +2,7 @@
 config_version=5
 
 [application]
-config/name="Cat vs Dogs: War Zone"
+config/name="Cat vs Dogs: War Zone"\nconfig/icon="res://icon.svg"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 

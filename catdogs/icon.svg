@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#0876c9"/><stop offset=".5" stop-color="#111923"/><stop offset="1" stop-color="#c52d27"/></linearGradient></defs>
+<rect width="512" height="512" rx="108" fill="#07111d"/>
+<path d="M52 95L256 35 460 95v165c0 111-72 182-204 217C124 442 52 371 52 260Z" fill="url(#g)" stroke="#f5c350" stroke-width="12"/>
+<path d="M112 190l39-62 48 25 57-31v146l-73 45-71-46Z" fill="#dbefff" opacity=".95"/>
+<path d="M400 190l-39-62-48 25-57-31v146l73 45 71-46Z" fill="#ffe0d6" opacity=".95"/>
+<circle cx="169" cy="211" r="10" fill="#07111d"/><circle cx="343" cy="211" r="10" fill="#07111d"/>
+<path d="M154 244l30 0-15 15Z" fill="#07111d"/><path d="M328 244l30 0-15 15Z" fill="#07111d"/>
+<text x="256" y="382" text-anchor="middle" font-family="sans-serif" font-size="56" font-weight="900" fill="white">CAT vs DOGS</text>
+<text x="256" y="428" text-anchor="middle" font-family="sans-serif" font-size="26" font-weight="700" fill="#f5c350">WAR ZONE</text>
+</svg>

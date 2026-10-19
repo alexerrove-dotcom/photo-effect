@@ -1,0 +1,23 @@
+name: MATRIX Android APK
+on:
+  push:
+    branches: [matrix-android-build]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.4.1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Import project
+        run: godot --headless --path matrix --import
+      - name: Export APK
+        run: |
+          mkdir -p matrix/build
+          godot --headless --path matrix --export-debug Android build/MATRIX-debug.apk
+          test -s matrix/build/MATRIX-debug.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MATRIX-Android-APK
+          path: matrix/build/MATRIX-debug.apk

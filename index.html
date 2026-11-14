@@ -123,8 +123,10 @@
 }
 @media(prefers-reduced-motion:reduce){#jiggleApp.editorFullscreen .jigglePanel{animation:none!important}}
 </style>
+<link rel="stylesheet" href="/photo-studio/studio.css?v=1">
 </head>
 <body>
+<div data-studio-nav></div>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
 (function(m,e,t,r,i,k,a){
@@ -206,9 +208,16 @@ ym(112725905,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:"dataLayer",
   $("choosePhoto").addEventListener("click",()=>{$("file").value="";$("file").click()});
   $("file").addEventListener("change",event=>{const file=event.target.files&&event.target.files[0];handleSelectedFile(file)});
   const dropZone=$("dropZone");dropZone.addEventListener("click",()=>$("choosePhoto").click());dropZone.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();$("choosePhoto").click()}});["dragenter","dragover"].forEach(name=>{dropZone.addEventListener(name,event=>{event.preventDefault();event.stopPropagation();dropZone.style.borderColor="#fff";dropZone.style.color="#fff"})});["dragleave","drop"].forEach(name=>{dropZone.addEventListener(name,event=>{event.preventDefault();event.stopPropagation();dropZone.style.borderColor="#444b57";dropZone.style.color="#8f97a3"})});dropZone.addEventListener("drop",event=>{const file=event.dataTransfer&&event.dataTransfer.files&&event.dataTransfer.files[0];handleSelectedFile(file)});
-  $("removeBg").addEventListener("click",async()=>{if(!sourceFile||!sourceImg){setStatus("Сначала загрузи фото.");return}const button=$("removeBg");button.disabled=true;button.textContent="Удаляю фон…";setStatus("Удаление фона выполняется прямо в браузере. При первом запуске модель загружается из интернета.");try{const module=await import("https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm"),removeBackground=module.default||module.removeBackground;if(typeof removeBackground!=="function")throw new Error("removeBackground API unavailable");const blob=await removeBackground(sourceFile),url=URL.createObjectURL(blob);processedImg=await loadImageFromUrl(url);URL.revokeObjectURL(url);setStatus("Фон удалён ✓ Белый эффект остаётся поверх объекта.");render()}catch(error){console.error(error);setStatus("Не удалось удалить фон. Генератор и сохранение PNG продолжают работать.")}finally{button.disabled=false;button.textContent="Удалить фон"}});
+  $("removeBg").addEventListener("click",async()=>{if(!sourceFile||!sourceImg){setStatus("Сначала загрузи фото.");return}const button=$("removeBg");button.disabled=true;button.textContent="Удаляю фон…";setStatus("Удаление фона выполняется прямо в браузере. При первом запуске модель загружается из интернета.");const input=sourceFile;try{const module=await import("https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm"),removeBackground=module.default||module.removeBackground;if(typeof removeBackground!=="function")throw new Error("removeBackground API unavailable");const blob=await removeBackground(input),url=URL.createObjectURL(blob);let output;try{output=await loadImageFromUrl(url);}finally{URL.revokeObjectURL(url);}if(sourceFile!==input)return;processedImg=output;setStatus("Фон удалён ✓ Белый эффект остаётся поверх объекта.");render()}catch(error){if(sourceFile===input){console.error(error);setStatus("Не удалось удалить фон. Генератор и сохранение PNG продолжают работать.")}}finally{if(sourceFile===input)button.disabled=!sourceImg;button.textContent="Удалить фон"}});
   ["scale","opacity","x","y","hole","density","cell","rough","softEdge"].forEach(id=>{$(id).addEventListener("input",render);$(id).addEventListener("change",render)});$("format").addEventListener("change",resizeOutput);$("applyResolution").addEventListener("click",applyCustomResolution);["outputWidth","outputHeight"].forEach(id=>{$(id).addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();applyCustomResolution()}})});$("shuffle").addEventListener("click",()=>{seed=(Math.random()*0xffffffff)>>>0;render();setStatus("Создан новый белый узор поверх фотографии.")});$("reset").addEventListener("click",()=>{$("format").value="auto";$("scale").value=72;$("opacity").value=34;$("x").value=0;$("y").value=0;$("hole").value=58;$("density").value=24;$("cell").value=100;$("rough").value=22;$("softEdge").checked=true;seed=20260916;resizeOutput();setStatus(sourceImg?"Настройки сброшены.":"Настройки сброшены. Загрузи фото.")});$("save").addEventListener("click",()=>{render();try{canvas.toBlob(blob=>{if(!blob){setStatus("Не удалось создать PNG.");return}const url=URL.createObjectURL(blob),link=document.createElement("a");link.href=url;link.download="jiggle-effect-static.png";document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1200);setStatus("PNG сохранён ✓ Белый эффект находится поверх фото.")},"image/png")}catch(error){console.error(error);setStatus("Не удалось сохранить PNG.")}});syncLabels();render();updateDimensionsHint();fitPreview();
 })();
 </script>
+<script src="/photo-studio/workspace.js?v=1"></script>
+<script>FoxStudio.connect({
+  current: 'jiggle', fileInput: document.getElementById('file'),
+  result: () => FoxStudio.canvasFile(document.getElementById("canvas"), "jiggle-effect.png"),
+  ready: () => !document.getElementById("save").disabled,
+  watch: [document.getElementById("save")]
+});</script>
 </body>
 </html>

@@ -20,6 +20,10 @@ func _test() -> void:
     var hero: Variant = game.get_node("Hero")
     var joystick: Variant = hud.joystick
     hud.show_start_menu(false)
+    var invisible_rescue := game.get_node("FallbackEnvironment/SafetyGroundBody/SafetyGroundCollision") as CollisionShape3D
+    if not invisible_rescue.disabled:
+        _fail("Invisible fallback collision blocks real terrain movement")
+        return
     if not hero.movement_enabled:
         _fail("Hero never enabled after start")
         return

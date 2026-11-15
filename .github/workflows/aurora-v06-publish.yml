@@ -1,0 +1,39 @@
+name: Publish Aurora v0.6 APK direct download
+on:
+  push:
+    branches: [build/aurora-v06-android]
+    paths:
+      - '.github/workflows/aurora-v06-publish.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Download verified APK from successful Godot build
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          mkdir -p dist
+          gh run download 43686071885 --name Aurora-v0.6-Android-and-Source --dir dist
+          test -s dist/Aurora-v0.6-Android.apk
+          file dist/Aurora-v0.6-Android.apk
+          unzip -t dist/Aurora-v0.6-Android.apk | tail -2
+          sha256sum dist/Aurora-v0.6-Android.apk
+      - name: Publish APK as a direct downloadable GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          TAG="aurora-v0.6-android"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/Aurora-v0.6-Android.apk --clobber
+          else
+            gh release create "$TAG" dist/Aurora-v0.6-Android.apk               --target "build/aurora-v06-android"               --title "Aurora v0.6 — Android APK"               --notes "Aurora v0.6 debug Android build, exported by Godot 4.4.1 from CC0 game assets. Install at your own risk; not tested on every Android phone."               --latest=false
+          fi
+          gh release view "$TAG" --json assets --jq '.assets[] | .url'

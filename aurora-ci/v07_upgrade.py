@@ -423,7 +423,7 @@ func use_portal()''')
 # v0.2-v0.6 collision regression: invisible rescue ground blocked real movement.
 patch('scripts/main.gd',
     '        fallback.visible = world.get_child_count() < 10',
-    """        var fallback_required := world.get_child_count() < 10
+    """        var fallback_required: bool = world.get_child_count() < 10
         fallback.visible = fallback_required
         var rescue_shape := fallback.get_node_or_null("SafetyGroundBody/SafetyGroundCollision") as CollisionShape3D
         if rescue_shape != null:

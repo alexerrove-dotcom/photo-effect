@@ -22,6 +22,7 @@ jobs:
           mkdir -p Aurora
           base64 --decode aurora-ci-src.b64 > /tmp/aurora-ci-src.zip
           unzip -q /tmp/aurora-ci-src.zip -d Aurora
+          sed -i '/^\[rendering\]/a textures/vram_compression/import_etc2_astc=true' Aurora/project.godot
           python3 -m pip install --quiet 'numpy<3' pillow trimesh
           python3 Aurora/tools/generate_original_models.py
           test -f Aurora/assets/models/snow_cabin.glb
@@ -37,7 +38,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p build
-          HOME=/root godot --headless --path Aurora --export-debug "Android" "$GITHUB_WORKSPACE/build/Aurora-v0.2-debug.apk" 2>&1 | tee /tmp/aurora-export.log
+          GODOT_ANDROID_KEYSTORE_DEBUG_PATH=/root/debug.keystore GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android HOME=/root godot --headless --path Aurora --export-debug "Android" "$GITHUB_WORKSPACE/build/Aurora-v0.2-debug.apk" 2>&1 | tee /tmp/aurora-export.log
           test -s build/Aurora-v0.2-debug.apk
           ls -lh build/Aurora-v0.2-debug.apk
       - name: Upload test APK

@@ -1,0 +1,82 @@
+name: Aurora v0.5 CC0 Android APK
+on:
+  push:
+    branches: [build/aurora-v05-android]
+  workflow_dispatch:
+jobs:
+  android:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 50
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout isolated Aurora build branch
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Godot 4.4.1 with matching Android templates
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.4.1
+          use-dotnet: false
+          include-templates: true
+      - name: Rebuild source models reproducibly
+        run: |
+          echo "f56d294b7b26b2526e40e14c2d3e818f2c3278c9ad38260a7585c6482332838c  aurora-ci/bootstrap.zip" | sha256sum -c -
+          python -m pip install --quiet numpy pillow trimesh scipy networkx
+          mkdir -p project_pre
+          unzip -q aurora-ci/bootstrap.zip -d project_pre
+          python project_pre/tools/generate_original_models.py
+          python project_pre/tools/build_detail_assets.py
+      - name: Download CC0 Quaternius and KayKit 3D assets
+        run: |
+          python project/tools/fetch_cc0_assets.py
+          test -s project/assets/cc0_hero/Rogue_Hooded.glb
+          test -s project/assets/cc0_nature/AutumnTree_Gold_1.gltf
+      - name: Prepare Android signing environment
+        run: |
+          mkdir -p "$HOME/.android"
+          keytool -genkeypair -v -keystore "$HOME/.android/debug.keystore" -storepass android -keypass android -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Aurora,C=US"
+          mkdir -p "$HOME/.config/godot"
+          printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\n' "$ANDROID_SDK_ROOT" > "$HOME/.config/godot/editor_settings-4.tres"
+      - name: Godot import and GDScript diagnostics
+        run: |
+          mkdir -p build
+          godot --version
+          godot --headless --path project --editor --import --quit 2>&1 | tee build/import.log
+          if grep -E '(SCRIPT ERROR|Parse Error|Failed to load script|Cannot open file)' build/import.log; then exit 1; fi
+      - name: Build full APK (no repackaging)
+        env:
+          GODOT_ANDROID_KEYSTORE_DEBUG_PATH: ${{ github.workspace }}/.android-debug.keystore
+          GODOT_ANDROID_KEYSTORE_DEBUG_USER: androiddebugkey
+          GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD: android
+        run: |
+          mkdir -p "$HOME/.android"
+          cp "$HOME/.android/debug.keystore" .android-debug.keystore
+          mkdir -p project/build
+          godot --headless --path project --export-debug Android build/Aurora-v0.5-debug.apk 2>&1 | tee build/export.log
+          test -s project/build/Aurora-v0.5-debug.apk
+          cp project/build/Aurora-v0.5-debug.apk build/Aurora-v0.5-Android.apk
+          unzip -t build/Aurora-v0.5-Android.apk | tail -3
+      - name: Package reproducible source + licenses
+        run: |
+          find project -name '.godot' -type d -prune -exec rm -rf {} +
+          find project -name '*.partial' -delete
+          cd project && zip -q -r ../build/Aurora-v0.5-Godot-Source-with-CC0.zip . -x 'build/*'
+      - name: Upload APK and source as workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Aurora-v0.5-Android-and-Source
+          path: |
+            build/Aurora-v0.5-Android.apk
+            build/Aurora-v0.5-Godot-Source-with-CC0.zip
+            build/import.log
+            build/export.log
+          retention-days: 30

@@ -285,8 +285,8 @@ void fragment() {
 # The winter level gets an actual navigable in-game map, updated to show the player.
 (root/'scripts/minimap.gd').write_text('''extends Control
 
-var game: Node3D
-var hero: CharacterBody3D
+var game: Variant
+var hero: Variant
 
 func _ready() -> void:
     mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -328,7 +328,7 @@ func _loc(x: float, z: float) -> Vector2:
 ''')
 
 # HUD map toggle; joystick stays visible when menu closes; note reset on scene change.
-patch('scripts/hud.gd', 'var menu_button: Button\n', 'var menu_button: Button\nvar map_button: Button\nvar minimap: Control\n')
+patch('scripts/hud.gd', 'var menu_button: Button\n', 'var menu_button: Button\nvar map_button: Button\nvar minimap: Variant\n')
 patch('scripts/hud.gd',
 '''    overlay.add_child(joystick)
     title_label''',

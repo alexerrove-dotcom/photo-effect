@@ -30,16 +30,16 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          godot --headless --path Aurora --import 2>&1 | tee /tmp/aurora-import.log
+          HOME=/root godot --headless --path Aurora --import 2>&1 | tee /tmp/aurora-import.log
           if grep -E -i 'Parse Error|script.*error|Failed loading.*script' /tmp/aurora-import.log; then exit 1; fi
       - name: Export Android APK
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p build
-          godot --headless --path Aurora --export-debug "Android" "$GITHUB_WORKSPACE/build/Aurora-v0.2-debug.apk" 2>&1 | tee /tmp/aurora-export.log
+          HOME=/root godot --headless --path Aurora --export-debug "Android" "$GITHUB_WORKSPACE/build/Aurora-v0.2-debug.apk" 2>&1 | tee /tmp/aurora-export.log
           test -s build/Aurora-v0.2-debug.apk
-          file build/Aurora-v0.2-debug.apk
+          ls -lh build/Aurora-v0.2-debug.apk
       - name: Upload test APK
         uses: actions/upload-artifact@v4
         with:

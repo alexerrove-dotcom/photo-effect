@@ -1,0 +1,119 @@
+name: Aurora v0.7 Snow Trails Android APK
+on:
+  push:
+    branches: [build/aurora-v07-android]
+  workflow_dispatch:
+jobs:
+  android:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 50
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout isolated Aurora build branch
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Godot 4.4.1 with matching Android templates
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.4.1
+          use-dotnet: false
+          include-templates: true
+      - name: Rebuild source models reproducibly
+        run: |
+          echo "f56d294b7b26b2526e40e14c2d3e818f2c3278c9ad38260a7585c6482332838c  aurora-ci/bootstrap.zip" | sha256sum -c -
+          python -m pip install --quiet numpy pillow trimesh scipy networkx
+          mkdir -p project_pre
+          unzip -q aurora-ci/bootstrap.zip -d project_pre
+          python project_pre/tools/generate_original_models.py
+          python project_pre/tools/build_detail_assets.py
+          python aurora-ci/v06_upgrade.py project
+          python aurora-ci/v07_upgrade.py project
+          cp aurora-ci/test_v07.gd project/test_v07.gd
+      - name: Download CC0 Quaternius and KayKit 3D assets
+        run: |
+          python project/tools/fetch_cc0_assets.py
+          test -s project/assets/cc0_hero/Rogue_Hooded.glb
+          test -s project/assets/cc0_nature/AutumnTree_Gold_1.gltf
+          grep -q '_v06_autumn_undergrowth' project/scripts/world.gd
+          grep -q 'visual07' project/export_presets.cfg
+          test -s project/shaders/snow_tracks.gdshader
+      - name: Prepare Android signing environment
+        run: |
+          mkdir -p "$HOME/.android"
+          keytool -genkeypair -v -keystore "$HOME/.android/debug.keystore" -storepass android -keypass android -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Aurora,C=US"
+          mkdir -p "$HOME/.config/godot"
+          printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\n' "$ANDROID_SDK_ROOT" > "$HOME/.config/godot/editor_settings-4.tres"
+      - name: Godot import and GDScript diagnostics
+        run: |
+          mkdir -p build
+          godot --version
+          godot --headless --path project --editor --import --quit 2>&1 | tee build/import.log
+          if grep -E '(SCRIPT ERROR|Parse Error|Failed to load script|Cannot open file)' build/import.log; then exit 1; fi
+      - name: Smoke-test 3D main scene startup
+        run: |
+          set -o pipefail
+          timeout 50s godot --headless --path project --quit-after 140 2>&1 | tee build/runtime.log
+          if grep -E '(SCRIPT ERROR|Parse Error|Invalid call|Invalid access)' build/runtime.log; then exit 1; fi
+          # Headless Godot's dummy renderer reports RID leaks during shutdown.
+          # Do not confuse those backend cleanup diagnostics with script exceptions.
+      - name: Functional movement, winter map, snow displacement test
+        run: |
+          set -o pipefail
+          timeout 110s godot --headless --path project -s res://test_v07.gd 2>&1 | tee build/gameplay_test.log
+          grep -q 'AURORA_V07_TEST_SUCCESS' build/gameplay_test.log
+          if grep -E '(SCRIPT ERROR|Parse Error|Invalid call|Invalid access|AURORA_V07_TEST_FAIL)' build/gameplay_test.log; then exit 1; fi
+      - name: Build full APK (no repackaging)
+        env:
+          GODOT_ANDROID_KEYSTORE_DEBUG_PATH: ${{ github.workspace }}/.android-debug.keystore
+          GODOT_ANDROID_KEYSTORE_DEBUG_USER: androiddebugkey
+          GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD: android
+        run: |
+          mkdir -p "$HOME/.android"
+          cp "$HOME/.android/debug.keystore" .android-debug.keystore
+          mkdir -p project/build
+          godot --headless --path project --export-debug Android build/Aurora-v0.7-debug.apk 2>&1 | tee build/export.log
+          test -s project/build/Aurora-v0.7-debug.apk
+          cp project/build/Aurora-v0.7-debug.apk build/Aurora-v0.7-Android.apk
+          unzip -t build/Aurora-v0.7-Android.apk | tail -3
+      - name: Package reproducible source + licenses
+        run: |
+          find project -name '.godot' -type d -prune -exec rm -rf {} +
+          find project -name '*.partial' -delete
+          cd project && zip -q -r ../build/Aurora-v0.7-Godot-Source-with-CC0.zip . -x 'build/*'
+      - name: Upload APK and source as workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Aurora-v0.7-Android-and-Source
+          path: |
+            build/Aurora-v0.7-Android.apk
+            build/Aurora-v0.7-Godot-Source-with-CC0.zip
+            build/import.log
+            build/export.log
+            build/runtime.log
+            build/gameplay_test.log
+          retention-days: 30
+      - name: Publish direct public APK download
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          TAG="aurora-v0.7-android"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" build/Aurora-v0.7-Android.apk --clobber
+          else
+            gh release create "$TAG" build/Aurora-v0.7-Android.apk \
+              --target "build/aurora-v07-android" \
+              --title "Aurora v0.7 — winter map, character movement, snow tracks" \
+              --notes "Godot 4.4.1 CC0 game. Android debug APK. Winter trail, joystick fixes and dynamic snow displacement. Tested headlessly; physical Android device verification pending." \
+              --latest=false
+          fi
+          gh release view "$TAG" --json assets --jq '.assets[] | .url'

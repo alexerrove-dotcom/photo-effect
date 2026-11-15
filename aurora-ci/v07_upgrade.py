@@ -437,6 +437,26 @@ position = Vector3(0, -0.34, 0)
 shape = SubResource("RescueCollision")
 disabled = true""")
 
+# Use stable broad-phase ground collision instead of terrain triangle soup.
+# The dense visual terrain mesh remains intact for snow displacement and shaders.
+# This avoids CharacterBody3D colliding with accidental side faces and getting stuck.
+patch('scripts/world.gd',
+    '''    var body := StaticBody3D.new()
+    body.name = "TerrainCollision"
+    var collider := CollisionShape3D.new()
+    collider.shape = mesh.create_trimesh_shape()
+    body.add_child(collider)
+    add_child(body)''',
+    '''    var body := StaticBody3D.new()
+    body.name = "TerrainCollision"
+    var collider := CollisionShape3D.new()
+    var shape := BoxShape3D.new()
+    shape.size = Vector3(180.0, 2.0, 180.0)
+    collider.shape = shape
+    collider.position.y = -1.0
+    body.add_child(collider)
+    add_child(body)''')
+
 patch('project.godot',
     'config/name="Aurora: Between Seasons — CC0 Remake v0.5"',
     'config/name="Aurora: Between Seasons — Snow Trails v0.7"')

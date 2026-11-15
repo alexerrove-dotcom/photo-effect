@@ -31,6 +31,14 @@ func _test() -> void:
     if joystick.direction.length() < 0.4:
         _fail("Touch joystick failed to respond")
         return
+    var original_x: float = hero.global_position.x
+    for i in range(45):
+        await physics_frame
+    var touch_walk: float = absf(hero.global_position.x - original_x)
+    print("AURORA_V07_TOUCH_WALK_DISTANCE ", touch_walk)
+    if touch_walk < 0.55:
+        _fail("Touch joystick did not move the player")
+        return
     touch.pressed = false
     joystick._input(touch)
     var original_z: float = hero.global_position.z

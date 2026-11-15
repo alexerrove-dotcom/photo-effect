@@ -319,7 +319,7 @@ func _draw() -> void:
     var pointer := _loc(hero.global_position.x, hero.global_position.z)
     draw_circle(pointer, 6.6, Color(.04, .11, .17))
     draw_circle(pointer, 4.3, Color(.98, .99, .98))
-    var head := Vector2(sin(hero.camera_yaw), -cos(hero.camera_y))
+    var head := Vector2(sin(hero.camera_yaw), -cos(hero.camera_yaw))
     draw_line(pointer, pointer + head * 11.0, Color.WHITE, 2.0, true)
     draw_string(ThemeDB.fallback_font, Vector2(14, 22), "СНЕЖНЫЙ ПУТЬ" if winter else "ТРОПА", HORIZONTAL_ALIGNMENT_LEFT, -1, 15, Color.WHITE)
 

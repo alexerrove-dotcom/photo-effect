@@ -1,0 +1,87 @@
+name: Aurora 0.4 Godot Android Build
+on:
+  push:
+    branches: [build/aurora-v02-android]
+    paths: ['aurora-build/**', '.github/workflows/aurora-build.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Restore game source and procedurally generated assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import base64,zipfile,pathlib
+          root=pathlib.Path('project_pre')
+          root.mkdir(exist_ok=True)
+          data=base64.b64decode(pathlib.Path('aurora-build/source-recipe.base64').read_text().strip())
+          archive=pathlib.Path('recipe.zip')
+          archive.write_bytes(data)
+          with zipfile.ZipFile(archive) as z:
+              assert z.testzip() is None
+              z.extractall(root)
+          print('CI source restored:',len(list(root.rglob('*'))),'items')
+          PY
+          pip install --disable-pip-version-check numpy pillow trimesh
+          python3 project_pre/tools/build_base_assets.py
+          python3 project_pre/tools/build_detail_assets.py
+          ls -lah project/assets/models | tail -12
+      - name: Install Godot 4.4.1 and Android export templates
+        run: |
+          set -euo pipefail
+          curl --retry 3 -fsSL -o godot.zip https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_linux.x86_64.zip
+          unzip -oq godot.zip -d godot_bin
+          chmod +x godot_bin/Godot_v4.4.1-stable_linux.x86_64
+          echo "$PWD/godot_bin" >> "$GITHUB_PATH"
+          curl --retry 3 -fsSL -o templates.tpz https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_export_templates.tpz
+          mkdir -p tpl ~/.local/share/godot/export_templates/4.4.1.stable
+          unzip -oq templates.tpz -d tpl
+          cp -a tpl/templates/. ~/.local/share/godot/export_templates/4.4.1.stable/
+          ls ~/.local/share/godot/export_templates/4.4.1.stable | head
+      - name: Install Android SDK and debug signing
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+        run: |
+          set -euo pipefail
+          echo "SDK at $ANDROID_HOME"
+          sdkmanager --install "platform-tools" "platforms;android-35" "build-tools;35.0.0" >/dev/null
+          mkdir -p "$HOME/.android"
+          keytool -genkeypair -alias auroradebug -keystore "$HOME/.android/aurora-debug.keystore" -storepass android -keypass android -keyalg RSA -keysize 2048 -validity 3650 -dname "CN=Aurora Debug" -noprompt
+      - name: Godot import, compile check and APK export
+        env:
+          GODOT_ANDROID_KEYSTORE_DEBUG_PATH: ${{ github.workspace }}/project/android-debug-placeholder.keystore
+          GODOT_ANDROID_KEYSTORE_DEBUG_USER: auroradebug
+          GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD: android
+        shell: bash
+        run: |
+          set -euo pipefail
+          export GODOT_ANDROID_KEYSTORE_DEBUG_PATH="$HOME/.android/aurora-debug.keystore"
+          mkdir -p project/build
+          godot_bin/Godot_v4.4.1-stable_linux.x86_64 --headless --path project --editor --import --quit 2>&1 | tee godot_import.log
+          if grep -q 'SCRIPT ERROR\|Parse Error' godot_import.log; then echo "GDScript errors detected"; exit 22; fi
+          godot_bin/Godot_v4.4.1-stable_linux.x86_64 --headless --path project --export-debug Android "$PWD/project/build/Aurora-v0.4-Android-debug.apk" 2>&1 | tee godot_export.log
+          test -s project/build/Aurora-v0.4-Android-debug.apk
+          unzip -t project/build/Aurora-v0.4-Android-debug.apk | tail -1
+          sha256sum project/build/Aurora-v0.4-Android-debug.apk
+      - name: Upload APK, sources and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Aurora-v0.4-Android-build
+          path: |
+            project/build/*.apk
+            godot_import.log
+            godot_export.log
+          if-no-files-found: warn
+          retention-days: 14

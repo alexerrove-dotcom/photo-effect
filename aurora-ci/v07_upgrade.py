@@ -301,7 +301,7 @@ func _draw() -> void:
     draw_rect(rect.grow(-1), Color(.46, .85, .89, .73), false, 2.0)
     if game == null or hero == null:
         return
-    var winter := game.world.biome == "winter"
+    var winter: bool = game.world.biome == "winter"
     var tint := Color(.62, .79, .86) if winter else Color(.55, .67, .30)
     draw_rect(Rect2(Vector2(8, 8), size - Vector2(16, 16)), tint.darkened(.5), true)
     var points := PackedVector2Array()
@@ -415,7 +415,7 @@ func _physics_process(delta: float) -> void:
         snow_step_distance = 0.0
         left_foot = not left_foot
         var lateral := Vector3(cos(hero.look_node.rotation.y), 0.0, -sin(hero.look_node.rotation.y))
-        var foot_pos := hero.global_position + lateral * (0.18 if left_foot else -0.18)
+        var foot_pos: Vector3 = hero.global_position + lateral * (0.18 if left_foot else -0.18)
         world.stamp_snow(foot_pos, .25)
 
 func use_portal()''')

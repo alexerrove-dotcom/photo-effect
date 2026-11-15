@@ -45,6 +45,11 @@ func _test() -> void:
     Input.action_press("move_forward", 1.0)
     for i in range(64):
         await physics_frame
+        if i % 12 == 0:
+            print("WALK_POINT ", i, " pos=", hero.global_position, " vel=", hero.velocity, " collisions=", hero.get_slide_collision_count())
+            if hero.get_slide_collision_count() > 0:
+                var hit := hero.get_slide_collision(0)
+                print("WALK_HIT ", hit.get_collider(), " normal=", hit.get_normal())
     Input.action_release("move_forward")
     var delta_z: float = absf(hero.global_position.z - original_z)
     print("AURORA_V07_WALK_DISTANCE ", delta_z)

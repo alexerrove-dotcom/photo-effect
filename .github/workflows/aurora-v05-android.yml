@@ -52,6 +52,11 @@ jobs:
           godot --version
           godot --headless --path project --editor --import --quit 2>&1 | tee build/import.log
           if grep -E '(SCRIPT ERROR|Parse Error|Failed to load script|Cannot open file)' build/import.log; then exit 1; fi
+      - name: Smoke-test 3D main scene startup
+        run: |
+          set -o pipefail
+          timeout 50s godot --headless --path project --quit-after 140 2>&1 | tee build/runtime.log
+          if grep -E '(SCRIPT ERROR|Parse Error|Invalid call|Invalid access|ERROR:)' build/runtime.log; then exit 1; fi
       - name: Build full APK (no repackaging)
         env:
           GODOT_ANDROID_KEYSTORE_DEBUG_PATH: ${{ github.workspace }}/.android-debug.keystore
@@ -79,4 +84,5 @@ jobs:
             build/Aurora-v0.5-Godot-Source-with-CC0.zip
             build/import.log
             build/export.log
+            build/runtime.log
           retention-days: 30

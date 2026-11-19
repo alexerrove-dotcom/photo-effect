@@ -26,6 +26,7 @@ jobs:
           mkdir -p PocketRig3D/work
           base64 --decode PocketRig3D/project.tar.xz.b64 | tar -xJ -C PocketRig3D/work
           sed -i 's/config\/features=PackedStringArray("4.5"/config\/features=PackedStringArray("4.6"/' PocketRig3D/work/project.godot
+          sed -i '/^\[rendering\]/a textures/vram_compression/import_etc2_astc=true' PocketRig3D/work/project.godot
           mkdir -p "$HOME/.android"
           keytool -genkeypair -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -keystore "$HOME/.android/debug.keystore" -storepass android -keypass android -dname "CN=Android Debug,O=Android,C=US"
       - name: Verify GDScript import

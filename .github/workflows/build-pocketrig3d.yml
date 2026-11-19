@@ -32,6 +32,13 @@ jobs:
       - name: Verify GDScript import
         run: |
           godot --headless --path PocketRig3D/work --editor --import --quit
+      - name: Smoke test project startup
+        run: |
+          set -o pipefail
+          godot --headless --path PocketRig3D/work --quit-after 8 2>&1 | tee /tmp/pocketrig-smoke.log
+          if grep -Ei "SCRIPT ERROR|Parse Error|Invalid call|ERROR:" /tmp/pocketrig-smoke.log; then
+            exit 1
+          fi
       - name: Export signed ARM64 APK
         env:
           GODOT_ANDROID_KEYSTORE_DEBUG_PATH: ${{ github.workspace }}/PocketRig3D/debug.keystore

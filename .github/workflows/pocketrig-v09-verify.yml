@@ -39,6 +39,14 @@ jobs:
           set -o pipefail
           /tmp/godot --headless --path pocket --quit-after 10 2>&1 | tee run.log
           if grep -Ei 'SCRIPT ERROR|Parse Error|Parser Error|Invalid call|Failed to load script' run.log; then exit 1; fi
+      - name: Test rig binding, joint movement and walk animation
+        shell: bash
+        run: |
+          set -o pipefail
+          cp ci/pocketrig_v09_smoke.gd pocket/test_rig.gd
+          /tmp/godot --headless --path pocket --script res://test_rig.gd 2>&1 | tee rig-test.log
+          if grep -Ei 'SCRIPT ERROR|Parse Error|Parser Error|Invalid call|RIG TEST FAILED' rig-test.log; then exit 1; fi
+          grep -q 'RIG TEST PASS' rig-test.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -46,4 +54,5 @@ jobs:
           path: |
             parse.log
             run.log
+            rig-test.log
           retention-days: 5

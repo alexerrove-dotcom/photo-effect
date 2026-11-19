@@ -26,6 +26,7 @@ jobs:
           set -euo pipefail
           mkdir -p pocket
           base64 -d ci/pocketrig_v09_source.b64 | tar -xJf - -C pocket
+          python3 ci/patch_rig_primitive_mesh.py pocket/scripts/main.gd
           ls -lah pocket/scripts/main.gd
       - name: Parse and import Godot project
         shell: bash

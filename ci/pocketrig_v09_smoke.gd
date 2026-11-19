@@ -59,7 +59,7 @@ func _run() -> void:
         await process_frame
     var thigh_idx: int = editor.skeleton.find_bone("UpperLeg.L")
     var quat: Quaternion = editor.skeleton.get_bone_pose_rotation(thigh_idx)
-    if quat.angle() < 0.001:
+    if quat.get_angle() < 0.001:
         _fail("Walk animation does not change pose")
         return
     print("RIG TEST PASS: generated bones, rest-position, skin binds, vertex weights, pose movement and walk animation")

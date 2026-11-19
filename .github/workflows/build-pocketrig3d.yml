@@ -24,7 +24,11 @@ jobs:
       - name: Unpack PocketRig3D project
         run: |
           mkdir -p PocketRig3D/work
-          base64 --decode PocketRig3D/project.tar.xz.b64 | tar -xJ -C PocketRig3D/work
+          base64 --decode ci/pocketrig_v09_source.b64 | tar -xJ -C PocketRig3D/work
+          python3 ci/patch_rig_primitive_mesh.py PocketRig3D/work/scripts/main.gd
+          sed -i 's/org.pocketrig.s25v08/org.pocketrig.s25v09/' PocketRig3D/work/export_presets.cfg
+          sed -i 's/version\/code=8/version\/code=9/' PocketRig3D/work/export_presets.cfg
+          sed -i 's/version\/name="0.8.0"/version\/name="0.9.0"/' PocketRig3D/work/export_presets.cfg
           sed -i 's/config\/features=PackedStringArray("4.5"/config\/features=PackedStringArray("4.6"/' PocketRig3D/work/project.godot
           sed -i '/^\[rendering\]/a textures/vram_compression/import_etc2_astc=true' PocketRig3D/work/project.godot
           mkdir -p "$HOME/.android"

@@ -1,0 +1,50 @@
+name: Build PocketRig3D Android APK
+on:
+  push:
+    branches:
+      - build-pocketrig3d-20261119
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  android:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - name: Android build tools
+        run: sdkmanager --install "platform-tools" "build-tools;35.0.1" "platforms;android-35"
+      - uses: chickensoft-games/setup-godot@v2
+        with:
+          version: '4.6.2'
+          use-dotnet: false
+          include-templates: true
+      - name: Unpack PocketRig3D project
+        run: |
+          mkdir -p PocketRig3D/work
+          base64 --decode PocketRig3D/project.tar.xz.b64 | tar -xJ -C PocketRig3D/work
+          sed -i 's/config\/features=PackedStringArray("4.5"/config\/features=PackedStringArray("4.6"/' PocketRig3D/work/project.godot
+          mkdir -p "$HOME/.android"
+          keytool -genkeypair -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -keystore "$HOME/.android/debug.keystore" -storepass android -keypass android -dname "CN=Android Debug,O=Android,C=US"
+      - name: Verify GDScript import
+        run: |
+          godot --headless --path PocketRig3D/work --editor --import --quit
+      - name: Export signed ARM64 APK
+        env:
+          GODOT_ANDROID_KEYSTORE_DEBUG_PATH: ${{ github.workspace }}/PocketRig3D/debug.keystore
+          GODOT_ANDROID_KEYSTORE_DEBUG_USER: androiddebugkey
+          GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD: android
+        run: |
+          cp "$HOME/.android/debug.keystore" PocketRig3D/debug.keystore
+          godot --headless --path PocketRig3D/work --export-debug Android "$GITHUB_WORKSPACE/PocketRig3D.apk"
+          test -s PocketRig3D.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PocketRig3D-Android-APK
+          path: PocketRig3D.apk
+          if-no-files-found: error

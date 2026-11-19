@@ -17,5 +17,15 @@ new='''        for surf in source_mesh.get_surface_count():
             var arrays: Array = source_mesh.surface_get_arrays(surf)
 '''
 assert s.count(old)==1
-p.write_text(s.replace(old,new,1))
+s=s.replace(old,new,1)
+old_tangent='''            # Tangents in the old object space would no longer be correct after baking.
+            arrays[Mesh.ARRAY_TANGENT] = PackedFloat32Array()
+'''
+new_tangent='''            # Godot requires a missing tangent attribute to be null, not a zero-length
+            # PackedFloat32Array (which is treated as an invalid enabled tangent format).
+            arrays[Mesh.ARRAY_TANGENT] = null
+'''
+assert s.count(old_tangent)==1
+s=s.replace(old_tangent,new_tangent,1)
+p.write_text(s)
 print("Patched PrimitiveMesh and ArrayMesh handling")
